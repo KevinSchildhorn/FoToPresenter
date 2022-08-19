@@ -36,8 +36,8 @@
 **I want to** be able to change the size of my photos,
 **so that I can** see my photos easier
 
-**As a ** user,
-**I want to ** be able to select photos and create collections
+**As a** user,
+**I want to** be able to select photos and create collections
 **so that I can** start a slideshow of custom photos
 
 ### Slideshow
