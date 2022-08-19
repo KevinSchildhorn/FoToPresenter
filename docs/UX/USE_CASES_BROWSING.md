@@ -6,7 +6,7 @@ Alex wants to find a particular photo they're thinking of. They know that the ph
 ### Navigation
 
 #### Use Case: Navigating Forward
-Alex has signed into the app already. They are greeted with the root directory of the FTP server. They view the **Directories** in the **Grid View**, and see the  **Directory** with the *name* "Europe". Alex taps on the **Directory** and is brought to the subdirectory. The **Navigation Bar** updates its *path* to show that Alex is in the *Europe* **Directory**. The **Grid View** updates to show the **Directories** and **photos** of the **Current Path**.
+Alex has signed into the app already. They are greeted with the root directory of the FTP server. They view the **Directories** in the **Grid View**, and see the  **Directory** with the *name* "Europe". Alex taps on the **Directory** and is brought to the subdirectory. The **Navigation Bar** updates its *path* to show that Alex is in the *Europe* **Directory**. The **Grid View** updates to show the **Directories** and **photos** of the *Current Path*.
 
 #### Use Case: Navigating Backward
 Alex notices that they're in the wrong **Directory**, and wants to navigate backward to continue searching. They see the **Navigation Bar**, and see the directory they want to navigate to. They click on the *Subdirectory* they want to navigate to(if the directory is the root, clicks on the house icon), and is navigated to the subdirectory. The **Navigation Bar** updates its *path* to show that Alex is in the *root* **Directory**. The **Grid View** updates to show the **Directories** and **photos** of the **Current Path**.
