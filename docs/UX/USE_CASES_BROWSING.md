@@ -14,7 +14,7 @@ Alex notices that they're in the wrong **Directory**, and wants to navigate back
 ### Searching
 
 #### Use Case: Searching
-Alex decides it's easier to search for the **Directory** *named* "Ireland". They tap on the **Search Bar** and the keyboard opens. As alex types the **Search Bar** *text* is updated and the **Grid View** updates to only show **Directories** and **Files** with the **Search Bar** *text*. Alex sees the **Directory** *named* "Ireland", and taps on it. The screen is updated to show the **Directory** *named* "Ireland" and the **Search Bar** is cleared.
+Alex decides it's easier to search for the **Directory** *named* "Ireland". They tap on the **Search Bar** and the keyboard opens. As alex types the **Search Bar** *text* is updated and the **Grid View** updates to show **Directories**, **Files** and **Libraries** with the **Search Bar** *text*. Alex sees the **Directory** *named* "Ireland", and taps on it. The screen is updated to show the **Directory** *named* "Ireland" and the **Search Bar** is cleared.
 
 ### Sorting
 
@@ -35,8 +35,8 @@ Alex wants to start a slideshow from their Ireland photos. they see the **Direct
 
 #### Use Case: Navigating to Libraries
 
-TODO
+Alex decides now that they want to see what **Libraries** they have set up. They tap on the **Hamburger** button to open the **Side Bar**. There they can see the *Root Directories*, the *Settings* button, and the *Libraries* button. They click on the *Libraries* button and are navigated to a **Grid View** of all of Alexes **Libraries**.
 
 #### Use Case: Selecting Library
 
-TODO
+Alex wants to select a **Library** to browse from the **Grid View**. They look at the **Libraries** *names* and *photo counts* to decide on what library they want to view. They decide on one **Library** and tap on it to *open* to a **Grid View** of the **Photos** in the **Library**
