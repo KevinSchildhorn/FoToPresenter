@@ -26,7 +26,7 @@
 
 **As a** non tech savy adult,
 **I want to** be able to navigate through directories
-**so that I can find the photo I'm looking for
+**so that I can** find the photo I'm looking for
 
 **As a** non tech savy adult,
 **I want to** be able to search for a particular photo or folder
