@@ -8,26 +8,22 @@ group = "me.kevinschildhorn"
 version = "1.0"
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
     implementation(project(":common"))
-    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("androidx.activity:activity-compose:1.5.1")
 }
 
 android {
     compileSdkVersion(31)
     defaultConfig {
         applicationId = "me.kevinschildhorn.android"
-        minSdkVersion(24)
-        targetSdkVersion(31)
+        minSdk = 24
+        targetSdk = 32
         versionCode = 1
         versionName = "1.0"
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
     buildTypes {
         getByName("release") {
