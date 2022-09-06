@@ -1,8 +1,6 @@
-import org.jetbrains.compose.compose
 
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.compose") version "1.1.0"
     id("com.android.library")
 }
 
@@ -11,6 +9,7 @@ version = "1.0"
 
 kotlin {
     android()
+    ios()
     jvm("desktop") {
         compilations.all {
             kotlinOptions.jvmTarget = "11"
@@ -19,9 +18,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
             }
         }
         val commonTest by getting {
@@ -31,8 +27,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("androidx.appcompat:appcompat:1.4.1")
-                api("androidx.core:core-ktx:1.7.0")
+                api("androidx.appcompat:appcompat:1.5.0")
+                api("androidx.core:core-ktx:1.8.0")
             }
         }
         val androidTest by getting {
@@ -40,21 +36,16 @@ kotlin {
                 implementation("junit:junit:4.13.2")
             }
         }
-        val desktopMain by getting {
-            dependencies {
-                api(compose.preview)
-            }
-        }
-        val desktopTest by getting
+        val iosMain by getting
     }
 }
 
 android {
-    compileSdkVersion(31)
+    compileSdk = 32
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdkVersion(24)
-        targetSdkVersion(31)
+        minSdk = 24
+        targetSdk = 32
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
