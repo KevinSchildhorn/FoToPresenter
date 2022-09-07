@@ -34,3 +34,7 @@
 ### Descriptions
 
 * Photos should not contain titles, as there's no helpful decision for photos. You could possibly add descriptors for date created however some pictures are old photos scanned in where the date isn't accurate
+
+## Additional Notes
+
+* Photos should have margin between each other, something small
