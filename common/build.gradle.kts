@@ -27,8 +27,11 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                val compose_version = "1.2.1"
                 api("androidx.appcompat:appcompat:1.5.0")
                 api("androidx.core:core-ktx:1.8.0")
+                implementation("androidx.compose.ui:ui:$compose_version")
+                implementation("androidx.compose.material:material:$compose_version")
             }
         }
         val androidTest by getting {

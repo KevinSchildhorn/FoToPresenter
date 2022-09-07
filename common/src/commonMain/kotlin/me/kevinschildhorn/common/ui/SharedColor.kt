@@ -1,4 +1,3 @@
 package me.kevinschildhorn.common.ui
 
-class Color {
-}
+expect class SharedColor(hex:Long)

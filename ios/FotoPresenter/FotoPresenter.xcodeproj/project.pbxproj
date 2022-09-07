@@ -1,0 +1,588 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F16C62C328C914D1001CE2F9 /* FotoPresenterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62C228C914D1001CE2F9 /* FotoPresenterApp.swift */; };
+		F16C62C528C914D1001CE2F9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62C428C914D1001CE2F9 /* ContentView.swift */; };
+		F16C62C728C914D3001CE2F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F16C62C628C914D3001CE2F9 /* Assets.xcassets */; };
+		F16C62CA28C914D3001CE2F9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F16C62C928C914D3001CE2F9 /* Preview Assets.xcassets */; };
+		F16C62D428C914D4001CE2F9 /* FotoPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62D328C914D4001CE2F9 /* FotoPresenterTests.swift */; };
+		F16C62DE28C914D4001CE2F9 /* FotoPresenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62DD28C914D4001CE2F9 /* FotoPresenterUITests.swift */; };
+		F16C62E028C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62DF28C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F16C62D028C914D4001CE2F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F16C62B728C914D1001CE2F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F16C62BE28C914D1001CE2F9;
+			remoteInfo = FotoPresenter;
+		};
+		F16C62DA28C914D4001CE2F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F16C62B728C914D1001CE2F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F16C62BE28C914D1001CE2F9;
+			remoteInfo = FotoPresenter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F16C62BF28C914D1001CE2F9 /* FotoPresenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FotoPresenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F16C62C228C914D1001CE2F9 /* FotoPresenterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoPresenterApp.swift; sourceTree = "<group>"; };
+		F16C62C428C914D1001CE2F9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F16C62C628C914D3001CE2F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F16C62C928C914D3001CE2F9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F16C62CF28C914D4001CE2F9 /* FotoPresenterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FotoPresenterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F16C62D328C914D4001CE2F9 /* FotoPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoPresenterTests.swift; sourceTree = "<group>"; };
+		F16C62D928C914D4001CE2F9 /* FotoPresenterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FotoPresenterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F16C62DD28C914D4001CE2F9 /* FotoPresenterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoPresenterUITests.swift; sourceTree = "<group>"; };
+		F16C62DF28C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoPresenterUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F16C62BC28C914D1001CE2F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F16C62CC28C914D4001CE2F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F16C62D628C914D4001CE2F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F16C62B628C914D1001CE2F9 = {
+			isa = PBXGroup;
+			children = (
+				F16C62C128C914D1001CE2F9 /* FotoPresenter */,
+				F16C62D228C914D4001CE2F9 /* FotoPresenterTests */,
+				F16C62DC28C914D4001CE2F9 /* FotoPresenterUITests */,
+				F16C62C028C914D1001CE2F9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F16C62C028C914D1001CE2F9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F16C62BF28C914D1001CE2F9 /* FotoPresenter.app */,
+				F16C62CF28C914D4001CE2F9 /* FotoPresenterTests.xctest */,
+				F16C62D928C914D4001CE2F9 /* FotoPresenterUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F16C62C128C914D1001CE2F9 /* FotoPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				F16C62C228C914D1001CE2F9 /* FotoPresenterApp.swift */,
+				F16C62C428C914D1001CE2F9 /* ContentView.swift */,
+				F16C62C628C914D3001CE2F9 /* Assets.xcassets */,
+				F16C62C828C914D3001CE2F9 /* Preview Content */,
+			);
+			path = FotoPresenter;
+			sourceTree = "<group>";
+		};
+		F16C62C828C914D3001CE2F9 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F16C62C928C914D3001CE2F9 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F16C62D228C914D4001CE2F9 /* FotoPresenterTests */ = {
+			isa = PBXGroup;
+			children = (
+				F16C62D328C914D4001CE2F9 /* FotoPresenterTests.swift */,
+			);
+			path = FotoPresenterTests;
+			sourceTree = "<group>";
+		};
+		F16C62DC28C914D4001CE2F9 /* FotoPresenterUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F16C62DD28C914D4001CE2F9 /* FotoPresenterUITests.swift */,
+				F16C62DF28C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift */,
+			);
+			path = FotoPresenterUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F16C62BE28C914D1001CE2F9 /* FotoPresenter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F16C62E328C914D4001CE2F9 /* Build configuration list for PBXNativeTarget "FotoPresenter" */;
+			buildPhases = (
+				F16C62BB28C914D1001CE2F9 /* Sources */,
+				F16C62BC28C914D1001CE2F9 /* Frameworks */,
+				F16C62BD28C914D1001CE2F9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FotoPresenter;
+			productName = FotoPresenter;
+			productReference = F16C62BF28C914D1001CE2F9 /* FotoPresenter.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F16C62CE28C914D4001CE2F9 /* FotoPresenterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F16C62E628C914D4001CE2F9 /* Build configuration list for PBXNativeTarget "FotoPresenterTests" */;
+			buildPhases = (
+				F16C62CB28C914D4001CE2F9 /* Sources */,
+				F16C62CC28C914D4001CE2F9 /* Frameworks */,
+				F16C62CD28C914D4001CE2F9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F16C62D128C914D4001CE2F9 /* PBXTargetDependency */,
+			);
+			name = FotoPresenterTests;
+			productName = FotoPresenterTests;
+			productReference = F16C62CF28C914D4001CE2F9 /* FotoPresenterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F16C62D828C914D4001CE2F9 /* FotoPresenterUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F16C62E928C914D4001CE2F9 /* Build configuration list for PBXNativeTarget "FotoPresenterUITests" */;
+			buildPhases = (
+				F16C62D528C914D4001CE2F9 /* Sources */,
+				F16C62D628C914D4001CE2F9 /* Frameworks */,
+				F16C62D728C914D4001CE2F9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F16C62DB28C914D4001CE2F9 /* PBXTargetDependency */,
+			);
+			name = FotoPresenterUITests;
+			productName = FotoPresenterUITests;
+			productReference = F16C62D928C914D4001CE2F9 /* FotoPresenterUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F16C62B728C914D1001CE2F9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					F16C62BE28C914D1001CE2F9 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					F16C62CE28C914D4001CE2F9 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = F16C62BE28C914D1001CE2F9;
+					};
+					F16C62D828C914D4001CE2F9 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = F16C62BE28C914D1001CE2F9;
+					};
+				};
+			};
+			buildConfigurationList = F16C62BA28C914D1001CE2F9 /* Build configuration list for PBXProject "FotoPresenter" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F16C62B628C914D1001CE2F9;
+			productRefGroup = F16C62C028C914D1001CE2F9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F16C62BE28C914D1001CE2F9 /* FotoPresenter */,
+				F16C62CE28C914D4001CE2F9 /* FotoPresenterTests */,
+				F16C62D828C914D4001CE2F9 /* FotoPresenterUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F16C62BD28C914D1001CE2F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F16C62CA28C914D3001CE2F9 /* Preview Assets.xcassets in Resources */,
+				F16C62C728C914D3001CE2F9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F16C62CD28C914D4001CE2F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F16C62D728C914D4001CE2F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F16C62BB28C914D1001CE2F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F16C62C528C914D1001CE2F9 /* ContentView.swift in Sources */,
+				F16C62C328C914D1001CE2F9 /* FotoPresenterApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F16C62CB28C914D4001CE2F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F16C62D428C914D4001CE2F9 /* FotoPresenterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F16C62D528C914D4001CE2F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F16C62DE28C914D4001CE2F9 /* FotoPresenterUITests.swift in Sources */,
+				F16C62E028C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F16C62D128C914D4001CE2F9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F16C62BE28C914D1001CE2F9 /* FotoPresenter */;
+			targetProxy = F16C62D028C914D4001CE2F9 /* PBXContainerItemProxy */;
+		};
+		F16C62DB28C914D4001CE2F9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F16C62BE28C914D1001CE2F9 /* FotoPresenter */;
+			targetProxy = F16C62DA28C914D4001CE2F9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F16C62E128C914D4001CE2F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F16C62E228C914D4001CE2F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F16C62E428C914D4001CE2F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"FotoPresenter/Preview Content\"";
+				DEVELOPMENT_TEAM = D3SB7AMYA2;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kevinschildhorn.FotoPresenter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F16C62E528C914D4001CE2F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"FotoPresenter/Preview Content\"";
+				DEVELOPMENT_TEAM = D3SB7AMYA2;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kevinschildhorn.FotoPresenter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F16C62E728C914D4001CE2F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D3SB7AMYA2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kevinschildhorn.FotoPresenterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FotoPresenter.app/FotoPresenter";
+			};
+			name = Debug;
+		};
+		F16C62E828C914D4001CE2F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D3SB7AMYA2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kevinschildhorn.FotoPresenterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FotoPresenter.app/FotoPresenter";
+			};
+			name = Release;
+		};
+		F16C62EA28C914D4001CE2F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D3SB7AMYA2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kevinschildhorn.FotoPresenterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FotoPresenter;
+			};
+			name = Debug;
+		};
+		F16C62EB28C914D4001CE2F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D3SB7AMYA2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kevinschildhorn.FotoPresenterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FotoPresenter;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F16C62BA28C914D1001CE2F9 /* Build configuration list for PBXProject "FotoPresenter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F16C62E128C914D4001CE2F9 /* Debug */,
+				F16C62E228C914D4001CE2F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F16C62E328C914D4001CE2F9 /* Build configuration list for PBXNativeTarget "FotoPresenter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F16C62E428C914D4001CE2F9 /* Debug */,
+				F16C62E528C914D4001CE2F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F16C62E628C914D4001CE2F9 /* Build configuration list for PBXNativeTarget "FotoPresenterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F16C62E728C914D4001CE2F9 /* Debug */,
+				F16C62E828C914D4001CE2F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F16C62E928C914D4001CE2F9 /* Build configuration list for PBXNativeTarget "FotoPresenterUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F16C62EA28C914D4001CE2F9 /* Debug */,
+				F16C62EB28C914D4001CE2F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F16C62B728C914D1001CE2F9 /* Project object */;
+}
