@@ -1,6 +1,8 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.Framework.BitcodeEmbeddingMode.BITCODE
 
 plugins {
     kotlin("multiplatform")
+    kotlin("native.cocoapods")
     id("com.android.library")
 }
 
@@ -8,13 +10,19 @@ group = "me.kevinschildhorn"
 version = "1.0"
 
 kotlin {
-    android()
-    ios()
-    jvm("desktop") {
-        compilations.all {
-            kotlinOptions.jvmTarget = "11"
+
+    cocoapods {
+        summary = "Some description for a Kotlin/Native module"
+        homepage = "Link to a Kotlin/Native module homepage"
+        framework {
+            baseName = "SharedFotoSDK"
+            isStatic = false
+            embedBitcode(BITCODE)
         }
     }
+
+    android()
+    ios()
     sourceSets {
         val commonMain by getting {
             dependencies {
