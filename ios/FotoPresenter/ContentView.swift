@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import SharedFotoSDK
 
 struct ContentView: View {
     var body: some View {
-        Button("Hello", action: {
+        let platform = "test"//getPlatformName()
+        Button("Hello from \(platform)", action: {
 
         })
     }
