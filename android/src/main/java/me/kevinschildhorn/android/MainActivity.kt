@@ -3,16 +3,9 @@ package me.kevinschildhorn.android
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import me.kevinschildhorn.common.getPlatformName
-import me.kevinschildhorn.common.theme.SharedButtonColors
-import me.kevinschildhorn.common.theme.ThemeButtonColors
-import me.kevinschildhorn.common.theme.asComposable
 import me.kevinschildhorn.common.ui.SharedEnabledColor
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     @Composable
     fun App() {
         var text by remember { mutableStateOf("Hello, World!") }
-
+/*
         val test1 = ThemeButtonColors.default
         val test2 = test1.color.androidColor
         val test = ButtonDefaults.buttonColors(
@@ -36,6 +29,7 @@ class MainActivity : AppCompatActivity() {
             disabledBackgroundColor = ThemeButtonColors.default.disabledColor.androidColor
         )
         val test4 = ThemeButtonColors.default.asComposable2()
+        */
         /*
         Box(
             modifier = Modifier.background(
@@ -46,11 +40,12 @@ class MainActivity : AppCompatActivity() {
 
         Button(onClick = {
             text = "Hello, ${getPlatformName()}"
-        },
+        }, content = {})
+            /*
         colors = test4
             ) {
             Text(text)
-        }
+        }*/
     }
 }
 

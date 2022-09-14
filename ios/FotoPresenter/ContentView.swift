@@ -10,8 +10,8 @@ import SharedFotoSDK
 
 struct ContentView: View {
     var body: some View {
-        let platform = "test"//getPlatformName()
-        Button("Hello from \(platform)", action: {
+        let color = SharedColor(hex: 0x123456)
+        Button("Hello from \(color.test)", action: {
 
         })
     }
