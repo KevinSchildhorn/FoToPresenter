@@ -27,3 +27,4 @@ replay_pid*
 android/build/*
 common/build/*
 ios/Pods/*
+ios/Podfile.lock
