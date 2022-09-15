@@ -14,20 +14,20 @@ repositories {
 dependencies {
     implementation(project(":common"))
     val compose_version = "1.2.1"
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha02")
     implementation("androidx.compose.ui:ui:$compose_version")
     implementation("androidx.compose.foundation:foundation:$compose_version")
     implementation("androidx.compose.material:material:$compose_version")
     implementation("androidx.compose.runtime:runtime:$compose_version")
     implementation("androidx.activity:activity-compose:1.5.1")
-
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         applicationId = "me.kevinschildhorn.android"
         minSdk = 24
-        targetSdk = 32
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
     }
