@@ -26,6 +26,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
             }
         }
         val commonTest by getting {
@@ -35,11 +36,15 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                val compose_version = "1.2.1"
-                api("androidx.appcompat:appcompat:1.5.0")
-                api("androidx.core:core-ktx:1.8.0")
-                implementation("androidx.compose.ui:ui:$compose_version")
-                implementation("androidx.compose.material:material:$compose_version")
+                api("androidx.appcompat:appcompat:1.5.1")
+                api("androidx.core:core-ktx:1.9.0")
+                implementation("androidx.compose.ui:ui:1.2.1")
+                implementation("androidx.compose.foundation:foundation:1.2.1")
+
+                implementation("androidx.compose.material:material:1.2.1")
+                implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+                implementation("androidx.lifecycle:lifecycle-viewmodel:2.5.1")
+                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
             }
         }
         val androidTest by getting {
@@ -52,11 +57,11 @@ kotlin {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 24
-        targetSdk = 32
+        targetSdk = 33
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
