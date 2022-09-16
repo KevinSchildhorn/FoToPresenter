@@ -7,19 +7,24 @@
 
 import Foundation
 import SharedFotoSDK
+import SwiftUI
 
-class EmailVerificiationViewModel {
+class EmailVerificiationViewModel : ObservableObject {
     var sharedViewModel: EmailValidationCallbackViewModel
     private var cancellers: [Canceller] = []
 
 
-    @Published private(set) var email: String = ""
-    @Published private(set) var emailTextFieldState: TextFieldState = TextFieldState.companion.create(hint: "Email", defaultColor: ColorOption.normal)
+    @Published var email: String = "" {
+        didSet {
+            sharedViewModel.updateUsername(input: email)
+        }
+    }
+    //@Published private(set) var emailTextFieldState: TextFieldState = TextFieldState.companion.create(hint: "Email", defaultColor: ColorOption.normal)
 
     init() {
         self.sharedViewModel = EmailValidationCallbackViewModel()
         observe(sharedViewModel.email.subscribe(onEach: { [weak self] in self?.email = $0 as String }))
-        observe(sharedViewModel.emailTextFieldState.subscribe(onEach: { [weak self] in self?.emailTextFieldState = $0 }))
+        //observe(sharedViewModel.emailTextFieldState.subscribe(onEach: { [weak self] in self?.emailTextFieldState = $0 }))
 
     }
 
