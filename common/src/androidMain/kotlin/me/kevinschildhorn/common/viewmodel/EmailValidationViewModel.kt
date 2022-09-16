@@ -14,7 +14,6 @@ class EmailValidationViewModel : SharedEmailValidationViewModel() {
     var username by mutableStateOf("")
         private set
 
-
     val textFieldState: StateFlow<TextFieldState> = MutableStateFlow(
         TextFieldState(
             hint = "Email",

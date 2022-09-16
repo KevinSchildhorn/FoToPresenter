@@ -4,6 +4,8 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -22,8 +24,10 @@ fun SignUpScreen(viewModel: EmailValidationViewModel) {
             viewModel.updateUsername(newValue)
         },
         placeholder = { Text(textFieldState.hint) },
-        trailingIcon = { textFieldState.trailingIconState.Icon() }
-    
+        trailingIcon = { textFieldState.trailingIconState.Icon() },
+        modifier = Modifier.onFocusChanged {
+            textFieldState.hasFocus = it.isFocused
+        }
     )
 
     OutlinedTextField(
