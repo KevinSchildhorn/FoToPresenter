@@ -22,14 +22,14 @@ open class SharedEmailValidationViewModel : ViewModel() {
     private var _validationState: MutableStateFlow<EmailValidationState> =
         MutableStateFlow(EmailValidationState.Empty)
     val validationState: StateFlow<EmailValidationState> = _validationState
-    
-    val emailTextFieldState: StateFlow<TextFieldState> = MutableStateFlow(TextFieldState(hint = "Email", defaultColor = ColorOption.NORMAL))
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = TextFieldState(hint = "Email", defaultColor = ColorOption.NORMAL)
-        )
 
+    val emailTextFieldState: StateFlow<TextFieldState> =
+        MutableStateFlow(TextFieldState(hint = "Email", defaultColor = ColorOption.NORMAL))
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = TextFieldState(hint = "Email", defaultColor = ColorOption.NORMAL)
+            )
 
     fun verifyEmail(email: String) {
         val nextState = when {
@@ -39,5 +39,9 @@ open class SharedEmailValidationViewModel : ViewModel() {
         }
         _validationState.value = nextState
         emailTextFieldState.value.updateWithState(nextState, email)
+    }
+
+    fun refresh(){
+
     }
 }
