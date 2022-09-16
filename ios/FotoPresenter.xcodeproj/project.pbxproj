@@ -18,6 +18,7 @@
 		F16C62DE28C914D4001CE2F9 /* FotoPresenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62DD28C914D4001CE2F9 /* FotoPresenterUITests.swift */; };
 		F16C62E028C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62DF28C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift */; };
 		F1BC833E28D4CB5F00702B83 /* EmailVerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BC833D28D4CB5F00702B83 /* EmailVerificationViewModel.swift */; };
+		F1BC834328D4E1A600702B83 /* TextFieldState+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BC834228D4E1A600702B83 /* TextFieldState+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		F16C62DD28C914D4001CE2F9 /* FotoPresenterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoPresenterUITests.swift; sourceTree = "<group>"; };
 		F16C62DF28C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoPresenterUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F1BC833D28D4CB5F00702B83 /* EmailVerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationViewModel.swift; sourceTree = "<group>"; };
+		F1BC834228D4E1A600702B83 /* TextFieldState+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextFieldState+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 		F1BC833F28D4DA6900702B83 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				F1BC834228D4E1A600702B83 /* TextFieldState+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F16C62C528C914D1001CE2F9 /* ContentView.swift in Sources */,
+				F1BC834328D4E1A600702B83 /* TextFieldState+Ext.swift in Sources */,
 				F1BC833E28D4CB5F00702B83 /* EmailVerificationViewModel.swift in Sources */,
 				F16C62C328C914D1001CE2F9 /* FotoPresenterApp.swift in Sources */,
 			);
