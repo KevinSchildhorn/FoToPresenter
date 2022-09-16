@@ -24,10 +24,10 @@ open class SharedEmailValidationViewModel : ViewModel() {
 
     private var _validationState: MutableStateFlow<EmailValidationState> =
         MutableStateFlow(EmailValidationState.Empty)
-    val validationState: StateFlow<EmailValidationState> = _validationState
+    private val validationState: StateFlow<EmailValidationState> = _validationState
 
-    val emailTextFieldState: StateFlow<TextFieldState> =
-        MutableStateFlow(TextFieldState(hint = "Email", defaultColor = ColorOption.NORMAL))
+    private var _emailTextFieldState: MutableStateFlow<TextFieldState> = MutableStateFlow(TextFieldState(hint = "Email", defaultColor = ColorOption.NORMAL))
+    val emailTextFieldState: StateFlow<TextFieldState> = _emailTextFieldState
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
@@ -46,7 +46,9 @@ open class SharedEmailValidationViewModel : ViewModel() {
     }
 
     private fun refresh(){
-        emailTextFieldState.value.updateWithState(validationState.value, email.value)
+        val test = emailTextFieldState.value
+        test.updateWithState(validationState.value, email.value)
+        _emailTextFieldState.value = test
     }
 
 
@@ -56,7 +58,9 @@ open class SharedEmailValidationViewModel : ViewModel() {
     fun updateUsername(input: String) = verifyEmail(input)
 
     fun focusChanged(isFocused: Boolean) {
-        emailTextFieldState.value.focusChanged(isFocused)
+        val test = emailTextFieldState.value
+        test.focusChanged(isFocused)
+        _emailTextFieldState.value = test
         refresh()
     }
 }
