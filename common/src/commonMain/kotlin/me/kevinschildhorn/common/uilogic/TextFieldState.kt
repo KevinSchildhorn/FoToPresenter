@@ -16,6 +16,7 @@ data class TextFieldState(
     var errorText: String? = null,
     // Trailing Icon - Icon, Color
     var trailingIconState: TrailingIconState = TrailingIconState.NONE,
+    var hasFocus:Boolean = false,
 ) {
     fun updateWithState(state: EmailValidationState, newText: String) {
         this.text = newText
@@ -27,16 +28,23 @@ data class TextFieldState(
                 trailingIconState = TrailingIconState.NONE
             }
             EmailValidationState.Invalid -> {
-                currentBorderColor = ColorOption.ERROR
-                isError = true
-                errorText = "Not an Email!"
-                trailingIconState = TrailingIconState.ERROR
+                if(hasFocus){
+                    currentBorderColor = defaultColor
+                    isError = false
+                    errorText = null
+                    trailingIconState = TrailingIconState.CLEAR_TEXT
+                } else {
+                    currentBorderColor = ColorOption.ERROR
+                    isError = true
+                    errorText = "Not an Email!"
+                    trailingIconState = TrailingIconState.ERROR
+                }
             }
             EmailValidationState.Valid -> {
                 currentBorderColor = defaultColor
                 isError = false
                 errorText = null
-                trailingIconState = TrailingIconState.CLEAR
+                trailingIconState = TrailingIconState.CHECKMARK
             }
         }
     }

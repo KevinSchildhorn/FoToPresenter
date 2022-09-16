@@ -46,10 +46,6 @@ class EmailValidationViewModel : SharedEmailValidationViewModel() {
                 withContext(Dispatchers.IO) {
                     textFieldState.value.updateWithState(it, username)
                 }
-                /*
-                withContext(Dispatchers.IO) {
-                    textFieldState.value.updateWithState(it, username)
-                }*/
             }
         }
     }

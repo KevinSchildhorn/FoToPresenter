@@ -23,6 +23,14 @@ fun SignUpScreen(viewModel: EmailValidationViewModel) {
         },
         placeholder = { Text(textFieldState.hint) },
         trailingIcon = { textFieldState.trailingIconState.Icon() }
+    
+    )
+
+    OutlinedTextField(
+        value = "",
+        onValueChange = {
+        },
+        placeholder = { Text("Temp for Focus") }
     )
 
 /*

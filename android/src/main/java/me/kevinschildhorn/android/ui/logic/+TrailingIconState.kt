@@ -15,15 +15,17 @@ import me.kevinschildhorn.common.uilogic.TrailingIconState
 val TrailingIconState.color: Color
     get() = when (this) {
         TrailingIconState.NONE -> Color.Transparent
-        TrailingIconState.CLEAR -> Color.Gray
+        TrailingIconState.CLEAR_TEXT -> Color.Gray
         TrailingIconState.ERROR -> Color.Red
+        TrailingIconState.CHECKMARK -> Color.Green
     }
 
 val TrailingIconState.vector: ImageVector
     get() = when (this) {
         TrailingIconState.NONE -> Icons.Filled.Done
-        TrailingIconState.CLEAR -> Icons.Filled.Clear
+        TrailingIconState.CLEAR_TEXT -> Icons.Filled.Clear
         TrailingIconState.ERROR -> Icons.Filled.Warning
+        TrailingIconState.CHECKMARK -> Icons.Filled.Done
     }
 
 
