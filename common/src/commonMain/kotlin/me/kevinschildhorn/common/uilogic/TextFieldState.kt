@@ -10,16 +10,24 @@ data class TextFieldState(
     var isError: Boolean = false,
     // UI Elements:
     var text: String = "",
-    // Border Color - Color
-    var currentBorderColor: ColorOption = defaultColor,
-    // Error Text - Text, Color
-    var errorText: String? = null,
-    // Trailing Icon - Icon, Color
-    var trailingIconState: TrailingIconState = TrailingIconState.NONE,
+    var currentBorderColor: ColorOption = defaultColor, // Border Color - Color
+    var errorText: String? = null, // Error Text - Text, Color
+    var trailingIconState: TrailingIconState = TrailingIconState.NONE, // Trailing Icon - Icon, Color
     var hasFocus: Boolean = false,
+    private var lastValidationState: EmailValidationState = EmailValidationState.Empty
 ) {
     fun updateWithState(state: EmailValidationState, newText: String) {
         this.text = newText
+        refresh(state)
+        lastValidationState = state
+    }
+
+    fun focusChanged(focus: Boolean) {
+        hasFocus = focus
+        refresh()
+    }
+
+    private fun refresh(state:EmailValidationState = lastValidationState) {
         when (state) {
             EmailValidationState.Empty -> {
                 currentBorderColor = defaultColor
@@ -47,14 +55,5 @@ data class TextFieldState(
                 trailingIconState = TrailingIconState.CHECKMARK
             }
         }
-    }
-
-    fun focusChanged(focus: Boolean) {
-        hasFocus = focus
-        refresh()
-    }
-
-    private fun refresh(){
-
     }
 }
