@@ -9,11 +9,27 @@ import SwiftUI
 import SharedFotoSDK
 
 struct ContentView: View {
-    var body: some View {
-        let color = SharedColor(hex: 0x123456)
-        Button("Hello from \(color.test)", action: {
+    //let viewModel = EmailVerificiationViewModel()
 
-        })
+    @State private var username: String = ""
+    @FocusState private var emailFieldIsFocused: Bool
+
+    var body: some View {
+        TextField(
+            "User name (email address)",
+            text: $username
+        )
+        .padding(CGFloat(50.0))
+        .focused($emailFieldIsFocused)
+        .onSubmit {
+            //validate(name: username)
+        }
+        .textInputAutocapitalization(.never)
+        .disableAutocorrection(true)
+        .border(.secondary)
+
+        Text(username)
+        .foregroundColor(emailFieldIsFocused ? .red : .blue)
     }
 }
 

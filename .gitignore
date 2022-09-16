@@ -30,3 +30,5 @@ ios/Pods/*
 ios/Podfile.lock
 java_pid7192.hprof
 ios/FotoPresenter.xcworkspace/xcuserdata/kevinschildhorn.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+ios/FotoPresenter.xcworkspace/xcuserdata/kevinschildhorn.xcuserdatad/UserInterfaceState.xcuserstate
+*.hprof

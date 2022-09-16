@@ -56,4 +56,8 @@ data class TextFieldState(
             }
         }
     }
+
+    companion object {
+        fun create(hint:String, defaultColor: ColorOption) = TextFieldState(hint = hint, defaultColor = defaultColor)
+    }
 }

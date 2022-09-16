@@ -17,6 +17,7 @@
 		F16C62D428C914D4001CE2F9 /* FotoPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62D328C914D4001CE2F9 /* FotoPresenterTests.swift */; };
 		F16C62DE28C914D4001CE2F9 /* FotoPresenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62DD28C914D4001CE2F9 /* FotoPresenterUITests.swift */; };
 		F16C62E028C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62DF28C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift */; };
+		F1BC833E28D4CB5F00702B83 /* EmailVerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BC833D28D4CB5F00702B83 /* EmailVerificationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		F16C62D928C914D4001CE2F9 /* FotoPresenterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FotoPresenterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F16C62DD28C914D4001CE2F9 /* FotoPresenterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoPresenterUITests.swift; sourceTree = "<group>"; };
 		F16C62DF28C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoPresenterUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F1BC833D28D4CB5F00702B83 /* EmailVerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +108,6 @@
 				DA2F185F285131EECAF12BDD /* Pods-FotoPresenterTests.debug.xcconfig */,
 				A9BB81B8413C4E2D25D20E5A /* Pods-FotoPresenterTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -135,6 +136,7 @@
 		F16C62C128C914D1001CE2F9 /* FotoPresenter */ = {
 			isa = PBXGroup;
 			children = (
+				F1BC833C28D4CB4B00702B83 /* ViewModel */,
 				F16C62C228C914D1001CE2F9 /* FotoPresenterApp.swift */,
 				F16C62C428C914D1001CE2F9 /* ContentView.swift */,
 				F16C62C628C914D3001CE2F9 /* Assets.xcassets */,
@@ -166,6 +168,14 @@
 				F16C62DF28C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift */,
 			);
 			path = FotoPresenterUITests;
+			sourceTree = "<group>";
+		};
+		F1BC833C28D4CB4B00702B83 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F1BC833D28D4CB5F00702B83 /* EmailVerificationViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -407,6 +417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F16C62C528C914D1001CE2F9 /* ContentView.swift in Sources */,
+				F1BC833E28D4CB5F00702B83 /* EmailVerificationViewModel.swift in Sources */,
 				F16C62C328C914D1001CE2F9 /* FotoPresenterApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
