@@ -1,5 +1,6 @@
 package me.kevinschildhorn.android.ui
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,33 +16,31 @@ import me.kevinschildhorn.common.viewmodel.EmailValidationViewModel
 @OptIn(ExperimentalLifecycleComposeApi::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SignUpScreen(viewModel: EmailValidationViewModel) {
-    val userNameHasError by viewModel.userNameHasError.collectAsStateWithLifecycle()
-    val textFieldState by viewModel.textFieldState.collectAsStateWithLifecycle()
+    val textFieldState by viewModel.emailTextFieldState.collectAsStateWithLifecycle()
 
-    OutlinedTextField(
-        value = viewModel.username,
-        onValueChange = { newValue ->
-            viewModel.updateUsername(newValue)
-        },
-        placeholder = { Text(textFieldState.hint) },
-        trailingIcon = { textFieldState.trailingIconState.Icon() },
-        modifier = Modifier.onFocusChanged {
-            textFieldState.hasFocus = it.isFocused
-        }
-    )
-
-    OutlinedTextField(
-        value = "",
-        onValueChange = {
-        },
-        placeholder = { Text("Temp for Focus") }
-    )
-
-/*
-    if (textFieldState.isError) {
-        Text(
-            text = textFieldState.errorText ?: "",
-            color = Color.Red
+    Column {
+        OutlinedTextField(
+            value = viewModel.username,
+            onValueChange = { newValue ->
+                viewModel.updateUsername(newValue)
+            },
+            placeholder = { Text(textFieldState.hint) },
+            trailingIcon = { textFieldState.trailingIconState.Icon() },
+            modifier = Modifier.onFocusChanged {
+                textFieldState.focusChanged(it.isFocused)
+            }
         )
-    }*/
+        if (textFieldState.isError) {
+            Text(
+                text = textFieldState.errorText ?: "",
+                color = Color.Red
+            )
+        }
+        OutlinedTextField(
+            value = "",
+            onValueChange = {
+            },
+            placeholder = { Text("Temp for Focus") }
+        )
+    }
 }
