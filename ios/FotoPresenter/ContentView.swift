@@ -30,6 +30,7 @@ struct ContentView: View {
             viewModel.emailTextFieldState.trailingIconState.image
 
         }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
