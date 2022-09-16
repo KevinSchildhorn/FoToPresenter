@@ -9,39 +9,27 @@ import SwiftUI
 import SharedFotoSDK
 
 struct ContentView: View {
-    //let viewModel = EmailVerificiationViewModel()
-
     @StateObject private var viewModel = EmailVerificiationViewModel()
-
-
-    @State private var username: String = ""
-    @FocusState private var emailFieldIsFocused: Bool
-
 
     var body: some View {
 
-        TextField(
-            "User name (email address)",
-            text: $viewModel.email
-        )
-        .padding(CGFloat(50.0))
-        .focused($emailFieldIsFocused)
-        .onSubmit {
-            //validate(name: username)
-        }
-        .textInputAutocapitalization(.never)
-        .disableAutocorrection(true)
-        .border(.secondary)
-        .onChange(of: username, perform: {newValue in
-            viewModel.updateUsername(input: newValue)
-        })
-        .onChange(of: emailFieldIsFocused, perform: {newValue in
-            viewModel.focusChanged(isFocused: newValue)
-        })
+        HStack {
+            TextField(
+                "User name (email address)",
+                text: $viewModel.email
+            )
+            .padding(CGFloat(50.0))
+            //.focused($viewModel.isFocused)
+            .onSubmit {
+                //validate(name: username)
+            }
+            .textInputAutocapitalization(.never)
+            .disableAutocorrection(true)
+            .border(.secondary)
 
-        Text(username)
-        .foregroundColor(emailFieldIsFocused ? .red : .blue)
-    }
+            viewModel.emailTextFieldState.trailingIconState.image
+
+        }
 }
 
 struct ContentView_Previews: PreviewProvider {
