@@ -136,6 +136,7 @@
 		F16C62C128C914D1001CE2F9 /* FotoPresenter */ = {
 			isa = PBXGroup;
 			children = (
+				F1BC833F28D4DA6900702B83 /* Extensions */,
 				F1BC833C28D4CB4B00702B83 /* ViewModel */,
 				F16C62C228C914D1001CE2F9 /* FotoPresenterApp.swift */,
 				F16C62C428C914D1001CE2F9 /* ContentView.swift */,
@@ -176,6 +177,13 @@
 				F1BC833D28D4CB5F00702B83 /* EmailVerificationViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F1BC833F28D4DA6900702B83 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
