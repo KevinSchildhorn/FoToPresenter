@@ -13,6 +13,7 @@ import me.kevinschildhorn.common.viewmodel.EmailValidationViewModel
 
 class MainActivity : AppCompatActivity() {
 
+    val viewModel = EmailValidationViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
