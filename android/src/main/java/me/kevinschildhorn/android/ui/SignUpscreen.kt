@@ -19,6 +19,7 @@ fun SignUpScreen(viewModel: EmailValidationViewModel) {
     val email by viewModel.email.collectAsStateWithLifecycle()
     val textFieldState by viewModel.emailTextFieldState.collectAsStateWithLifecycle()
 
+
     Column {
         OutlinedTextField(
             value = email,
