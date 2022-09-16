@@ -22,16 +22,19 @@ data class TextFieldState(
         when (state) {
             EmailValidationState.Empty -> {
                 currentBorderColor = defaultColor
+                isError = false
                 errorText = null
                 trailingIconState = TrailingIconState.NONE
             }
             EmailValidationState.Invalid -> {
                 currentBorderColor = ColorOption.ERROR
+                isError = true
                 errorText = "Not an Email!"
                 trailingIconState = TrailingIconState.ERROR
             }
             EmailValidationState.Valid -> {
                 currentBorderColor = defaultColor
+                isError = false
                 errorText = null
                 trailingIconState = TrailingIconState.CLEAR
             }

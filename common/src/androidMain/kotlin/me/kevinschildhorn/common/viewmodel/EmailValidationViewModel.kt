@@ -3,7 +3,7 @@ package me.kevinschildhorn.common.viewmodel
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import me.kevinschildhorn.android.viewModel.SharedEmailValidationViewModel
 import me.kevinschildhorn.common.ui.ColorOption
@@ -14,7 +14,7 @@ class EmailValidationViewModel : SharedEmailValidationViewModel() {
     var username by mutableStateOf("")
         private set
 
-    /*
+
     val textFieldState: StateFlow<TextFieldState> = MutableStateFlow(
         TextFieldState(
             hint = "Email",
@@ -27,7 +27,7 @@ class EmailValidationViewModel : SharedEmailValidationViewModel() {
             hint = "Email",
             defaultColor = ColorOption.NORMAL
         )
-    )*/
+    )
 
     val userNameHasError: StateFlow<Boolean> =
         snapshotFlow { username }
@@ -37,6 +37,22 @@ class EmailValidationViewModel : SharedEmailValidationViewModel() {
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = false
             )
+
+    init {
+        viewModelScope.launch {
+            delay(1000)
+            validationState.collect {
+                print("Hello")
+                withContext(Dispatchers.IO) {
+                    textFieldState.value.updateWithState(it, username)
+                }
+                /*
+                withContext(Dispatchers.IO) {
+                    textFieldState.value.updateWithState(it, username)
+                }*/
+            }
+        }
+    }
 
     fun updateUsername(input: String) {
         username = input
