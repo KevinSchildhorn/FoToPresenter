@@ -4,16 +4,30 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import me.kevinschildhorn.android.viewModel.SharedEmailValidationViewModel
+import me.kevinschildhorn.common.ui.ColorOption
+import me.kevinschildhorn.common.uilogic.TextFieldState
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class EmailValidationViewModel : ViewModel() {
+class EmailValidationViewModel : SharedEmailValidationViewModel() {
     var username by mutableStateOf("")
         private set
+
+    /*
+    val textFieldState: StateFlow<TextFieldState> = MutableStateFlow(
+        TextFieldState(
+            hint = "Email",
+            defaultColor = ColorOption.NORMAL
+        )
+    ).stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = TextFieldState(
+            hint = "Email",
+            defaultColor = ColorOption.NORMAL
+        )
+    )*/
 
     val userNameHasError: StateFlow<Boolean> =
         snapshotFlow { username }
@@ -26,5 +40,6 @@ class EmailValidationViewModel : ViewModel() {
 
     fun updateUsername(input: String) {
         username = input
+        verifyEmail(input)
     }
 }
