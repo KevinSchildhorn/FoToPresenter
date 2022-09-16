@@ -27,7 +27,7 @@ fun SignUpScreen(viewModel: EmailValidationViewModel) {
             placeholder = { Text(textFieldState.hint) },
             trailingIcon = { textFieldState.trailingIconState.Icon() },
             modifier = Modifier.onFocusChanged {
-                textFieldState.focusChanged(it.isFocused)
+                viewModel.focusChanged(it.isFocused)
             }
         )
         if (textFieldState.isError) {

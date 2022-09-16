@@ -9,20 +9,12 @@ class EmailValidationViewModel : SharedEmailValidationViewModel() {
     var username by mutableStateOf("")
         private set
 
-    init {
-        viewModelScope.launch {
-            delay(1000)
-            validationState.collect {
-                print("Hello")
-                withContext(Dispatchers.IO) {
-                    emailTextFieldState.value.updateWithState(it, username)
-                }
-            }
-        }
-    }
-
     fun updateUsername(input: String) {
         username = input
         verifyEmail(input)
+    }
+
+    fun focusChanged(isFocused: Boolean) {
+        emailTextFieldState.value.focusChanged(isFocused)
     }
 }
