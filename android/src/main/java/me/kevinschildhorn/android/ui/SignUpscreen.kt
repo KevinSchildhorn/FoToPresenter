@@ -16,11 +16,12 @@ import me.kevinschildhorn.common.viewmodel.EmailValidationViewModel
 @OptIn(ExperimentalLifecycleComposeApi::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SignUpScreen(viewModel: EmailValidationViewModel) {
+    val email by viewModel.email.collectAsStateWithLifecycle()
     val textFieldState by viewModel.emailTextFieldState.collectAsStateWithLifecycle()
 
     Column {
         OutlinedTextField(
-            value = viewModel.username,
+            value = email,
             onValueChange = { newValue ->
                 viewModel.updateUsername(newValue)
             },

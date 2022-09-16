@@ -19,6 +19,9 @@ enum class EmailValidationState {
 open class SharedEmailValidationViewModel : ViewModel() {
     private val simpleEmailRegex = "^\\S+@\\S+\\.\\S+\$".toRegex()
 
+    private var _email: MutableStateFlow<String> = MutableStateFlow("")
+    val email: StateFlow<String> = _email
+
     private var _validationState: MutableStateFlow<EmailValidationState> =
         MutableStateFlow(EmailValidationState.Empty)
     val validationState: StateFlow<EmailValidationState> = _validationState
@@ -31,17 +34,29 @@ open class SharedEmailValidationViewModel : ViewModel() {
                 initialValue = TextFieldState(hint = "Email", defaultColor = ColorOption.NORMAL)
             )
 
-    fun verifyEmail(email: String) {
+    private fun verifyEmail(email: String) {
         val nextState = when {
             email.isEmpty() -> EmailValidationState.Empty
             simpleEmailRegex.matches(email) -> EmailValidationState.Valid
             else -> EmailValidationState.Invalid
         }
         _validationState.value = nextState
-        emailTextFieldState.value.updateWithState(nextState, email)
+        _email.value = email
+        refresh()
     }
 
-    fun refresh(){
+    private fun refresh(){
+        emailTextFieldState.value.updateWithState(validationState.value, email.value)
+    }
 
+
+
+    // Public
+
+    fun updateUsername(input: String) = verifyEmail(input)
+
+    fun focusChanged(isFocused: Boolean) {
+        emailTextFieldState.value.focusChanged(isFocused)
+        refresh()
     }
 }
