@@ -19,25 +19,12 @@ fun SignUpScreen(viewModel: EmailValidationViewModel) {
     val email by viewModel.email.collectAsStateWithLifecycle()
     val textFieldState by viewModel.emailTextFieldState.collectAsStateWithLifecycle()
 
-
     Column {
-        OutlinedTextField(
-            value = email,
-            onValueChange = { newValue ->
-                viewModel.updateUsername(newValue)
-            },
-            placeholder = { Text(textFieldState.hint) },
-            trailingIcon = { textFieldState.trailingIconState.Icon() },
-            modifier = Modifier.onFocusChanged {
-                viewModel.focusChanged(it.isFocused)
-            }
-        )
-        if (textFieldState.isError) {
-            Text(
-                text = textFieldState.errorText ?: "",
-                color = Color.Red
-            )
-        }
+        SampleTextField(email, textFieldState, { email ->
+            viewModel.updateUsername(email)
+        }, { isFocused ->
+            viewModel.focusChanged(isFocused)
+        })
         OutlinedTextField(
             value = "",
             onValueChange = {
