@@ -2,6 +2,7 @@ package me.kevinschildhorn.android.ui.logic
 
 import android.graphics.drawable.Icon
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
@@ -30,12 +31,18 @@ val TrailingIconState.vector: ImageVector
 
 
 @Composable
-fun TrailingIconState.Icon() {
-    if(this != TrailingIconState.NONE) {
-        Icon(
-            this.vector,
-            "error",
-            tint = this.color
-        )
+fun TrailingIconState.Icon(clearCallback: () -> Unit) {
+    val emptyCallback = {}
+    if (this != TrailingIconState.NONE) {
+        IconButton(
+            onClick = if (this == TrailingIconState.CLEAR_TEXT) clearCallback else emptyCallback
+        ) {
+            Icon(
+                this.vector,
+                "icon",
+                tint = this.color
+            )
+        }
+
     }
 }
