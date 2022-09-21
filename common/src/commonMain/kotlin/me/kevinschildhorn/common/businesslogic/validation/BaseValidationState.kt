@@ -1,7 +1,5 @@
 package me.kevinschildhorn.common.businesslogic.validation
 
-enum class BaseValidationState {
-    Empty,
-    Valid,
-    Invalid
+interface BaseValidationState {
+    val isValid: Boolean
 }

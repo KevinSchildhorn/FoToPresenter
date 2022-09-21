@@ -3,7 +3,7 @@ package me.kevinschildhorn.common.businesslogic.validation
 object PasswordValidator {
 
     private val letterRegex = ".*[a-zA-Z].*".toRegex()
-    private val numberRegex = "\\d".toRegex()
+    private val numberRegex = ".*[\\d].*".toRegex()
 
     fun verifyPassword(password: String): PasswordValidationState =
         when {

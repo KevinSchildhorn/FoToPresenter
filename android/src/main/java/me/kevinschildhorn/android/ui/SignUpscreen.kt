@@ -1,7 +1,8 @@
 package me.kevinschildhorn.android.ui
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -9,31 +10,38 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.kevinschildhorn.common.viewmodel.EmailValidationViewModel
 
-@OptIn(ExperimentalLifecycleComposeApi::class, ExperimentalLifecycleComposeApi::class)
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SignUpScreen(viewModel: EmailValidationViewModel) {
-    val email by viewModel.email.collectAsStateWithLifecycle()
-    val emailTextFieldState by viewModel.emailTextFieldState.collectAsStateWithLifecycle()
 
-    val password by viewModel.password.collectAsStateWithLifecycle()
-    val passwordTextFieldState by viewModel.passwordTextFieldState.collectAsStateWithLifecycle()
+    val buttonState by viewModel.createProfileButtonState.uiState.collectAsStateWithLifecycle()
 
     Column {
-        SampleTextField(email, emailTextFieldState, {
+        SampleTextField(viewModel.emailTextState, {
             viewModel.updateEmail(it)
         }, { isFocused ->
-            viewModel.emailFocusChanged(isFocused)
+            viewModel.emailTextState.setFocus(isFocused)
         })
-        SampleTextField(password, passwordTextFieldState, {
+        SampleTextField(viewModel.passwordTextState, {
             viewModel.updatePassword(it)
         }, { isFocused ->
-            viewModel.passwordFocusChanged(isFocused)
+            viewModel.passwordTextState.setFocus(isFocused)
         })
-        OutlinedTextField(
-            value = "",
-            onValueChange = {
-            },
-            placeholder = { Text("Temp for Focus") }
+        Button(onClick = {
+            viewModel.createProfile()
+        }, content = {
+            if(buttonState.isLoading) {
+                CircularProgressIndicator(
+                    color = buttonState.textColor.androidColor
+                )
+            }else {
+                Text(
+                    buttonState.text,
+                    color = buttonState.textColor.androidColor
+                )
+            }
+        },
+        enabled = buttonState.isEnabled
         )
     }
 }

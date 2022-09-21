@@ -1,4 +1,4 @@
-package me.kevinschildhorn.common.uilogic
+package me.kevinschildhorn.common.uilogic.enums
 
 enum class TrailingIconState {
     NONE,
