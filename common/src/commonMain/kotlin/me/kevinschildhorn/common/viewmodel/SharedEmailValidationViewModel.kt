@@ -1,12 +1,7 @@
 package me.kevinschildhorn.android.viewModel
 
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import me.kevinschildhorn.common.ui.ColorOption
-import me.kevinschildhorn.common.uilogic.TextFieldState
+import me.kevinschildhorn.common.uilogic.enums.TextFieldState
 import me.kevinschildhorn.common.viewmodel.base.ViewModel
 
 
