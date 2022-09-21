@@ -14,10 +14,20 @@ struct ContentView: View {
     @FocusState private var emailFocusState:Bool
     @FocusState private var passwordFocusState:Bool
 
+    let molecule = DesignMolecules.TextField().defaultTextField
+
     var body: some View {
+
+
+
         VStack {
             // Email
             HStack {
+                if viewModel.emailTextFieldState.isError {
+                    Text(viewModel.emailTextFieldState.errorText ?? "")
+                        .foregroundColor(Color(molecule.errorAtom.textColor.iOSColor))
+                        .font(.system(size: molecule.errorAtom.textSize))
+                }
                 TextField(
                     viewModel.emailTextFieldState.hint,
                     text: $viewModel.email
@@ -27,6 +37,8 @@ struct ContentView: View {
                 .textInputAutocapitalization(.never)
                 .disableAutocorrection(true)
                 .border(viewModel.emailTextFieldState.currentBorderColor.color, width: 5)
+                .foregroundColor(Color(molecule.textEntryAtom.textColor.iOSColor))
+                .font(.system(size: molecule.textEntryAtom.textSize))
 
                 Button(action: {
                     viewModel.email = ""
@@ -51,7 +63,11 @@ struct ContentView: View {
                 .disableAutocorrection(true)
                 .border(viewModel.passwordTextFieldState.currentBorderColor.color, width: 5)
 
-                viewModel.passwordTextFieldState.trailingIconState.image
+                Button(action: {
+                    viewModel.password = ""
+                }, label: {
+                    viewModel.passwordTextFieldState.trailingIconState.image
+                })
             }
             .onChange(of: passwordFocusState, perform: { newFocus in
                 viewModel.passwordFocusChanged(isFocused: newFocus)
