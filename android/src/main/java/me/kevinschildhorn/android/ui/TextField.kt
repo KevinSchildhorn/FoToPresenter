@@ -13,9 +13,9 @@ import me.kevinschildhorn.common.uilogic.enums.TextFieldState
 
 @Composable
 fun SampleTextField(
-    email:String,
+    text:String,
     state: TextFieldState,
-    emailCallback:(String) -> Unit,
+    textCallback:(String) -> Unit,
     focusChanged:(Boolean) -> Unit
 ) {
     Column {
@@ -26,9 +26,9 @@ fun SampleTextField(
             )
         }
         OutlinedTextField(
-            value = email,
+            value = text,
             onValueChange = { newValue ->
-                emailCallback(newValue)
+                textCallback(newValue)
             },
             /*
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -43,7 +43,7 @@ fun SampleTextField(
             placeholder = { Text(state.hint) },
             trailingIcon = {
                 state.trailingIconState.Icon {
-                    emailCallback("")
+                    textCallback("")
                 }
             },
             modifier = Modifier.onFocusChanged {
