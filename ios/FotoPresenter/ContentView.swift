@@ -27,7 +27,13 @@ struct ContentView: View {
                 .textInputAutocapitalization(.never)
                 .disableAutocorrection(true)
                 .border(viewModel.emailTextFieldState.currentBorderColor.color, width: 5)
-                viewModel.emailTextFieldState.trailingIconState.image
+
+                Button(action: {
+                    viewModel.email = ""
+                }, label: {
+                    viewModel.emailTextFieldState.trailingIconState.image
+                })
+
             }
             .onChange(of: emailFocusState, perform: { newFocus in
                 viewModel.emailFocusChanged(isFocused: newFocus)
@@ -50,6 +56,18 @@ struct ContentView: View {
             .onChange(of: passwordFocusState, perform: { newFocus in
                 viewModel.passwordFocusChanged(isFocused: newFocus)
             })
+            Button(action: {
+                viewModel.sharedViewModel.createProfile()
+            }, label: {
+                if viewModel.createProfileButtonState.isLoading {
+                    ProgressView()
+                } else {
+                    Text(viewModel.createProfileButtonState.text)
+                        .foregroundColor(Color.white)
+                }
+            })
+            .buttonStyle(.borderedProminent)
+            .disabled(!viewModel.createProfileButtonState.isEnabled)
         }
     }
 }
