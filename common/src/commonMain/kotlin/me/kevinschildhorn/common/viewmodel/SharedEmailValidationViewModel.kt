@@ -1,57 +1,81 @@
 package me.kevinschildhorn.android.viewModel
 
 import kotlinx.coroutines.flow.*
+import me.kevinschildhorn.common.extensions.stateFrom
 import me.kevinschildhorn.common.uilogic.enums.TextFieldState
+import me.kevinschildhorn.common.uilogic.enums.asTextFieldState
+import me.kevinschildhorn.common.validation.EmailValidationState
+import me.kevinschildhorn.common.validation.EmailValidator
+import me.kevinschildhorn.common.validation.PasswordValidationState
+import me.kevinschildhorn.common.validation.PasswordValidator
 import me.kevinschildhorn.common.viewmodel.base.ViewModel
 
-
-enum class EmailValidationState {
-    Empty,
-    Valid,
-    Invalid
-}
-
 open class SharedEmailValidationViewModel : ViewModel() {
-    private val simpleEmailRegex = "^\\S+@\\S+\\.\\S+\$".toRegex()
 
+    // Email
     private var _email: MutableStateFlow<String> = MutableStateFlow("")
     val email: StateFlow<String> = _email
 
-    private var _validationState: MutableStateFlow<EmailValidationState> =
+    private var _emailValidationState: MutableStateFlow<EmailValidationState> =
         MutableStateFlow(EmailValidationState.Empty)
-    private val validationState: StateFlow<EmailValidationState> = _validationState
+    private val emailValidationState: StateFlow<EmailValidationState> = _emailValidationState
 
     private var _emailTextFieldState: MutableStateFlow<TextFieldState> =
         MutableStateFlow(TextFieldState(hint = "Email"))
     val emailTextFieldState: StateFlow<TextFieldState> = _emailTextFieldState
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = TextFieldState(hint = "Email")
-        )
+        .stateFrom(viewModelScope)
+
+    // Password
+    private var _password: MutableStateFlow<String> = MutableStateFlow("")
+    val password: StateFlow<String> = _password
+
+    private var _passwordValidationState: MutableStateFlow<PasswordValidationState> =
+        MutableStateFlow(PasswordValidationState.Empty)
+    private val passwordValidationState: StateFlow<PasswordValidationState> =
+        _passwordValidationState
+
+    private var _passwordTextFieldState: MutableStateFlow<TextFieldState> =
+        MutableStateFlow(TextFieldState(hint = "Password"))
+    val passwordTextFieldState: StateFlow<TextFieldState> = _passwordTextFieldState
+        .stateFrom(viewModelScope)
 
     private fun verifyEmail(email: String) {
-        val nextState = when {
-            email.isEmpty() -> EmailValidationState.Empty
-            simpleEmailRegex.matches(email) -> EmailValidationState.Valid
-            else -> EmailValidationState.Invalid
-        }
-        _validationState.value = nextState
+        _emailValidationState.value = EmailValidator.verifyEmail(email)
         _email.value = email
+        refresh()
+    }
+
+    private fun verifyPassword(password: String) {
+        _passwordValidationState.value = PasswordValidator.verifyPassword(password)
+        _password.value = password
         refresh()
     }
 
     private fun refresh() {
         _emailTextFieldState.value =
-            emailTextFieldState.value.updateWithState(validationState.value, email.value)
+            emailTextFieldState.value.updateWithState(
+                emailValidationState.value.asTextFieldState,
+                email.value
+            )
+        _passwordTextFieldState.value =
+            passwordTextFieldState.value.updateWithState(
+                passwordValidationState.value.asTextFieldState,
+                password.value
+            )
     }
 
     // Public
 
-    fun updateUsername(input: String) = verifyEmail(input)
+    fun updateEmail(input: String) = verifyEmail(input)
+    fun updatePassword(input: String) = verifyPassword(input)
 
-    fun focusChanged(isFocused: Boolean) {
+    fun emailFocusChanged(isFocused: Boolean) {
         _emailTextFieldState.value = emailTextFieldState.value.focusChanged(isFocused)
+        refresh()
+    }
+
+    fun passwordFocusChanged(isFocused: Boolean) {
+        _passwordTextFieldState.value = passwordTextFieldState.value.focusChanged(isFocused)
         refresh()
     }
 }

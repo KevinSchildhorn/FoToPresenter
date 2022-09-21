@@ -13,13 +13,21 @@ import me.kevinschildhorn.common.viewmodel.EmailValidationViewModel
 @Composable
 fun SignUpScreen(viewModel: EmailValidationViewModel) {
     val email by viewModel.email.collectAsStateWithLifecycle()
-    val textFieldState by viewModel.emailTextFieldState.collectAsStateWithLifecycle()
+    val emailTextFieldState by viewModel.emailTextFieldState.collectAsStateWithLifecycle()
+
+    val password by viewModel.password.collectAsStateWithLifecycle()
+    val passwordTextFieldState by viewModel.passwordTextFieldState.collectAsStateWithLifecycle()
 
     Column {
-        SampleTextField(email, textFieldState, { email ->
-            viewModel.updateUsername(email)
+        SampleTextField(email, emailTextFieldState, {
+            viewModel.updateEmail(it)
         }, { isFocused ->
-            viewModel.focusChanged(isFocused)
+            viewModel.emailFocusChanged(isFocused)
+        })
+        SampleTextField(password, passwordTextFieldState, {
+            viewModel.updatePassword(it)
+        }, { isFocused ->
+            viewModel.passwordFocusChanged(isFocused)
         })
         OutlinedTextField(
             value = "",

@@ -1,7 +1,7 @@
 package me.kevinschildhorn.common.uilogic.enums
 
-import me.kevinschildhorn.android.viewModel.EmailValidationState
 import me.kevinschildhorn.common.uilogic.TrailingIconState
+import me.kevinschildhorn.common.validation.EmailValidationState
 
 
 data class TextFieldState(
@@ -14,17 +14,17 @@ data class TextFieldState(
     var errorText: String? = null, // Error Text - Text, Color
     var trailingIconState: TrailingIconState = TrailingIconState.NONE, // Trailing Icon - Icon, Color
     var hasFocus: Boolean = false,
-    private var lastValidationState: EmailValidationState = EmailValidationState.Empty
+    private var lastValidationState: TextFieldValidationState = TextFieldValidationState.Empty
 ) {
-    fun updateWithState(state: EmailValidationState, newText: String): TextFieldState =
+    fun updateWithState(state: TextFieldValidationState, newText: String): TextFieldState =
         this.copy(text = newText).refresh(state).copy(lastValidationState = state)
 
     fun focusChanged(focus: Boolean): TextFieldState =
         copy(hasFocus = focus).refresh()
 
-    private fun refresh(state: EmailValidationState = lastValidationState): TextFieldState =
+    private fun refresh(state: TextFieldValidationState = lastValidationState): TextFieldState =
         when (state) {
-            EmailValidationState.Empty -> {
+            TextFieldValidationState.Empty -> {
                 this.copy(
                     currentBorderColor = if (hasFocus) ColorOption.NORMAL else ColorOption.HINT,
                     currentSharedBorderColor = if (hasFocus) SharedColorOption.NORMAL else SharedColorOption.HINT,
@@ -33,7 +33,7 @@ data class TextFieldState(
                     trailingIconState = TrailingIconState.NONE,
                 )
             }
-            EmailValidationState.Invalid -> {
+            TextFieldValidationState.Invalid -> {
                 if (hasFocus) {
                     this.copy(
                         currentBorderColor = ColorOption.NORMAL,
@@ -47,12 +47,12 @@ data class TextFieldState(
                         currentBorderColor = ColorOption.ERROR,
                         currentSharedBorderColor = SharedColorOption.ERROR,
                         isError = true,
-                        errorText = "Not an Email!",
+                        errorText = "Invalid!",
                         trailingIconState = TrailingIconState.ERROR,
                     )
                 }
             }
-            EmailValidationState.Valid -> {
+            TextFieldValidationState.Valid -> {
                 this.copy(
                     currentBorderColor = ColorOption.SUCCESS,
                     currentSharedBorderColor = SharedColorOption.SUCCESS,
