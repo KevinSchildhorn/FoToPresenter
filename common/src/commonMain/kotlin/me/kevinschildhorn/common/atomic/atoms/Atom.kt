@@ -5,6 +5,4 @@ import me.kevinschildhorn.common.color.SharedColor
 
 abstract class Atom {
     abstract val type: AtomType
-    abstract val color:SharedColor
-    abstract val height:Int?
 }
