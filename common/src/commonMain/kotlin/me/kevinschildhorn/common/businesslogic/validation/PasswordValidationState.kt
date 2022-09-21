@@ -1,4 +1,4 @@
-package me.kevinschildhorn.common.validation
+package me.kevinschildhorn.common.businesslogic.validation
 
 enum class PasswordValidationState {
     Empty,

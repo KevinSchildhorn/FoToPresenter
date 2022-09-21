@@ -1,4 +1,4 @@
-package me.kevinschildhorn.common.ui
+package me.kevinschildhorn.common.color
 
 data class SharedEnabledColor(
     val color: SharedColor,

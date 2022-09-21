@@ -1,6 +1,6 @@
 package me.kevinschildhorn.common.theme
 
-import me.kevinschildhorn.common.ui.SharedEnabledColor
+import me.kevinschildhorn.common.color.SharedEnabledColor
 
 object DesignEnabledColors {
     val default = SharedEnabledColor(

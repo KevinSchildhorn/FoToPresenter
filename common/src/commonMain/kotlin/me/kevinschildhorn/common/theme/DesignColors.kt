@@ -1,6 +1,6 @@
 package me.kevinschildhorn.common.theme
 
-import me.kevinschildhorn.common.ui.SharedColor
+import me.kevinschildhorn.common.color.SharedColor
 
 object DesignColors {
     val primary = SharedColor(0xFF0000FF)
