@@ -2,6 +2,7 @@ package me.kevinschildhorn.common.viewmodel.ui
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
+import me.kevinschildhorn.common.atomic.molecules.TextFieldMolecule
 import me.kevinschildhorn.common.uilogic.TextFieldState
 import me.kevinschildhorn.common.uilogic.enums.TextFieldValidationInterface
 
