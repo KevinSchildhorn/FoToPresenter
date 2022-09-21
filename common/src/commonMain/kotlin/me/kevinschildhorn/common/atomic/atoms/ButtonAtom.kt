@@ -2,8 +2,8 @@ package me.kevinschildhorn.common.atomic.atoms
 
 import me.kevinschildhorn.common.atomic.atoms.interfaces.AtomType
 import me.kevinschildhorn.common.atomic.atoms.interfaces.EnablableAtom
-import me.kevinschildhorn.common.ui.SharedColor
-import me.kevinschildhorn.common.ui.SharedEnabledColor
+import me.kevinschildhorn.common.color.SharedColor
+import me.kevinschildhorn.common.color.SharedEnabledColor
 
 class ButtonAtom(
     override val color: SharedColor,

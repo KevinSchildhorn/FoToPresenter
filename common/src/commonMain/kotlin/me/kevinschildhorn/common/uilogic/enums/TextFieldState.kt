@@ -1,8 +1,6 @@
 package me.kevinschildhorn.common.uilogic.enums
 
 import me.kevinschildhorn.common.uilogic.TrailingIconState
-import me.kevinschildhorn.common.validation.EmailValidationState
-
 
 data class TextFieldState(
     val hint: String,

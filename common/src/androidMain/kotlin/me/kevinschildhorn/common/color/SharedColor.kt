@@ -1,4 +1,4 @@
-package me.kevinschildhorn.common.ui
+package me.kevinschildhorn.common.color
 
 import androidx.compose.ui.graphics.Color
 

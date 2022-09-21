@@ -4,10 +4,10 @@ import kotlinx.coroutines.flow.*
 import me.kevinschildhorn.common.extensions.stateFrom
 import me.kevinschildhorn.common.uilogic.enums.TextFieldState
 import me.kevinschildhorn.common.uilogic.enums.asTextFieldState
-import me.kevinschildhorn.common.validation.EmailValidationState
-import me.kevinschildhorn.common.validation.EmailValidator
-import me.kevinschildhorn.common.validation.PasswordValidationState
-import me.kevinschildhorn.common.validation.PasswordValidator
+import me.kevinschildhorn.common.businesslogic.validation.EmailValidationState
+import me.kevinschildhorn.common.businesslogic.validation.EmailValidator
+import me.kevinschildhorn.common.businesslogic.validation.PasswordValidationState
+import me.kevinschildhorn.common.businesslogic.validation.PasswordValidator
 import me.kevinschildhorn.common.viewmodel.base.ViewModel
 
 open class SharedEmailValidationViewModel : ViewModel() {

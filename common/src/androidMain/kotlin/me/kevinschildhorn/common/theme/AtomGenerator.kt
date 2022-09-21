@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import me.kevinschildhorn.common.atomic.atoms.Atom
 import me.kevinschildhorn.common.atomic.atoms.interfaces.AtomType
 import me.kevinschildhorn.common.atomic.atoms.interfaces.EnablableAtom
-import me.kevinschildhorn.common.ui.SharedEnabledColor
+import me.kevinschildhorn.common.color.SharedEnabledColor
 
 object AtomGenerator {
 

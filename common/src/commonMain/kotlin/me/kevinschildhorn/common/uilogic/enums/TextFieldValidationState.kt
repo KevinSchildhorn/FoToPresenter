@@ -1,7 +1,7 @@
 package me.kevinschildhorn.common.uilogic.enums
 
-import me.kevinschildhorn.common.validation.EmailValidationState
-import me.kevinschildhorn.common.validation.PasswordValidationState
+import me.kevinschildhorn.common.businesslogic.validation.EmailValidationState
+import me.kevinschildhorn.common.businesslogic.validation.PasswordValidationState
 
 enum class TextFieldValidationState {
     Empty,
