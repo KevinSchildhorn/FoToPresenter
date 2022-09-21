@@ -6,8 +6,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
-import me.kevinschildhorn.android.ui.logic.Icon
+import me.kevinschildhorn.android.ui.extensions.Icon
+import me.kevinschildhorn.android.ui.extensions.androidColor
 import me.kevinschildhorn.common.uilogic.TextFieldState
 
 
@@ -19,11 +19,21 @@ fun SampleTextField(
     focusChanged:(Boolean) -> Unit
 ) {
     Column {
+        if (state.isError) {
+            Text(
+                text = state.errorText ?: "",
+                color = Color.Red
+            )
+        }
         OutlinedTextField(
             value = email,
             onValueChange = { newValue ->
                 emailCallback(newValue)
             },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = state.currentBorderColor.androidColor,
+                unfocusedBorderColor = state.currentBorderColor.androidColor
+            ),
             placeholder = { Text(state.hint) },
             trailingIcon = {
                 state.trailingIconState.Icon {
@@ -34,11 +44,6 @@ fun SampleTextField(
                 focusChanged(it.isFocused)
             }
         )
-        if (state.isError) {
-            Text(
-                text = state.errorText ?: "",
-                color = Color.Red
-            )
-        }
+
     }
 }
