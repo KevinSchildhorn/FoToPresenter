@@ -33,4 +33,9 @@ data class ButtonState(
                     isLoading = false
                 )
         }
+
+    companion object {
+        fun create(text: String) =
+            ButtonState(text = text)
+    }
 }

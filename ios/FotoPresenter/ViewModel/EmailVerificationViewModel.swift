@@ -10,24 +10,37 @@ import SharedFotoSDK
 import SwiftUI
 import Combine
 
-class EmailVerificiationViewModel : ObservableObject {
+class EmailVerificationViewModel : ObservableObject {
     var sharedViewModel: EmailValidationCallbackViewModel
     private var cancellers: [Cancellable] = []
 
 
     @Published var email: String = "" {
         didSet {
-            sharedViewModel.updateUsername(input: email)
+            sharedViewModel.updateEmail(email: email)
         }
     }
-    @Published private(set) var emailTextFieldState: TextFieldState = TextFieldState.companion.create(hint: "Email", defaultColor: ColorOption.normal)
+    @Published var password: String = ""{
+        didSet {
+            sharedViewModel.updatePassword(password: password)
+        }
+    }
+    @Published private(set) var emailTextFieldState: TextFieldState = TextFieldState.companion.create(hint: "Email")
+    @Published private(set) var passwordTextFieldState: TextFieldState = TextFieldState.companion.create(hint: "Email")
+    @Published private(set) var createProfileButtonState: ButtonState = ButtonState.companion.create(text: "Create Profile")
+
 
     init() {
         self.sharedViewModel = EmailValidationCallbackViewModel()
 
         cancellers += [
-            doPublish(sharedViewModel.email, onEach: { [weak self] in self?.email = $0 as String }),
-            doPublish(sharedViewModel.emailTextFieldState, onEach: { [weak self] in self?.emailTextFieldState = $0 })
+            doPublish(sharedViewModel.emailTextState, onEach: { [weak self] in
+                self?.emailTextFieldState = $0
+            }),
+            doPublish(sharedViewModel.passwordTextState, onEach: { [weak self] in
+                self?.passwordTextFieldState = $0
+            }),
+            doPublish(sharedViewModel.createProfileButtonState, onEach: { [weak self] in self?.createProfileButtonState = $0 })
         ]
     }
 
@@ -36,11 +49,18 @@ class EmailVerificiationViewModel : ObservableObject {
         sharedViewModel.clear()
     }
 
-    func updateUsername(input: String) {
-        sharedViewModel.updateUsername(input: input)
+    func updateEmail(input: String) {
+        sharedViewModel.updateEmail(email: input)
     }
 
-    func focusChanged(isFocused: Bool) {
-        sharedViewModel.focusChanged(isFocused: isFocused)
+    func updatePassword(input: String) {
+        sharedViewModel.updatePassword(password: input)
+    }
+
+    func emailFocusChanged(isFocused: Bool) {
+        sharedViewModel.setEmailFocus(focus: isFocused)
+    }
+    func passwordFocusChanged(isFocused: Bool) {
+        sharedViewModel.setPasswordFocus(focus: isFocused)
     }
 }

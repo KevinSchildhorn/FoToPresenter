@@ -9,26 +9,47 @@ import SwiftUI
 import SharedFotoSDK
 
 struct ContentView: View {
-    @StateObject private var viewModel = EmailVerificiationViewModel()
+    @StateObject private var viewModel = EmailVerificationViewModel()
+
+    @FocusState private var emailFocusState:Bool
+    @FocusState private var passwordFocusState:Bool
 
     var body: some View {
-
-        HStack {
-            TextField(
-                "User name (email address)",
-                text: $viewModel.email
-            )
-            .padding(CGFloat(50.0))
-            //.focused($viewModel.isFocused)
-            .onSubmit {
-                //validate(name: username)
+        VStack {
+            // Email
+            HStack {
+                TextField(
+                    viewModel.emailTextFieldState.hint,
+                    text: $viewModel.email
+                )
+                .padding(CGFloat(50.0))
+                .focused($emailFocusState)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
+                .border(viewModel.emailTextFieldState.currentBorderColor.color, width: 5)
+                viewModel.emailTextFieldState.trailingIconState.image
             }
-            .textInputAutocapitalization(.never)
-            .disableAutocorrection(true)
-            .border(.secondary)
+            .onChange(of: emailFocusState, perform: { newFocus in
+                viewModel.emailFocusChanged(isFocused: newFocus)
+            })
 
-            viewModel.emailTextFieldState.trailingIconState.image
+            // Password
+            HStack {
+                TextField(
+                    viewModel.passwordTextFieldState.hint,
+                    text: $viewModel.password
+                )
+                .padding(CGFloat(50.0))
+                .focused($passwordFocusState)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
+                .border(viewModel.passwordTextFieldState.currentBorderColor.color, width: 5)
 
+                viewModel.passwordTextFieldState.trailingIconState.image
+            }
+            .onChange(of: passwordFocusState, perform: { newFocus in
+                viewModel.passwordFocusChanged(isFocused: newFocus)
+            })
         }
     }
 }
