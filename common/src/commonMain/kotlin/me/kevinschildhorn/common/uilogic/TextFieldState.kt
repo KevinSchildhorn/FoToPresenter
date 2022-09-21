@@ -16,48 +16,57 @@ data class TextFieldState(
     var hasFocus: Boolean = false,
     private var lastValidationState: EmailValidationState = EmailValidationState.Empty
 ) {
-    fun updateWithState(state: EmailValidationState, newText: String) {
+    fun updateWithState(state: EmailValidationState, newText: String): TextFieldState  {
         this.text = newText
-        refresh(state)
-        lastValidationState = state
+        return this.copy(text = text).refresh(state).copy(lastValidationState = state)
     }
 
-    fun focusChanged(focus: Boolean) {
+    fun focusChanged(focus: Boolean): TextFieldState {
         hasFocus = focus
-        refresh()
+        val next = this.copy(hasFocus = focus).refresh()
+        return next
     }
 
-    private fun refresh(state:EmailValidationState = lastValidationState) {
+    private fun refresh(state: EmailValidationState = lastValidationState): TextFieldState {
         when (state) {
             EmailValidationState.Empty -> {
-                currentBorderColor = defaultColor
-                isError = false
-                errorText = null
-                trailingIconState = TrailingIconState.NONE
+                return this.copy(
+                    currentBorderColor = defaultColor,
+                    isError = false,
+                    errorText = null,
+                    trailingIconState = TrailingIconState.NONE,
+                )
             }
             EmailValidationState.Invalid -> {
-                if (hasFocus) {
-                    currentBorderColor = defaultColor
-                    isError = false
-                    errorText = null
-                    trailingIconState = TrailingIconState.CLEAR_TEXT
+                return if (hasFocus) {
+                    this.copy(
+                        currentBorderColor = defaultColor,
+                        isError = false,
+                        errorText = null,
+                        trailingIconState = TrailingIconState.CLEAR_TEXT,
+                    )
                 } else {
-                    currentBorderColor = ColorOption.ERROR
-                    isError = true
-                    errorText = "Not an Email!"
-                    trailingIconState = TrailingIconState.ERROR
+                    this.copy(
+                        currentBorderColor = ColorOption.ERROR,
+                        isError = true,
+                        errorText = "Not an Email!",
+                        trailingIconState = TrailingIconState.ERROR,
+                    )
                 }
             }
             EmailValidationState.Valid -> {
-                currentBorderColor = defaultColor
-                isError = false
-                errorText = null
-                trailingIconState = TrailingIconState.CHECKMARK
+                return this.copy(
+                    currentBorderColor = defaultColor,
+                    isError = false,
+                    errorText = null,
+                    trailingIconState = TrailingIconState.CHECKMARK,
+                )
             }
         }
     }
 
     companion object {
-        fun create(hint:String, defaultColor: ColorOption) = TextFieldState(hint = hint, defaultColor = defaultColor)
+        fun create(hint: String, defaultColor: ColorOption) =
+            TextFieldState(hint = hint, defaultColor = defaultColor)
     }
 }
