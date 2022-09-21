@@ -32,17 +32,20 @@ val TrailingIconState.vector: ImageVector
 
 @Composable
 fun TrailingIconState.Icon(clearCallback: () -> Unit) {
-    val emptyCallback = {}
-    if (this != TrailingIconState.NONE) {
-        IconButton(
-            onClick = if (this == TrailingIconState.CLEAR_TEXT) clearCallback else emptyCallback
-        ) {
-            Icon(
-                this.vector,
-                "icon",
-                tint = this.color
-            )
+    val icon = Icon(
+        this.vector,
+        "icon",
+        tint = this.color
+    )
+    when (this) {
+        TrailingIconState.NONE -> return
+        TrailingIconState.CLEAR_TEXT -> {
+            IconButton(
+                onClick = clearCallback
+            ) {
+                icon
+            }
         }
-
+        else -> icon
     }
 }
