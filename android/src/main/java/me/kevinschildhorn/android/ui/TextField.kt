@@ -6,18 +6,25 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.kevinschildhorn.android.ui.extensions.Icon
 import me.kevinschildhorn.android.ui.extensions.androidColor
-import me.kevinschildhorn.common.uilogic.enums.TextFieldState
+import me.kevinschildhorn.common.uilogic.enums.TextFieldValidationInterface
+import me.kevinschildhorn.common.viewmodel.ui.TextFieldViewModel
 
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
-fun SampleTextField(
-    text:String,
-    state: TextFieldState,
+fun <T:TextFieldValidationInterface> SampleTextField(
+    viewModel: TextFieldViewModel<T>,
     textCallback:(String) -> Unit,
     focusChanged:(Boolean) -> Unit
 ) {
+    val text by viewModel.text.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+
     Column {
         if (state.isError) {
             Text(

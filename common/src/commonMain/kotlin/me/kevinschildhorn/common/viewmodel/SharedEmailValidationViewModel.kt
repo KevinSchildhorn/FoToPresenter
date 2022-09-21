@@ -1,81 +1,57 @@
 package me.kevinschildhorn.android.viewModel
 
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
-import me.kevinschildhorn.common.extensions.stateFrom
-import me.kevinschildhorn.common.uilogic.enums.TextFieldState
-import me.kevinschildhorn.common.uilogic.enums.asTextFieldState
+import kotlinx.coroutines.launch
+import me.kevinschildhorn.common.businesslogic.CreatingProfileState
+import me.kevinschildhorn.common.viewmodel.ui.TextFieldViewModel
 import me.kevinschildhorn.common.businesslogic.validation.EmailValidationState
 import me.kevinschildhorn.common.businesslogic.validation.EmailValidator
 import me.kevinschildhorn.common.businesslogic.validation.PasswordValidationState
 import me.kevinschildhorn.common.businesslogic.validation.PasswordValidator
 import me.kevinschildhorn.common.viewmodel.base.ViewModel
+import me.kevinschildhorn.common.viewmodel.ui.ButtonViewModel
 
 open class SharedEmailValidationViewModel : ViewModel() {
 
-    // Email
-    private var _email: MutableStateFlow<String> = MutableStateFlow("")
-    val email: StateFlow<String> = _email
-
     private var _emailValidationState: MutableStateFlow<EmailValidationState> =
         MutableStateFlow(EmailValidationState.Empty)
-    private val emailValidationState: StateFlow<EmailValidationState> = _emailValidationState
-
-    private var _emailTextFieldState: MutableStateFlow<TextFieldState> =
-        MutableStateFlow(TextFieldState(hint = "Email"))
-    val emailTextFieldState: StateFlow<TextFieldState> = _emailTextFieldState
-        .stateFrom(viewModelScope)
-
-    // Password
-    private var _password: MutableStateFlow<String> = MutableStateFlow("")
-    val password: StateFlow<String> = _password
+    val emailTextState = TextFieldViewModel("Email", _emailValidationState, viewModelScope)
 
     private var _passwordValidationState: MutableStateFlow<PasswordValidationState> =
         MutableStateFlow(PasswordValidationState.Empty)
-    private val passwordValidationState: StateFlow<PasswordValidationState> =
-        _passwordValidationState
+    val passwordTextState = TextFieldViewModel("Password", _passwordValidationState, viewModelScope)
 
-    private var _passwordTextFieldState: MutableStateFlow<TextFieldState> =
-        MutableStateFlow(TextFieldState(hint = "Password"))
-    val passwordTextFieldState: StateFlow<TextFieldState> = _passwordTextFieldState
-        .stateFrom(viewModelScope)
+    private var _createProfileState: MutableStateFlow<CreatingProfileState> =
+        MutableStateFlow(CreatingProfileState.NotReady)
+    val createProfileButtonState =
+        ButtonViewModel("Create Profile", _createProfileState, viewModelScope)
 
-    private fun verifyEmail(email: String) {
+
+    fun updateEmail(email: String) {
+        emailTextState.setText(email)
         _emailValidationState.value = EmailValidator.verifyEmail(email)
-        _email.value = email
-        refresh()
+        checkRequirements()
     }
 
-    private fun verifyPassword(password: String) {
+    fun updatePassword(password: String) {
+        passwordTextState.setText(password)
         _passwordValidationState.value = PasswordValidator.verifyPassword(password)
-        _password.value = password
-        refresh()
+        checkRequirements()
     }
 
-    private fun refresh() {
-        _emailTextFieldState.value =
-            emailTextFieldState.value.updateWithState(
-                emailValidationState.value.asTextFieldState,
-                email.value
-            )
-        _passwordTextFieldState.value =
-            passwordTextFieldState.value.updateWithState(
-                passwordValidationState.value.asTextFieldState,
-                password.value
-            )
+    private fun checkRequirements() {
+        val ready = _emailValidationState.value.isValid && _passwordValidationState.value.isValid
+
+        _createProfileState.value =
+            if (ready) CreatingProfileState.Ready else CreatingProfileState.NotReady
     }
 
-    // Public
-
-    fun updateEmail(input: String) = verifyEmail(input)
-    fun updatePassword(input: String) = verifyPassword(input)
-
-    fun emailFocusChanged(isFocused: Boolean) {
-        _emailTextFieldState.value = emailTextFieldState.value.focusChanged(isFocused)
-        refresh()
-    }
-
-    fun passwordFocusChanged(isFocused: Boolean) {
-        _passwordTextFieldState.value = passwordTextFieldState.value.focusChanged(isFocused)
-        refresh()
+    fun createProfile() {
+        viewModelScope.launch {
+            _createProfileState.value = CreatingProfileState.Loading
+            delay(2500)
+            _createProfileState.value = CreatingProfileState.Complete
+        }
     }
 }

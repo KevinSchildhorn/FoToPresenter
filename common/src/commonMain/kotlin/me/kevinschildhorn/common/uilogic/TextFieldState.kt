@@ -1,6 +1,9 @@
-package me.kevinschildhorn.common.uilogic.enums
+package me.kevinschildhorn.common.uilogic
 
-import me.kevinschildhorn.common.uilogic.TrailingIconState
+import me.kevinschildhorn.common.uilogic.enums.ColorOption
+import me.kevinschildhorn.common.uilogic.enums.SharedColorOption
+import me.kevinschildhorn.common.uilogic.enums.TextFieldValidationState
+import me.kevinschildhorn.common.uilogic.enums.TrailingIconState
 
 data class TextFieldState(
     val hint: String,
@@ -14,11 +17,14 @@ data class TextFieldState(
     var hasFocus: Boolean = false,
     private var lastValidationState: TextFieldValidationState = TextFieldValidationState.Empty
 ) {
-    fun updateWithState(state: TextFieldValidationState, newText: String): TextFieldState =
-        this.copy(text = newText).refresh(state).copy(lastValidationState = state)
-
-    fun focusChanged(focus: Boolean): TextFieldState =
-        copy(hasFocus = focus).refresh()
+    fun updateWithState(
+        state: TextFieldValidationState,
+        newText: String,
+        focus: Boolean
+    ): TextFieldState =
+        this.copy(text = newText, hasFocus = focus)
+            .refresh(state)
+            .copy(lastValidationState = state)
 
     private fun refresh(state: TextFieldValidationState = lastValidationState): TextFieldState =
         when (state) {
