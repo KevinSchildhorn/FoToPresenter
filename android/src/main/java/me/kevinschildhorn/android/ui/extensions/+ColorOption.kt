@@ -1,7 +1,8 @@
 package me.kevinschildhorn.android.ui.extensions
 
 import androidx.compose.ui.graphics.Color
-import me.kevinschildhorn.common.ui.ColorOption
+import me.kevinschildhorn.common.uilogic.enums.ColorOption
+import me.kevinschildhorn.common.uilogic.enums.SharedColorOption
 
 val ColorOption.androidColor: Color
     get() = when (this) {
@@ -10,3 +11,6 @@ val ColorOption.androidColor: Color
         ColorOption.HINT -> Color.Gray
         ColorOption.SUCCESS -> Color.Green
     }
+
+val SharedColorOption.androidColor: Color
+    get() = this.sharedColor.androidColor

@@ -2,7 +2,7 @@ package me.kevinschildhorn.common.viewmodel
 
 import me.kevinschildhorn.android.viewModel.SharedEmailValidationViewModel
 import me.kevinschildhorn.common.StateFlowAdapter
-import me.kevinschildhorn.common.uilogic.TextFieldState
+import me.kevinschildhorn.common.uilogic.enums.TextFieldState
 import me.kevinschildhorn.common.viewmodel.base.CallbackViewModel
 
 @Suppress("unused")
