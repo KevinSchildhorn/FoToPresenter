@@ -40,7 +40,9 @@ class EmailVerificationViewModel : ObservableObject {
             doPublish(sharedViewModel.passwordTextState, onEach: { [weak self] in
                 self?.passwordTextFieldState = $0
             }),
-            doPublish(sharedViewModel.createProfileButtonState, onEach: { [weak self] in self?.createProfileButtonState = $0 })
+            doPublish(sharedViewModel.createProfileButtonState, onEach: { [weak self] in
+                self?.createProfileButtonState = $0
+            })
         ]
     }
 
