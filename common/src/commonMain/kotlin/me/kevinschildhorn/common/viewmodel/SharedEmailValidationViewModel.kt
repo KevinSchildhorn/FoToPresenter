@@ -27,12 +27,12 @@ open class SharedEmailValidationViewModel : ViewModel() {
     private val validationState: StateFlow<EmailValidationState> = _validationState
 
     private var _emailTextFieldState: MutableStateFlow<TextFieldState> =
-        MutableStateFlow(TextFieldState(hint = "Email", defaultColor = ColorOption.NORMAL))
+        MutableStateFlow(TextFieldState(hint = "Email"))
     val emailTextFieldState: StateFlow<TextFieldState> = _emailTextFieldState
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = TextFieldState(hint = "Email", defaultColor = ColorOption.NORMAL)
+            initialValue = TextFieldState(hint = "Email")
         )
 
     private fun verifyEmail(email: String) {
