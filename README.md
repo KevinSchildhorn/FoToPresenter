@@ -21,3 +21,9 @@ Foto will be designed to use the following Libraries and SDKs:
 #### iOS
 * `SwiftUI`
 * Potentially `NSURLSession`, or `CFFTPStream` (sample [here](https://developer.apple.com/library/archive/samplecode/SimpleFTPSample/Introduction/Intro.html))
+
+## Conceptual Goals
+
+While working on this project, there are some key things to make sure:
+
+* The app should keep in the best practices for both iOS and Android, *equally*. This means that The android side and the iOS side should be written in the expected, cleanest approach as possible. Then the shared library should facilitate that style
