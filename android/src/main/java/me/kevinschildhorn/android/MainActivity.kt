@@ -1,12 +1,18 @@
 package me.kevinschildhorn.android
 
-import me.kevinschildhorn.common.App
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import me.kevinschildhorn.android.ui.SignUpScreen
+import me.kevinschildhorn.common.color.SharedEnabledColor
+import me.kevinschildhorn.common.viewmodel.EmailValidationViewModel
 
 class MainActivity : AppCompatActivity() {
+
+    val viewModel = EmailValidationViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -15,4 +21,38 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    @Composable
+    fun App() {
+        var text by remember { mutableStateOf("Hello, World!") }
+/*
+        val test1 = ThemeButtonColors.default
+        val test2 = test1.color.androidColor
+        val test = ButtonDefaults.buttonColors(
+            backgroundColor = ThemeButtonColors.default.color.androidColor,
+            disabledBackgroundColor = ThemeButtonColors.default.disabledColor.androidColor
+        )
+        val test4 = ThemeButtonColors.default.asComposable2()
+        */
+        /*
+        Box(
+            modifier = Modifier.background(
+                color = test2
+            ).height(90.dp).width(90.dp)
+        )*/
+        // Button
+
+        Column {
+            SignUpScreen(
+                viewModel = EmailValidationViewModel()
+            )
+        }
+    }
 }
+
+@Composable
+fun SharedEnabledColor.asComposable2(): ButtonColors =
+    ButtonDefaults.buttonColors(
+        backgroundColor = this.color.androidColor,
+        disabledBackgroundColor = this.disabledColor.androidColor
+    )
