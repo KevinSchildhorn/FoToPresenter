@@ -1,0 +1,15 @@
+
+target 'FotoPresenter' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+pod 'common', :path => '../common/'
+
+  target 'FotoPresenterTests' do
+    inherit! :search_paths
+  end
+
+  target 'FotoPresenterUITests' do
+  end
+
+end
