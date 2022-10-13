@@ -13,5 +13,5 @@
 
 * Directories should appear as folder icons
 * They should show the title, and the amount of items in the directory
-* Should have an option button to start a slideshow
+* Should have NO option button, but you can long press to start a slideshow
 * Should match similar functionality to groupings but with different visual style
