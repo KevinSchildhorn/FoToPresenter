@@ -21,13 +21,12 @@ The first step of the process was to design what the app is, and what it does.
 * After that I moved onto the general design decisions. With both research and Use Cases I am able to decide on what elements should generally look like.
   * From the use cases I was able to make assumptions on the UX, which I wrote in the Thoughts on design for the research. For example what size and shape the photos in an element should be.
 
-## UI Design
+### 5. UI Design
 
-I then made a figma for my designs and concepts. I also decided to make a page including the general theme of the app, including fonts, typography and colors.
+I then made a figma for my designs and concepts. I also decided to make a page including the general theme of the app, including fonts, typography and colors. Here I added components and UI elements for the Gallery screen, and for the sign in screen. From here I can use these components to create the UI on mobile.
 
 ## Where next?
 
 Next steps, are:
-* flesh out the UML more, to cover how elements are related
-* Nail down UI and potentially work on design system
+* Work on design system, and add UI elements to the app.
 
