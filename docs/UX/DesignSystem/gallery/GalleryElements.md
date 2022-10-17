@@ -8,7 +8,7 @@ Gallery Item is an atom
 * 1:1 ratio
 * 5pt radius
 * 5pt margin (x and y)
-* Width is generated based on screen width, with a max size of (100pt)
+* Width is generated based on screen width
 * by default on portrait phones there are four Gallery Items per row
 
 ## Gallery Photo
