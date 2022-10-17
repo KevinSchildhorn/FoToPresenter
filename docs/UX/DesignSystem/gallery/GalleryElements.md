@@ -1,7 +1,7 @@
 # Gallery Elements
 
 ## Gallery Item
-![GalleryItem](/photos/GalleryItem.png)
+![GalleryItem](./photos/GalleryItem.png)
 
 Gallery Item is an atom
 * Is a View
@@ -19,7 +19,7 @@ Gallery Item is a molecule
 
 ## Gallery Folder
 
-![Folder](/photos/Folder.png)
+![Folder](./photos/Folder.png)
 
 Gallery Folder is a molecule
 
