@@ -1,0 +1,92 @@
+{
+  "name": "navigation_button",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "CYJizNn2y5qebpERZtfibS",
+    "node": "108:1543",
+    "version": "2536483269"
+  },
+  "default": "NavigationButton",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "button"
+      }
+    ],
+    "modes": {
+      "NavigationButton": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": "15.0",
+            "border-radius": "10.0",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "button"
+            ],
+            "item-spacing": "10.0",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "38.70967741935483",
+              "saturation": "0.4862745098039216",
+              "value": "1.0"
+            },
+            "clip-content": "false"
+          },
+          {
+            "id": "button",
+            "font-weight": "700.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "38.82352941176471",
+              "saturation": "1.0",
+              "value": "1.0"
+            },
+            "text-content": "$title",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "line-height": "1.25",
+            "typeface": "Quicksand"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "title": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "NavigationButton",
+      "size": {
+        "width": 114.0,
+        "height": 48.0
+      },
+      "parameters": {
+        "title": "Sample Text"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

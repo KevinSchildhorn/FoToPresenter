@@ -1,0 +1,135 @@
+{
+  "name": "button_primary",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "CYJizNn2y5qebpERZtfibS",
+    "node": "11:1211",
+    "version": "2536483269"
+  },
+  "default": "Button/Primary",
+  "documentation": "Primary Button",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "title"
+      },
+      {
+        "type": "text",
+        "id": "text"
+      }
+    ],
+    "modes": {
+      "Button/Primary": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": "11.0",
+            "border-radius": "15.0",
+            "tap-handler": "$on Button/Primary tapped",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "children": [
+              "title"
+            ],
+            "item-spacing": "10.0",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "38.82352941176471",
+              "saturation": "1.0",
+              "value": "1.0"
+            },
+            "clip-content": "false"
+          },
+          {
+            "id": "title",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "197.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "44.0"
+              }
+            },
+            "is-structured": "false",
+            "children": [
+              "text"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "text",
+            "margin": {
+              "top": "13.0",
+              "bottom": "13.0"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "font-weight": "700.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "38.4375",
+              "saturation": "1.0",
+              "value": "0.25098039215686274"
+            },
+            "text-content": "$title",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align-vertical": "center",
+            "line-height": "1.25",
+            "typeface": "Quicksand"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "on Button/Primary tapped": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "title": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "Button/Primary",
+      "size": {
+        "width": 219.0,
+        "height": 66.0
+      },
+      "parameters": {
+        "title": "Sample Text"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

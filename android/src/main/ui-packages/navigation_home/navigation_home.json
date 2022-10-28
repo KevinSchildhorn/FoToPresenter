@@ -1,0 +1,82 @@
+{
+  "name": "navigation_home",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "CYJizNn2y5qebpERZtfibS",
+    "node": "108:1551",
+    "version": "2536483269"
+  },
+  "default": "NavigationHome",
+  "documentation": "Navigation Home",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "vector",
+        "id": "Vector"
+      }
+    ],
+    "modes": {
+      "NavigationHome": {
+        "rules": [
+          {
+            "id": "top_level",
+            "padding": "13.0",
+            "border-radius": "10.0",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "Vector"
+            ],
+            "item-spacing": "10.0",
+            "background-color": {
+              "alpha": "1.0",
+              "hue": "38.70967741935483",
+              "saturation": "0.4862745098039216",
+              "value": "1.0"
+            },
+            "clip-content": "false"
+          },
+          {
+            "id": "Vector",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "27.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "23.0"
+              }
+            },
+            "vector-content": "vector.svg"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "NavigationHome",
+      "size": {
+        "width": 53.0,
+        "height": 49.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

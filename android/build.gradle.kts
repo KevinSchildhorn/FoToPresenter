@@ -2,6 +2,8 @@ plugins {
     id("org.jetbrains.compose") version "1.1.0"
     id("com.android.application")
     kotlin("android")
+    id("kotlin-android")
+    id("com.google.relay") version "0.3.00"
 }
 
 group = "me.kevinschildhorn"
@@ -42,5 +44,11 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class).configureEach {
+        kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + "-Xjvm-default=all"
+        }
     }
 }

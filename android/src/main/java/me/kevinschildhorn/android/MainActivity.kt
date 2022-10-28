@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
 import me.kevinschildhorn.common.ui.style.color.SharedEnabledColor
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +23,12 @@ class MainActivity : AppCompatActivity() {
     @Composable
     fun App() {
         var text by remember { mutableStateOf("Hello, World!") }
+
+        /*
+        ButtonPrimary(onButtonPrimaryTapped = {
+            print("Hello")
+        }, title = "This is a button")*/
+    }
 /*
         val test1 = ThemeButtonColors.default
         val test2 = test1.color.androidColor
@@ -38,7 +45,6 @@ class MainActivity : AppCompatActivity() {
             ).height(90.dp).width(90.dp)
         )*/
         // Button
-    }
 }
 
 @Composable

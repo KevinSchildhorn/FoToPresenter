@@ -1,0 +1,192 @@
+{
+  "name": "navigation_bar",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "CYJizNn2y5qebpERZtfibS",
+    "node": "108:1572",
+    "version": "2536483269"
+  },
+  "default": "NavigationBar",
+  "documentation": "Navigation bar containing multiple items\n",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "adin_component",
+        "id": "NavigationHome",
+        "key": "navigation_home"
+      },
+      {
+        "type": "group",
+        "id": "NavigationArrow"
+      },
+      {
+        "type": "adin_component",
+        "id": "NavigationButton",
+        "key": "navigation_button"
+      },
+      {
+        "type": "group",
+        "id": "NavigationArrow1"
+      },
+      {
+        "type": "adin_component",
+        "id": "NavigationButton1",
+        "key": "navigation_button"
+      },
+      {
+        "type": "vector",
+        "id": "Vector"
+      },
+      {
+        "type": "vector",
+        "id": "Vector1"
+      }
+    ],
+    "modes": {
+      "NavigationBar": {
+        "rules": [
+          {
+            "id": "top_level",
+            "arrangement": "row",
+            "main-axis-align": "start",
+            "children": [
+              "NavigationHome",
+              "NavigationArrow",
+              "NavigationButton",
+              "NavigationArrow1",
+              "NavigationButton1"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "NavigationHome",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            }
+          },
+          {
+            "id": "NavigationArrow",
+            "padding": {
+              "left": "5.0",
+              "top": "17.0",
+              "right": "5.0",
+              "bottom": "17.0"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "Vector"
+            ],
+            "item-spacing": "10.0",
+            "clip-content": "false"
+          },
+          {
+            "id": "NavigationButton",
+            "title": "Sample Text",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            }
+          },
+          {
+            "id": "NavigationArrow1",
+            "padding": {
+              "left": "5.0",
+              "top": "17.0",
+              "right": "5.0",
+              "bottom": "17.0"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "Vector1"
+            ],
+            "item-spacing": "10.0",
+            "clip-content": "false"
+          },
+          {
+            "id": "NavigationButton1",
+            "title": "Sample Text",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            }
+          },
+          {
+            "id": "Vector",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "7.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "14.0"
+              }
+            },
+            "vector-content": "vector1.svg"
+          },
+          {
+            "id": "Vector1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "7.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": "14.0"
+              }
+            },
+            "vector-content": "vector2.svg"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "NavigationBar",
+      "size": {
+        "width": 315.0,
+        "height": 48.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}
