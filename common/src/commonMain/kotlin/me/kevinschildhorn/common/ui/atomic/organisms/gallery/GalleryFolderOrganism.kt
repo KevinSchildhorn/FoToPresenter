@@ -8,7 +8,11 @@ import me.kevinschildhorn.common.ui.atomic.organisms.Organism
 import me.kevinschildhorn.common.ui.style.DesignColors
 import me.kevinschildhorn.common.ui.style.DesignTypography
 
-class GalleryFolderOrganism(val text: String, imageAtoms: List<ImageAtom>) : Organism() {
+class GalleryFolderOrganism(
+    val text: String,
+    imageAtoms: List<ImageAtom>,
+) : Organism() {
     private val labelAtom = TextLabelAtom(text, DesignTypography.BUTTON, DesignColors.light.surface)
     override val atoms: List<Atom> = imageAtoms + listOf(labelAtom)
+    override val molecules: List<Molecule> = emptyList()
 }
