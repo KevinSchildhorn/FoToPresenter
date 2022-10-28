@@ -1,19 +1,7 @@
 package me.kevinschildhorn.common.viewmodel
 
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 import me.kevinschildhorn.android.viewModel.SharedEmailValidationViewModel
-import me.kevinschildhorn.common.StateFlowAdapter
-import me.kevinschildhorn.common.businesslogic.CreatingProfileState
-import me.kevinschildhorn.common.businesslogic.validation.EmailValidationState
-import me.kevinschildhorn.common.businesslogic.validation.EmailValidator
-import me.kevinschildhorn.common.businesslogic.validation.PasswordValidationState
-import me.kevinschildhorn.common.businesslogic.validation.PasswordValidator
-import me.kevinschildhorn.common.uilogic.TextFieldState
 import me.kevinschildhorn.common.viewmodel.base.CallbackViewModel
-import me.kevinschildhorn.common.viewmodel.ui.ButtonViewModel
-import me.kevinschildhorn.common.viewmodel.ui.TextFieldViewModel
 
 @Suppress("unused")
 class EmailValidationCallbackViewModel : CallbackViewModel() {

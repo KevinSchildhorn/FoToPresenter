@@ -1,9 +1,7 @@
 package me.kevinschildhorn.android.ui.extensions
 
 import androidx.compose.ui.graphics.Color
-import me.kevinschildhorn.common.uilogic.enums.ColorOption
-import me.kevinschildhorn.common.uilogic.enums.SharedColorOption
-
+/*
 val ColorOption.androidColor: Color
     get() = when (this) {
         ColorOption.NORMAL -> Color.Blue
@@ -14,3 +12,5 @@ val ColorOption.androidColor: Color
 
 val SharedColorOption.androidColor: Color
     get() = this.sharedColor.androidColor
+
+ */

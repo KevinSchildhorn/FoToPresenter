@@ -14,12 +14,16 @@ repositories {
 dependencies {
     implementation(project(":common"))
     val compose_version = "1.2.1"
+
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha02")
     implementation("androidx.compose.ui:ui:$compose_version")
+    debugImplementation("androidx.compose.ui:ui-tooling:$compose_version")
+
+    implementation("androidx.compose.ui:ui-tooling-preview:$compose_version")
     implementation("androidx.compose.foundation:foundation:$compose_version")
     implementation("androidx.compose.material:material:$compose_version")
     implementation("androidx.compose.runtime:runtime:$compose_version")
-    implementation("androidx.activity:activity-compose:1.5.1")
+    implementation("androidx.activity:activity-compose:1.6.0")
 }
 
 android {
@@ -35,5 +39,8 @@ android {
         getByName("release") {
             isMinifyEnabled = false
         }
+    }
+    buildFeatures {
+        compose = true
     }
 }

@@ -1,17 +1,6 @@
 package me.kevinschildhorn.android.viewModel
 
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import me.kevinschildhorn.common.businesslogic.CreatingProfileState
-import me.kevinschildhorn.common.viewmodel.ui.TextFieldViewModel
-import me.kevinschildhorn.common.businesslogic.validation.EmailValidationState
-import me.kevinschildhorn.common.businesslogic.validation.EmailValidator
-import me.kevinschildhorn.common.businesslogic.validation.PasswordValidationState
-import me.kevinschildhorn.common.businesslogic.validation.PasswordValidator
-import me.kevinschildhorn.common.viewmodel.base.ViewModel
-import me.kevinschildhorn.common.viewmodel.ui.ButtonViewModel
-
+/*
 open class SharedEmailValidationViewModel : ViewModel() {
 
     private var _emailValidationState: MutableStateFlow<EmailValidationState> =
@@ -54,4 +43,4 @@ open class SharedEmailValidationViewModel : ViewModel() {
             _createProfileState.value = CreatingProfileState.Complete
         }
     }
-}
+}*/

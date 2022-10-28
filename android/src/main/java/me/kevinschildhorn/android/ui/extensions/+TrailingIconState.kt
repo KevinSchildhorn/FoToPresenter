@@ -9,8 +9,8 @@ import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import me.kevinschildhorn.common.uilogic.enums.TrailingIconState
 
+/*
 val TrailingIconState.color: Color
     get() = when (this) {
         TrailingIconState.NONE -> Color.Transparent
@@ -46,4 +46,4 @@ fun TrailingIconState.Icon(clearCallback: () -> Unit) {
         }
         else -> icon
     }
-}
+}*/

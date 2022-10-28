@@ -6,13 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import me.kevinschildhorn.android.ui.SignUpScreen
-import me.kevinschildhorn.common.color.SharedEnabledColor
-import me.kevinschildhorn.common.viewmodel.EmailValidationViewModel
+import me.kevinschildhorn.common.ui.style.color.SharedEnabledColor
 
 class MainActivity : AppCompatActivity() {
 
-    val viewModel = EmailValidationViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -41,12 +38,6 @@ class MainActivity : AppCompatActivity() {
             ).height(90.dp).width(90.dp)
         )*/
         // Button
-
-        Column {
-            SignUpScreen(
-                viewModel = EmailValidationViewModel()
-            )
-        }
     }
 }
 

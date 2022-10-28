@@ -2,10 +2,8 @@ package me.kevinschildhorn.common.viewmodel.ui
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
-import me.kevinschildhorn.common.businesslogic.CreatingProfileState
-import me.kevinschildhorn.common.uilogic.ButtonState
-import me.kevinschildhorn.common.uilogic.TextFieldState
 
+/*
 class ButtonViewModel(
     text:String,
     validationState: MutableStateFlow<CreatingProfileState>,
@@ -18,4 +16,4 @@ class ButtonViewModel(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = ButtonState(text)
         )
-}
+}*/

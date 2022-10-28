@@ -1,10 +1,6 @@
 package me.kevinschildhorn.common.uilogic
 
-import me.kevinschildhorn.common.uilogic.enums.ColorOption
-import me.kevinschildhorn.common.uilogic.enums.SharedColorOption
-import me.kevinschildhorn.common.uilogic.enums.TextFieldValidationState
-import me.kevinschildhorn.common.uilogic.enums.TrailingIconState
-
+/*
 data class TextFieldState(
     val hint: String,
     var isError: Boolean = false,
@@ -72,3 +68,4 @@ data class TextFieldState(
             TextFieldState(hint = hint)
     }
 }
+*/
