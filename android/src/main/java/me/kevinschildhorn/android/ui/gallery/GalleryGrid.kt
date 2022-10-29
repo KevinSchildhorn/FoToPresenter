@@ -1,5 +1,5 @@
 package me.kevinschildhorn.android.ui.gallery
-
+/*
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.layout.Arrangement
@@ -48,4 +48,4 @@ fun GalleryGridPreview() {
             BitmapFactory.decodeResource(LocalContext.current.resources, R.drawable.sample_photo1),
         )
     )
-}
+}*/

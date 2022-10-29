@@ -4,6 +4,7 @@ plugins {
     kotlin("android")
     id("kotlin-android")
     id("com.google.relay") version "0.3.00"
+    kotlin("plugin.serialization")
 }
 
 group = "me.kevinschildhorn"

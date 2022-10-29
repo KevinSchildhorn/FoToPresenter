@@ -1,5 +1,5 @@
 package me.kevinschildhorn.android.ui.gallery
-
+/*
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
@@ -38,4 +38,4 @@ fun GalleryPhotoItemPreview() {
     val bitmap =
         BitmapFactory.decodeResource(LocalContext.current.resources, drawable)
     GalleryPhotoItem(bitmap)
-}
+}*/

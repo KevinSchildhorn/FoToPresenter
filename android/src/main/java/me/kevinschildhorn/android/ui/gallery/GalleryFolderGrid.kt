@@ -12,9 +12,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.kevinschildhorn.android.R
-import me.kevinschildhorn.common.ui.atomic.atoms.gallery.GalleryPhotoAtom
 
-
+/*
 @Composable
 fun GalleryFolderGrid(images: List<Bitmap>) {
     val atom = GalleryPhotoAtom()
@@ -125,4 +124,4 @@ fun GalleryFolderGridPreview() {
             )
         }
     }
-}
+}*/

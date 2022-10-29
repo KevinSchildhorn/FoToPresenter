@@ -1,5 +1,5 @@
 package me.kevinschildhorn.android.ui.gallery
-
+/*
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.layout.*
@@ -56,4 +56,4 @@ fun GalleryFolderItemPreview() {
         bitmap3,
         bitmap4
     ))
-}
+}*/

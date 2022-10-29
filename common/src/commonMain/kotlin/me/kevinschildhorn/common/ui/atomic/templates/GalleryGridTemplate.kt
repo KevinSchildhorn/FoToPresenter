@@ -1,5 +1,6 @@
 package me.kevinschildhorn.common.ui.atomic.templates
 
+/*
 import me.kevinschildhorn.common.ui.atomic.atoms.gallery.GalleryPhotoAtom
 import me.kevinschildhorn.common.ui.atomic.molecules.Molecule
 import me.kevinschildhorn.common.ui.atomic.organisms.Organism
@@ -12,4 +13,4 @@ class GalleryGridTemplate(
 ) : Template() {
     val defaultColumns: Int = 4
     val padding: Int = 5
-}
+}*/
