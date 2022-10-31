@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "CYJizNn2y5qebpERZtfibS",
     "node": "11:1211",
-    "version": "2536483269"
+    "version": "2544501944"
   },
   "default": "Button/Primary",
   "documentation": "Primary Button",
@@ -17,12 +17,8 @@
         "root": "true"
       },
       {
-        "type": "group",
-        "id": "title"
-      },
-      {
         "type": "text",
-        "id": "text"
+        "id": "button"
       }
     ],
     "modes": {
@@ -33,16 +29,10 @@
             "padding": "11.0",
             "border-radius": "15.0",
             "tap-handler": "$on Button/Primary tapped",
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "shrink"
-              },
-              "height-constraints": {
-                "sizing-mode": "shrink"
-              }
-            },
+            "main-axis-align": "start",
+            "cross-axis-align": "start",
             "children": [
-              "title"
+              "button"
             ],
             "item-spacing": "10.0",
             "background-color": {
@@ -54,29 +44,7 @@
             "clip-content": "false"
           },
           {
-            "id": "title",
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": "197.0"
-              },
-              "height-constraints": {
-                "sizing-mode": "fixed",
-                "value": "44.0"
-              }
-            },
-            "is-structured": "false",
-            "children": [
-              "text"
-            ],
-            "clip-content": "false"
-          },
-          {
-            "id": "text",
-            "margin": {
-              "top": "13.0",
-              "bottom": "13.0"
-            },
+            "id": "button",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "proportional",
@@ -90,11 +58,11 @@
             "font-weight": "700.0",
             "color": {
               "alpha": "1.0",
-              "hue": "38.4375",
-              "saturation": "1.0",
-              "value": "0.25098039215686274"
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
             },
-            "text-content": "$title",
+            "text-content": "Sample Text",
             "overflow": "visible",
             "max-lines": "-1",
             "text-align-vertical": "center",
@@ -110,22 +78,14 @@
       "data-type": "void-callback",
       "required": false,
       "description": ""
-    },
-    "title": {
-      "data-type": "text",
-      "required": false,
-      "description": ""
     }
   },
   "previews": [
     {
       "design": "Button/Primary",
       "size": {
-        "width": 219.0,
-        "height": 66.0
-      },
-      "parameters": {
-        "title": "Sample Text"
+        "width": 183.0,
+        "height": 44.0
       }
     }
   ],

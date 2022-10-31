@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "CYJizNn2y5qebpERZtfibS",
     "node": "108:1572",
-    "version": "2536483269"
+    "version": "2544501944"
   },
   "default": "NavigationBar",
   "documentation": "Navigation bar containing multiple items\n",
@@ -103,10 +103,12 @@
             "title": "Sample Text",
             "size-constraints": {
               "width-constraints": {
-                "sizing-mode": "shrink"
+                "sizing-mode": "fixed",
+                "value": "114.0"
               },
               "height-constraints": {
-                "sizing-mode": "shrink"
+                "sizing-mode": "fixed",
+                "value": "45.0"
               }
             }
           },
@@ -138,10 +140,12 @@
             "title": "Sample Text",
             "size-constraints": {
               "width-constraints": {
-                "sizing-mode": "shrink"
+                "sizing-mode": "fixed",
+                "value": "117.0"
               },
               "height-constraints": {
-                "sizing-mode": "shrink"
+                "sizing-mode": "fixed",
+                "value": "45.0"
               }
             }
           },

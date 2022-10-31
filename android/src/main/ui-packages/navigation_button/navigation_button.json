@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "CYJizNn2y5qebpERZtfibS",
     "node": "108:1543",
-    "version": "2536483269"
+    "version": "2544501944"
   },
   "default": "NavigationButton",
   "design": {
@@ -17,7 +17,7 @@
       },
       {
         "type": "text",
-        "id": "button"
+        "id": "text"
       }
     ],
     "modes": {
@@ -27,17 +27,9 @@
             "id": "top_level",
             "padding": "15.0",
             "border-radius": "10.0",
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "shrink"
-              },
-              "height-constraints": {
-                "sizing-mode": "shrink"
-              }
-            },
             "arrangement": "row",
             "children": [
-              "button"
+              "text"
             ],
             "item-spacing": "10.0",
             "background-color": {
@@ -49,7 +41,17 @@
             "clip-content": "false"
           },
           {
-            "id": "button",
+            "id": "text",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
             "font-weight": "700.0",
             "color": {
               "alpha": "1.0",
@@ -59,6 +61,7 @@
             },
             "text-content": "$title",
             "overflow": "visible",
+            "max-lines": "-1",
             "text-align-vertical": "center",
             "line-height": "1.25",
             "typeface": "Quicksand"
