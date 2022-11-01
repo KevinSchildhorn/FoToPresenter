@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "CYJizNn2y5qebpERZtfibS",
     "node": "11:1211",
-    "version": "2544501944"
+    "version": "2551880306"
   },
   "default": "Button/Primary",
   "documentation": "Primary Button",
@@ -18,7 +18,7 @@
       },
       {
         "type": "text",
-        "id": "button"
+        "id": "buttonText"
       }
     ],
     "modes": {
@@ -32,7 +32,7 @@
             "main-axis-align": "start",
             "cross-axis-align": "start",
             "children": [
-              "button"
+              "buttonText"
             ],
             "item-spacing": "10.0",
             "background-color": {
@@ -44,7 +44,7 @@
             "clip-content": "false"
           },
           {
-            "id": "button",
+            "id": "buttonText",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "proportional",
@@ -62,7 +62,7 @@
               "saturation": "0.0",
               "value": "0.0"
             },
-            "text-content": "Sample Text",
+            "text-content": "TestText",
             "overflow": "visible",
             "max-lines": "-1",
             "text-align-vertical": "center",
