@@ -5,7 +5,7 @@
     "type": "figma",
     "file": "CYJizNn2y5qebpERZtfibS",
     "node": "11:1211",
-    "version": "2551880306"
+    "version": "2551968889"
   },
   "default": "Button/Primary",
   "documentation": "Primary Button",
@@ -26,7 +26,7 @@
         "rules": [
           {
             "id": "top_level",
-            "padding": "11.0",
+            "padding": "10.0",
             "border-radius": "15.0",
             "tap-handler": "$on Button/Primary tapped",
             "main-axis-align": "start",
@@ -58,11 +58,11 @@
             "font-weight": "700.0",
             "color": {
               "alpha": "1.0",
-              "hue": "0.0",
-              "saturation": "0.0",
-              "value": "0.0"
+              "hue": "38.4375",
+              "saturation": "1.0",
+              "value": "0.25098039215686274"
             },
-            "text-content": "TestText",
+            "text-content": "Test Text",
             "overflow": "visible",
             "max-lines": "-1",
             "text-align-vertical": "center",
