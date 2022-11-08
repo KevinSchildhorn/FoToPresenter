@@ -8,7 +8,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import me.kevinschildhorn.android.ui.SignUpScreen
 import me.kevinschildhorn.common.color.SharedEnabledColor
-import me.kevinschildhorn.common.viewmodel.EmailValidationViewModel
 
 class MainActivity : AppCompatActivity() {
 

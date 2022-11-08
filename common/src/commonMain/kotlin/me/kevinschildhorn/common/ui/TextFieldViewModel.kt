@@ -1,4 +1,4 @@
-package me.kevinschildhorn.common.viewmodel.ui
+package me.kevinschildhorn.common.ui
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*

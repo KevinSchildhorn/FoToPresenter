@@ -1,4 +1,4 @@
-package me.kevinschildhorn.common.viewmodel.base
+package me.kevinschildhorn.common.layers.ui.viewmodel.base
 
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import me.kevinschildhorn.common.FlowAdapter
 import me.kevinschildhorn.common.MutableStateFlowAdapter
 import me.kevinschildhorn.common.StateFlowAdapter
+import me.kevinschildhorn.common.layers.ui.viewmodel.base.ViewModel
 
 /**
  * Base class that provides a Kotlin/Native equivalent to the AndroidX `ViewModel`. In particular, this provides

@@ -142,10 +142,10 @@
 		F16C62C128C914D1001CE2F9 /* FotoPresenter */ = {
 			isa = PBXGroup;
 			children = (
+				F1C6DED4291AB8EC000B9431 /* swiftui */,
 				F1BC833F28D4DA6900702B83 /* Extensions */,
 				F1BC833C28D4CB4B00702B83 /* ViewModel */,
 				F16C62C228C914D1001CE2F9 /* FotoPresenterApp.swift */,
-				F16C62C428C914D1001CE2F9 /* ContentView.swift */,
 				F16C62C628C914D3001CE2F9 /* Assets.xcassets */,
 				F16C62C828C914D3001CE2F9 /* Preview Content */,
 				F19EF1FA28D8D228005F0806 /* CombineAdapters.swift */,
@@ -193,6 +193,14 @@
 				F19EF20028DB6631005F0806 /* ColorOption+Ext.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F1C6DED4291AB8EC000B9431 /* swiftui */ = {
+			isa = PBXGroup;
+			children = (
+				F16C62C428C914D1001CE2F9 /* ContentView.swift */,
+			);
+			path = swiftui;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
