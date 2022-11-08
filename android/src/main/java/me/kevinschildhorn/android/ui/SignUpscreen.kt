@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import me.kevinschildhorn.common.viewmodel.EmailValidationViewModel
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable

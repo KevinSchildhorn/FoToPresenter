@@ -1,4 +1,4 @@
-package me.kevinschildhorn.common.viewmodel.base
+package me.kevinschildhorn.common.layers.ui.viewmodel.base
 
 import kotlinx.coroutines.CoroutineScope
 import androidx.lifecycle.ViewModel as AndroidXViewModel
