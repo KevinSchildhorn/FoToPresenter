@@ -3,6 +3,9 @@ package me.kevinschildhorn.common.layers.data.datasources
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
 
+/**
+Stores Sign in Credentials from Shared Preferences
+ **/
 class CredentialsDataSource(private val settings: Settings) {
 
     var address: String
