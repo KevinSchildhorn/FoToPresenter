@@ -1,13 +1,15 @@
 package me.kevinschildhorn.common.layers.ui.viewmodel
 
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import me.kevinschildhorn.common.layers.data.data.SignInCredentials
 import me.kevinschildhorn.common.layers.data.repositories.CredentialsRepository
-import me.kevinschildhorn.common.layers.ui.viewmodel.base.ViewModel
 import me.kevinschildhorn.common.layers.domain.SaveCredentialsUseCase
 import me.kevinschildhorn.common.layers.ui.uistate.LoginUiState
+import me.kevinschildhorn.common.layers.ui.viewmodel.base.ViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    id("com.github.ben-manes.versions") version "0.43.0"
 }
 
 group = "me.kevinschildhorn"
@@ -25,8 +26,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-                implementation ("io.insert-koin:koin-core:3.2.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+                implementation("io.insert-koin:koin-core:3.2.2")
                 implementation("com.russhwolf:multiplatform-settings:1.0.0-RC")
             }
         }
@@ -51,7 +52,6 @@ kotlin {
                 implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
                 implementation("io.insert-koin:koin-android:3.2.2")
                 implementation("androidx.security:security-crypto:1.1.0-alpha03")
-
             }
         }
         val androidTest by getting {
@@ -60,7 +60,11 @@ kotlin {
                 implementation("io.insert-koin:koin-test-junit4:3.2.2")
             }
         }
-        val iosMain by getting
+        val iosMain by getting {
+            dependencies {
+                implementation("com.russhwolf:multiplatform-settings-test:1.0.0-RC")
+            }
+        }
     }
 }
 

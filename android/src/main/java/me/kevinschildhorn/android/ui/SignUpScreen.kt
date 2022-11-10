@@ -3,10 +3,8 @@ package me.kevinschildhorn.android.ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.flowWithLifecycle
 import me.kevinschildhorn.common.layers.ui.viewmodel.LoginViewModel
 
 @OptIn(ExperimentalLifecycleComposeApi::class)

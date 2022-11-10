@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.compose") version "1.1.0"
+    id("org.jetbrains.compose")
     id("com.android.application")
     kotlin("android")
 }
@@ -9,10 +9,14 @@ version = "1.0"
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://plugins.gradle.org/m2/")
+    }
 }
 
 dependencies {
     implementation(project(":common"))
+
     val compose_version = "1.2.1"
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03")
     implementation("androidx.compose.ui:ui:$compose_version")
