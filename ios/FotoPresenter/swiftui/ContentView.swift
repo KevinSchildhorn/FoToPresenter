@@ -9,17 +9,17 @@ import SwiftUI
 import SharedFotoSDK
 
 struct ContentView: View {
-    @StateObject private var viewModel = EmailVerificationViewModel()
+    @StateObject private var viewModel = LoginViewModel()
 
     @FocusState private var emailFocusState:Bool
     @FocusState private var passwordFocusState:Bool
 
-    let molecule = DesignMolecules.TextField().defaultTextField
+    //let molecule = DesignMolecules.TextField().defaultTextField
 
     var body: some View {
+        Text("Hello")
 
-
-
+/*
         VStack {
             // Email
             HStack {
@@ -84,7 +84,7 @@ struct ContentView: View {
             })
             .buttonStyle(.borderedProminent)
             .disabled(!viewModel.createProfileButtonState.isEnabled)
-        }
+        }*/
     }
 }
 

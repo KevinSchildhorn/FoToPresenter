@@ -3,18 +3,19 @@
 //  FotoPresenter
 //
 //  Created by Kevin Schildhorn on 9/16/22.
-//
+//∫
 
 import Foundation
 import SharedFotoSDK
 import SwiftUI
 import Combine
 
-class EmailVerificationViewModel : ObservableObject {
-    var sharedViewModel: EmailValidationCallbackViewModel
+class LoginViewModel : ObservableObject {
+    var sharedViewModel: LoginCallbackViewModel
     private var cancellers: [Cancellable] = []
 
 
+    /*
     @Published var email: String = "" {
         didSet {
             sharedViewModel.updateEmail(email: email)
@@ -64,5 +65,5 @@ class EmailVerificationViewModel : ObservableObject {
     }
     func passwordFocusChanged(isFocused: Bool) {
         sharedViewModel.setPasswordFocus(focus: isFocused)
-    }
+    }*/
 }

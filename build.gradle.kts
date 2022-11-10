@@ -1,13 +1,13 @@
 buildscript {
     repositories {
         gradlePluginPortal()
-        jcenter()
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
-        classpath("com.android.tools.build:gradle:7.2.2")
+        classpath("com.android.tools.build:gradle:7.3.1")
+        classpath(kotlin("gradle-plugin", "1.7.10"))
+        classpath("org.jetbrains.compose:compose-gradle-plugin:1.3.0-alpha01-dev849")
     }
 }
 
