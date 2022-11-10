@@ -2,10 +2,11 @@ package me.kevinschildhorn.android.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import me.kevinschildhorn.common.layers.ui.viewmodel.LoginViewModel
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
@@ -19,18 +20,18 @@ fun SignUpScreen(viewModel: LoginViewModel) {
             uiState.errorMessage?.let {
                 Text(it)
             }
-            TextField(uiState.content.address, onValueChange = {
-                viewModel.address = it
+            TextField(uiState.address, onValueChange = {
+                viewModel.updateAddress(it)
             }, label = {
                 Text("address")
             })
-            TextField(uiState.content.username, onValueChange = {
-                viewModel.username = it
+            TextField(uiState.username, onValueChange = {
+                viewModel.updateUsername(it)
             }, label = {
                 Text("username")
             })
-            TextField(uiState.content.password, onValueChange = {
-                viewModel.password = it
+            TextField(uiState.password, onValueChange = {
+                viewModel.updatePassword(it)
             }, label = {
                 Text("password")
             })

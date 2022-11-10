@@ -7,8 +7,4 @@ data class SignInCredentials(
     var address: String,
     var username: String,
     var password: String,
-) {
-    companion object{
-        val EMPTY = SignInCredentials("","","")
-    }
-}
+)

@@ -1,7 +1,6 @@
 package me.kevinschildhorn.common.layers.ui.uistate.base
 
-interface UiState<T>{
-    val content:T
+interface UiState {
     val isLoading: Boolean
     val errorMessage: String?
 }
