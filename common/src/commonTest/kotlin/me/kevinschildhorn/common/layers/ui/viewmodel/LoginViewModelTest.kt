@@ -48,9 +48,9 @@ class LoginViewModelTest : KoinTest {
 
     @Test
     fun `login`() = runTest {
-        viewModel.address = "google.com"
-        viewModel.username = "John"
-        viewModel.password = "Secret"
+        viewModel.updateAddress("google.com")
+        viewModel.updateUsername("John")
+        viewModel.updatePassword("Secret")
         viewModel.login()
 
         val state = viewModel.uiState.value
