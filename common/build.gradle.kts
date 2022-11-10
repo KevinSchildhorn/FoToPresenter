@@ -28,15 +28,14 @@ kotlin {
                 implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 implementation ("io.insert-koin:koin-core:3.2.2")
                 implementation("com.russhwolf:multiplatform-settings:1.0.0-RC")
-
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation("com.russhwolf:multiplatform-settings-test:1.0.0-RC")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
                 implementation("io.insert-koin:koin-test:3.2.2")
-                implementation("io.insert-koin:koin-test-junit4:3.2.2")
             }
         }
         val androidMain by getting {
@@ -58,6 +57,7 @@ kotlin {
         val androidTest by getting {
             dependencies {
                 implementation("junit:junit:4.13.2")
+                implementation("io.insert-koin:koin-test-junit4:3.2.2")
             }
         }
         val iosMain by getting

@@ -1,46 +1,44 @@
 package me.kevinschildhorn.android.ui
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import me.kevinschildhorn.common.layers.ui.viewmodel.LoginViewModel
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
-fun SignUpScreen(viewModel: EmailValidationViewModel) {
+fun SignUpScreen(viewModel: LoginViewModel) {
 
-    val buttonState by viewModel.createProfileButtonState.uiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Column {
-        SampleTextField(viewModel.emailTextState, {
-            viewModel.updateEmail(it)
-        }, { isFocused ->
-            viewModel.emailTextState.setFocus(isFocused)
-        })
-        SampleTextField(viewModel.passwordTextState, {
-            viewModel.updatePassword(it)
-        }, { isFocused ->
-            viewModel.passwordTextState.setFocus(isFocused)
-        })
-        Button(onClick = {
-            viewModel.createProfile()
-        }, content = {
-            if(buttonState.isLoading) {
-                CircularProgressIndicator(
-                    color = buttonState.textColor.androidColor
-                )
-            }else {
-                Text(
-                    buttonState.text,
-                    color = buttonState.textColor.androidColor
-                )
+        Column {
+            uiState.errorMessage?.let {
+                Text(it)
             }
-        },
-        enabled = buttonState.isEnabled
-        )
+            TextField(uiState.content.address, onValueChange = {
+                viewModel.address = it
+            }, label = {
+                Text("address")
+            })
+            TextField(uiState.content.username, onValueChange = {
+                viewModel.username = it
+            }, label = {
+                Text("username")
+            })
+            TextField(uiState.content.password, onValueChange = {
+                viewModel.password = it
+            }, label = {
+                Text("password")
+            })
+            TextButton({
+                viewModel.login()
+            }, content = {
+                Text("Submit")
+            })
+        }
     }
 }
