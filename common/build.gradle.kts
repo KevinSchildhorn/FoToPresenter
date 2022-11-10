@@ -50,8 +50,8 @@ kotlin {
                 implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
                 implementation("androidx.lifecycle:lifecycle-viewmodel:2.5.1")
                 implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-                implementation("io.insert-koin:koin-android:3.2.2")
-                implementation("androidx.security:security-crypto:1.1.0-alpha03")
+                implementation("io.insert-koin:koin-android:3.3.0")
+                implementation("androidx.security:security-crypto:1.1.0-alpha04")
             }
         }
         val androidTest by getting {

@@ -14,37 +14,24 @@ class LoginViewModel : ObservableObject {
     var sharedViewModel: LoginCallbackViewModel
     private var cancellers: [Cancellable] = []
 
+    @Published private(set) var uiState: LoginUiState =
+        LoginUiState(
+            address: "",
+            username: "",
+            password: "",
+            isLoading: false,
+            errorMessage: nil
+        )
 
-    /*
-    @Published var email: String = "" {
-        didSet {
-            sharedViewModel.updateEmail(email: email)
-        }
-    }
-    @Published var password: String = ""{
-        didSet {
-            sharedViewModel.updatePassword(password: password)
-        }
-    }
-    @Published private(set) var emailTextFieldState: TextFieldState = TextFieldState.companion.create(hint: "Email")
-    @Published private(set) var passwordTextFieldState: TextFieldState = TextFieldState.companion.create(hint: "Email")
-    @Published private(set) var createProfileButtonState: ButtonState = ButtonState.companion.create(text: "Create Profile")
-
+    //MARK: - LIFECYCLE
 
     init() {
-        self.sharedViewModel = EmailValidationCallbackViewModel()
-
-        cancellers += [
-            doPublish(sharedViewModel.emailTextState, onEach: { [weak self] in
-                self?.emailTextFieldState = $0
-            }),
-            doPublish(sharedViewModel.passwordTextState, onEach: { [weak self] in
-                self?.passwordTextFieldState = $0
-            }),
-            doPublish(sharedViewModel.createProfileButtonState, onEach: { [weak self] in
-                self?.createProfileButtonState = $0
+        self.sharedViewModel = LoginCallbackViewModel()
+        cancellers.append(
+            doPublish(sharedViewModel.uiState, onEach: { [weak self] in
+                self?.uiState = $0
             })
-        ]
+        )
     }
 
     deinit {
@@ -52,18 +39,13 @@ class LoginViewModel : ObservableObject {
         sharedViewModel.clear()
     }
 
-    func updateEmail(input: String) {
-        sharedViewModel.updateEmail(email: input)
-    }
+    //MARK: - SHARED VIEW MODEL FUNCTIONS
 
-    func updatePassword(input: String) {
-        sharedViewModel.updatePassword(password: input)
-    }
+    func updateAddress(address: String) { sharedViewModel.updateAddress(address: address) }
+    func updateUsername(username: String) { sharedViewModel.updateUsername(username: username) }
+    func updatePassword(password: String) { sharedViewModel.updatePassword(password: password) }
 
-    func emailFocusChanged(isFocused: Bool) {
-        sharedViewModel.setEmailFocus(focus: isFocused)
-    }
-    func passwordFocusChanged(isFocused: Bool) {
-        sharedViewModel.setPasswordFocus(focus: isFocused)
-    }*/
+    func login() { sharedViewModel.login() }
+    func fetchLoginCredentials() { sharedViewModel.fetchLoginCredentials() }
+
 }
