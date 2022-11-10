@@ -38,8 +38,8 @@ class CredentialsRepositoryTest : KoinTest {
         val password = "secret"
         repository.saveCredentials(address, username, password)
         val credentials = repository.fetchCredentials()
-        assertEquals(credentials.address, address)
-        assertEquals(credentials.username, username)
-        assertEquals(credentials.password, password)
+        assertEquals(address, credentials.address)
+        assertEquals(username, credentials.username)
+        assertEquals(password, credentials.password)
     }
 }

@@ -22,9 +22,9 @@ class CredentialsDataSourceTest {
     @Test
     fun `update Credentials`() {
 
-        assertEquals(dataSource.address, "google.com", "")
-        assertEquals(dataSource.username, "John")
-        assertEquals(dataSource.password, "secret")
+        assertEquals("google.com",dataSource.address)
+        assertEquals("John", dataSource.username)
+        assertEquals("secret", dataSource.password)
 
         val newAddress = "sample.com"
         val newUsername = "Will"
@@ -34,13 +34,13 @@ class CredentialsDataSourceTest {
             username = newUsername
             password = newPassword
         }
-        assertEquals(dataSource.address, newAddress)
-        assertEquals(dataSource.username, newUsername)
-        assertEquals(dataSource.password, newPassword)
+        assertEquals(newAddress, dataSource.address)
+        assertEquals(newUsername, dataSource.username)
+        assertEquals(newPassword, dataSource.password)
 
-        assertEquals(settings[KEY_ADDRESS], newAddress)
-        assertEquals(settings[KEY_USERNAME], newUsername)
-        assertEquals(settings[KEY_PASSWORD], newPassword)
+        assertEquals(newAddress, settings[KEY_ADDRESS])
+        assertEquals(newUsername, settings[KEY_USERNAME])
+        assertEquals(newPassword, settings[KEY_PASSWORD])
     }
 
     companion object {
