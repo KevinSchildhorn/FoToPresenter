@@ -6,5 +6,7 @@ jobs:
   Lint-Check:
     runs-on: ubuntu-latest
     steps:
-      - name: ktlint-check
-        uses: musichin/ktlint-check@v2.0.3
+      - uses: actions/checkout@v2
+      - uses: musichin/ktlint-check@v2.0.3
+        with:
+          ktlint-version: '0.47.1'
