@@ -17,5 +17,4 @@ enum class EmailValidationState : BaseValidationState, TextFieldValidationInterf
             Invalid -> TextFieldValidationState.Invalid
             Valid -> TextFieldValidationState.Valid
         }
-
 }

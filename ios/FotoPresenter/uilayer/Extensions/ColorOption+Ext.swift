@@ -11,8 +11,8 @@ import SwiftUI
 
 extension ColorOption {
 
-    var color:SwiftUI.Color {
-        switch (self) {
+    var color: SwiftUI.Color {
+        switch self {
             case .normal: return Color.blue
             case .error: return Color.red
             case .hint: return Color.gray

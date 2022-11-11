@@ -2,7 +2,6 @@ package me.kevinschildhorn.common.layers.data.datasources
 
 import com.russhwolf.settings.MapSettings
 import com.russhwolf.settings.get
-import me.kevinschildhorn.common.layers.domain.SaveCredentialsUseCase
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -22,7 +21,7 @@ class CredentialsDataSourceTest {
     @Test
     fun `update Credentials`() {
 
-        assertEquals("google.com",dataSource.address)
+        assertEquals("google.com", dataSource.address)
         assertEquals("John", dataSource.username)
         assertEquals("secret", dataSource.password)
 

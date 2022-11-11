@@ -7,7 +7,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import me.kevinschildhorn.android.ui.SignUpScreen
 import me.kevinschildhorn.common.color.SharedEnabledColor
 import me.kevinschildhorn.common.layers.ui.viewmodel.LoginViewModel

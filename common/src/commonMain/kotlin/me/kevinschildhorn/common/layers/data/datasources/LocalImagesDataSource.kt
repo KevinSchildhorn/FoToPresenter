@@ -12,7 +12,6 @@ class LocalImagesDataSource : ImageDataSource {
         return emptyList()
     }
 
-    fun updateImages(images: Images){
-
+    fun updateImages(images: Images) {
     }
 }
