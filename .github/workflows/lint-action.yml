@@ -7,6 +7,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run KtFormat
-        run: |
-          ls | 
-          ./gradlew ktFormat
+        run: ls
+        run: ./gradlew ktFormat
