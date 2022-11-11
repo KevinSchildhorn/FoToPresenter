@@ -5,6 +5,13 @@
 * [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines) - Threading
 * [Koin](https://insert-koin.io/docs/reference/koin-mp/kmp) - Dependency Injection
 * [multiplatform-settings](https://github.com/russhwolf/multiplatform-settings) - Key / Value storage
+* [KtLint](https://github.com/jlleitschuh/ktlint-gradle) - Kotlin Linting
+
+## Android
+* [KtLint](https://github.com/jlleitschuh/ktlint-gradle) - Kotlin Linting
+
+## iOS
+* [SwiftLint](https://github.com/realm/SwiftLint) - Swift Linting
 
 ## Additional References
 
