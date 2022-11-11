@@ -6,7 +6,7 @@ jobs:
   Lint-Check:
     runs-on: ubuntu-latest
     steps:
-      - name: GitHub Action for ktlint
-        uses: yutailang0119/action-ktlint@v3.1.0
+      - name: Run ktlint
+        uses: lucasnlm/ktlint-action@v1.0.1
       - name: GitHub Action for SwiftLint
         uses: norio-nomura/action-swiftlint@3.2.1
