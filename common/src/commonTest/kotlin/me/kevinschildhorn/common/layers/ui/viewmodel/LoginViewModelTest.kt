@@ -5,7 +5,6 @@ import com.russhwolf.settings.Settings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -17,7 +16,11 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
-import kotlin.test.*
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNull
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class LoginViewModelTest : KoinTest {
@@ -62,9 +65,9 @@ class LoginViewModelTest : KoinTest {
     fun `fetch credentials`() = runTest {
         viewModel.fetchLoginCredentials()
         val state = viewModel.uiState.value
-        assertEquals("defaultAddress",state.address)
-        assertEquals("defaultUsername",state.username)
-        assertEquals("defaultPassword",state.password)
+        assertEquals("defaultAddress", state.address)
+        assertEquals("defaultUsername", state.username)
+        assertEquals("defaultPassword", state.password)
     }
 
     @AfterTest

@@ -1,8 +1,7 @@
 package me.kevinschildhorn.common.uilogic.enums
 
-import me.kevinschildhorn.common.theme.DesignColors
 import me.kevinschildhorn.common.color.SharedColor
-
+import me.kevinschildhorn.common.theme.DesignColors
 
 enum class ColorOption {
     NORMAL,

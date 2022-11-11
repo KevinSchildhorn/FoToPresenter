@@ -10,6 +10,5 @@ class DirectoriesRepository(
 ) {
 
     suspend fun fetchDirectories() {
-
     }
 }

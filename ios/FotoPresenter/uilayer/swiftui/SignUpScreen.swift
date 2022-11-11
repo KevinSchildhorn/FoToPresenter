@@ -11,10 +11,10 @@ import SharedFotoSDK
 struct SignUpScreen: View {
     @StateObject private var viewModel = LoginViewModel()
 
-    @FocusState private var emailFocusState:Bool
-    @FocusState private var passwordFocusState:Bool
+    @FocusState private var emailFocusState: Bool
+    @FocusState private var passwordFocusState: Bool
 
-    //let molecule = DesignMolecules.TextField().defaultTextField
+    // let molecule = DesignMolecules.TextField().defaultTextField
 
     var body: some View {
         Text("Hello")
