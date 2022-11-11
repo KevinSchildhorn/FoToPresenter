@@ -12,7 +12,7 @@ import platform.Security.kSecAttrAccessibleAfterFirstUnlock
 import platform.Security.kSecAttrService
 
 @Suppress("unused")
-fun startKoin(){
+fun startKoin() {
     startKoin {
         modules(commonModule, platformModule)
     }

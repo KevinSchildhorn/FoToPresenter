@@ -2,8 +2,10 @@ package me.kevinschildhorn.common
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.*
-
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.onEach
 
 open class FlowAdapter<T : Any>(
     private val scope: CoroutineScope,

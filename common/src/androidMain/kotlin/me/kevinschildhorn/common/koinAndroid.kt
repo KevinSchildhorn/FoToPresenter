@@ -15,7 +15,7 @@ import org.koin.core.module.Module
 import org.koin.dsl.binds
 import org.koin.dsl.module
 
-fun startKoin(context:Context){
+fun startKoin(context: Context) {
     startKoin {
         androidContext(context)
         modules(commonModule, platformModule)
@@ -45,13 +45,21 @@ fun KoinApplication.androidContext(androidContext: Context): KoinApplication {
     }
 
     if (androidContext is Application) {
-        koin.loadModules(listOf(module {
-            single { androidContext } binds arrayOf(Context::class, Application::class)
-        }))
+        koin.loadModules(
+            listOf(
+                module {
+                    single { androidContext } binds arrayOf(Context::class, Application::class)
+                }
+            )
+        )
     } else {
-        koin.loadModules(listOf(module {
-            single{ androidContext }
-        }))
+        koin.loadModules(
+            listOf(
+                module {
+                    single { androidContext }
+                }
+            )
+        )
     }
 
     return this

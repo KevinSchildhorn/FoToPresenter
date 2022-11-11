@@ -1,13 +1,16 @@
 package me.kevinschildhorn.common.ui
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import me.kevinschildhorn.common.businesslogic.CreatingProfileState
 import me.kevinschildhorn.common.uilogic.ButtonState
-import me.kevinschildhorn.common.uilogic.TextFieldState
 
 class ButtonViewModel(
-    text:String,
+    text: String,
     validationState: MutableStateFlow<CreatingProfileState>,
     scope: CoroutineScope
 ) {

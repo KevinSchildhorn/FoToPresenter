@@ -1,13 +1,11 @@
 package me.kevinschildhorn.common.theme
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.height
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonColors
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import me.kevinschildhorn.common.atomic.atoms.Atom
-import me.kevinschildhorn.common.atomic.atoms.TextFieldAtom
 import me.kevinschildhorn.common.atomic.atoms.interfaces.AtomType
 import me.kevinschildhorn.common.atomic.atoms.interfaces.EnablableAtom
 import me.kevinschildhorn.common.color.SharedEnabledColor
@@ -15,7 +13,7 @@ import me.kevinschildhorn.common.color.SharedEnabledColor
 object AtomGenerator {
 
     @Composable
-    fun GenerateAtom(atom: Atom): Unit {
+    fun GenerateAtom(atom: Atom) {
         val modifier = Modifier.apply {
         }
         return when (atom.type) {
@@ -25,11 +23,10 @@ object AtomGenerator {
                 colors =
                 (atom as? EnablableAtom)?.enabledColor?.asComposable() ?: ButtonDefaults.buttonColors()
             )
-            //AtomType.TEXT -> Text(text = "", color = atom.color.androidColor)
+            // AtomType.TEXT -> Text(text = "", color = atom.color.androidColor)
             else -> {}
         }
     }
-
 }
 
 @Composable
