@@ -27,7 +27,6 @@ val TrailingIconState.vector: ImageVector
         TrailingIconState.CHECKMARK -> Icons.Filled.Done
     }
 
-
 @Composable
 fun TrailingIconState.Icon(clearCallback: () -> Unit) {
     val icon = Icon(
