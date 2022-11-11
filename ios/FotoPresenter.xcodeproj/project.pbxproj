@@ -242,6 +242,7 @@
 				F16C62BC28C914D1001CE2F9 /* Frameworks */,
 				F16C62BD28C914D1001CE2F9 /* Resources */,
 				E0864578F75F56A5E5E87CAA /* [CP] Embed Pods Frameworks */,
+				F1A42C86291EB94000CDAEAD /* Swift Lint */,
 			);
 			buildRules = (
 			);
@@ -438,6 +439,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FotoPresenter/Pods-FotoPresenter-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		F1A42C86291EB94000CDAEAD /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint --fix\n";
 		};
 		FABE32B6934391267AA6B90F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

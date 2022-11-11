@@ -3,16 +3,16 @@
 //  FotoPresenter
 //
 //  Created by Kevin Schildhorn on 9/16/22.
-//∫
+// ∫
 
 import Foundation
 import SharedFotoSDK
 import SwiftUI
 import Combine
 
-class LoginViewModel : CancellableViewModel<LoginCallbackViewModel>, ObservableObject {
+class LoginViewModel: CancellableViewModel<LoginCallbackViewModel>, ObservableObject {
 
-    //MARK: - UI STATE
+    // MARK: - UI STATE
 
     var address: String {
         get { uiState.address }
@@ -29,9 +29,9 @@ class LoginViewModel : CancellableViewModel<LoginCallbackViewModel>, ObservableO
 
     @Published private var uiState: LoginUiState = LoginUiState.companion.EMPTY
 
-    //MARK: - LIFECYCLE
+    // MARK: - LIFECYCLE
 
-    init(){
+    init() {
         super.init(LoginCallbackViewModel())
         cancellers.append(
             doPublish(callbackViewModel.uiState, onEach: { [weak self] in
@@ -44,7 +44,7 @@ class LoginViewModel : CancellableViewModel<LoginCallbackViewModel>, ObservableO
         callbackViewModel.clear()
     }
 
-    //MARK: - FUNCTIONS
+    // MARK: - FUNCTIONS
 
     func login() { callbackViewModel.login() }
     func fetchLoginCredentials() { callbackViewModel.fetchLoginCredentials() }

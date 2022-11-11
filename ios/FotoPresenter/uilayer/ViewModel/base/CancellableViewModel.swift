@@ -9,12 +9,12 @@ import Foundation
 import Combine
 import SharedFotoSDK
 
-class CancellableViewModel<T:CallbackViewModel> {
+class CancellableViewModel<T: CallbackViewModel> {
 
     var cancellers: [Cancellable] = []
-    var callbackViewModel:T
+    var callbackViewModel: T
 
-    init(_ callbackViewModel:T){
+    init(_ callbackViewModel: T) {
         self.callbackViewModel = callbackViewModel
     }
 
