@@ -6,6 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: List files in the repository
+      - name: Run KtFormat
         run: |
-          ls ${{ github.workspace }}
+          ./gradlew ktFormat
