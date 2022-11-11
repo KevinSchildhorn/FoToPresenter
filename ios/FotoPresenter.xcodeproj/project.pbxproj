@@ -11,7 +11,7 @@
 		9F841B98770EE4B4E0327E18 /* Pods_FotoPresenter_FotoPresenterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2235014D129A3C9890B2CDE3 /* Pods_FotoPresenter_FotoPresenterUITests.framework */; };
 		A3CF2E0140D96E96A01075C1 /* Pods_FotoPresenterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CAC0A8CFD67DDF47B23E7A2 /* Pods_FotoPresenterTests.framework */; };
 		F16C62C328C914D1001CE2F9 /* FotoPresenterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62C228C914D1001CE2F9 /* FotoPresenterApp.swift */; };
-		F16C62C528C914D1001CE2F9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62C428C914D1001CE2F9 /* ContentView.swift */; };
+		F16C62C528C914D1001CE2F9 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62C428C914D1001CE2F9 /* SignUpScreen.swift */; };
 		F16C62C728C914D3001CE2F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F16C62C628C914D3001CE2F9 /* Assets.xcassets */; };
 		F16C62CA28C914D3001CE2F9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F16C62C928C914D3001CE2F9 /* Preview Assets.xcassets */; };
 		F16C62D428C914D4001CE2F9 /* FotoPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62D328C914D4001CE2F9 /* FotoPresenterTests.swift */; };
@@ -19,6 +19,7 @@
 		F16C62E028C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62DF28C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift */; };
 		F19EF1FB28D8D228005F0806 /* CombineAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19EF1FA28D8D228005F0806 /* CombineAdapters.swift */; };
 		F19EF20128DB6631005F0806 /* ColorOption+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19EF20028DB6631005F0806 /* ColorOption+Ext.swift */; };
+		F1A42C85291EA45400CDAEAD /* CancellableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A42C84291EA45400CDAEAD /* CancellableViewModel.swift */; };
 		F1BC833E28D4CB5F00702B83 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BC833D28D4CB5F00702B83 /* LoginViewModel.swift */; };
 		F1BC834328D4E1A600702B83 /* TextFieldState+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BC834228D4E1A600702B83 /* TextFieldState+Ext.swift */; };
 /* End PBXBuildFile section */
@@ -52,7 +53,7 @@
 		DA2F185F285131EECAF12BDD /* Pods-FotoPresenterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FotoPresenterTests.debug.xcconfig"; path = "Target Support Files/Pods-FotoPresenterTests/Pods-FotoPresenterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F16C62BF28C914D1001CE2F9 /* FotoPresenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FotoPresenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F16C62C228C914D1001CE2F9 /* FotoPresenterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoPresenterApp.swift; sourceTree = "<group>"; };
-		F16C62C428C914D1001CE2F9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F16C62C428C914D1001CE2F9 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
 		F16C62C628C914D3001CE2F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F16C62C928C914D3001CE2F9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F16C62CF28C914D4001CE2F9 /* FotoPresenterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FotoPresenterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +63,7 @@
 		F16C62DF28C914D4001CE2F9 /* FotoPresenterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoPresenterUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F19EF1FA28D8D228005F0806 /* CombineAdapters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineAdapters.swift; sourceTree = "<group>"; };
 		F19EF20028DB6631005F0806 /* ColorOption+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorOption+Ext.swift"; sourceTree = "<group>"; };
+		F1A42C84291EA45400CDAEAD /* CancellableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellableViewModel.swift; sourceTree = "<group>"; };
 		F1BC833D28D4CB5F00702B83 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		F1BC834228D4E1A600702B83 /* TextFieldState+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextFieldState+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,13 +144,10 @@
 		F16C62C128C914D1001CE2F9 /* FotoPresenter */ = {
 			isa = PBXGroup;
 			children = (
-				F1C6DED4291AB8EC000B9431 /* swiftui */,
-				F1BC833F28D4DA6900702B83 /* Extensions */,
-				F1BC833C28D4CB4B00702B83 /* ViewModel */,
-				F16C62C228C914D1001CE2F9 /* FotoPresenterApp.swift */,
+				F1A42C82291EA3E100CDAEAD /* uilayer */,
 				F16C62C628C914D3001CE2F9 /* Assets.xcassets */,
 				F16C62C828C914D3001CE2F9 /* Preview Content */,
-				F19EF1FA28D8D228005F0806 /* CombineAdapters.swift */,
+				F1A42C83291EA41600CDAEAD /* util */,
 			);
 			path = FotoPresenter;
 			sourceTree = "<group>";
@@ -178,9 +177,36 @@
 			path = FotoPresenterUITests;
 			sourceTree = "<group>";
 		};
+		F1A42C81291EA3AA00CDAEAD /* base */ = {
+			isa = PBXGroup;
+			children = (
+				F1A42C84291EA45400CDAEAD /* CancellableViewModel.swift */,
+			);
+			path = base;
+			sourceTree = "<group>";
+		};
+		F1A42C82291EA3E100CDAEAD /* uilayer */ = {
+			isa = PBXGroup;
+			children = (
+				F1C6DED4291AB8EC000B9431 /* swiftui */,
+				F1BC833C28D4CB4B00702B83 /* ViewModel */,
+				F1BC833F28D4DA6900702B83 /* Extensions */,
+			);
+			path = uilayer;
+			sourceTree = "<group>";
+		};
+		F1A42C83291EA41600CDAEAD /* util */ = {
+			isa = PBXGroup;
+			children = (
+				F19EF1FA28D8D228005F0806 /* CombineAdapters.swift */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
 		F1BC833C28D4CB4B00702B83 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				F1A42C81291EA3AA00CDAEAD /* base */,
 				F1BC833D28D4CB5F00702B83 /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
@@ -198,7 +224,8 @@
 		F1C6DED4291AB8EC000B9431 /* swiftui */ = {
 			isa = PBXGroup;
 			children = (
-				F16C62C428C914D1001CE2F9 /* ContentView.swift */,
+				F16C62C228C914D1001CE2F9 /* FotoPresenterApp.swift */,
+				F16C62C428C914D1001CE2F9 /* SignUpScreen.swift */,
 			);
 			path = swiftui;
 			sourceTree = "<group>";
@@ -441,7 +468,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F16C62C528C914D1001CE2F9 /* ContentView.swift in Sources */,
+				F1A42C85291EA45400CDAEAD /* CancellableViewModel.swift in Sources */,
+				F16C62C528C914D1001CE2F9 /* SignUpScreen.swift in Sources */,
 				F1BC834328D4E1A600702B83 /* TextFieldState+Ext.swift in Sources */,
 				F1BC833E28D4CB5F00702B83 /* LoginViewModel.swift in Sources */,
 				F19EF20128DB6631005F0806 /* ColorOption+Ext.swift in Sources */,

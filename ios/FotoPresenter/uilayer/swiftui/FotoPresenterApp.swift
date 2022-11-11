@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import SharedFotoSDK
 
 @main
 struct FotoPresenterApp: App {
+
+    init() {
+        KoinIOSKt.startKoin()
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SignUpScreen()
         }
     }
 }
