@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  SignUpScreen.swift
 //  FotoPresenter
 //
 //  Created by Kevin Schildhorn on 9/7/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SharedFotoSDK
 
-struct ContentView: View {
+struct SignUpScreen: View {
     @StateObject private var viewModel = LoginViewModel()
 
     @FocusState private var emailFocusState:Bool
@@ -19,6 +19,7 @@ struct ContentView: View {
     var body: some View {
         Text("Hello")
 
+        TextField("Address", text: $viewModel.address)
 /*
         VStack {
             // Email
@@ -88,8 +89,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct SignUpScreen_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        SignUpScreen()
     }
 }
