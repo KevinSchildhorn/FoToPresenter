@@ -27,13 +27,7 @@ class LoginViewModel : CancellableViewModel<LoginCallbackViewModel>, ObservableO
         set { callbackViewModel.updatePassword(password: newValue) }
     }
 
-    @Published private var uiState: LoginUiState = LoginUiState(
-        address: "",
-        username: "",
-        password: "",
-        isLoading: false,
-        errorMessage: nil
-    )
+    @Published private var uiState: LoginUiState = LoginUiState.companion.EMPTY
 
     //MARK: - LIFECYCLE
 
