@@ -20,7 +20,7 @@ class LoginViewModel(
     private val repository: CredentialsRepository,
 ) : ViewModel(), KoinComponent {
 
-    private val _uiState = MutableStateFlow(LoginUiState())
+    private val _uiState = MutableStateFlow(LoginUiState.EMPTY)
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
     private var fetchJob: Job? = null
 
