@@ -7,15 +7,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: musichin/ktlint-check@v2.0.3
-        with:
-          ktlint-version: '0.47.1'
-          android: true
-          relative: true
-          experimental: true
-          reporter: |
-            plain,output=ktlint_report.txt
-            json,output=ktlint_report.json
-          patterns: |
-            **/**.kt
-            !**/generated/**
+       - run: ./gradlew ktFormat
