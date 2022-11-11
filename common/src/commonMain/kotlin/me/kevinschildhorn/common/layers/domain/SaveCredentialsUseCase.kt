@@ -3,7 +3,6 @@ package me.kevinschildhorn.common.layers.domain
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import me.kevinschildhorn.common.layers.data.repositories.CredentialsRepository
-import org.koin.core.component.KoinComponent
 
 /**
 Saves sign in credentials to the repository

@@ -1,8 +1,12 @@
 package me.kevinschildhorn.common.ui
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.*
-import me.kevinschildhorn.common.atomic.molecules.TextFieldMolecule
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import me.kevinschildhorn.common.uilogic.TextFieldState
 import me.kevinschildhorn.common.uilogic.enums.TextFieldValidationInterface
 

@@ -5,4 +5,4 @@ enum class Weight {
     BOLD,
     ITALIC
 }
-class SharedFont(name:String, weight: Weight)
+class SharedFont(name: String, weight: Weight)

@@ -1,6 +1,5 @@
 package me.kevinschildhorn.common.businesslogic.validation
 
-
 object EmailValidator {
     private val simpleEmailRegex = "^\\S+@\\S+\\.\\S+\$".toRegex()
 
