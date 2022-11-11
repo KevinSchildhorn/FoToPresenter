@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 
+@Suppress("unused")
 open class FlowAdapter<T : Any>(
     private val scope: CoroutineScope,
     private val flow: Flow<T>,
