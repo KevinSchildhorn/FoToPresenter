@@ -4,17 +4,24 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.*
+import androidx.compose.material.ButtonColors
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import me.kevinschildhorn.android.ui.SignUpScreen
 import me.kevinschildhorn.common.color.SharedEnabledColor
-import me.kevinschildhorn.common.viewmodel.EmailValidationViewModel
+import me.kevinschildhorn.common.layers.ui.viewmodel.LoginViewModel
+import me.kevinschildhorn.common.startKoin
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinComponent
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), KoinComponent {
 
-    val viewModel = EmailValidationViewModel()
+    private val viewModel by viewModel<LoginViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        startKoin(this)
         setContent {
             MaterialTheme {
                 App()
@@ -25,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     @Composable
     fun App() {
         var text by remember { mutableStateOf("Hello, World!") }
+        SignUpScreen(viewModel)
 /*
         val test1 = ThemeButtonColors.default
         val test2 = test1.color.androidColor
@@ -44,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         Column {
             SignUpScreen(
-                viewModel = EmailValidationViewModel()
+                viewModel = viewModel
             )
         }
     }

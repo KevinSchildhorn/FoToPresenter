@@ -14,7 +14,7 @@ import me.kevinschildhorn.android.ui.extensions.Icon
 import me.kevinschildhorn.android.ui.extensions.androidColor
 import me.kevinschildhorn.common.theme.DesignMolecules
 import me.kevinschildhorn.common.uilogic.enums.TextFieldValidationInterface
-import me.kevinschildhorn.common.viewmodel.ui.TextFieldViewModel
+import me.kevinschildhorn.common.ui.TextFieldViewModel
 
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
