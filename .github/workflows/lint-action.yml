@@ -6,6 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run KtFormat
+
+      - name: Run ls
         run: ls
+
+      - name: Run KtFormat
         run: ./gradlew ktFormat
