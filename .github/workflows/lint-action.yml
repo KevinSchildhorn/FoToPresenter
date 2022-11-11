@@ -10,3 +10,12 @@ jobs:
       - uses: musichin/ktlint-check@v2.0.3
         with:
           ktlint-version: '0.47.1'
+          android: true
+          relative: true
+          experimental: true
+          reporter: |
+            plain,output=ktlint_report.txt
+            json,output=ktlint_report.json
+          patterns: |
+            **/**.kt
+            !**/generated/**
