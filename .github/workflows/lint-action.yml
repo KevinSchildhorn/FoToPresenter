@@ -1,7 +1,6 @@
 name: Lint Action
 run-name: ${{ github.actor }} is running lint checks 🚀
-on:
-  pull_request:
+on: [pull_request]
 
 jobs:
   Lint-Check:
