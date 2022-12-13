@@ -5,7 +5,7 @@ import me.kevinschildhorn.common.architecture.data.repositories.CredentialsRepos
 /**
 Connect to Server using FTPS and saved credentials
  **/
-class AutoLoginUseCase(
+class AutoConnectUseCase(
     private val repository: CredentialsRepository
 ) {
     suspend operator fun invoke(): Boolean {

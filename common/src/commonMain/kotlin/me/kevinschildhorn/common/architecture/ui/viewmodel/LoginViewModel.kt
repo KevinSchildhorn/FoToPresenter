@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import me.kevinschildhorn.common.architecture.domain.AutoLoginUseCase
+import me.kevinschildhorn.common.architecture.domain.AutoConnectUseCase
 import me.kevinschildhorn.common.architecture.domain.ConnectToServerUseCase
 import me.kevinschildhorn.common.architecture.domain.SaveCredentialsUseCase
 import me.kevinschildhorn.common.architecture.ui.uistate.LoginUiState
@@ -65,8 +65,8 @@ class LoginViewModel(
     private fun attemptAutoLogin() {
         fetchJob?.cancel()
         fetchJob = viewModelScope.launch {
-            val autoLoginUseCase: AutoLoginUseCase by inject()
-            if (autoLoginUseCase()) {
+            val autoConnectUseCase: AutoConnectUseCase by inject()
+            if (autoConnectUseCase()) {
                 // TODO
             }
         }
