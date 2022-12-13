@@ -1,6 +1,6 @@
 package me.kevinschildhorn.common.architecture.domain
 
-import me.kevinschildhorn.common.connection.ftps.FTPSClient
+import me.kevinschildhorn.common.network.ftps.FTPSClient
 
 /**
 Connect to Server using FTPS
