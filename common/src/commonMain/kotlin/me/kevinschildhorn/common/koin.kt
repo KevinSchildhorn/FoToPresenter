@@ -1,9 +1,9 @@
 package me.kevinschildhorn.common
 
-import me.kevinschildhorn.common.layers.data.datasources.CredentialsDataSource
-import me.kevinschildhorn.common.layers.data.repositories.CredentialsRepository
-import me.kevinschildhorn.common.layers.domain.SaveCredentialsUseCase
-import me.kevinschildhorn.common.layers.ui.viewmodel.LoginViewModel
+import me.kevinschildhorn.common.architecture.data.datasources.CredentialsDataSource
+import me.kevinschildhorn.common.architecture.data.repositories.CredentialsRepository
+import me.kevinschildhorn.common.architecture.domain.SaveCredentialsUseCase
+import me.kevinschildhorn.common.architecture.ui.viewmodel.LoginViewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
