@@ -4,7 +4,8 @@ import me.kevinschildhorn.common.connection.DirectoryInfo
 
 actual object FTPSClient {
     actual val isConnected: Boolean = false
-    actual var currentDirectory: DirectoryInfo? = nil
+    actual val currentDirectory: DirectoryInfo?
+        get() = null
 
     // Connection
     actual suspend fun connect(

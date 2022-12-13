@@ -2,6 +2,7 @@ package me.kevinschildhorn.common.connection.ftps
 
 import co.touchlab.kermit.Logger
 import me.kevinschildhorn.common.connection.DirectoryInfo
+import me.kevinschildhorn.common.extensions.isPhoto
 import org.apache.commons.net.ftp.FTP
 import org.apache.commons.net.ftp.FTPReply
 import org.apache.commons.net.ftp.FTPSClient
@@ -14,7 +15,16 @@ actual object FTPSClient {
     actual val isConnected: Boolean
         get() = client.isConnected
 
-    actual var currentDirectory: DirectoryInfo? = null
+    actual val currentDirectory: DirectoryInfo?
+        get() = try {
+            DirectoryInfo(
+                path = client.printWorkingDirectory(),
+                directories = client.listDirectories().asList().filter { it.isDirectory },
+                files = client.listFiles().asList().filter { it.isFile }.filter { it.isPhoto }
+            )
+        } catch (e: Exception) {
+            null
+        }
 
     //region Connection
 
