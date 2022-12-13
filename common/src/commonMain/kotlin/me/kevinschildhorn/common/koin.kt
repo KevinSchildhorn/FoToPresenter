@@ -9,14 +9,6 @@ import me.kevinschildhorn.common.architecture.ui.viewmodel.LoginViewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-internal fun kermitModule(
-    baseLogger: Logger,
-) = module {
-    factory { (tag: String?) ->
-        if (tag != null) baseLogger.withTag(tag) else baseLogger
-    }
-}
-
 val commonModule = module {
     val baseLogger = Logger(LoggerConfig.default)
 
