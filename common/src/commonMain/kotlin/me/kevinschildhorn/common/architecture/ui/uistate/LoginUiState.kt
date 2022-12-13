@@ -4,7 +4,8 @@ import me.kevinschildhorn.common.architecture.data.data.SignInCredentials
 import me.kevinschildhorn.common.architecture.ui.uistate.base.UiState
 
 data class LoginUiState(
-    val address: String,
+    val hostname: String,
+    val port: String,
     val username: String,
     val password: String,
     override val isLoading: Boolean = false,
@@ -14,14 +15,16 @@ data class LoginUiState(
     companion object {
         fun fromCredentials(credentials: SignInCredentials) =
             LoginUiState(
-                address = credentials.address,
+                hostname = credentials.address,
+                port = credentials.port,
                 username = credentials.username,
                 password = credentials.password,
             )
 
         val EMPTY: LoginUiState
             get() = LoginUiState(
-                address = "",
+                hostname = "",
+                port = "",
                 username = "",
                 password = "",
             )

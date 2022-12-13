@@ -15,7 +15,7 @@ val commonModule = module {
     single { CredentialsDataSource(get()) }
     single { CredentialsRepository(get()) }
     factory { SaveCredentialsUseCase(get(), baseLogger.withTag("SaveCredentialsUseCase")) }
-    single { LoginViewModel(get()) }
+    single { LoginViewModel(get(), baseLogger.withTag("LoginViewModel")) }
 }
 
 internal expect val platformModule: Module
