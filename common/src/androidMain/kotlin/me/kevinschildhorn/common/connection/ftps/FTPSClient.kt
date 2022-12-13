@@ -48,7 +48,7 @@ actual object FTPSClient {
             }
             return loggedIn
         } catch (e: Exception) {
-            logger.e { e.localizedMessage ?: "Exception Connecting"}
+            logger.e { e.localizedMessage ?: e.toString() }
         }
         return false
     }
@@ -58,7 +58,7 @@ actual object FTPSClient {
             client.logout()
             client.disconnect()
         } catch (e: Exception) {
-            logger.e { e.localizedMessage ?: "Exception Disconnecting" }
+            logger.e { e.localizedMessage ?: e.toString() }
         }
     }
 
@@ -70,7 +70,7 @@ actual object FTPSClient {
         try {
             return client.changeWorkingDirectory(directoryName)
         } catch (e: Exception) {
-            logger.e { e.localizedMessage ?: "Exception Navigating Forward" }
+            logger.e { e.localizedMessage ?: e.toString() }
         }
         return false
     }
@@ -79,7 +79,7 @@ actual object FTPSClient {
         try {
             return client.changeToParentDirectory()
         } catch (e: Exception) {
-            logger.e { e.localizedMessage ?: "Navigate Back" }
+            logger.e { e.localizedMessage ?: e.toString() }
         }
         return false
     }

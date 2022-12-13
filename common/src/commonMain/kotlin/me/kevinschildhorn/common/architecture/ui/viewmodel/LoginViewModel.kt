@@ -1,6 +1,7 @@
 package me.kevinschildhorn.common.architecture.ui.viewmodel
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -40,7 +41,7 @@ class LoginViewModel(
     fun login() {
         val connectToServer = ConnectToServerUseCase()
         val defaultInfo = TestingLoginInfo()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             val result = connectToServer(
                 defaultInfo.host,
                 defaultInfo.port,
