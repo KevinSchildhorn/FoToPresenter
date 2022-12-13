@@ -1,10 +1,10 @@
 package me.kevinschildhorn.common.connection.ftps
 
-import me.kevinschildhorn.common.connection.DirectoryInfo
+import me.kevinschildhorn.common.connection.DirectoryInformation
 
 actual object FTPSClient {
     actual val isConnected: Boolean = false
-    actual val currentDirectory: DirectoryInfo?
+    actual val currentDirectory: DirectoryInformation?
         get() = null
 
     // Connection
