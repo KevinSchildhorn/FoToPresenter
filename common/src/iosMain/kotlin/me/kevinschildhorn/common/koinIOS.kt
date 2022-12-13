@@ -2,7 +2,7 @@ package me.kevinschildhorn.common
 
 import com.russhwolf.settings.KeychainSettings
 import com.russhwolf.settings.Settings
-import me.kevinschildhorn.common.layers.data.datasources.CredentialsDataSource
+import me.kevinschildhorn.common.architecture.data.datasources.CredentialsDataSource
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.dsl.module

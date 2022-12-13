@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import me.kevinschildhorn.common.layers.ui.viewmodel.LoginViewModel
+import me.kevinschildhorn.common.architecture.ui.viewmodel.LoginViewModel
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable

@@ -1,8 +1,8 @@
 package me.kevinschildhorn.android.ui.extensions
 
 import androidx.compose.ui.graphics.Color
-import me.kevinschildhorn.common.uilogic.enums.ColorOption
-import me.kevinschildhorn.common.uilogic.enums.SharedColorOption
+import me.kevinschildhorn.common.deprecated.uilogic.enums.ColorOption
+import me.kevinschildhorn.common.deprecated.uilogic.enums.SharedColorOption
 
 val ColorOption.androidColor: Color
     get() = when (this) {
