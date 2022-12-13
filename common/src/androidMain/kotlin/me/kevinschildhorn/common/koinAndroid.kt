@@ -6,7 +6,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
-import me.kevinschildhorn.common.layers.data.datasources.CredentialsDataSource
+import me.kevinschildhorn.common.architecture.data.datasources.CredentialsDataSource
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin

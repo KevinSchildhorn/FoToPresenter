@@ -14,9 +14,9 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.kevinschildhorn.android.ui.extensions.Icon
 import me.kevinschildhorn.android.ui.extensions.androidColor
-import me.kevinschildhorn.common.theme.DesignMolecules
-import me.kevinschildhorn.common.ui.TextFieldViewModel
-import me.kevinschildhorn.common.uilogic.enums.TextFieldValidationInterface
+import me.kevinschildhorn.common.design.theme.DesignMolecules
+import me.kevinschildhorn.common.deprecated.ui.TextFieldViewModel
+import me.kevinschildhorn.common.deprecated.uilogic.enums.TextFieldValidationInterface
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
