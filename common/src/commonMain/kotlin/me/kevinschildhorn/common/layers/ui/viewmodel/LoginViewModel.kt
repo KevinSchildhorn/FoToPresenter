@@ -1,5 +1,6 @@
 package me.kevinschildhorn.common.layers.ui.viewmodel
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -10,6 +11,8 @@ import me.kevinschildhorn.common.layers.data.repositories.CredentialsRepository
 import me.kevinschildhorn.common.layers.domain.SaveCredentialsUseCase
 import me.kevinschildhorn.common.layers.ui.uistate.LoginUiState
 import me.kevinschildhorn.common.layers.ui.viewmodel.base.ViewModel
+import me.kevinschildhorn.common.ftps.FTPSClient
+import me.kevinschildhorn.common.ftps.TestingLoginInfo
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -48,6 +51,12 @@ class LoginViewModel(
         _uiState.update { it.copy(isLoading = true) }
         with(uiState.value) {
             val success = saveCredentials(address, username, password)
+
+            val client = FTPSClient()
+            viewModelScope.launch(Dispatchers.Default) {
+                val testingInfo = TestingLoginInfo()
+                client.connect(testingInfo.host, testingInfo.port, testingInfo.username, testingInfo.password)
+            }
             _uiState.update {
                 it.copy(
                     isLoading = false,
