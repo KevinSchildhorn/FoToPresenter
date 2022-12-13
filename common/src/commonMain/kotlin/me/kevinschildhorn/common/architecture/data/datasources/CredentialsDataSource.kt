@@ -32,6 +32,12 @@ class CredentialsDataSource(private val settings: Settings) {
             settings[KEY_PASSWORD] = value
         }
 
+    var autoConnect: Boolean
+        get() = settings.getBoolean(KEY_AUTOCONNECT, false)
+        set(value) {
+            settings[KEY_AUTOCONNECT] = value
+        }
+
     companion object {
         const val DATABASE_NAME = "CredentialsDatabase"
 
@@ -39,5 +45,6 @@ class CredentialsDataSource(private val settings: Settings) {
         private const val KEY_PORT = "port"
         private const val KEY_USERNAME = "username"
         private const val KEY_PASSWORD = "password"
+        private const val KEY_AUTOCONNECT = "autoConnect"
     }
 }
