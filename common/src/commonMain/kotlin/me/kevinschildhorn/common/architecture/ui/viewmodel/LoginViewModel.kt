@@ -1,5 +1,6 @@
 package me.kevinschildhorn.common.architecture.ui.viewmodel
 
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,6 +21,7 @@ import org.koin.core.component.inject
  **/
 class LoginViewModel(
     private val repository: CredentialsRepository,
+    private val logger: Logger,
 ) : ViewModel(), KoinComponent {
 
     private val _uiState = MutableStateFlow(LoginUiState.EMPTY)
@@ -31,14 +33,22 @@ class LoginViewModel(
     }
 
     fun updateAddress(address: String) = _uiState.update { it.copy(hostname = address) }
-    fun updatePort(port: Int) = _uiState.update { it.copy(port = port) }
+    fun updatePort(port: String) = _uiState.update { it.copy(port = port) }
     fun updateUsername(username: String) = _uiState.update { it.copy(username = username) }
     fun updatePassword(password: String) = _uiState.update { it.copy(password = password) }
 
     fun login() {
         val connectToServer = ConnectToServerUseCase()
         val defaultInfo = TestingLoginInfo()
-        connectToServer()
+        viewModelScope.launch {
+            val result = connectToServer(
+                defaultInfo.host,
+                defaultInfo.port,
+                defaultInfo.username,
+                defaultInfo.password
+            )
+            logger.i { "Result of Connection: $result" }
+        }
         val saveCredentials: SaveCredentialsUseCase by inject()
         _uiState.update { it.copy(isLoading = true) }
         with(uiState.value) {
