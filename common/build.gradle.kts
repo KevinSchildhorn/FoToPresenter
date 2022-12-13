@@ -27,6 +27,9 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(kotlin("stdlib-common"))
+                implementation("co.touchlab:kermit:1.2.2")
+                implementation("co.touchlab:kermit-koin:1.2.2")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 implementation("io.insert-koin:koin-core:3.2.2")
                 implementation("com.russhwolf:multiplatform-settings:1.0.0-RC")
