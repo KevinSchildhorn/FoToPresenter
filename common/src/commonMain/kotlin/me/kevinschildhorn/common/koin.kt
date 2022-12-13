@@ -1,5 +1,7 @@
 package me.kevinschildhorn.common
 
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.LoggerConfig
 import me.kevinschildhorn.common.architecture.data.datasources.CredentialsDataSource
 import me.kevinschildhorn.common.architecture.data.repositories.CredentialsRepository
 import me.kevinschildhorn.common.architecture.domain.SaveCredentialsUseCase
@@ -8,9 +10,11 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 val commonModule = module {
+    val baseLogger = Logger(LoggerConfig.default)
+
     single { CredentialsDataSource(get()) }
     single { CredentialsRepository(get()) }
-    factory { SaveCredentialsUseCase(get()) }
+    factory { SaveCredentialsUseCase(get(), baseLogger.withTag("SaveCredentialsUseCase")) }
     single { LoginViewModel(get()) }
 }
 
