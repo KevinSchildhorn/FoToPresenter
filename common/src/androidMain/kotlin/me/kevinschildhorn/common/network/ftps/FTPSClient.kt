@@ -1,7 +1,7 @@
-package me.kevinschildhorn.common.connection.ftps
+package me.kevinschildhorn.common.network.ftps
 
 import co.touchlab.kermit.Logger
-import me.kevinschildhorn.common.connection.DirectoryInformation
+import me.kevinschildhorn.common.network.DirectoryInformation
 import me.kevinschildhorn.common.extensions.isPhoto
 import org.apache.commons.net.ftp.FTP
 import org.apache.commons.net.ftp.FTPReply
