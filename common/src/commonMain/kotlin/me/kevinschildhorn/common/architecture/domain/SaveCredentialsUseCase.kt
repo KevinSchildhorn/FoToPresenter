@@ -1,8 +1,6 @@
 package me.kevinschildhorn.common.architecture.domain
 
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import me.kevinschildhorn.common.architecture.data.repositories.CredentialsRepository
 
 /**
