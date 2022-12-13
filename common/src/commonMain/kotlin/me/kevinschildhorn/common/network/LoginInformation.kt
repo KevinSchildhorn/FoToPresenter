@@ -1,4 +1,4 @@
-package me.kevinschildhorn.common.connection
+package me.kevinschildhorn.common.network
 
 
 data class LoginInformation(

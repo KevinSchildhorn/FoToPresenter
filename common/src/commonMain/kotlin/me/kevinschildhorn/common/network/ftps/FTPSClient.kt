@@ -1,6 +1,6 @@
-package me.kevinschildhorn.common.connection.ftps
+package me.kevinschildhorn.common.network.ftps
 
-import me.kevinschildhorn.common.connection.DirectoryInformation
+import me.kevinschildhorn.common.network.DirectoryInformation
 
 expect object FTPSClient {
 

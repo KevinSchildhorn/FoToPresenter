@@ -13,7 +13,7 @@ import me.kevinschildhorn.common.architecture.domain.ConnectToServerUseCase
 import me.kevinschildhorn.common.architecture.domain.SaveCredentialsUseCase
 import me.kevinschildhorn.common.architecture.ui.uistate.LoginUiState
 import me.kevinschildhorn.common.architecture.ui.viewmodel.base.ViewModel
-import me.kevinschildhorn.common.connection.ftps.TestingLoginInfo
+import me.kevinschildhorn.common.network.ftps.TestingLoginInfo
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
