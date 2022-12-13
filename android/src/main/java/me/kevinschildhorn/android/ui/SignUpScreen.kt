@@ -21,10 +21,15 @@ fun SignUpScreen(viewModel: LoginViewModel) {
             uiState.errorMessage?.let {
                 Text(it)
             }
-            TextField(uiState.address, onValueChange = {
+            TextField(uiState.hostname, onValueChange = {
                 viewModel.updateAddress(it)
             }, label = {
                 Text("address")
+            })
+            TextField(uiState.port, onValueChange = {
+                viewModel.updatePort(it)
+            }, label = {
+                Text("port")
             })
             TextField(uiState.username, onValueChange = {
                 viewModel.updateUsername(it)

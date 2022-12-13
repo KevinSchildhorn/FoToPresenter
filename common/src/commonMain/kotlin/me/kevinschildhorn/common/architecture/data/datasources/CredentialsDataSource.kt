@@ -14,6 +14,12 @@ class CredentialsDataSource(private val settings: Settings) {
             settings[KEY_ADDRESS] = value
         }
 
+    var port: Int
+        get() = settings.getInt(KEY_PORT, 0)
+        set(value) {
+            settings[KEY_PORT] = value
+        }
+
     var username: String
         get() = settings.getString(KEY_USERNAME, "")
         set(value) {
@@ -30,6 +36,7 @@ class CredentialsDataSource(private val settings: Settings) {
         const val DATABASE_NAME = "CredentialsDatabase"
 
         private const val KEY_ADDRESS = "address"
+        private const val KEY_PORT = "port"
         private const val KEY_USERNAME = "username"
         private const val KEY_PASSWORD = "password"
     }

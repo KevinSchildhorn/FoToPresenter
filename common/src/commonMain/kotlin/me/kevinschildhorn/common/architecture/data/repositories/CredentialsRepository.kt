@@ -13,6 +13,7 @@ class CredentialsRepository(
     fun fetchCredentials(): SignInCredentials =
         SignInCredentials(
             address = dataSource.address,
+            port = dataSource.port,
             username = dataSource.username,
             password = dataSource.password
         )
