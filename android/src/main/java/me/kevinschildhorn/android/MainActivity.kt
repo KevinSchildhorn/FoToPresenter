@@ -13,8 +13,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import me.kevinschildhorn.android.ui.SignUpScreen
-import me.kevinschildhorn.common.design.color.SharedEnabledColor
 import me.kevinschildhorn.common.architecture.ui.viewmodel.LoginViewModel
+import me.kevinschildhorn.common.design.color.SharedEnabledColor
 import me.kevinschildhorn.common.startKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinComponent

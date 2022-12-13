@@ -1,8 +1,8 @@
 package me.kevinschildhorn.common.network.ftps
 
 import co.touchlab.kermit.Logger
-import me.kevinschildhorn.common.network.DirectoryInformation
 import me.kevinschildhorn.common.extensions.isPhoto
+import me.kevinschildhorn.common.network.DirectoryInformation
 import org.apache.commons.net.ftp.FTP
 import org.apache.commons.net.ftp.FTPReply
 import org.apache.commons.net.ftp.FTPSClient
@@ -95,5 +95,4 @@ actual object FTPSClient {
     }
 
     //endregion
-
 }
