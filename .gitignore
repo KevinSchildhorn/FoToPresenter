@@ -35,3 +35,4 @@ ios/FotoPresenter.xcworkspace/xcuserdata/kevinschildhorn.xcuserdatad/UserInterfa
 *.hprof
 ios/FotoPresenter.xcworkspace/xcuserdata/kevinschildhorn.xcuserdatad/UserInterfaceState.xcuserstate
 ios/FotoPresenter.xcworkspace/xcuserdata/kevinschildhorn.xcuserdatad/UserInterfaceState.xcuserstate
+common/src/commonMain/kotlin/me/kevinschildhorn/common/connection/ftps/TestingLoginInfo.kt

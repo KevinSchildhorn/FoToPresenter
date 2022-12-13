@@ -1,10 +1,10 @@
 package me.kevinschildhorn.common.connection.ftps
 
 import co.touchlab.kermit.Logger
+import me.kevinschildhorn.common.connection.DirectoryInfo
 import org.apache.commons.net.ftp.FTP
 import org.apache.commons.net.ftp.FTPReply
 import org.apache.commons.net.ftp.FTPSClient
-import org.koin.java.KoinJavaComponent.inject
 
 actual object FTPSClient {
 
@@ -13,6 +13,8 @@ actual object FTPSClient {
 
     actual val isConnected: Boolean
         get() = client.isConnected
+
+    actual var currentDirectory: DirectoryInfo? = null
 
     //region Connection
 
@@ -83,4 +85,5 @@ actual object FTPSClient {
     }
 
     //endregion
+
 }

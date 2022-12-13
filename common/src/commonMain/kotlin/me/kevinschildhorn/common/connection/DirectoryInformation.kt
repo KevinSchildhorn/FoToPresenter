@@ -1,7 +1,10 @@
 package me.kevinschildhorn.common.connection
 
-data class DirectoryInfo<T, R>(
+import me.kevinschildhorn.common.connection.data.Directory
+import me.kevinschildhorn.common.connection.data.File
+
+data class DirectoryInfo(
     val path: String,
-    val directories: List<T>,
-    val files: List<R>
+    val directories: List<Directory>,
+    val files: List<File>
 )

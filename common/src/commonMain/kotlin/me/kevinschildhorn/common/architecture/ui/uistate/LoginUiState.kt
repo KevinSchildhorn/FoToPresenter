@@ -5,7 +5,7 @@ import me.kevinschildhorn.common.architecture.ui.uistate.base.UiState
 
 data class LoginUiState(
     val hostname: String,
-    val port: Int,
+    val port: String,
     val username: String,
     val password: String,
     override val isLoading: Boolean = false,
@@ -24,7 +24,7 @@ data class LoginUiState(
         val EMPTY: LoginUiState
             get() = LoginUiState(
                 hostname = "",
-                port = 0,
+                port = "",
                 username = "",
                 password = "",
             )
