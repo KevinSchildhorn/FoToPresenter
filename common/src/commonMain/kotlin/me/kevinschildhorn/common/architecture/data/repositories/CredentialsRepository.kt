@@ -18,9 +18,10 @@ class CredentialsRepository(
             password = dataSource.password
         )
 
-    fun saveCredentials(address: String, username: String, password: String) {
+    fun saveCredentials(address: String, username: String, password: String, autoConnect: Boolean) {
         dataSource.address = address
         dataSource.username = username
         dataSource.password = password
+        dataSource.autoConnect = autoConnect
     }
 }

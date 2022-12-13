@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import me.kevinschildhorn.common.architecture.data.repositories.CredentialsRepository
+import me.kevinschildhorn.common.architecture.domain.AutoLoginUseCase
 import me.kevinschildhorn.common.architecture.domain.ConnectToServerUseCase
 import me.kevinschildhorn.common.architecture.domain.SaveCredentialsUseCase
 import me.kevinschildhorn.common.architecture.ui.uistate.LoginUiState
@@ -21,7 +21,6 @@ import org.koin.core.component.inject
 [ViewModel] for logging into the FTP Server
  **/
 class LoginViewModel(
-    private val repository: CredentialsRepository,
     private val logger: Logger,
 ) : ViewModel(), KoinComponent {
 
@@ -30,7 +29,7 @@ class LoginViewModel(
     private var fetchJob: Job? = null
 
     init {
-        fetchLoginCredentials()
+        attemptAutoLogin()
     }
 
     fun updateAddress(address: String) = _uiState.update { it.copy(hostname = address) }
@@ -53,7 +52,7 @@ class LoginViewModel(
         val saveCredentials: SaveCredentialsUseCase by inject()
         _uiState.update { it.copy(isLoading = true) }
         with(uiState.value) {
-            val success = saveCredentials(hostname, username, password)
+            val success = saveCredentials(hostname, username, password, autoConnect = true)
             _uiState.update {
                 it.copy(
                     isLoading = false,
@@ -63,12 +62,12 @@ class LoginViewModel(
         }
     }
 
-    fun fetchLoginCredentials() {
+    private fun attemptAutoLogin() {
         fetchJob?.cancel()
         fetchJob = viewModelScope.launch {
-            val credentials = repository.fetchCredentials()
-            _uiState.update {
-                LoginUiState.fromCredentials(credentials)
+            val autoLoginUseCase: AutoLoginUseCase by inject()
+            if (autoLoginUseCase()) {
+                // TODO
             }
         }
     }

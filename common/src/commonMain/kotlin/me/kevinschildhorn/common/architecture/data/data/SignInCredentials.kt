@@ -8,4 +8,10 @@ data class SignInCredentials(
     var port: String,
     var username: String,
     var password: String,
-)
+) {
+    val isComplete: Boolean
+        get() = address.isEmpty() &&
+            port.isNotBlank() &&
+            username.isNotBlank() &&
+            password.isNotBlank()
+}

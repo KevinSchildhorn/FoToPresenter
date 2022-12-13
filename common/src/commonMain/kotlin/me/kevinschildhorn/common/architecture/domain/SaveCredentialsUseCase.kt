@@ -11,10 +11,15 @@ class SaveCredentialsUseCase(
     private val logger: Logger,
 ) {
 
-    operator fun invoke(address: String, username: String, password: String): Boolean =
+    operator fun invoke(
+        address: String,
+        username: String,
+        password: String,
+        autoConnect: Boolean
+    ): Boolean =
         try {
             logger.i { "Saving Credentials" }
-            repository.saveCredentials(address, username, password)
+            repository.saveCredentials(address, username, password, autoConnect)
             true
         } catch (e: Exception) {
             false
