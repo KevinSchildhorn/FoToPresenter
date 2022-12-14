@@ -5,19 +5,19 @@ import me.kevinschildhorn.common.design.atomicLib.color.SharedColorSet
 import me.kevinschildhorn.common.design.atomicLib.font.SharedTypography
 import me.kevinschildhorn.common.design.atomicLib.font.Weight
 
-object Design {
+object UIDesign {
     fun color(light: Boolean = true): SharedColorSet = if (light) Light else Dark
 
     object Typography {
         private const val fontName = "Quicksand"
 
         val h1 = SharedTypography(fontName, weight = Weight.NORMAL, size = 96)
-        val h2 = SharedTypography(fontName, weight = Weight.NORMAL,  size = 60)
-        val h3 = SharedTypography(fontName, weight = Weight.NORMAL,  size = 48)
-        val h4 = SharedTypography(fontName, weight = Weight.NORMAL,  size = 34)
-        val subtitle = SharedTypography(fontName, weight = Weight.NORMAL,  size = 16)
+        val h2 = SharedTypography(fontName, weight = Weight.NORMAL, size = 60)
+        val h3 = SharedTypography(fontName, weight = Weight.NORMAL, size = 48)
+        val h4 = SharedTypography(fontName, weight = Weight.NORMAL, size = 34)
+        val subtitle = SharedTypography(fontName, weight = Weight.NORMAL, size = 16)
         val button = SharedTypography(fontName, weight = Weight.BOLD, size = 14)
-        val body = SharedTypography(fontName, weight = Weight.NORMAL,  size = 16)
+        val body = SharedTypography(fontName, weight = Weight.NORMAL, size = 16)
         val caption = SharedTypography(fontName, weight = Weight.BOLD, size = 14)
     }
 
