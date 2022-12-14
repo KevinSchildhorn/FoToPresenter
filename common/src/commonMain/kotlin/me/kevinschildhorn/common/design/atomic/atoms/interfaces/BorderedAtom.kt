@@ -1,4 +1,4 @@
-package me.kevinschildhorn.common.deprecated.atomic.atoms.interfaces
+package me.kevinschildhorn.common.design.atomic.atoms.interfaces
 
 import me.kevinschildhorn.common.design.color.SharedColor
 

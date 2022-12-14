@@ -52,7 +52,8 @@ class LoginViewModel(
         val saveCredentials: SaveCredentialsUseCase by inject()
         _uiState.update { it.copy(isLoading = true) }
         with(uiState.value) {
-            val success = saveCredentials(hostname, username, password, autoConnect = true)
+            val success =
+                saveCredentials(hostname, port.toInt(), username, password, autoConnect = true)
             _uiState.update {
                 it.copy(
                     isLoading = false,

@@ -13,13 +13,14 @@ class CredentialsRepository(
     fun fetchCredentials(): LoginCredentials =
         LoginCredentials(
             hostname = dataSource.hostname,
-            port = dataSource.port.toString(),
+            port = dataSource.port,
             username = dataSource.username,
             password = dataSource.password
         )
 
-    fun saveCredentials(hostname: String, username: String, password: String, autoConnect: Boolean) {
+    fun saveCredentials(hostname: String, port: Int, username: String, password: String, autoConnect: Boolean) {
         dataSource.hostname = hostname
+        dataSource.port = port
         dataSource.username = username
         dataSource.password = password
         dataSource.autoConnect = autoConnect

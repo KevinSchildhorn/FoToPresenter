@@ -1,6 +1,5 @@
 package me.kevinschildhorn.common.architecture.ui.uistate
 
-import me.kevinschildhorn.common.architecture.data.data.LoginCredentials
 import me.kevinschildhorn.common.architecture.ui.uistate.base.UiState
 
 data class LoginUiState(
@@ -19,13 +18,6 @@ data class LoginUiState(
             password.isNotEmpty()
 
     companion object {
-        fun fromCredentials(credentials: LoginCredentials) =
-            LoginUiState(
-                hostname = credentials.hostname,
-                port = credentials.port,
-                username = credentials.username,
-                password = credentials.password,
-            )
 
         val EMPTY: LoginUiState
             get() = LoginUiState(
