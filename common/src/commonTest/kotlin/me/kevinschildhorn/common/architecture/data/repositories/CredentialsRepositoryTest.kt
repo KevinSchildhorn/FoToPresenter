@@ -33,12 +33,12 @@ class CredentialsRepositoryTest : KoinTest {
 
     @Test
     fun `save credentials`() {
-        val address = "google.com"
+        val hostname = "google.com"
         val username = "John"
         val password = "secret"
-        repository.saveCredentials(address, username, password)
+        repository.saveCredentials(hostname, username, password)
         val credentials = repository.fetchCredentials()
-        assertEquals(address, credentials.address)
+        assertEquals(hostname, credentials.hostname)
         assertEquals(username, credentials.username)
         assertEquals(password, credentials.password)
     }

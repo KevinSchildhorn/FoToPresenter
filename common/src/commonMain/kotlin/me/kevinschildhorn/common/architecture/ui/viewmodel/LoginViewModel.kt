@@ -32,7 +32,7 @@ class LoginViewModel(
         attemptAutoLogin()
     }
 
-    fun updateAddress(address: String) = _uiState.update { it.copy(hostname = address) }
+    fun updateHostname(hostName: String) = _uiState.update { it.copy(hostname = hostName) }
     fun updatePort(port: String) = _uiState.update { it.copy(port = port) }
     fun updateUsername(username: String) = _uiState.update { it.copy(username = username) }
     fun updatePassword(password: String) = _uiState.update { it.copy(password = password) }
@@ -42,7 +42,7 @@ class LoginViewModel(
         val defaultInfo = TestingLoginInfo()
         viewModelScope.launch(Dispatchers.Default) {
             val result = connectToServer(
-                defaultInfo.host,
+                defaultInfo.hostname,
                 defaultInfo.port,
                 defaultInfo.username,
                 defaultInfo.password

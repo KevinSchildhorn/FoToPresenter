@@ -1,6 +1,6 @@
 package me.kevinschildhorn.common.architecture.domain
 
-import me.kevinschildhorn.common.architecture.data.data.SignInCredentials
+import me.kevinschildhorn.common.architecture.data.data.LoginCredentials
 import me.kevinschildhorn.common.network.ftps.FTPSClient
 
 /**
@@ -19,10 +19,10 @@ class ConnectToServerUseCase() {
             false
         }
 
-    suspend operator fun invoke(credentials: SignInCredentials): Boolean =
+    suspend operator fun invoke(credentials: LoginCredentials): Boolean =
         try {
             FTPSClient.connect(
-                credentials.address,
+                credentials.hostname,
                 credentials.port.toInt(),
                 credentials.username,
                 credentials.password

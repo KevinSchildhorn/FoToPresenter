@@ -8,10 +8,10 @@ Stores Sign in Credentials from Shared Preferences
  **/
 class CredentialsDataSource(private val settings: Settings) {
 
-    var address: String
-        get() = settings.getString(KEY_ADDRESS, "")
+    var hostname: String
+        get() = settings.getString(KEY_HOSTNAME, "")
         set(value) {
-            settings[KEY_ADDRESS] = value
+            settings[KEY_HOSTNAME] = value
         }
 
     var port: Int
@@ -41,7 +41,7 @@ class CredentialsDataSource(private val settings: Settings) {
     companion object {
         const val DATABASE_NAME = "CredentialsDatabase"
 
-        private const val KEY_ADDRESS = "address"
+        private const val KEY_HOSTNAME = "hostname"
         private const val KEY_PORT = "port"
         private const val KEY_USERNAME = "username"
         private const val KEY_PASSWORD = "password"
