@@ -48,7 +48,7 @@ class LoginViewModelTest : KoinTest {
                     single { CredentialsDataSource(get()) }
                     single { CredentialsRepository(get()) }
                     single { AutoConnectUseCase(get()) }
-                    single { SaveCredentialsUseCase(get(),baseLogger ) }
+                    single { SaveCredentialsUseCase(get(), baseLogger) }
                     single { LoginViewModel(baseLogger) }
                 }
             )
