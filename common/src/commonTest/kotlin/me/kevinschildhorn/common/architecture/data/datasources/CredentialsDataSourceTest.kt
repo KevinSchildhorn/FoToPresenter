@@ -12,6 +12,7 @@ class CredentialsDataSourceTest {
 
     private val settings = MapSettings(
         KEY_HOSTNAME to "google.com",
+        KEY_PORT to 123,
         KEY_USERNAME to "John",
         KEY_PASSWORD to "secret"
     )
@@ -26,24 +27,29 @@ class CredentialsDataSourceTest {
         assertEquals("secret", dataSource.password)
 
         val newHostname = "sample.com"
+        val newPort = 123
         val newUsername = "Will"
         val newPassword = "qwerty"
         dataSource.apply {
             hostname = newHostname
+            port = newPort
             username = newUsername
             password = newPassword
         }
         assertEquals(newHostname, dataSource.hostname)
+        assertEquals(newPort, dataSource.port)
         assertEquals(newUsername, dataSource.username)
         assertEquals(newPassword, dataSource.password)
 
         assertEquals(newHostname, settings[KEY_HOSTNAME])
+        assertEquals(newPort, settings[KEY_PORT])
         assertEquals(newUsername, settings[KEY_USERNAME])
         assertEquals(newPassword, settings[KEY_PASSWORD])
     }
 
     companion object {
-        private const val KEY_HOSTNAME = "hostName"
+        private const val KEY_HOSTNAME = "hostname"
+        private const val KEY_PORT = "port"
         private const val KEY_USERNAME = "username"
         private const val KEY_PASSWORD = "password"
     }

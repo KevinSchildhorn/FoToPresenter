@@ -40,9 +40,10 @@ class SaveCredentialsUseCaseTest : KoinTest {
     @Test
     fun `save credentials`() {
         val hostname = "google.com"
+        val port = 35
         val username = "John"
         val password = "secret"
-        val result = useCase.invoke(hostname, username, password, false)
+        val result = useCase.invoke(hostname, port, username, password, false)
         assertTrue(result, "Failed to save credentials")
     }
 }
