@@ -1,7 +1,7 @@
 package me.kevinschildhorn.common.design.theme
 
-import me.kevinschildhorn.common.deprecated.atomic.atoms.ImageAtom
-import me.kevinschildhorn.common.deprecated.atomic.molecules.TextFieldMolecule
+import me.kevinschildhorn.common.design.atomic.atoms.ImageAtom
+import me.kevinschildhorn.common.design.atomic.molecules.TextFieldMolecule
 
 object DesignMolecules {
     object TextField {

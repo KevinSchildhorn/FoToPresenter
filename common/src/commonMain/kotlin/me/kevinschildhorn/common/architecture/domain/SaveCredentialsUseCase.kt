@@ -13,13 +13,14 @@ class SaveCredentialsUseCase(
 
     operator fun invoke(
         hostname: String,
+        port: Int,
         username: String,
         password: String,
         autoConnect: Boolean
     ): Boolean =
         try {
             logger.i { "Saving Credentials" }
-            repository.saveCredentials(hostname, username, password, autoConnect)
+            repository.saveCredentials(hostname, port, username, password, autoConnect)
             true
         } catch (e: Exception) {
             false

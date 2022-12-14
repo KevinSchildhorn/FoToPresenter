@@ -1,5 +1,7 @@
 package me.kevinschildhorn.common.architecture.ui.viewmodel
 
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.LoggerConfig
 import com.russhwolf.settings.MapSettings
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.Dispatchers
@@ -11,6 +13,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import me.kevinschildhorn.common.architecture.data.datasources.CredentialsDataSource
 import me.kevinschildhorn.common.architecture.data.repositories.CredentialsRepository
+import me.kevinschildhorn.common.architecture.domain.AutoConnectUseCase
 import me.kevinschildhorn.common.architecture.domain.SaveCredentialsUseCase
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -36,14 +39,17 @@ class LoginViewModelTest : KoinTest {
     @BeforeTest
     fun startTest() {
         Dispatchers.setMain(testDispatcher)
+        val baseLogger = Logger(LoggerConfig.default)
+
         startKoin {
             modules(
                 module {
                     single<Settings> { settings }
                     single { CredentialsDataSource(get()) }
                     single { CredentialsRepository(get()) }
-                    single { SaveCredentialsUseCase(get()) }
-                    single { LoginViewModel(get()) }
+                    single { AutoConnectUseCase(get()) }
+                    single { SaveCredentialsUseCase(get(), baseLogger) }
+                    single { LoginViewModel(baseLogger) }
                 }
             )
         }
@@ -52,6 +58,7 @@ class LoginViewModelTest : KoinTest {
     @Test
     fun `login`() = runTest {
         viewModel.updateHostname("google.com")
+        viewModel.updatePort("123")
         viewModel.updateUsername("John")
         viewModel.updatePassword("Secret")
         viewModel.login()

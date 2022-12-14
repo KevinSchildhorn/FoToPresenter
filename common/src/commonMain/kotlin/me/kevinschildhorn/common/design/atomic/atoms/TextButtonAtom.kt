@@ -1,9 +1,9 @@
-package me.kevinschildhorn.common.deprecated.atomic.atoms
+package me.kevinschildhorn.common.design.atomic.atoms
 
-import me.kevinschildhorn.common.deprecated.atomic.atoms.interfaces.AtomType
-import me.kevinschildhorn.common.deprecated.atomic.atoms.interfaces.ColorAtom
-import me.kevinschildhorn.common.deprecated.atomic.atoms.interfaces.EnablableAtom
-import me.kevinschildhorn.common.deprecated.atomic.atoms.interfaces.TextAtom
+import me.kevinschildhorn.common.design.atomic.atoms.interfaces.AtomType
+import me.kevinschildhorn.common.design.atomic.atoms.interfaces.ColorAtom
+import me.kevinschildhorn.common.design.atomic.atoms.interfaces.EnablableAtom
+import me.kevinschildhorn.common.design.atomic.atoms.interfaces.TextAtom
 import me.kevinschildhorn.common.design.color.SharedColor
 import me.kevinschildhorn.common.design.color.SharedEnabledColor
 import me.kevinschildhorn.common.design.font.SharedFont

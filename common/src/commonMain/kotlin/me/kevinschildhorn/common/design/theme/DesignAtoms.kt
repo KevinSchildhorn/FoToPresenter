@@ -1,8 +1,8 @@
 package me.kevinschildhorn.common.design.theme
 
-import me.kevinschildhorn.common.deprecated.atomic.atoms.TextButtonAtom
-import me.kevinschildhorn.common.deprecated.atomic.atoms.TextFieldAtom
-import me.kevinschildhorn.common.deprecated.atomic.atoms.TextViewAtom
+import me.kevinschildhorn.common.design.atomic.atoms.TextButtonAtom
+import me.kevinschildhorn.common.design.atomic.atoms.TextFieldAtom
+import me.kevinschildhorn.common.design.atomic.atoms.TextViewAtom
 import me.kevinschildhorn.common.design.font.SharedFont
 import me.kevinschildhorn.common.design.font.Weight
 

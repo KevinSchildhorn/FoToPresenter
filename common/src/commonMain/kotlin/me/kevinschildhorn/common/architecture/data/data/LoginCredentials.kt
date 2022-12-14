@@ -5,13 +5,13 @@ Credentials used for signing into an server
  **/
 data class LoginCredentials(
     var hostname: String,
-    var port: String,
+    var port: Int,
     var username: String,
     var password: String,
 ) {
     val isComplete: Boolean
         get() = hostname.isEmpty() &&
-            port.isNotBlank() &&
+            port != 0 &&
             username.isNotBlank() &&
             password.isNotBlank()
 }

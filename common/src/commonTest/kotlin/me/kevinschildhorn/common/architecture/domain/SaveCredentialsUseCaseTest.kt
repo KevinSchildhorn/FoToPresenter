@@ -1,5 +1,7 @@
 package me.kevinschildhorn.common.architecture.domain
 
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.LoggerConfig
 import com.russhwolf.settings.MapSettings
 import com.russhwolf.settings.Settings
 import me.kevinschildhorn.common.architecture.data.datasources.CredentialsDataSource
@@ -21,13 +23,15 @@ class SaveCredentialsUseCaseTest : KoinTest {
 
     @BeforeTest
     fun startTest() {
+        val baseLogger = Logger(LoggerConfig.default)
+
         startKoin {
             modules(
                 module {
                     single<Settings> { MapSettings() }
                     single { CredentialsDataSource(get()) }
                     single { CredentialsRepository(get()) }
-                    single { SaveCredentialsUseCase(get()) }
+                    single { SaveCredentialsUseCase(get(), baseLogger) }
                 }
             )
         }
@@ -36,9 +40,10 @@ class SaveCredentialsUseCaseTest : KoinTest {
     @Test
     fun `save credentials`() {
         val hostname = "google.com"
+        val port = 35
         val username = "John"
         val password = "secret"
-        val result = useCase.invoke(hostname, username, password)
+        val result = useCase.invoke(hostname, port, username, password, false)
         assertTrue(result, "Failed to save credentials")
     }
 }
