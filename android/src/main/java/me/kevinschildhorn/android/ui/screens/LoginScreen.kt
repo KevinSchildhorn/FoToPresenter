@@ -12,7 +12,7 @@ import me.kevinschildhorn.common.architecture.ui.viewmodel.LoginViewModel
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
-fun SignUpScreen(viewModel: LoginViewModel) {
+fun LoginScreen(viewModel: LoginViewModel) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -22,9 +22,9 @@ fun SignUpScreen(viewModel: LoginViewModel) {
                 Text(it)
             }
             TextField(uiState.hostname, onValueChange = {
-                viewModel.updateAddress(it)
+                viewModel.updateHostname(it)
             }, label = {
-                Text("address")
+                Text("hostname")
             })
             TextField(uiState.port, onValueChange = {
                 viewModel.updatePort(it)
@@ -41,11 +41,14 @@ fun SignUpScreen(viewModel: LoginViewModel) {
             }, label = {
                 Text("password")
             })
-            TextButton({
-                viewModel.login()
-            }, content = {
+            TextButton(
+                {
+                    viewModel.login()
+                }, content = {
                 Text("Submit")
-            })
+            },
+                enabled = uiState.isLoginButtonEnabled
+            )
         }
     }
 }

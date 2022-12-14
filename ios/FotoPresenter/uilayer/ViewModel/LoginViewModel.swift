@@ -14,9 +14,9 @@ class LoginViewModel: CancellableViewModel<LoginCallbackViewModel>, ObservableOb
 
     // MARK: - UI STATE
 
-    var address: String {
-        get { uiState.address }
-        set { callbackViewModel.updateAddress(address: newValue) }
+    var hostname: String {
+        get { uiState.hostname }
+        set { callbackViewModel.updateHostname(hostname: newValue) }
     }
     var username: String {
         get { uiState.username }

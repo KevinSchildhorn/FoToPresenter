@@ -11,7 +11,7 @@ Testing [CredentialsDataSource]
 class CredentialsDataSourceTest {
 
     private val settings = MapSettings(
-        KEY_ADDRESS to "google.com",
+        KEY_HOSTNAME to "google.com",
         KEY_USERNAME to "John",
         KEY_PASSWORD to "secret"
     )
@@ -21,29 +21,29 @@ class CredentialsDataSourceTest {
     @Test
     fun `update Credentials`() {
 
-        assertEquals("google.com", dataSource.address)
+        assertEquals("google.com", dataSource.hostname)
         assertEquals("John", dataSource.username)
         assertEquals("secret", dataSource.password)
 
-        val newAddress = "sample.com"
+        val newHostname = "sample.com"
         val newUsername = "Will"
         val newPassword = "qwerty"
         dataSource.apply {
-            address = newAddress
+            hostname = newHostname
             username = newUsername
             password = newPassword
         }
-        assertEquals(newAddress, dataSource.address)
+        assertEquals(newHostname, dataSource.hostname)
         assertEquals(newUsername, dataSource.username)
         assertEquals(newPassword, dataSource.password)
 
-        assertEquals(newAddress, settings[KEY_ADDRESS])
+        assertEquals(newHostname, settings[KEY_HOSTNAME])
         assertEquals(newUsername, settings[KEY_USERNAME])
         assertEquals(newPassword, settings[KEY_PASSWORD])
     }
 
     companion object {
-        private const val KEY_ADDRESS = "address"
+        private const val KEY_HOSTNAME = "hostName"
         private const val KEY_USERNAME = "username"
         private const val KEY_PASSWORD = "password"
     }

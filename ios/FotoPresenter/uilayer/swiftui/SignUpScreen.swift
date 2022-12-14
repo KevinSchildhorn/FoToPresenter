@@ -19,7 +19,7 @@ struct SignUpScreen: View {
     var body: some View {
         Text("Hello")
 
-        TextField("Address", text: $viewModel.address)
+        TextField("Hostname", text: $viewModel.hostname)
 /*
         VStack {
             // Email

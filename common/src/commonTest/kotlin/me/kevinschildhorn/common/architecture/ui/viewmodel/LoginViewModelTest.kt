@@ -16,9 +16,9 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
+import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
 
@@ -28,7 +28,7 @@ class LoginViewModelTest : KoinTest {
     private val viewModel: LoginViewModel by inject()
     private val testDispatcher = StandardTestDispatcher()
     private val settings = MapSettings(
-        KEY_ADDRESS to "defaultAddress",
+        KEY_HOSTNAME to "defaultHostname",
         KEY_USERNAME to "defaultUsername",
         KEY_PASSWORD to "defaultPassword",
     )
@@ -51,7 +51,7 @@ class LoginViewModelTest : KoinTest {
 
     @Test
     fun `login`() = runTest {
-        viewModel.updateAddress("google.com")
+        viewModel.updateHostname("google.com")
         viewModel.updateUsername("John")
         viewModel.updatePassword("Secret")
         viewModel.login()
@@ -61,15 +61,6 @@ class LoginViewModelTest : KoinTest {
         assertNull(state.errorMessage)
     }
 
-    @Test
-    fun `fetch credentials`() = runTest {
-        viewModel.fetchLoginCredentials()
-        val state = viewModel.uiState.value
-        assertEquals("defaultAddress", state.address)
-        assertEquals("defaultUsername", state.username)
-        assertEquals("defaultPassword", state.password)
-    }
-
     @AfterTest
     fun tearDown() {
         Dispatchers.resetMain()
@@ -77,7 +68,7 @@ class LoginViewModelTest : KoinTest {
     }
 
     companion object {
-        private const val KEY_ADDRESS = "address"
+        private const val KEY_HOSTNAME = "hostname"
         private const val KEY_USERNAME = "username"
         private const val KEY_PASSWORD = "password"
     }
