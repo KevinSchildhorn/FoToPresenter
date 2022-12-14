@@ -41,9 +41,10 @@ fun LoginScreen(viewModel: LoginViewModel) {
             }, label = {
                 Text("password")
             })
-            TextButton({
-                viewModel.login()
-            }, content = {
+            TextButton(
+                {
+                    viewModel.login()
+                }, content = {
                 Text("Submit")
             },
                 enabled = uiState.isLoginButtonEnabled

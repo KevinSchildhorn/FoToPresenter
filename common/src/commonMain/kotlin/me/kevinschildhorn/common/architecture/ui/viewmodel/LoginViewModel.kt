@@ -43,7 +43,7 @@ class LoginViewModel(
         viewModelScope.launch(Dispatchers.Default) {
             val result = connectToServer(
                 defaultInfo.hostname,
-                defaultInfo.port,
+                defaultInfo.port.toInt(),
                 defaultInfo.username,
                 defaultInfo.password
             )

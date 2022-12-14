@@ -14,9 +14,9 @@ data class LoginUiState(
 
     val isLoginButtonEnabled: Boolean
         get() = hostname.isNotEmpty() &&
-                port.isNotEmpty() &&
-                username.isNotEmpty() &&
-                password.isNotEmpty()
+            port.isNotEmpty() &&
+            username.isNotEmpty() &&
+            password.isNotEmpty()
 
     companion object {
         fun fromCredentials(credentials: LoginCredentials) =
