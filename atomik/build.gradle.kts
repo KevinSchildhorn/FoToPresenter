@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.Framework.BitcodeEmbeddingMode.BIT
 
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
     id("com.android.library")
     id("com.github.ben-manes.versions") version "0.43.0"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
@@ -12,16 +11,6 @@ group = "me.kevinschildhorn"
 version = "1.0"
 
 kotlin {
-    cocoapods {
-        summary = "Some description for a Kotlin/Native module"
-        homepage = "Link to a Kotlin/Native module homepage"
-        framework {
-            baseName = "SharedFotoSDK"
-            isStatic = false
-            embedBitcode(BITCODE)
-        }
-    }
-
     android()
     ios()
     sourceSets {
@@ -33,7 +22,6 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 implementation("io.insert-koin:koin-core:3.2.2")
                 implementation("com.russhwolf:multiplatform-settings:1.0.0-RC")
-                implementation(project(":atomik"))
             }
         }
         val commonTest by getting {
@@ -76,7 +64,6 @@ kotlin {
 
 android {
     compileSdk = 33
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 24
         targetSdk = 33

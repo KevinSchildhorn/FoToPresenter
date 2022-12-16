@@ -1,7 +1,7 @@
 package me.kevinschildhorn.common.design.theme
 
-import me.kevinschildhorn.common.design.atomicLib.font.SharedTypography
-import me.kevinschildhorn.common.design.atomicLib.font.SharedWeight
+import me.kevinschildhorn.atomik.font.SharedTypography
+import me.kevinschildhorn.atomik.font.SharedWeight
 
 object Typography {
     private const val fontName = "Quicksand"

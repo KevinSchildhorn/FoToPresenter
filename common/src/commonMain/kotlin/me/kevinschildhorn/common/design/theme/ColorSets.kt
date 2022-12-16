@@ -1,7 +1,7 @@
 package me.kevinschildhorn.common.design.theme
 
-import me.kevinschildhorn.common.design.atomicLib.color.SharedColor
-import me.kevinschildhorn.common.design.atomicLib.color.SharedColorSet
+import me.kevinschildhorn.atomik.color.SharedColor
+import me.kevinschildhorn.atomik.color.SharedColorSet
 
 object ColorSets {
     object Light : SharedColorSet {
