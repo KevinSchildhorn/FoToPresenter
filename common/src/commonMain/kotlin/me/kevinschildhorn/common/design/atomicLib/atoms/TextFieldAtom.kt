@@ -9,7 +9,6 @@ import me.kevinschildhorn.common.design.atomicLib.font.SharedTypography
 class TextFieldAtom(
     override val borderColor: SharedColor,
     override val textColor: SharedColor,
-    override val textSize: Double,
     override val font: SharedTypography,
 ) : Atom(), TextAtom, BorderedAtom {
     override val type: AtomType

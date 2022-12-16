@@ -18,5 +18,4 @@ class TextButtonAtom(
     override val type: AtomType = AtomType.BUTTON
     override val enabledColor: SharedEnabledColor
         get() = SharedEnabledColor(color, disabledColor)
-    override val textSize: Double = 44.0
 }

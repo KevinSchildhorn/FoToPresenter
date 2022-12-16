@@ -5,6 +5,5 @@ import me.kevinschildhorn.common.design.atomicLib.font.SharedTypography
 
 interface TextAtom {
     val textColor: SharedColor
-    val textSize: Double
     val font: SharedTypography
 }

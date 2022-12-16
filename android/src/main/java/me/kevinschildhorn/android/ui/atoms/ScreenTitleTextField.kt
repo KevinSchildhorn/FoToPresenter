@@ -1,15 +1,22 @@
-package me.kevinschildhorn.android.ui
+package me.kevinschildhorn.android.ui.atoms
 
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import me.kevinschildhorn.common.design.theme.atomic.DesignAtoms
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
-fun SampleTextField(
-    textCallback: (String) -> Unit,
-    focusChanged: (Boolean) -> Unit
+fun ScreenTitleTextField(
+    text: String
 ) {
+    val style = DesignAtoms.TextView.screenTitle
+    Text(
+        text = text,
+        style = MaterialTheme.typography.h3,
+    )
     /*
     //val text by viewModel.text.collectAsStateWithLifecycle()
     //val state by viewModel.uiState.collectAsStateWithLifecycle()
