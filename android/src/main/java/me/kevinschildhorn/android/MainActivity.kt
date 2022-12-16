@@ -12,8 +12,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import me.kevinschildhorn.android.ui.screens.LoginScreen
 import me.kevinschildhorn.common.architecture.ui.viewmodel.LoginViewModel
-import me.kevinschildhorn.atomik.font.composeColors
-import me.kevinschildhorn.atomik.font.composeTypography
 import me.kevinschildhorn.common.design.theme.UIDesign
 import me.kevinschildhorn.common.startKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,8 +34,8 @@ class MainActivity : AppCompatActivity(), KoinComponent {
         startKoin(this)
         setContent {
             MaterialTheme(
-                colors = UIDesign.composeColors(isSystemInDarkTheme()),
-                typography = UIDesign.composeTypography(fontFamily)
+                // colors = UIDesign.composeColors(isSystemInDarkTheme()),
+                // typography = UIDesign.composeTypography(fontFamily)
             ) {
                 App()
             }

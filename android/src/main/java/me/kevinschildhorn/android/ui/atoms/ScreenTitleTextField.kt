@@ -9,7 +9,7 @@ import me.kevinschildhorn.common.design.theme.atomic.DesignAtoms
 fun ScreenTitleTextField(
     text: String
 ) {
-    val style = DesignAtoms.TextView.screenTitle
+    //val style = DesignAtoms.TextView.screenTitle
     Text(
         text = text,
         style = MaterialTheme.typography.h3,
