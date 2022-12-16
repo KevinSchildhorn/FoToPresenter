@@ -14,10 +14,9 @@ class LoginCallbackViewModel : CallbackViewModel(), KoinComponent {
         viewModel.uiState.asCallbacks()
     }
 
-    fun updateHostname(hostname: String) = viewModel.updateHostname(hostnameF)
+    fun updateHostname(hostname: String) = viewModel.updateHostname(hostname)
     fun updateUsername(username: String) = viewModel.updateUsername(username)
     fun updatePassword(password: String) = viewModel.updatePassword(password)
 
     fun login() = viewModel.login()
-    fun fetchLoginCredentials() = viewModel.fetchLoginCredentials()
 }

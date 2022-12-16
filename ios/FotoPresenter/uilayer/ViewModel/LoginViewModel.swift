@@ -47,5 +47,4 @@ class LoginViewModel: CancellableViewModel<LoginCallbackViewModel>, ObservableOb
     // MARK: - FUNCTIONS
 
     func login() { callbackViewModel.login() }
-    func fetchLoginCredentials() { callbackViewModel.fetchLoginCredentials() }
 }

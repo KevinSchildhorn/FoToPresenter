@@ -17,7 +17,7 @@ struct FotoPresenterApp: App {
 
     var body: some Scene {
         WindowGroup {
-            SignUpScreen()
+            LoginScreen()
         }
     }
 }
