@@ -7,7 +7,6 @@ import me.kevinschildhorn.common.design.atomicLib.font.SharedTypography
 
 class TextViewAtom(
     override val textColor: SharedColor,
-    override val textSize: Double,
     override val font: SharedTypography,
 ) : Atom(), TextAtom {
     override val type: AtomType

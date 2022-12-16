@@ -11,21 +11,19 @@ object DesignAtoms {
             textColor = UIDesign.color().primaryText,
             color = UIDesign.color().primary,
             disabledColor = UIDesign.color().primary,
-            font = UIDesign.Typography.h2
+            font = UIDesign.typography.h2
         )
     }
 
     object TextView {
         val errorViewAtom = TextViewAtom(
             textColor = UIDesign.color().errorText,
-            textSize = 12.0,
-            font = UIDesign.Typography.h2
+            font = UIDesign.typography.h2
         )
 
-        val title = TextViewAtom(
-            textColor = UIDesign.color().errorText,
-            textSize = 12.0,
-            font = UIDesign.Typography.h2
+        val screenTitle = TextViewAtom(
+            textColor = UIDesign.color().backgroundText,
+            font = UIDesign.typography.h3
         )
     }
 
@@ -33,8 +31,7 @@ object DesignAtoms {
         val defaultTextFieldAtom = TextFieldAtom(
             borderColor = UIDesign.color().primary,
             textColor = UIDesign.color().primaryText,
-            textSize = 16.0,
-            font = UIDesign.Typography.h2
+            font = UIDesign.typography.h2
         )
     }
 }
