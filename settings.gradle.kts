@@ -14,3 +14,4 @@ rootProject.name = "FotoPresenter"
 include(":android")
 include(":common")
 
+include(":atomik")

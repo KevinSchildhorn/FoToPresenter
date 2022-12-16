@@ -1,7 +1,7 @@
 package me.kevinschildhorn.common.design.theme.atomic
 
-import me.kevinschildhorn.common.design.atomicLib.atoms.ImageAtom
-import me.kevinschildhorn.common.design.atomicLib.molecules.TextFieldMolecule
+import me.kevinschildhorn.atomik.atoms.ImageAtom
+import me.kevinschildhorn.atomik.molecules.TextFieldMolecule
 import me.kevinschildhorn.common.design.theme.UIDesign
 
 object DesignMolecules {

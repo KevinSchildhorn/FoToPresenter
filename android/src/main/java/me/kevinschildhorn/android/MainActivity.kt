@@ -12,8 +12,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import me.kevinschildhorn.android.ui.screens.LoginScreen
 import me.kevinschildhorn.common.architecture.ui.viewmodel.LoginViewModel
-import me.kevinschildhorn.common.design.atomicLib.font.composeColors
-import me.kevinschildhorn.common.design.atomicLib.font.composeTypography
+import me.kevinschildhorn.atomik.font.composeColors
+import me.kevinschildhorn.atomik.font.composeTypography
 import me.kevinschildhorn.common.design.theme.UIDesign
 import me.kevinschildhorn.common.startKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel

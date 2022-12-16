@@ -1,8 +1,8 @@
 package me.kevinschildhorn.common.design.theme.atomic
 
-import me.kevinschildhorn.common.design.atomicLib.atoms.TextButtonAtom
-import me.kevinschildhorn.common.design.atomicLib.atoms.TextFieldAtom
-import me.kevinschildhorn.common.design.atomicLib.atoms.TextViewAtom
+import me.kevinschildhorn.atomik.atoms.TextButtonAtom
+import me.kevinschildhorn.atomik.atoms.TextFieldAtom
+import me.kevinschildhorn.atomik.atoms.TextViewAtom
 import me.kevinschildhorn.common.design.theme.UIDesign
 
 object DesignAtoms {
