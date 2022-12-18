@@ -1,6 +1,6 @@
 package me.kevinschildhorn.atomik.color
 
 data class SharedEnabledColor(
-    val color: SharedColor,
-    val disabledColor: SharedColor,
+    val color: Color,
+    val disabledColor: Color,
 )
