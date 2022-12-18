@@ -5,21 +5,21 @@ import me.kevinschildhorn.atomik.typography.base.AtomikTypography
 import me.kevinschildhorn.atomik.typography.base.TypographySet
 import me.kevinschildhorn.atomik.typography.base.TypographyType
 
-actual class PlatformTypographySet actual constructor(fontSet: DefaultTypographySet) :
+actual class PlatformTypographySet actual constructor(typographySet: DefaultTypographySet) :
     TypographySet {
-    val h1: AtomikTypography = fontSet.h1 ?: fontSet.defaultTypography
-    val h2: AtomikTypography = fontSet.h2 ?: fontSet.defaultTypography
-    val h3: AtomikTypography = fontSet.h3 ?: fontSet.defaultTypography
-    val h4: AtomikTypography = fontSet.h4 ?: fontSet.defaultTypography
-    val h5: AtomikTypography = fontSet.h5 ?: fontSet.defaultTypography
+    val h1: AtomikTypography = typographySet.h1 ?: typographySet.defaultTypography
+    val h2: AtomikTypography = typographySet.h2 ?: typographySet.defaultTypography
+    val h3: AtomikTypography = typographySet.h3 ?: typographySet.defaultTypography
+    val h4: AtomikTypography = typographySet.h4 ?: typographySet.defaultTypography
+    val h5: AtomikTypography = typographySet.h5 ?: typographySet.defaultTypography
     val h6: AtomikTypography = h5
-    val subtitle1: AtomikTypography = fontSet.subtitle ?: fontSet.defaultTypography
-    val subtitle2: AtomikTypography = fontSet.subtitle ?: fontSet.defaultTypography
-    val body: AtomikTypography = fontSet.body
+    val subtitle1: AtomikTypography = typographySet.subtitle ?: typographySet.defaultTypography
+    val subtitle2: AtomikTypography = typographySet.subtitle ?: typographySet.defaultTypography
+    val body: AtomikTypography = typographySet.body
     val body2: AtomikTypography = body
-    val button: AtomikTypography = fontSet.button ?: fontSet.defaultTypography
-    val caption: AtomikTypography = fontSet.caption ?: fontSet.defaultTypography
-    val overline: AtomikTypography = fontSet.footnote ?: fontSet.defaultTypography
+    val button: AtomikTypography = typographySet.button ?: typographySet.defaultTypography
+    val caption: AtomikTypography = typographySet.caption ?: typographySet.defaultTypography
+    val overline: AtomikTypography = typographySet.footnote ?: typographySet.defaultTypography
 
     fun asComposeTypography(fontFamily: FontFamily) = androidx.compose.material.Typography(
         h1 = h1.asComposeTextStyle(fontFamily),
@@ -37,8 +37,7 @@ actual class PlatformTypographySet actual constructor(fontSet: DefaultTypography
         overline = overline.asComposeTextStyle(fontFamily),
     )
 
-    override val defaultTypography: AtomikTypography
-        get() = body
+    override val defaultTypography: AtomikTypography = typographySet.defaultTypography
 
     override fun getTypography(type: TypographyType): AtomikTypography =
         when (type) {

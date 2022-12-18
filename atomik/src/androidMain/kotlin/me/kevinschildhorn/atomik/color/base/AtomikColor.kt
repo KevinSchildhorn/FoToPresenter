@@ -1,8 +1,8 @@
-package me.kevinschildhorn.atomik.color
+package me.kevinschildhorn.atomik.color.base
 
 import androidx.compose.ui.graphics.Color
 
-actual class Color actual constructor(hex: Long) {
+actual class AtomikColor actual constructor(hex: Long) {
     var androidColor: Color
         private set
 

@@ -1,7 +1,8 @@
-package me.kevinschildhorn.atomik.color
+package me.kevinschildhorn.atomik.color.base
+
 import platform.UIKit.UIColor
 
-actual class Color actual constructor(hex: Long) {
+actual class AtomikColor actual constructor(hex: Long) {
 
     val iOSColor: UIColor
 
