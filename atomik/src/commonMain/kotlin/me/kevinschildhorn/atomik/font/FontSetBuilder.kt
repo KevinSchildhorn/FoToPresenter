@@ -1,6 +1,6 @@
 package me.kevinschildhorn.atomik.font
 
-class FontSetBuilder<E : Enum<E>>(val type: E) {
+class FontSetBuilder<E : Enum<E>>() {
 
     private val fontList: MutableMap<E, SharedTypography> = mutableMapOf()
 
