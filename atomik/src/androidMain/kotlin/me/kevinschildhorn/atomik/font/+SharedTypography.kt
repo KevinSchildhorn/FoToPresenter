@@ -5,7 +5,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
 
 
-fun SharedTypography.asComposeTextStyle(fontFamily: FontFamily) =
+fun SharedTypography.asComposeTextStyle(fontFamily: FontFamily): TextStyle =
     TextStyle(
         fontFamily = fontFamily,
         fontWeight = this.weight.fontWeight,

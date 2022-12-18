@@ -1,23 +1,8 @@
 package me.kevinschildhorn.atomik
 
 import androidx.compose.material.Colors
-import androidx.compose.material.Typography
-import androidx.compose.ui.text.font.FontFamily
-import me.kevinschildhorn.common.design.theme.UIDesign
-
-
-fun UIDesign.composeTypography(fontFamily: FontFamily) = Typography(
-    h1 = typography.h1.asComposeTextStyle(fontFamily),
-    h2 = typography.h2.asComposeTextStyle(fontFamily),
-    h3 = typography.h3.asComposeTextStyle(fontFamily),
-    h4 = typography.h4.asComposeTextStyle(fontFamily),
-    subtitle1 = typography.subtitle.asComposeTextStyle(fontFamily),
-    button = typography.button.asComposeTextStyle(fontFamily),
-    body1 = typography.body.asComposeTextStyle(fontFamily),
-    caption = typography.caption.asComposeTextStyle(fontFamily),
-)
-
-fun UIDesign.composeColors(darkTheme: Boolean): Colors {
+/*
+fun composeColors(darkTheme: Boolean): Colors {
     val colors = this.color(darkTheme)
     return Colors(
         primary = colors.primary.androidColor,
@@ -34,4 +19,4 @@ fun UIDesign.composeColors(darkTheme: Boolean): Colors {
         onError = colors.errorText.androidColor,
         isLight = !darkTheme,
     )
-}
+}*/
