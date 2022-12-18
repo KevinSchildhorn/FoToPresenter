@@ -7,19 +7,19 @@ import me.kevinschildhorn.atomik.typography.base.TypographyType
 
 actual class PlatformTypographySet actual constructor(fontSet: DefaultTypographySet) :
     TypographySet {
-    val h1: AtomikTypography = fontSet.h1
-    val h2: AtomikTypography = fontSet.h2
-    val h3: AtomikTypography = fontSet.h3
-    val h4: AtomikTypography = fontSet.h4
-    val h5: AtomikTypography = fontSet.h5
+    val h1: AtomikTypography = fontSet.h1 ?: fontSet.defaultTypography
+    val h2: AtomikTypography = fontSet.h2 ?: fontSet.defaultTypography
+    val h3: AtomikTypography = fontSet.h3 ?: fontSet.defaultTypography
+    val h4: AtomikTypography = fontSet.h4 ?: fontSet.defaultTypography
+    val h5: AtomikTypography = fontSet.h5 ?: fontSet.defaultTypography
     val h6: AtomikTypography = h5
-    val subtitle1: AtomikTypography = fontSet.subtitle
-    val subtitle2: AtomikTypography = fontSet.subtitle
+    val subtitle1: AtomikTypography = fontSet.subtitle ?: fontSet.defaultTypography
+    val subtitle2: AtomikTypography = fontSet.subtitle ?: fontSet.defaultTypography
     val body: AtomikTypography = fontSet.body
     val body2: AtomikTypography = body
-    val button: AtomikTypography = fontSet.button
-    val caption: AtomikTypography = fontSet.caption
-    val overline: AtomikTypography = fontSet.footnote
+    val button: AtomikTypography = fontSet.button ?: fontSet.defaultTypography
+    val caption: AtomikTypography = fontSet.caption ?: fontSet.defaultTypography
+    val overline: AtomikTypography = fontSet.footnote ?: fontSet.defaultTypography
 
     fun asComposeTypography(fontFamily: FontFamily) = androidx.compose.material.Typography(
         h1 = h1.asComposeTextStyle(fontFamily),
@@ -42,19 +42,19 @@ actual class PlatformTypographySet actual constructor(fontSet: DefaultTypography
 
     override fun getTypography(type: TypographyType): AtomikTypography =
         when (type) {
-            TypographyType.h1 -> h1
-            TypographyType.h2 -> h2
-            TypographyType.h3 -> h3
-            TypographyType.h4 -> h4
-            TypographyType.h5 -> h5
-            TypographyType.h6 -> h6
-            TypographyType.subtitle -> subtitle1
-            TypographyType.subtitle2 -> subtitle2
-            TypographyType.body -> body
-            TypographyType.body2 -> body2
-            TypographyType.button -> button
-            TypographyType.caption -> caption
-            TypographyType.overline -> overline
+            TypographyType.H1 -> h1
+            TypographyType.H2 -> h2
+            TypographyType.H3 -> h3
+            TypographyType.H4 -> h4
+            TypographyType.H5 -> h5
+            TypographyType.H6 -> h6
+            TypographyType.Subtitle -> subtitle1
+            TypographyType.Subtitle2 -> subtitle2
+            TypographyType.Body -> body
+            TypographyType.Body2 -> body2
+            TypographyType.Button -> button
+            TypographyType.Caption -> caption
+            TypographyType.Overline -> overline
             else -> defaultTypography
         }
 }
