@@ -1,7 +1,7 @@
 package me.kevinschildhorn.atomik.atomic.atoms.interfaces
 
-import me.kevinschildhorn.atomik.color.Color
+import me.kevinschildhorn.atomik.color.base.AtomikColor
 
 interface ColorAtom {
-    val color: Color
+    val color: AtomikColor
 }

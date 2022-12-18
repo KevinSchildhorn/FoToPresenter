@@ -6,6 +6,7 @@ import me.kevinschildhorn.atomik.atomic.atoms.TextViewAtom
 import me.kevinschildhorn.common.design.theme.UIDesign
 
 object DesignAtoms {
+    /*
     object Buttons {
         val primaryButtonAtom = TextButtonAtom(
             textColor = UIDesign.color().primaryText,
@@ -33,5 +34,5 @@ object DesignAtoms {
             textColor = UIDesign.color().primaryText,
             font = UIDesign.typography.h2
         )
-    }
+    }*/
 }

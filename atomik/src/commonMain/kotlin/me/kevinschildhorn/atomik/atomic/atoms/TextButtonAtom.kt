@@ -4,18 +4,18 @@ import me.kevinschildhorn.atomik.atomic.atoms.interfaces.AtomType
 import me.kevinschildhorn.atomik.atomic.atoms.interfaces.ColorAtom
 import me.kevinschildhorn.atomik.atomic.atoms.interfaces.EnablableAtom
 import me.kevinschildhorn.atomik.atomic.atoms.interfaces.TextAtom
-import me.kevinschildhorn.atomik.color.Color
-import me.kevinschildhorn.atomik.color.SharedEnabledColor
+import me.kevinschildhorn.atomik.color.base.AtomikColor
+import me.kevinschildhorn.atomik.color.base.AtomikEnabledColor
 import me.kevinschildhorn.atomik.typography.base.AtomikTypography
 
 class TextButtonAtom(
-    override val textColor: Color,
+    override val textColor: AtomikColor,
     override val font: AtomikTypography,
-    override val color: Color,
-    private val disabledColor: Color,
+    override val color: AtomikColor,
+    private val disabledColor: AtomikColor,
 ) : Atom(), EnablableAtom, TextAtom, ColorAtom {
 
     override val type: AtomType = AtomType.BUTTON
-    override val enabledColor: SharedEnabledColor
-        get() = SharedEnabledColor(color, disabledColor)
+    override val enabledColor: AtomikEnabledColor
+        get() = AtomikEnabledColor(color, disabledColor)
 }

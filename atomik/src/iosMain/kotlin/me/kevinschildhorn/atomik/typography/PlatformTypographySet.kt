@@ -5,19 +5,19 @@ import me.kevinschildhorn.atomik.typography.base.TypographySet
 import me.kevinschildhorn.atomik.typography.base.TypographyType
 
 @Suppress("unused", "usedFromiOS")
-actual class PlatformTypographySet actual constructor(fontSet: DefaultTypographySet) :
+actual class PlatformTypographySet actual constructor(typographySet: DefaultTypographySet) :
     TypographySet {
-    val largeTitle: AtomikTypography = fontSet.h1 ?: fontSet.defaultTypography
-    val title: AtomikTypography = fontSet.h2 ?: fontSet.defaultTypography
-    val title2: AtomikTypography = fontSet.h3 ?: fontSet.defaultTypography
-    val title3: AtomikTypography = fontSet.h4 ?: fontSet.defaultTypography
-    val headline: AtomikTypography = fontSet.h5 ?: fontSet.defaultTypography
-    val subheadline: AtomikTypography = fontSet.subtitle ?: fontSet.defaultTypography
-    val body: AtomikTypography = fontSet.body
-    val callout: AtomikTypography = fontSet.button ?: fontSet.defaultTypography
-    val caption: AtomikTypography = fontSet.caption ?: fontSet.defaultTypography
-    val caption2: AtomikTypography = caption ?: fontSet.defaultTypography
-    val footnote: AtomikTypography = fontSet.footnote ?: fontSet.defaultTypography
+    val largeTitle: AtomikTypography = typographySet.h1 ?: typographySet.defaultTypography
+    val title: AtomikTypography = typographySet.h2 ?: typographySet.defaultTypography
+    val title2: AtomikTypography = typographySet.h3 ?: typographySet.defaultTypography
+    val title3: AtomikTypography = typographySet.h4 ?: typographySet.defaultTypography
+    val headline: AtomikTypography = typographySet.h5 ?: typographySet.defaultTypography
+    val subheadline: AtomikTypography = typographySet.subtitle ?: typographySet.defaultTypography
+    val body: AtomikTypography = typographySet.body
+    val callout: AtomikTypography = typographySet.button ?: typographySet.defaultTypography
+    val caption: AtomikTypography = typographySet.caption ?: typographySet.defaultTypography
+    val caption2: AtomikTypography = caption
+    val footnote: AtomikTypography = typographySet.footnote ?: typographySet.defaultTypography
 
     override val defaultTypography: AtomikTypography
         get() = body
