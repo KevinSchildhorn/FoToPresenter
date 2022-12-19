@@ -5,16 +5,16 @@ import me.kevinschildhorn.atomik.typography.base.TypographySet
 import me.kevinschildhorn.atomik.typography.base.TypographyType
 
 data class DefaultTypographySet(
-    val h1: AtomikTypography?,
-    val h2: AtomikTypography?,
-    val h3: AtomikTypography?,
-    val h4: AtomikTypography?,
-    val h5: AtomikTypography?,
-    val subtitle: AtomikTypography?,
-    val caption: AtomikTypography?,
+    val h1: AtomikTypography? = null,
+    val h2: AtomikTypography? = null,
+    val h3: AtomikTypography? = null,
+    val h4: AtomikTypography? = null,
+    val h5: AtomikTypography? = null,
+    val subtitle: AtomikTypography? = null,
+    val caption: AtomikTypography? = null,
     val body: AtomikTypography,
-    val button: AtomikTypography?,
-    val footnote: AtomikTypography?,
+    val button: AtomikTypography? = null,
+    val footnote: AtomikTypography? = null,
 ) : TypographySet {
     override val defaultTypography: AtomikTypography
         get() = body
