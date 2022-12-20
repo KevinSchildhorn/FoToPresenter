@@ -7,7 +7,7 @@ import me.kevinschildhorn.atomik.typography.base.AtomikTypography
 
 class TextViewAtom(
     override val textColor: AtomikColor,
-    override val font: AtomikTypography,
+    override val typography: AtomikTypography,
 ) : Atom(), TextAtom {
     override val type: AtomType
         get() = AtomType.TEXT

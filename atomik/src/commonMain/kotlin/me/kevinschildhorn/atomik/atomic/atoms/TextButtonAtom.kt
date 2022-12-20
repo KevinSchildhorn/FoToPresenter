@@ -10,7 +10,7 @@ import me.kevinschildhorn.atomik.typography.base.AtomikTypography
 
 class TextButtonAtom(
     override val textColor: AtomikColor,
-    override val font: AtomikTypography,
+    override val typography: AtomikTypography,
     override val color: AtomikColor,
     private val disabledColor: AtomikColor,
 ) : Atom(), EnablableAtom, TextAtom, ColorAtom {

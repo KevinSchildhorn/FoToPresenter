@@ -3,7 +3,6 @@ package me.kevinschildhorn.atomik
 import me.kevinschildhorn.atomik.atomic.atoms.Atom
 import me.kevinschildhorn.atomik.color.CustomColorSet
 import me.kevinschildhorn.atomik.color.DefaultColorSet
-import me.kevinschildhorn.atomik.color.base.AtomikColor
 import me.kevinschildhorn.atomik.color.base.ColorSet
 import me.kevinschildhorn.atomik.typography.CustomTypographySet
 import me.kevinschildhorn.atomik.typography.PlatformTypographySet

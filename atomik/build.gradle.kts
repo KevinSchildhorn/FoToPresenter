@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.Framework.BitcodeEmbeddingMode.BITCODE
+
 
 plugins {
     kotlin("multiplatform")

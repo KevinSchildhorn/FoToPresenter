@@ -9,7 +9,7 @@ import me.kevinschildhorn.atomik.typography.base.AtomikTypography
 class TextFieldAtom(
     override val borderColor: AtomikColor,
     override val textColor: AtomikColor,
-    override val font: AtomikTypography,
+    override val typography: AtomikTypography,
 ) : Atom(), TextAtom, BorderedAtom {
     override val type: AtomType
         get() = AtomType.TEXTFIELD

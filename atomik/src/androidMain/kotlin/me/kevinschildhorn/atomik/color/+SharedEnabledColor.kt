@@ -8,6 +8,6 @@ import me.kevinschildhorn.atomik.color.base.AtomikEnabledColor
 @Composable
 fun AtomikEnabledColor.asComposable(): ButtonColors =
     ButtonDefaults.buttonColors(
-        backgroundColor = this.color.androidColor,
-        disabledBackgroundColor = this.disabledColor.androidColor
+        backgroundColor = this.color.platformColor,
+        disabledBackgroundColor = this.disabledColor.platformColor
     )

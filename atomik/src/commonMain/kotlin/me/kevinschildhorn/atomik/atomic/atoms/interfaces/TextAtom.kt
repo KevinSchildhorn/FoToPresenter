@@ -5,5 +5,5 @@ import me.kevinschildhorn.atomik.typography.base.AtomikTypography
 
 interface TextAtom {
     val textColor: AtomikColor
-    val font: AtomikTypography
+    val typography: AtomikTypography
 }

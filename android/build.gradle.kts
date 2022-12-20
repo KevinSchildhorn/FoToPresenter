@@ -26,6 +26,7 @@ dependencies {
     implementation("androidx.compose.runtime:runtime:$compose_version")
     implementation("androidx.activity:activity-compose:1.6.1")
     implementation("io.insert-koin:koin-android:3.3.0")
+    implementation(project(":atomik"))
 }
 
 android {

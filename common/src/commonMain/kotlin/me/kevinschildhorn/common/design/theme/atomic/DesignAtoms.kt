@@ -1,11 +1,16 @@
 package me.kevinschildhorn.common.design.theme.atomic
 
-import me.kevinschildhorn.atomik.atomic.atoms.TextButtonAtom
-import me.kevinschildhorn.atomik.atomic.atoms.TextFieldAtom
 import me.kevinschildhorn.atomik.atomic.atoms.TextViewAtom
-import me.kevinschildhorn.common.design.theme.UIDesign
+import me.kevinschildhorn.atomik.typography.base.TypographyType
+import me.kevinschildhorn.common.design.theme.designSystem
 
 object DesignAtoms {
+    object TextView {
+        val labelAtom = TextViewAtom(
+            textColor = designSystem.colorSet.backgroundText,
+            typography = designSystem.typographySet.getTypography(TypographyType.H3),
+        )
+    }
     /*
     object Buttons {
         val primaryButtonAtom = TextButtonAtom(
