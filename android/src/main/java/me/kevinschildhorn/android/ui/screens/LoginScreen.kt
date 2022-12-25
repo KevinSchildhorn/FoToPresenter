@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import me.kevinschildhorn.android.ui.atoms.ScreenTitleTextField
+import me.kevinschildhorn.android.ui.atoms.PrimaryButton
 import me.kevinschildhorn.common.architecture.ui.viewmodel.LoginViewModel
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
@@ -15,6 +15,8 @@ fun LoginScreen(viewModel: LoginViewModel) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Column {
-        ScreenTitleTextField("Login")
+        PrimaryButton("Login"){
+
+        }
     }
 }

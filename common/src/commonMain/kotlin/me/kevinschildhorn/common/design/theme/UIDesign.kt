@@ -6,5 +6,6 @@ import me.kevinschildhorn.atomik.typography.PlatformTypographySet
 val designSystem = PlatformDesignSystem(
     colorSet = ColorSets.light,
     typographySet = PlatformTypographySet(sharedTypography),
-    atoms = emptyMap()
+    atoms = emptyMap(),
+    fontFamily = null
 )

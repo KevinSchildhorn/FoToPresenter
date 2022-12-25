@@ -1,25 +1,28 @@
 package me.kevinschildhorn.common.design.theme.atomic
 
+import me.kevinschildhorn.atomik.atomic.atoms.TextButtonAtom
 import me.kevinschildhorn.atomik.atomic.atoms.TextViewAtom
 import me.kevinschildhorn.atomik.typography.base.TypographyType
 import me.kevinschildhorn.common.design.theme.designSystem
 
 object DesignAtoms {
+    /*
     object TextView {
         val labelAtom = TextViewAtom(
             textColor = designSystem.colorSet.backgroundText,
             typography = designSystem.typographySet.getTypography(TypographyType.H3),
         )
-    }
-    /*
+    }*/
     object Buttons {
         val primaryButtonAtom = TextButtonAtom(
-            textColor = UIDesign.color().primaryText,
-            color = UIDesign.color().primary,
-            disabledColor = UIDesign.color().primary,
-            font = UIDesign.typography.h2
+            textColor = designSystem.colorSet.primaryText,
+            color = designSystem.colorSet.primary,
+            disabledColor = designSystem.colorSet.primary,
+            typography = designSystem.typographySet.getTypography(TypographyType.H2),
+            fontFamily = designSystem.fontFamily,
         )
     }
+    /*
 
     object TextView {
         val errorViewAtom = TextViewAtom(

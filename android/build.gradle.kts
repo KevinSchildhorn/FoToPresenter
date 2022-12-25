@@ -17,6 +17,7 @@ repositories {
 
 dependencies {
     implementation(project(":common"))
+    implementation("androidx.compose.ui:ui-tooling-preview:1.3.2")
 
     val compose_version = "1.3.0"
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03")
@@ -27,6 +28,7 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.6.1")
     implementation("io.insert-koin:koin-android:3.3.0")
     implementation(project(":atomik"))
+    debugImplementation("androidx.compose.ui:ui-tooling:1.3.2")
 }
 
 android {
@@ -42,5 +44,8 @@ android {
         getByName("release") {
             isMinifyEnabled = false
         }
+    }
+    buildFeatures {
+        compose = true
     }
 }

@@ -16,11 +16,11 @@ struct ScreenTitleTextField: View {
 
     let text: String
     var body: some View {
-        // let style = DesignAtoms.TextView().screenTitle
-
-        // style.
+        let atom = DesignAtoms.TextView().labelAtom
 
         Text(text)
+            .foregroundColor(Color(atom.textColor.platformColor))
+
     }
 }
 
