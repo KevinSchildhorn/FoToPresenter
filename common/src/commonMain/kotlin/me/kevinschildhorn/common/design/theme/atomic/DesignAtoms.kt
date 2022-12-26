@@ -2,6 +2,7 @@ package me.kevinschildhorn.common.design.theme.atomic
 
 import me.kevinschildhorn.atomik.atomic.atoms.TextButtonAtom
 import me.kevinschildhorn.atomik.atomic.atoms.TextViewAtom
+import me.kevinschildhorn.atomik.color.disabledColor
 import me.kevinschildhorn.atomik.typography.base.TypographyType
 import me.kevinschildhorn.common.design.theme.designSystem
 
@@ -17,8 +18,8 @@ object DesignAtoms {
         val primaryButtonAtom = TextButtonAtom(
             textColor = designSystem.colorSet.primaryText,
             color = designSystem.colorSet.primary,
-            disabledColor = designSystem.colorSet.primary,
-            typography = designSystem.typographySet.getTypography(TypographyType.H2),
+            disabledColor = disabledColor,
+            typography = designSystem.typographySet.getTypography(TypographyType.Button),
             fontFamily = designSystem.fontFamily,
         )
     }
