@@ -1,6 +1,5 @@
 package me.kevinschildhorn.atomik.atomic.atoms
 
-import me.kevinschildhorn.atomik.DesignSystem
 import me.kevinschildhorn.atomik.atomic.atoms.interfaces.AtomType
 import me.kevinschildhorn.atomik.atomic.atoms.interfaces.ColorAtom
 import me.kevinschildhorn.atomik.atomic.atoms.interfaces.EnablableAtom
