@@ -11,7 +11,7 @@ class TextFieldAtom(
     override val borderColor: AtomikColor,
     override val textColor: AtomikColor,
     override val typography: AtomikTypography,
-    override val fontFamily: AtomikFontFamily,
+    override val fontFamily: AtomikFontFamily?,
 ) : Atom(), TextAtom, BorderedAtom {
     override val type: AtomType
         get() = AtomType.TEXTFIELD

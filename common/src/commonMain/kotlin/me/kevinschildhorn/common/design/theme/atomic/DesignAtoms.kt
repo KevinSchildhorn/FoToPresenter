@@ -1,7 +1,7 @@
 package me.kevinschildhorn.common.design.theme.atomic
 
 import me.kevinschildhorn.atomik.atomic.atoms.TextButtonAtom
-import me.kevinschildhorn.atomik.atomic.atoms.TextViewAtom
+import me.kevinschildhorn.atomik.atomic.molecules.TextButtonMolecule
 import me.kevinschildhorn.atomik.color.disabledColor
 import me.kevinschildhorn.atomik.typography.base.TypographyType
 import me.kevinschildhorn.common.design.theme.designSystem
@@ -19,6 +19,17 @@ object DesignAtoms {
             textColor = designSystem.colorSet.primaryText,
             color = designSystem.colorSet.primary,
             disabledColor = disabledColor,
+            typography = designSystem.typographySet.getTypography(TypographyType.Button),
+            fontFamily = designSystem.fontFamily,
+            radius = 15,
+        )
+
+        val primaryButtonMolecule = TextButtonMolecule(
+            color = designSystem.colorSet.primary,
+            disabledColor = disabledColor,
+            radius = 15,
+            height = 44,
+            textColor = designSystem.colorSet.primaryText,
             typography = designSystem.typographySet.getTypography(TypographyType.Button),
             fontFamily = designSystem.fontFamily,
         )

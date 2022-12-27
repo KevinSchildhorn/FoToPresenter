@@ -1,15 +1,20 @@
 package me.kevinschildhorn.android.ui.atoms
 
-import androidx.compose.material.ButtonColors
-import androidx.compose.material.ButtonDefaults
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import me.kevinschildhorn.android.extensions.buttonColors
 import me.kevinschildhorn.android.fontFamily
 import me.kevinschildhorn.atomik.atomic.atoms.TextButtonAtom
+import me.kevinschildhorn.atomik.atomic.atoms.heightModifier
+import me.kevinschildhorn.atomik.atomic.atoms.shape
 import me.kevinschildhorn.atomik.atomic.atoms.textStyle
+import me.kevinschildhorn.atomik.atomic.molecules.TextButtonMolecule
 import me.kevinschildhorn.common.design.theme.atomic.DesignAtoms
 
 @Composable
@@ -18,13 +23,18 @@ fun PrimaryButton(
     onClick: () -> Unit,
 ) {
     val atom: TextButtonAtom = DesignAtoms.Buttons.primaryButtonAtom
+    val molecule: TextButtonMolecule = DesignAtoms.Buttons.primaryButtonMolecule
+    val buttonAtom = molecule.buttonAtom
     TextButton(
         onClick = onClick,
-        colors = atom.enabledColor.buttonColors(),
+        colors = buttonAtom.enabledColor.buttonColors(),
+        shape = buttonAtom.shape,
+        modifier = buttonAtom.heightModifier
     ) {
+        val textAtom = molecule.textAtom
         Text(
             text,
-            style = atom.textStyle(fontFamily)
+            style = textAtom.textStyle(fontFamily)
         )
     }
 }
