@@ -12,7 +12,7 @@ import me.kevinschildhorn.common.architecture.ui.viewmodel.LoginViewModel
 @Composable
 fun LoginScreen(viewModel: LoginViewModel) {
 
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    //val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Column {
         PrimaryButton("Login"){

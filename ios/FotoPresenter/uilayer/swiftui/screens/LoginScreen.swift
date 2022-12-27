@@ -14,10 +14,16 @@ struct LoginScreen: View {
     @FocusState private var emailFocusState: Bool
     @FocusState private var passwordFocusState: Bool
 
-    // let molecule = DesignMolecules.TextField().defaultTextField
-
     var body: some View {
-        Text("Hello")
+        HStack {
+            VStack(alignment: .leading, content: {
+                PrimaryButton(text: "Login", action: {
+
+                })
+                Spacer()
+            })
+            Spacer()
+        }
     }
 }
 

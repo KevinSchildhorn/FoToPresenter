@@ -1,10 +1,10 @@
 package me.kevinschildhorn.atomik.typography
 
 import androidx.compose.ui.text.font.FontWeight
-import me.kevinschildhorn.atomik.typography.base.TypographyWeight
+import me.kevinschildhorn.atomik.typography.base.AtomikTypographyWeight
 
-val TypographyWeight.fontWeight: FontWeight
+val AtomikTypographyWeight.fontWeight: FontWeight
     get() = when (this) {
-        TypographyWeight.BOLD -> FontWeight.Bold
+        AtomikTypographyWeight.BOLD -> FontWeight.Bold
         else -> FontWeight.Normal
     }

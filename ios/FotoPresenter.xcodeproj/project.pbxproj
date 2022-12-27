@@ -10,13 +10,13 @@
 		7BB63A57CE3A6868660598E9 /* Pods_FotoPresenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7C5A030854C178AFAA479B /* Pods_FotoPresenter.framework */; };
 		9F841B98770EE4B4E0327E18 /* Pods_FotoPresenter_FotoPresenterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2235014D129A3C9890B2CDE3 /* Pods_FotoPresenter_FotoPresenterUITests.framework */; };
 		A3CF2E0140D96E96A01075C1 /* Pods_FotoPresenterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CAC0A8CFD67DDF47B23E7A2 /* Pods_FotoPresenterTests.framework */; };
-		F10515BE294D05BE00F9E4B5 /* ScreenTitleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10515BD294D05BE00F9E4B5 /* ScreenTitleTextField.swift */; };
+		F10515BE294D05BE00F9E4B5 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10515BD294D05BE00F9E4B5 /* PrimaryButton.swift */; };
 		F10515C0294D076400F9E4B5 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10515BF294D076400F9E4B5 /* Font.swift */; };
-		F10515C7294D07CA00F9E4B5 /* quicksand_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F10515C2294D07CA00F9E4B5 /* quicksand_light.ttf */; };
-		F10515C8294D07CA00F9E4B5 /* quicksand_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F10515C3294D07CA00F9E4B5 /* quicksand_medium.ttf */; };
-		F10515C9294D07CA00F9E4B5 /* quicksand_semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F10515C4294D07CA00F9E4B5 /* quicksand_semibold.ttf */; };
-		F10515CA294D07CA00F9E4B5 /* quicksand_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F10515C5294D07CA00F9E4B5 /* quicksand_regular.ttf */; };
-		F10515CB294D07CA00F9E4B5 /* quicksand_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F10515C6294D07CA00F9E4B5 /* quicksand_bold.ttf */; };
+		F15AE857295B815C00A1FAC7 /* quicksand_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F15AE852295B815B00A1FAC7 /* quicksand_regular.ttf */; };
+		F15AE858295B815C00A1FAC7 /* quicksand_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F15AE853295B815B00A1FAC7 /* quicksand_light.ttf */; };
+		F15AE859295B815C00A1FAC7 /* quicksand_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F15AE854295B815B00A1FAC7 /* quicksand_medium.ttf */; };
+		F15AE85A295B815C00A1FAC7 /* quicksand_semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F15AE855295B815B00A1FAC7 /* quicksand_semibold.ttf */; };
+		F15AE85B295B815C00A1FAC7 /* quicksand_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F15AE856295B815C00A1FAC7 /* quicksand_bold.ttf */; };
 		F16C62C328C914D1001CE2F9 /* FotoPresenterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62C228C914D1001CE2F9 /* FotoPresenterApp.swift */; };
 		F16C62C528C914D1001CE2F9 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16C62C428C914D1001CE2F9 /* LoginScreen.swift */; };
 		F16C62C728C914D3001CE2F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F16C62C628C914D3001CE2F9 /* Assets.xcassets */; };
@@ -56,14 +56,14 @@
 		BE7C5A030854C178AFAA479B /* Pods_FotoPresenter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FotoPresenter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C565D303851E2F1CF8EE4D89 /* Pods-FotoPresenter-FotoPresenterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FotoPresenter-FotoPresenterUITests.debug.xcconfig"; path = "Target Support Files/Pods-FotoPresenter-FotoPresenterUITests/Pods-FotoPresenter-FotoPresenterUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DA2F185F285131EECAF12BDD /* Pods-FotoPresenterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FotoPresenterTests.debug.xcconfig"; path = "Target Support Files/Pods-FotoPresenterTests/Pods-FotoPresenterTests.debug.xcconfig"; sourceTree = "<group>"; };
-		F10515BD294D05BE00F9E4B5 /* ScreenTitleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTitleTextField.swift; sourceTree = "<group>"; };
+		F10515BD294D05BE00F9E4B5 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		F10515BF294D076400F9E4B5 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		F10515C2294D07CA00F9E4B5 /* quicksand_light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = quicksand_light.ttf; path = ../../../android/src/main/res/font/quicksand_light.ttf; sourceTree = "<group>"; };
-		F10515C3294D07CA00F9E4B5 /* quicksand_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = quicksand_medium.ttf; path = ../../../android/src/main/res/font/quicksand_medium.ttf; sourceTree = "<group>"; };
-		F10515C4294D07CA00F9E4B5 /* quicksand_semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = quicksand_semibold.ttf; path = ../../../android/src/main/res/font/quicksand_semibold.ttf; sourceTree = "<group>"; };
-		F10515C5294D07CA00F9E4B5 /* quicksand_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = quicksand_regular.ttf; path = ../../../android/src/main/res/font/quicksand_regular.ttf; sourceTree = "<group>"; };
-		F10515C6294D07CA00F9E4B5 /* quicksand_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = quicksand_bold.ttf; path = ../../../android/src/main/res/font/quicksand_bold.ttf; sourceTree = "<group>"; };
 		F127E80929525F23004594CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F15AE852295B815B00A1FAC7 /* quicksand_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = quicksand_regular.ttf; sourceTree = "<group>"; };
+		F15AE853295B815B00A1FAC7 /* quicksand_light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = quicksand_light.ttf; sourceTree = "<group>"; };
+		F15AE854295B815B00A1FAC7 /* quicksand_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = quicksand_medium.ttf; sourceTree = "<group>"; };
+		F15AE855295B815B00A1FAC7 /* quicksand_semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = quicksand_semibold.ttf; sourceTree = "<group>"; };
+		F15AE856295B815C00A1FAC7 /* quicksand_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = quicksand_bold.ttf; sourceTree = "<group>"; };
 		F16C62BF28C914D1001CE2F9 /* FotoPresenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FotoPresenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F16C62C228C914D1001CE2F9 /* FotoPresenterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoPresenterApp.swift; sourceTree = "<group>"; };
 		F16C62C428C914D1001CE2F9 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
@@ -133,7 +133,7 @@
 		F10515BB294D057B00F9E4B5 /* atoms */ = {
 			isa = PBXGroup;
 			children = (
-				F10515BD294D05BE00F9E4B5 /* ScreenTitleTextField.swift */,
+				F10515BD294D05BE00F9E4B5 /* PrimaryButton.swift */,
 			);
 			path = atoms;
 			sourceTree = "<group>";
@@ -149,11 +149,11 @@
 		F10515C1294D07AA00F9E4B5 /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				F10515C6294D07CA00F9E4B5 /* quicksand_bold.ttf */,
-				F10515C2294D07CA00F9E4B5 /* quicksand_light.ttf */,
-				F10515C3294D07CA00F9E4B5 /* quicksand_medium.ttf */,
-				F10515C5294D07CA00F9E4B5 /* quicksand_regular.ttf */,
-				F10515C4294D07CA00F9E4B5 /* quicksand_semibold.ttf */,
+				F15AE856295B815C00A1FAC7 /* quicksand_bold.ttf */,
+				F15AE853295B815B00A1FAC7 /* quicksand_light.ttf */,
+				F15AE854295B815B00A1FAC7 /* quicksand_medium.ttf */,
+				F15AE852295B815B00A1FAC7 /* quicksand_regular.ttf */,
+				F15AE855295B815B00A1FAC7 /* quicksand_semibold.ttf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -373,13 +373,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F10515C7294D07CA00F9E4B5 /* quicksand_light.ttf in Resources */,
-				F10515CB294D07CA00F9E4B5 /* quicksand_bold.ttf in Resources */,
-				F10515CA294D07CA00F9E4B5 /* quicksand_regular.ttf in Resources */,
 				F16C62CA28C914D3001CE2F9 /* Preview Assets.xcassets in Resources */,
+				F15AE85B295B815C00A1FAC7 /* quicksand_bold.ttf in Resources */,
+				F15AE85A295B815C00A1FAC7 /* quicksand_semibold.ttf in Resources */,
+				F15AE859295B815C00A1FAC7 /* quicksand_medium.ttf in Resources */,
+				F15AE858295B815C00A1FAC7 /* quicksand_light.ttf in Resources */,
+				F15AE857295B815C00A1FAC7 /* quicksand_regular.ttf in Resources */,
 				F16C62C728C914D3001CE2F9 /* Assets.xcassets in Resources */,
-				F10515C9294D07CA00F9E4B5 /* quicksand_semibold.ttf in Resources */,
-				F10515C8294D07CA00F9E4B5 /* quicksand_medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,7 +528,7 @@
 				F1A42C85291EA45400CDAEAD /* CancellableViewModel.swift in Sources */,
 				F16C62C528C914D1001CE2F9 /* LoginScreen.swift in Sources */,
 				F10515C0294D076400F9E4B5 /* Font.swift in Sources */,
-				F10515BE294D05BE00F9E4B5 /* ScreenTitleTextField.swift in Sources */,
+				F10515BE294D05BE00F9E4B5 /* PrimaryButton.swift in Sources */,
 				F1BC833E28D4CB5F00702B83 /* LoginViewModel.swift in Sources */,
 				F16C62C328C914D1001CE2F9 /* FotoPresenterApp.swift in Sources */,
 				F19EF1FB28D8D228005F0806 /* CombineAdapters.swift in Sources */,

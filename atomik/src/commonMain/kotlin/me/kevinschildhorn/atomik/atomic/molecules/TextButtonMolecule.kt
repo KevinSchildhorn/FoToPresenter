@@ -19,7 +19,6 @@ class TextButtonMolecule(
 ) : BaseMolecule() {
 
     val buttonAtom = ButtonAtom(
-        color = color,
         enabledColor = AtomikEnabledColor(color, disabledColor),
         radius = radius,
         height = height

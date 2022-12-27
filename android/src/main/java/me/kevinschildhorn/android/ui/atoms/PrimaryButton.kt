@@ -1,16 +1,11 @@
 package me.kevinschildhorn.android.ui.atoms
 
-import androidx.compose.foundation.layout.height
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import me.kevinschildhorn.android.extensions.buttonColors
 import me.kevinschildhorn.android.fontFamily
-import me.kevinschildhorn.atomik.atomic.atoms.TextButtonAtom
 import me.kevinschildhorn.atomik.atomic.atoms.heightModifier
 import me.kevinschildhorn.atomik.atomic.atoms.shape
 import me.kevinschildhorn.atomik.atomic.atoms.textStyle
@@ -22,7 +17,6 @@ fun PrimaryButton(
     text: String,
     onClick: () -> Unit,
 ) {
-    val atom: TextButtonAtom = DesignAtoms.Buttons.primaryButtonAtom
     val molecule: TextButtonMolecule = DesignAtoms.Buttons.primaryButtonMolecule
     val buttonAtom = molecule.buttonAtom
     TextButton(
@@ -34,7 +28,8 @@ fun PrimaryButton(
         val textAtom = molecule.textAtom
         Text(
             text,
-            style = textAtom.textStyle(fontFamily)
+            color = textAtom.textColor.platformColor,
+            style = textAtom.textStyle(fontFamily),
         )
     }
 }

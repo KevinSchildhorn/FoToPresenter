@@ -15,15 +15,6 @@ object DesignAtoms {
         )
     }*/
     object Buttons {
-        val primaryButtonAtom = TextButtonAtom(
-            textColor = designSystem.colorSet.primaryText,
-            color = designSystem.colorSet.primary,
-            disabledColor = disabledColor,
-            typography = designSystem.typographySet.getTypography(TypographyType.Button),
-            fontFamily = designSystem.fontFamily,
-            radius = 15,
-        )
-
         val primaryButtonMolecule = TextButtonMolecule(
             color = designSystem.colorSet.primary,
             disabledColor = disabledColor,
