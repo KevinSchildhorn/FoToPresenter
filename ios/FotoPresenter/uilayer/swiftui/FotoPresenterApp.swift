@@ -22,8 +22,6 @@ struct FotoPresenterApp: App {
                 .normal: UIFont(name: "Quicksand-Regular", size: 12)!,
                 .semibold: UIFont(name: "Quicksand-SemiBold", size: 12)!
             ])
-
-        print("Hello")
     }
 
     var body: some Scene {

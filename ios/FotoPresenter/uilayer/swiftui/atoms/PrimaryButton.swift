@@ -55,10 +55,10 @@ struct PrimaryButton: View {
     }
 }
 
-struct ScreenTitleTextField_Previews: PreviewProvider {
+struct PrimaryButton_Previews: PreviewProvider {
     static var previews: some View {
         PrimaryButton(text: "Hello World", action: {
-            print("Hello")
+            print("Hello World")
         })
     }
 }
