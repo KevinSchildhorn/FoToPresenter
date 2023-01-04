@@ -16,7 +16,7 @@ The `DesignSystem` takes in four variables, a `ColorSet`, a `TypographySet`, a m
 
 `ColorSets` are made up of various `AtomikColor`, which are created with hex codes
 
-```
+```kotlin
     val colorSet = DefaultColorSet(
         primary = AtomikColor(0xFFFFA500),
         secondary = AtomikColor(0xFFFFD383),
@@ -38,7 +38,7 @@ The `DesignSystem` takes in four variables, a `ColorSet`, a `TypographySet`, a m
 
 `TypographySets` are made up of various `AtomikTypography`, which are referenced by a `TypographyType`.
 
-```
+```kotlin
 val typographySet = DefaultTypographySet(
     h1 = AtomikTypography(size = 96),
     h2 = AtomikTypography(size = 60),
@@ -56,7 +56,7 @@ val typographySet = DefaultTypographySet(
 
 ### DesignSystem
 
-```
+```kotlin
 val designSystem = DefaultDesignSystem(
     colorSet = ColorSets.light,
     typographySet = sharedTypography,
@@ -71,7 +71,7 @@ The `AtomikFontFamily` is an expect/actual class for platform specific fonts. Wh
 
 #### Android
 
-```
+```kotlin
 val fontFamily = FontFamily(
     Font(R.font.quicksand_regular),
     Font(R.font.quicksand_bold, FontWeight.Bold),
@@ -84,7 +84,7 @@ designSystem.fontFamily = AtomikFontFamily(fontFamily)
 
 #### iOS
 
-```
+```swift
 let fontFamily = [
     .bold: UIFont(name: "Quicksand-Bold", size: 12)!,
     .light: UIFont(name: "Quicksand-Light", size: 12)!,
