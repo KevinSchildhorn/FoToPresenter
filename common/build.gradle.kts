@@ -48,10 +48,12 @@ kotlin {
             dependencies {
                 api("androidx.appcompat:appcompat:1.5.1")
                 api("androidx.core:core-ktx:1.9.0")
-                implementation("androidx.compose.ui:ui:1.3.0")
-                implementation("androidx.compose.foundation:foundation:1.3.0")
 
-                implementation("androidx.compose.material:material:1.3.0")
+                implementation("androidx.compose.ui:ui:1.3.2")
+                implementation("androidx.compose.foundation:foundation:1.3.1")
+                implementation("androidx.compose.material:material:1.3.1")
+                implementation("androidx.compose.runtime:runtime:1.3.2")
+
                 implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
                 implementation("androidx.lifecycle:lifecycle-viewmodel:2.5.1")
                 implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
@@ -84,5 +86,12 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.3.0"
     }
 }

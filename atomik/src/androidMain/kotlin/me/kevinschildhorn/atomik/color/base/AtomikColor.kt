@@ -3,10 +3,10 @@ package me.kevinschildhorn.atomik.color.base
 import androidx.compose.ui.graphics.Color
 
 actual class AtomikColor actual constructor(hex: Long) {
-    var androidColor: Color
+    var platformColor: Color
         private set
 
     init {
-        this.androidColor = Color(hex)
+        this.platformColor = Color(hex)
     }
 }
