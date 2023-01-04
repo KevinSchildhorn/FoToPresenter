@@ -9,7 +9,7 @@ abstract class Atom {
 }
 ```
 
-To create an atom you should reference your `DesignSystem` for colors, fonts and other variables. If you haven't yet see the document about [Getting Started](GETTING_STARTED.MD).
+To create an atom you should reference your `DesignSystem` for colors, fonts and other variables. If you haven't yet see the document about [Creating a design system](CREATING_A_DESIGN_SYSTEM.MD).
 
 ### Example
 
@@ -33,7 +33,7 @@ For example, we have the `ButtonAtom`, which inherits `Atom`, and has various in
 Then you can create a button like so:
 
 ```kotlin
-val button = ButtonAtom(
+val buttonAtom = ButtonAtom(
     AtomikEnabledColor(designSystem.colorSet.primary, designSystem.colorSet.secondary),
     radius = 5,
     height = 55,

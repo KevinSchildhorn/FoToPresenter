@@ -1,6 +1,5 @@
-# Getting Started With Atomik
+# Creating a Design System
 
-## Common
 
 First, create a `DesignSystem`, which can be made using a preset or as a new custom System.
 Existing Design Systems:
