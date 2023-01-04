@@ -10,6 +10,15 @@ Existing Design Systems:
 
 The `DesignSystem` takes in four variables, a `ColorSet`, a `TypographySet`, a map of `atoms`, and a `fontFamily`
 
+```
+open class DesignSystem(
+    open val colorSet: ColorSet,
+    open val typographySet: TypographySet,
+    open val atoms: Map<String, Atom>,
+    open var fontFamily: AtomikFontFamily? = null
+)
+```
+
 ### ColorSet
 
 `ColorSet` is an interface that can be implemented, however there's also a `DefaultColorSet` for a standard set. There is also a `CustomColorSet` that can be used for more granularity.
