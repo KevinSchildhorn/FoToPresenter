@@ -29,3 +29,13 @@ For example, we have the `ButtonAtom`, which inherits `Atom`, and has various in
 * `EnablableAtom`, used for ui that can be set to disabled and have the ui update
 * `RoundedAtom`, used to set the UI has having rounded corners
 * `FixedSizeAtom`, used to set a width and/or height of the ui element
+
+Then you can create a button like so:
+
+```kotlin
+val button = ButtonAtom(
+    AtomikEnabledColor(designSystem.colorSet.primary, designSystem.colorSet.secondary),
+    radius = 5,
+    height = 55,
+)
+```
