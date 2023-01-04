@@ -63,6 +63,8 @@ val typographySet = DefaultTypographySet(
 
 `Atoms` are interface representations of Atoms in Atomic Design. They can be grabbed from the `DesignSystem`. For a quick start you can pass in an empty map. 
 
+To see how to create an `Atom` see (Creating an atom)[CREATING_AN_ATOM.MD]
+
 ### DesignSystem
 
 ```kotlin
