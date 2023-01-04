@@ -11,7 +11,7 @@ abstract class Atom {
 
 To create an atom you should reference your `DesignSystem` for colors, fonts and other variables. If you haven't yet see the document about [Getting Started](GETTING_STARTED.MD).
 
-## Example
+### Example
 
 ```kotlin
 class ButtonAtom(
@@ -38,4 +38,44 @@ val button = ButtonAtom(
     radius = 5,
     height = 55,
 )
+```
+
+## Molecules
+
+`Molecules` are made up of multiple atoms.
+
+```kotlin
+abstract class BaseMolecule {
+    abstract val atoms: List<Atom>
+}
+```
+
+`Molecules` can also implement Atom interfaces. You can either hold all the atoms in the `List`, or hold references to specific atoms. For example:
+
+```kotlin
+class TextButtonMolecule(
+    color: AtomikColor,
+    disabledColor: AtomikColor,
+    radius: Int = 0,
+    height: Int?,
+    textColor: AtomikColor,
+    typography: AtomikTypography,
+    fontFamily: AtomikFontFamily?,
+) : BaseMolecule() {
+
+    val buttonAtom = ButtonAtom(
+        enabledColor = AtomikEnabledColor(color, disabledColor),
+        radius = radius,
+        height = height
+    )
+
+    val textAtom = TextViewAtom(
+        textColor = textColor,
+        typography = typography,
+        fontFamily = fontFamily,
+    )
+
+
+    override val atoms: List<Atom> = listOf(buttonAtom, textAtom)
+}
 ```
