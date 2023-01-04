@@ -1,5 +1,6 @@
 package me.kevinschildhorn.android.ui.atoms
 
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
@@ -10,28 +11,41 @@ import me.kevinschildhorn.atomik.atomic.atoms.heightModifier
 import me.kevinschildhorn.atomik.atomic.atoms.shape
 import me.kevinschildhorn.atomik.atomic.atoms.textStyle
 import me.kevinschildhorn.atomik.atomic.molecules.TextButtonMolecule
+import me.kevinschildhorn.atomik.color.base.AtomikColor
+import me.kevinschildhorn.common.design.theme.ColorSets
 import me.kevinschildhorn.common.design.theme.atomic.DesignAtoms
+import me.kevinschildhorn.common.design.theme.microsoftDesignSystem
 
 @Composable
 fun PrimaryButton(
     text: String,
     onClick: () -> Unit,
 ) {
-    val molecule: TextButtonMolecule = DesignAtoms.Buttons.primaryButtonMolecule
+    //val molecule: TextButtonMolecule = DesignAtoms.Buttons.primaryButtonMolecule
+    val molecule: TextButtonMolecule = microsoftDesignSystem.molecules["PrimaryButton"] as TextButtonMolecule
     val buttonAtom = molecule.buttonAtom
+/*
+
     TextButton(
         onClick = onClick,
         colors = buttonAtom.enabledColor.buttonColors(),
-        shape = buttonAtom.shape,
-        modifier = buttonAtom.heightModifier
+        //shape = buttonAtom.shape,
+        //modifier = buttonAtom.heightModifier
     ) {
         val textAtom = molecule.textAtom
         Text(
             text,
-            color = textAtom.textColor.platformColor,
-            style = textAtom.textStyle(fontFamily),
+            //color = textAtom.textColor.platformColor,
+            //style = textAtom.textStyle(),
         )
-    }
+    }*/
+    val test2 = microsoftDesignSystem.colorSet.getColor(ColorSets.MicrosoftColor.PRIMARY.value).hex
+
+    val test = buttonAtom.enabledColor.color.hex
+    val hex = 0xFF0078D4
+    val color = AtomikColor(test)
+    Text(text = "Hello", color = color.platformColor)
+
 }
 
 @Preview

@@ -1,10 +1,11 @@
 package me.kevinschildhorn.common.design.theme
 
+import me.kevinschildhorn.atomik.color.CustomColorSet
 import me.kevinschildhorn.atomik.color.DefaultColorSet
 import me.kevinschildhorn.atomik.color.base.AtomikColor
 
 object ColorSets {
-    val light = DefaultColorSet(
+    internal val light = DefaultColorSet(
         primary = AtomikColor(0xFFFFA500),
         secondary = AtomikColor(0xFFFFD383),
         background = AtomikColor(0xFFFFFFFF),
@@ -18,7 +19,7 @@ object ColorSets {
         errorText = AtomikColor(0xFF9E1F1F),
     )
 
-    val dark = DefaultColorSet(
+    internal val dark = DefaultColorSet(
         primary = AtomikColor(0xFFFFA500),
         secondary = AtomikColor(0xFFE8810C),
         background = AtomikColor(0xFF2E3034),
@@ -30,5 +31,22 @@ object ColorSets {
         backgroundText = AtomikColor(0xFFB3B7C0),
         surfaceText = AtomikColor(0xFFFFA500),
         errorText = AtomikColor(0xFF5A1111),
+    )
+
+    enum class MicrosoftColor(val value: String) {
+        PRIMARY("Primary"),
+        WHITE("White"),
+        GREY20("Grey20"),
+        GREY90("Grey90"),
+    }
+
+    internal val microsoft = CustomColorSet(
+        defaultColor = AtomikColor(0x0078D4),
+        colors = mapOf<MicrosoftColor, AtomikColor>(
+            MicrosoftColor.PRIMARY to AtomikColor(0xFF0078D4), // TODO Adding opacity
+            MicrosoftColor.WHITE to AtomikColor(0xFFFFFFFF),
+            MicrosoftColor.GREY20 to AtomikColor(0xFFF3F2F1),
+            MicrosoftColor.GREY90 to AtomikColor(0xFFA19F9D)
+        ).mapKeys { it.key.name }
     )
 }

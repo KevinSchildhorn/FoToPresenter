@@ -13,6 +13,7 @@ import me.kevinschildhorn.android.ui.screens.LoginScreen
 import me.kevinschildhorn.atomik.typography.base.AtomikFontFamily
 import me.kevinschildhorn.common.architecture.ui.viewmodel.LoginViewModel
 import me.kevinschildhorn.common.design.theme.designSystem
+import me.kevinschildhorn.common.design.theme.microsoftDesignSystem
 import me.kevinschildhorn.common.startKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinComponent
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity(), KoinComponent {
         super.onCreate(savedInstanceState)
         startKoin(this)
         designSystem.fontFamily = AtomikFontFamily(fontFamily)
+        microsoftDesignSystem.fontFamily = AtomikFontFamily(fontFamily)
         setContent {
             MaterialTheme(
                 // colors = UIDesign.composeColors(isSystemInDarkTheme()),
@@ -42,7 +44,6 @@ class MainActivity : AppCompatActivity(), KoinComponent {
         }
     }
 }
-
 val fontFamily = FontFamily(
     Font(R.font.quicksand_regular),
     Font(R.font.quicksand_bold, FontWeight.Bold),

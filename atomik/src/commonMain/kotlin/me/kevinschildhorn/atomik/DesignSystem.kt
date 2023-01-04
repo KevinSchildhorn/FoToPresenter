@@ -1,6 +1,7 @@
 package me.kevinschildhorn.atomik
 
 import me.kevinschildhorn.atomik.atomic.atoms.Atom
+import me.kevinschildhorn.atomik.atomic.molecules.BaseMolecule
 import me.kevinschildhorn.atomik.color.CustomColorSet
 import me.kevinschildhorn.atomik.color.DefaultColorSet
 import me.kevinschildhorn.atomik.color.base.ColorSet
@@ -25,6 +26,7 @@ open class DesignSystem(
     open val colorSet: ColorSet,
     open val typographySet: TypographySet,
     open val atoms: Map<String, Atom>,
+    open val molecules: MutableMap<String, BaseMolecule>,
     open var fontFamily: AtomikFontFamily? = null
 )
 
@@ -32,19 +34,22 @@ class PlatformDesignSystem(
     override val colorSet: DefaultColorSet,
     override val typographySet: PlatformTypographySet,
     override val atoms: Map<String, Atom>,
+    override val molecules: MutableMap<String, BaseMolecule>,
     override var fontFamily: AtomikFontFamily?,
-) : DesignSystem(colorSet, typographySet, atoms, fontFamily)
+) : DesignSystem(colorSet, typographySet, atoms, molecules, fontFamily)
 
 class DefaultDesignSystem(
     override val colorSet: DefaultColorSet,
     override val typographySet: DefaultTypographySet,
     override val atoms: Map<String, Atom>,
+    override val molecules: MutableMap<String, BaseMolecule>,
     override var fontFamily: AtomikFontFamily?,
-) : DesignSystem(colorSet, typographySet, atoms, fontFamily)
+) : DesignSystem(colorSet, typographySet, atoms, molecules, fontFamily)
 
 class CustomDesignSystem(
     override val colorSet: CustomColorSet,
     override val typographySet: CustomTypographySet,
     override val atoms: Map<String, Atom>,
+    override val molecules: MutableMap<String, BaseMolecule>,
     override var fontFamily: AtomikFontFamily?,
-) : DesignSystem(colorSet, typographySet, atoms, fontFamily)
+) : DesignSystem(colorSet, typographySet, atoms, molecules, fontFamily)
