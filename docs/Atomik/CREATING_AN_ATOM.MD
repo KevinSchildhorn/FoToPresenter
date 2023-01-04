@@ -2,13 +2,14 @@
 
 `Atomik` is a KMP implementation of design system, which includes using [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/). The way `Atomik` is designed, you can create atoms using an abstract `Atom` class, which then implements different `Atom` interfaces.
 
-To create an atom you should reference your `DesignSystem` for colors, fonts and other variables. If you haven't yet see the document about [Getting Started](GETTING_STARTED.MD).
 
 ```kotlin
 abstract class Atom {
     abstract val type: AtomType
 }
 ```
+
+To create an atom you should reference your `DesignSystem` for colors, fonts and other variables. If you haven't yet see the document about [Getting Started](GETTING_STARTED.MD).
 
 ## Example
 
