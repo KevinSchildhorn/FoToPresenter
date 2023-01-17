@@ -5,7 +5,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
 import me.kevinschildhorn.atomik.typography.base.AtomikTypography
 
-
 fun AtomikTypography.asComposeTextStyle(fontFamily: FontFamily): TextStyle =
     TextStyle(
         fontFamily = fontFamily,

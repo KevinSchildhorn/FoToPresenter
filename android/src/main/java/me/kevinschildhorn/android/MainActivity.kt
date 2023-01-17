@@ -10,7 +10,9 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import me.kevinschildhorn.android.ui.screens.LoginScreen
+import me.kevinschildhorn.atomik.typography.base.AtomikFontFamily
 import me.kevinschildhorn.common.architecture.ui.viewmodel.LoginViewModel
+import me.kevinschildhorn.common.design.theme.designSystem
 import me.kevinschildhorn.common.startKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinComponent
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity(), KoinComponent {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         startKoin(this)
+        designSystem.fontFamily = AtomikFontFamily(fontFamily)
         setContent {
             MaterialTheme(
                 // colors = UIDesign.composeColors(isSystemInDarkTheme()),

@@ -3,6 +3,8 @@ package me.kevinschildhorn.atomik.color
 import me.kevinschildhorn.atomik.color.base.AtomikColor
 import me.kevinschildhorn.atomik.color.base.ColorSet
 
+val disabledColor: AtomikColor = AtomikColor(0xFF888888)
+
 data class DefaultColorSet(
     val primary: AtomikColor,
     val secondary: AtomikColor,
@@ -18,7 +20,7 @@ data class DefaultColorSet(
 ) : ColorSet {
     override val defaultColor: AtomikColor = primary
     override fun getColor(name: String): AtomikColor =
-        when(name){
+        when (name) {
             "primary" -> primary
             "secondary" -> secondary
             "background" -> background
@@ -33,4 +35,3 @@ data class DefaultColorSet(
             else -> primary
         }
 }
-

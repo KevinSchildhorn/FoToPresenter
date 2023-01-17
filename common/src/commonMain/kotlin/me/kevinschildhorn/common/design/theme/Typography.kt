@@ -1,49 +1,16 @@
 package me.kevinschildhorn.common.design.theme
 
+import me.kevinschildhorn.atomik.typography.DefaultTypographySet
 import me.kevinschildhorn.atomik.typography.base.AtomikTypography
-import me.kevinschildhorn.atomik.typography.base.TypographyWeight
+import me.kevinschildhorn.atomik.typography.base.AtomikTypographyWeight
 
-object Typography {
-    private const val fontName = "Quicksand"
-
-    val h1 = AtomikTypography(
-        fontName,
-        weight = TypographyWeight.NORMAL,
-        size = 96
-    )
-    val h2 = AtomikTypography(
-        fontName,
-        weight = TypographyWeight.NORMAL,
-        size = 60
-    )
-    val h3 = AtomikTypography(
-        fontName,
-        weight = TypographyWeight.NORMAL,
-        size = 48
-    )
-    val h4 = AtomikTypography(
-        fontName,
-        weight = TypographyWeight.NORMAL,
-        size = 34
-    )
-    val subtitle = AtomikTypography(
-        fontName,
-        weight = TypographyWeight.NORMAL,
-        size = 16
-    )
-    val button = AtomikTypography(
-        fontName,
-        weight = TypographyWeight.BOLD,
-        size = 14
-    )
-    val body = AtomikTypography(
-        fontName,
-        weight = TypographyWeight.NORMAL,
-        size = 16
-    )
-    val caption = AtomikTypography(
-        fontName,
-        weight = TypographyWeight.BOLD,
-        size = 14
-    )
-}
+internal val sharedTypography = DefaultTypographySet(
+    h1 = AtomikTypography(size = 96),
+    h2 = AtomikTypography(size = 60),
+    h3 = AtomikTypography(size = 48),
+    h4 = AtomikTypography(size = 34),
+    subtitle = AtomikTypography(size = 16),
+    button = AtomikTypography(weight = AtomikTypographyWeight.BOLD, size = 14),
+    body = AtomikTypography(size = 16),
+    caption = AtomikTypography(weight = AtomikTypographyWeight.BOLD, size = 14),
+)
