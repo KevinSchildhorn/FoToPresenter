@@ -16,18 +16,17 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":common"))
-    implementation("androidx.compose.ui:ui-tooling-preview:1.3.2")
+    implementation(project(":mobileMain"))
+    implementation("androidx.compose.ui:ui-tooling-preview:1.5.4")
 
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03")
-    implementation("androidx.compose.ui:ui:1.3.2")
-    implementation("androidx.compose.foundation:foundation:1.3.1")
-    implementation("androidx.compose.material:material:1.3.1")
-    implementation("androidx.compose.runtime:runtime:1.3.2")
-    implementation("androidx.activity:activity-compose:1.6.1")
-    implementation("io.insert-koin:koin-android:3.3.0")
-    implementation(project(":atomik"))
-    debugImplementation("androidx.compose.ui:ui-tooling:1.3.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0-rc01")
+    implementation("androidx.compose.ui:ui:1.5.4")
+    implementation("androidx.compose.foundation:foundation:1.5.4")
+    implementation("androidx.compose.material:material:1.5.4")
+    implementation("androidx.compose.runtime:runtime:1.5.4")
+    implementation("androidx.activity:activity-compose:1.8.1")
+    implementation("io.insert-koin:koin-android:3.4.0")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.5.4")
 }
 
 android {

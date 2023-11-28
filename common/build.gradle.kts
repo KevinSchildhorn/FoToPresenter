@@ -31,35 +31,37 @@ kotlin {
                 implementation("co.touchlab:kermit:1.2.2")
                 implementation("co.touchlab:kermit-koin:1.2.2")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-                implementation("io.insert-koin:koin-core:3.2.2")
-                implementation("com.russhwolf:multiplatform-settings:1.0.0-RC")
-                implementation(project(":atomik"))
+                implementation("io.insert-koin:koin-core:3.4.0")
+                implementation("com.russhwolf:multiplatform-settings:1.0.0")
+                api("io.github.kevinschildhorn:atomik:0.0.6")
+
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("com.russhwolf:multiplatform-settings-test:1.0.0-RC")
+                implementation("com.russhwolf:multiplatform-settings-test:1.0.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
-                implementation("io.insert-koin:koin-test:3.2.2")
+                implementation("io.insert-koin:koin-test:3.4.0")
             }
         }
         val androidMain by getting {
             dependencies {
-                api("androidx.appcompat:appcompat:1.5.1")
-                api("androidx.core:core-ktx:1.9.0")
+                api("androidx.appcompat:appcompat:1.6.1")
+                api("androidx.core:core-ktx:1.12.0")
 
-                implementation("androidx.compose.ui:ui:1.3.2")
-                implementation("androidx.compose.foundation:foundation:1.3.1")
-                implementation("androidx.compose.material:material:1.3.1")
-                implementation("androidx.compose.runtime:runtime:1.3.2")
+                implementation("androidx.compose.ui:ui:1.5.4")
+                implementation("androidx.compose.foundation:foundation:1.5.4")
+                implementation("androidx.compose.material:material:1.5.4")
+                implementation("androidx.compose.runtime:runtime:1.5.4")
 
-                implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
-                implementation("androidx.lifecycle:lifecycle-viewmodel:2.5.1")
-                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-                implementation("io.insert-koin:koin-android:3.3.0")
-                implementation("androidx.security:security-crypto:1.1.0-alpha04")
-                implementation("commons-net:commons-net:3.9.0")
+                implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+                implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
+                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+                implementation("io.insert-koin:koin-android:3.4.0")
+                implementation("androidx.security:security-crypto:1.1.0-alpha06")
+                //implementation("commons-net:commons-net:3.9.0")
+                implementation("com.hierynomus:smbj:0.13.0")
             }
         }
         val androidTest by getting {
@@ -70,7 +72,7 @@ kotlin {
         }
         val iosMain by getting {
             dependencies {
-                implementation("com.russhwolf:multiplatform-settings-test:1.0.0-RC")
+                implementation("com.russhwolf:multiplatform-settings-test:1.0.0")
             }
         }
     }
