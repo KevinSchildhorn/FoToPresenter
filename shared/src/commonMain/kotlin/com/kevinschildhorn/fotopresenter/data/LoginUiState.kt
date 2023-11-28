@@ -1,6 +1,8 @@
 package com.kevinschildhorn.fotopresenter.data
 
 data class LoginUiState(
-    val title: String = "",
-    val body: String = "",
+    val hostName: String = "",
+    val username: String = "",
+    val password: String = "",
+    val isSuccess: Boolean = false
 )
