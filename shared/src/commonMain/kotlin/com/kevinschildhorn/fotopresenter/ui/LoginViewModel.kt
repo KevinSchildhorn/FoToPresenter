@@ -1,18 +1,20 @@
 package com.kevinschildhorn.fotopresenter.ui
 
-import com.kevinschildhorn.fotopresenter.data.LoginUiState
-import com.rickclephas.kmm.viewmodel.KMMViewModel
+import com.kevinschildhorn.fotopresenter.domain.ConnectToServerUseCase
+import com.kevinschildhorn.fotopresenter.ui.state.LoginUiState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
-class LoginViewModel : KMMViewModel() {
+class LoginViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
     fun updateHost(host: String) {
-        _uiState.value = _uiState.value.copy(hostName = host)
+        _uiState.value = _uiState.value.copy(hostname = host)
     }
 
     fun updateUsername(username: String) {
@@ -24,6 +26,13 @@ class LoginViewModel : KMMViewModel() {
     }
 
     fun login() {
-        _uiState.value = _uiState.value.copy(isSuccess = true)
+        val connectToServer = ConnectToServerUseCase()
+        viewModelScope.launch(Dispatchers.Default) {
+            val result = connectToServer(
+                _uiState.value.asLoginCredentials
+            )
+        }
+        //val saveCredentials: SaveCredentialsUseCase by inject()
+        _uiState.value = _uiState.value.copy(isLoading = true)
     }
 }

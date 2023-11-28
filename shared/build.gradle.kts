@@ -25,7 +25,12 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
-            api("com.rickclephas.kmm:kmm-viewmodel-core:1.0.0-ALPHA-15")
+            implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.21")
+            implementation("co.touchlab:kermit:1.2.2")
+            implementation("co.touchlab:kermit-koin:1.2.2")
+            implementation("com.russhwolf:multiplatform-settings:1.0.0")
+
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
         }
         androidMain.dependencies {
         }

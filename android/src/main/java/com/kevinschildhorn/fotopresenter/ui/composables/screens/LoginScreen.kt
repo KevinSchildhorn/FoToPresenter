@@ -22,7 +22,7 @@ fun LoginScreen(
 
     Column {
         OutlinedTextField(
-            value = gameUiState.hostName,
+            value = gameUiState.hostname,
             label = { Text("Host") },
             onValueChange = {
                 loginViewModel.updateHost(it)
