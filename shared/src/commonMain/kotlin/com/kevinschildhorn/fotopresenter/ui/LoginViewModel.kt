@@ -13,6 +13,10 @@ class LoginViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
+    init {
+        attemptAutoLogin()
+    }
+
     fun updateHost(host: String) {
         _uiState.value = _uiState.value.copy(hostname = host)
     }
@@ -34,5 +38,14 @@ class LoginViewModel : ViewModel() {
         }
         //val saveCredentials: SaveCredentialsUseCase by inject()
         _uiState.value = _uiState.value.copy(isLoading = true)
+    }
+
+    private fun attemptAutoLogin() {
+        viewModelScope.launch {
+            val autoConnectUseCase: AutoConnectUseCase by inject()
+            if (autoConnectUseCase()) {
+                // TODO
+            }
+        }
     }
 }

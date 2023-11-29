@@ -1,6 +1,6 @@
 package com.kevinschildhorn.fotopresenter.domain
 
-import com.kevinschildhorn.shared.architecture.data.repositories.CredentialsRepository
+import com.kevinschildhorn.fotopresenter.data.CredentialsRepository
 
 /**
 Connect to Server using FTPS and saved credentials

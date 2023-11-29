@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.data.datasources.repositories
+package com.kevinschildhorn.fotopresenter.data.repositories
 
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
