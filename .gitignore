@@ -25,7 +25,7 @@ hs_err_pid*
 replay_pid*
 .idea/*
 .gradle/*
-android/build/*
+androidApp/build/*
 shared/build/*
 ios/Pods/*
 ios/Podfile.lock
@@ -36,3 +36,4 @@ ios/FotoPresenter.xcworkspace/xcuserdata/kevinschildhorn.xcuserdatad/UserInterfa
 ios/FotoPresenter.xcworkspace/xcuserdata/kevinschildhorn.xcuserdatad/UserInterfaceState.xcuserstate
 ios/FotoPresenter.xcworkspace/xcuserdata/kevinschildhorn.xcuserdatad/UserInterfaceState.xcuserstate
 common/src/commonMain/kotlin/me/kevinschildhorn/common/network/ftps/TestingLoginInfo.kt
+androidApp/build/kotlin/compileDebugKotlinAndroid/cacheable/caches-jvm/lookups/lookups.tab_i.len
