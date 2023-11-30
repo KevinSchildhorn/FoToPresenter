@@ -28,7 +28,8 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-
+                implementation("io.insert-koin:koin-core:3.4.0")
+                implementation("androidx.security:security-crypto:1.1.0-alpha06")
                 implementation("co.touchlab:kermit:1.2.2")
                 implementation("co.touchlab:kermit-koin:1.2.2")
                 implementation("com.russhwolf:multiplatform-settings:1.0.0")
@@ -36,10 +37,22 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
-
+                implementation(kotlin("test"))
+                implementation("com.russhwolf:multiplatform-settings-test:1.0.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+                implementation("io.insert-koin:koin-test:3.4.0")
             }
         }
+
+        val jvmMain by creating {
+            dependsOn(commonMain)
+            dependencies {
+                implementation("com.hierynomus:smbj:0.13.0")
+            }
+        }
+
         val androidMain by getting {
+            dependsOn(jvmMain)
             dependencies {
                 api("androidx.activity:activity-compose:1.8.1")
                 api("androidx.appcompat:appcompat:1.6.1")
@@ -56,6 +69,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
         }
         val desktopMain by getting {
+            dependsOn(jvmMain)
             dependencies {
                 implementation(compose.desktop.common)
             }

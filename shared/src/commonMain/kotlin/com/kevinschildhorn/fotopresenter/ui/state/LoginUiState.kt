@@ -4,24 +4,24 @@ import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 
 data class LoginUiState(
     val hostname: String = "",
-    val port: String = "",
     val username: String = "",
     val password: String = "",
-    override val isLoading: Boolean = false,
-    override val errorMessage: String? = null,
+    val sharedFolder: String = "",
+    val shouldAutoConnect: Boolean = false,
+    override val state: State = State.IDLE
 ) : UiState {
 
     val isLoginButtonEnabled: Boolean
         get() = hostname.isNotEmpty() &&
-                port.isNotEmpty() &&
+                sharedFolder.isNotEmpty() &&
                 username.isNotEmpty() &&
                 password.isNotEmpty()
 
     val asLoginCredentials: LoginCredentials
         get() = LoginCredentials(
             hostname = hostname,
-            port = port.toInt(),
             username = username,
-            password = password
+            password = password,
+            sharedFolder = sharedFolder
         )
 }

@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.ui
+package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
 import kotlinx.coroutines.CoroutineScope
 

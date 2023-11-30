@@ -10,6 +10,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(project(":shared"))
+                implementation("io.insert-koin:koin-android:3.4.0")
             }
         }
     }
