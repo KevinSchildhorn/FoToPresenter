@@ -1,5 +1,7 @@
 package com.kevinschildhorn.atomik.typography.base
 
+import dev.icerock.moko.resources.FontResource
+
 /**
  * A common implementation of a Typography, that contains data for describing a font.
  *
@@ -11,5 +13,5 @@ package com.kevinschildhorn.atomik.typography.base
 public data class AtomikTypography(
     val weight: AtomikTypographyWeight = AtomikTypographyWeight.NORMAL,
     val size: Int,
-    val font: AtomikFont
+    val font: FontResource
 )

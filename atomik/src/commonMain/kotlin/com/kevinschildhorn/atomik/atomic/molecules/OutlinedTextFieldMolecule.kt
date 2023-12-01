@@ -26,7 +26,8 @@ public class OutlinedTextFieldMolecule(
     disabledColorAtom: ColorAtom? = null,
     cursorColor: AtomikColor? = null,
     errorColor: AtomikColor? = errorTextAtom?.textColor,
-    override val borderColor: AtomikColor,
+    override val focusedBorderColor: AtomikColor,
+    override val unFocusedBorderColor: AtomikColor = focusedBorderColor,
     override val radius: Int,
 ) : TextFieldMolecule(
     textAtom,

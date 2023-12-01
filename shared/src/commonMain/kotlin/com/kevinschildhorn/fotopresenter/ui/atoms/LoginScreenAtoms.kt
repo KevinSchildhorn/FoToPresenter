@@ -12,7 +12,7 @@ object LoginScreenAtoms {
         hintTextAtom = textAtom(surfaceText),
         errorTextAtom = textAtom(errorText),
         disabledColorAtom = SimpleColorAtom(surface),
-        borderColor = backgroundText,
+        focusedBorderColor = backgroundText,
         radius = 5,
     )
 

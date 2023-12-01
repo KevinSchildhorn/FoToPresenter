@@ -20,7 +20,8 @@ public fun OutlinedTextFieldMolecule.colors(): TextFieldColors {
             ContentAlpha.medium
         ),
         cursorColor = cursorColor?.composeColor ?: textColor,
-        focusedBorderColor = borderColor.composeColor,
+        focusedBorderColor = focusedBorderColor.composeColor,
+        unfocusedBorderColor = unFocusedBorderColor.composeColor,
 
         disabledTextColor = disabledColorAtom?.color?.composeColor
             ?: textColor.copy(ContentAlpha.disabled),

@@ -23,7 +23,10 @@ fun FotoTextField(
         value = value,
         onValueChange = onValueChange,
         placeholder = {
-            Text(placeholder)
+            Text(
+                placeholder,
+                style = molecule.hintTextAtom?.textStyle ?: molecule.textAtom.textStyle
+            )
         },
         colors = molecule.colors(),
         shape = molecule.shape,
@@ -44,7 +47,10 @@ fun FotoPasswordTextField(
         onValueChange = onValueChange,
         visualTransformation = PasswordVisualTransformation(),
         placeholder = {
-            Text(placeholder)
+            Text(
+                placeholder,
+                style = molecule.hintTextAtom?.textStyle ?: molecule.textAtom.textStyle
+            )
         },
         colors = molecule.colors(),
         shape = molecule.shape,

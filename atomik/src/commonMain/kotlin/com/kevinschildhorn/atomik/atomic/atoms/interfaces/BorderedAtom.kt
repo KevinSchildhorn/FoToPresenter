@@ -11,7 +11,9 @@ import com.kevinschildhorn.atomik.color.base.AtomikColor
  */
 @OptIn(ExperimentalAtomik::class)
 internal interface BorderedAtom : AtomInterface {
-    public val borderColor: AtomikColor
+    public val focusedBorderColor: AtomikColor
+    public val unFocusedBorderColor: AtomikColor
+
 }
 
 /**
