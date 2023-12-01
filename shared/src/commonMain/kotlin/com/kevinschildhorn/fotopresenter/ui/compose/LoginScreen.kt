@@ -13,6 +13,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import com.kevinschildhorn.fotopresenter.ui.state.State
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
 
 @Composable
@@ -22,6 +24,13 @@ fun LoginScreen(viewModel: LoginViewModel) {
     val uriHandler = LocalUriHandler.current
 
     Column {
+
+        (uiState.state as? State.ERROR)?.let {
+            Text("Error Occurred! ${it.message}")
+        }
+        if(uiState.state == State.SUCCESS){
+            Text("Success!")
+        }
         LoginTextField(
             value = uiState.hostname,
             onValueChange = { viewModel.updateHost(it) },
@@ -32,7 +41,7 @@ fun LoginScreen(viewModel: LoginViewModel) {
             onValueChange = { viewModel.updateUsername(it) },
             placeholder = "Username"
         )
-        LoginTextField(
+        PasswordTextField(
             value = uiState.password,
             onValueChange = { viewModel.updatePassword(it) },
             placeholder = "Password"
@@ -76,6 +85,22 @@ fun LoginTextField(
     TextField(
         value = value,
         onValueChange = onValueChange,
+        placeholder = {
+            Text(placeholder)
+        }
+    )
+}
+
+@Composable
+fun PasswordTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    placeholder: String,
+) {
+    TextField(
+        value = value,
+        onValueChange = onValueChange,
+        visualTransformation = PasswordVisualTransformation(),
         placeholder = {
             Text(placeholder)
         }

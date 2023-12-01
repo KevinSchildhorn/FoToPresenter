@@ -36,8 +36,9 @@ class LoginViewModel(
                 shouldAutoConnect = credentials.shouldAutoConnect,
             )
         }
-        attemptAutoLogin()
-
+        if(credentials.isComplete && credentials.shouldAutoConnect) {
+            attemptAutoLogin()
+        }
     }
 
     fun updateHost(hostname: String) {
