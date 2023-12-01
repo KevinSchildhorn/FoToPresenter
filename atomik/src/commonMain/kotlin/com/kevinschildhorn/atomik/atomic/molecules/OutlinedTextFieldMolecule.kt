@@ -1,7 +1,8 @@
 package com.kevinschildhorn.atomik.atomic.molecules
 
-import com.kevinschildhorn.atomik.atomic.atoms.Atom
+import com.kevinschildhorn.atomik.atomic.atoms.interfaces.BorderedAtom
 import com.kevinschildhorn.atomik.atomic.atoms.interfaces.ColorAtom
+import com.kevinschildhorn.atomik.atomic.atoms.interfaces.RoundedAtom
 import com.kevinschildhorn.atomik.atomic.atoms.interfaces.TextAtom
 import com.kevinschildhorn.atomik.color.base.AtomikColor
 
@@ -15,18 +16,24 @@ import com.kevinschildhorn.atomik.color.base.AtomikColor
  * @property backgroundColorAtom the [ColorAtom] of the background
  * @property cursorColor the [AtomikColor] of the cursor
  * @property errorColor the [AtomikColor] of the error, used for all error elements in the View
+ * @property borderColor the [AtomikColor] of the border
  */
-public open class TextFieldMolecule(
-    public val textAtom: TextAtom,
-    public val backgroundColorAtom: ColorAtom,
-    public val hintTextAtom: TextAtom? = null,
-    public val errorTextAtom: TextAtom? = null,
-    public val disabledColorAtom: ColorAtom? = null,
-    public val cursorColor: AtomikColor? = null,
-    public val errorColor: AtomikColor? = errorTextAtom?.textColor,
-) : BaseMolecule() {
-
-    override val atoms: List<Atom>
-        get() = listOf(/*textAtom, hintTextAtom, errorTextAtom, cursorColor*/)
-}
-
+public class OutlinedTextFieldMolecule(
+    textAtom: TextAtom,
+    backgroundColorAtom: ColorAtom,
+    hintTextAtom: TextAtom? = null,
+    errorTextAtom: TextAtom? = null,
+    disabledColorAtom: ColorAtom? = null,
+    cursorColor: AtomikColor? = null,
+    errorColor: AtomikColor? = errorTextAtom?.textColor,
+    override val borderColor: AtomikColor,
+    override val radius: Int,
+) : TextFieldMolecule(
+    textAtom,
+    backgroundColorAtom,
+    hintTextAtom,
+    errorTextAtom,
+    disabledColorAtom,
+    cursorColor,
+    errorColor,
+), BorderedAtom, RoundedAtom

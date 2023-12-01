@@ -1,5 +1,6 @@
 package com.kevinschildhorn.atomik.typography.base
 
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 
 /**
@@ -9,6 +10,7 @@ import androidx.compose.ui.text.font.FontFamily
  * platform specific font functionality
  */
 @Suppress("SpellCheckingInspection")
-public expect class AtomikFontFamily {
-    public val fontFamily: FontFamily
+public actual class AtomikFontFamily {
+    public actual val fontFamily: FontFamily
+        get() = TODO("Not yet implemented")
 }

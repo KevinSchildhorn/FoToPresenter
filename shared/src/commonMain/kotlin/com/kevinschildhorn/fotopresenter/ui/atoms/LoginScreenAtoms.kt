@@ -2,22 +2,23 @@ package com.kevinschildhorn.fotopresenter.ui.atoms
 
 import com.kevinschildhorn.atomik.atomic.atoms.interfaces.SimpleColorAtom
 import com.kevinschildhorn.atomik.atomic.atoms.interfaces.SimpleTextAtom
-import com.kevinschildhorn.atomik.atomic.molecules.TextFieldMolecule
+import com.kevinschildhorn.atomik.atomic.molecules.OutlinedTextFieldMolecule
 import com.kevinschildhorn.atomik.color.base.AtomikColor
 
 object LoginScreenAtoms {
-
-    val textFieldMolecule = TextFieldMolecule(
+    val textFieldMolecule = OutlinedTextFieldMolecule(
         textAtom = textAtom(primaryText),
         backgroundColorAtom = SimpleColorAtom(surface),
         hintTextAtom = textAtom(surfaceText),
         errorTextAtom = textAtom(errorText),
         disabledColorAtom = SimpleColorAtom(surface),
+        borderColor = backgroundText,
+        radius = 5,
     )
 
     private fun textAtom(color: AtomikColor) =
         SimpleTextAtom(
-            textColor = primaryText,
+            textColor = color,
             typography = subtitle,
             fontFamily = null
         )

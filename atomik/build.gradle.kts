@@ -63,8 +63,12 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting {
+        val jvmMain by creating {
             dependsOn(commonMain)
+        }
+
+        val androidMain by getting {
+            dependsOn(jvmMain)
             dependencies {
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.12.0")
@@ -79,8 +83,9 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
         }
-        val jvmMain by creating {
-            dependsOn(commonMain)
+
+        val desktopMain by getting {
+            dependsOn(jvmMain)
         }
     }
 }

@@ -28,6 +28,7 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+
                 implementation("io.insert-koin:koin-core:3.4.0")
                 implementation("androidx.security:security-crypto:1.1.0-alpha06")
                 implementation("co.touchlab:kermit:1.2.2")
@@ -46,15 +47,17 @@ kotlin {
 
         val jvmMain by creating {
             dependsOn(commonMain)
+            resources.srcDir("src/commonMain/resources")
             dependencies {
                 implementation("com.hierynomus:smbj:0.13.0")
+                implementation(compose.uiTooling)
             }
         }
 
         val androidMain by getting {
             dependsOn(jvmMain)
+            resources.srcDirs("src/commonMain/resources")
             dependencies {
-                implementation(compose.preview)
                 api("androidx.activity:activity-compose:1.8.1")
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.12.0")
@@ -69,10 +72,12 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            resources.srcDirs("src/commonMain/resources")
         }
         val desktopMain by getting {
             dependsOn(jvmMain)
             dependencies {
+                resources.srcDirs("src/commonMain/resources")
                 implementation(compose.preview)
                 implementation(compose.desktop.common)
             }
@@ -85,7 +90,7 @@ android {
     namespace = "com.kevinschildhorn.common"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].res.srcDirs("src/commonMain/resources")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {

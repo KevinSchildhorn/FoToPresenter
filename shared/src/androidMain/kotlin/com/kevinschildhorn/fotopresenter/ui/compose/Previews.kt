@@ -10,7 +10,7 @@ fun FotoTextFieldPreview() {
     Column {
         FotoTextField("", {}, "Hint")
         FotoTextField("Value", {}, "Hint")
-        FotoPasswordTextField("", {}, "Hint")
-        FotoPasswordTextField("Value", {}, "Hint")
+        FotoPasswordTextField("", {}, "Password")
+        FotoPasswordTextField("Value", {}, "Password")
     }
 }

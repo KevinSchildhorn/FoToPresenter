@@ -1,5 +1,6 @@
 package com.kevinschildhorn.atomik.typography.base
 
+import androidx.compose.ui.text.font.FontFamily
 import platform.UIKit.UIFont
 
 /**
@@ -10,4 +11,6 @@ import platform.UIKit.UIFont
  * @property uiFonts a map of UIFonts reference by [AtomikTypographyWeight]
  */
 @Suppress("SpellCheckingInspection")
-public class AtomikFontFamilyIOS(private val uiFonts: Map<AtomikTypographyWeight, UIFont>)
+public actual class AtomikFontFamily(private val uiFonts: Map<AtomikTypographyWeight, UIFont>){
+    public actual val fontFamily: FontFamily = TODO()
+}

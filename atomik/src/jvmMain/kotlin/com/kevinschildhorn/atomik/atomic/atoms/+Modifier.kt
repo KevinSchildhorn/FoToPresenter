@@ -4,7 +4,7 @@ package com.kevinschildhorn.atomik.atomic.atoms.compose
 import androidx.compose.foundation.background
 import androidx.compose.ui.Modifier
 import com.kevinschildhorn.atomik.atomic.atoms.interfaces.ColorAtom
-import com.kevinschildhorn.atomik.atomic.atoms.interfaces.ConstrainedAtom
+import com.kevinschildhorn.atomik.color.base.composeColor
 
 /**
  * Modifier extension to apply a Color Atom to a composable

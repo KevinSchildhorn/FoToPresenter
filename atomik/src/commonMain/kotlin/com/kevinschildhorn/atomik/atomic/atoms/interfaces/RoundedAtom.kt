@@ -7,7 +7,7 @@ import com.kevinschildhorn.atomik.atomic.atoms.Atom
  *
  * @property radius the radius of the rounded edges (in dp / pt)
  */
-internal interface RoundedAtom : AtomInterface {
+public interface RoundedAtom : AtomInterface {
     public val radius: Int
 }
 
