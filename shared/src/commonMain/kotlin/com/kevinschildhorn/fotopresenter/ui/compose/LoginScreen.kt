@@ -1,19 +1,16 @@
 package com.kevinschildhorn.fotopresenter.ui.compose
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Button
 import androidx.compose.material.Checkbox
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import com.kevinschildhorn.fotopresenter.ui.state.State
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
 
@@ -31,22 +28,22 @@ fun LoginScreen(viewModel: LoginViewModel) {
         if(uiState.state == State.SUCCESS){
             Text("Success!")
         }
-        LoginTextField(
+        FotoTextField(
             value = uiState.hostname,
             onValueChange = { viewModel.updateHost(it) },
             placeholder = "HostName"
         )
-        LoginTextField(
+        FotoTextField(
             value = uiState.username,
             onValueChange = { viewModel.updateUsername(it) },
             placeholder = "Username"
         )
-        PasswordTextField(
+        FotoPasswordTextField(
             value = uiState.password,
             onValueChange = { viewModel.updatePassword(it) },
             placeholder = "Password"
         )
-        LoginTextField(
+        FotoTextField(
             value = uiState.sharedFolder,
             onValueChange = { viewModel.updateSharedFolder(it) },
             placeholder = "Shared Folder"
@@ -74,35 +71,4 @@ fun LoginScreen(viewModel: LoginViewModel) {
             uriHandler.openUri("https://www.qnap.com/en/how-to/faq/article/how-to-map-network-drive-in-windows-os-by-qfinder")
         }
     }
-}
-
-@Composable
-fun LoginTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    placeholder: String,
-) {
-    TextField(
-        value = value,
-        onValueChange = onValueChange,
-        placeholder = {
-            Text(placeholder)
-        }
-    )
-}
-
-@Composable
-fun PasswordTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    placeholder: String,
-) {
-    TextField(
-        value = value,
-        onValueChange = onValueChange,
-        visualTransformation = PasswordVisualTransformation(),
-        placeholder = {
-            Text(placeholder)
-        }
-    )
 }

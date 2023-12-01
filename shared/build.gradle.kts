@@ -5,10 +5,9 @@ plugins {
 }
 
 kotlin {
+    applyDefaultHierarchyTemplate()
     androidTarget()
-
     jvm("desktop")
-
     listOf(
         iosX64(),
         iosArm64(),
@@ -23,6 +22,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(project(":atomik"))
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
@@ -54,15 +54,17 @@ kotlin {
         val androidMain by getting {
             dependsOn(jvmMain)
             dependencies {
+                implementation(compose.preview)
                 api("androidx.activity:activity-compose:1.8.1")
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.12.0")
+                implementation("io.github.kevinschildhorn:atomik:0.0.6")
             }
         }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
-        val iosMain by creating {
+        val iosMain by getting {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
@@ -71,6 +73,7 @@ kotlin {
         val desktopMain by getting {
             dependsOn(jvmMain)
             dependencies {
+                implementation(compose.preview)
                 implementation(compose.desktop.common)
             }
         }
