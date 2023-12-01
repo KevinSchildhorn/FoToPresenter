@@ -1,6 +1,8 @@
 package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
 import co.touchlab.kermit.Logger
+import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
+import com.kevinschildhorn.fotopresenter.domain.AutoConnectUseCase
 import com.kevinschildhorn.fotopresenter.domain.ConnectToServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.ui.state.LoginUiState
@@ -17,13 +19,25 @@ import org.koin.core.component.inject
 
 class LoginViewModel(
     private val logger: Logger,
+    private val credentialsRepository: CredentialsRepository,
 ) : ViewModel(), KoinComponent {
 
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
     init {
+        val credentials = credentialsRepository.fetchCredentials()
+        _uiState.update {
+            it.copy(
+                hostname = credentials.hostname,
+                username = credentials.username,
+                password = credentials.password,
+                sharedFolder = credentials.sharedFolder,
+                shouldAutoConnect = credentials.shouldAutoConnect,
+            )
+        }
         attemptAutoLogin()
+
     }
 
     fun updateHost(hostname: String) {
@@ -57,11 +71,11 @@ class LoginViewModel(
                 _uiState.value.asLoginCredentials
             )
 
-            if(!result) {
+            if (!result) {
                 _uiState.update { it.copy(state = State.ERROR("")) }
                 return@launch
-            }
-            else {
+            } else {
+                _uiState.update { it.copy(state = State.SUCCESS) }
                 val saveCredentials: SaveCredentialsUseCase by inject()
                 saveCredentials(_uiState.value.asLoginCredentials)
             }
@@ -71,11 +85,10 @@ class LoginViewModel(
     private fun attemptAutoLogin() {
         logger.i { "Attempting To Auto Login" }
         viewModelScope.launch {
-            /*
             val autoConnectUseCase: AutoConnectUseCase by inject()
             if (autoConnectUseCase()) {
                 // TODO
-            }*/
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ import com.russhwolf.settings.Settings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -30,6 +31,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class LoginViewModelTest : KoinTest {
@@ -41,15 +43,11 @@ class LoginViewModelTest : KoinTest {
         KEY_USERNAME to "defaultUsername",
         KEY_PASSWORD to "defaultPassword",
     )
+    private val emptySettings = MapSettings()
 
     @BeforeTest
     fun startTest() {
         Dispatchers.setMain(testDispatcher)
-        val baseLogger = Logger(LoggerConfig.default)
-
-        startKoin {
-            modules(testingModule(settings = settings))
-        }
     }
 
     @AfterTest
@@ -60,14 +58,142 @@ class LoginViewModelTest : KoinTest {
     }
 
     @Test
-    fun `login`() = runTest {
+    fun `UI State`() = runTest {
+        startKoin {
+            modules(testingModule(settings = emptySettings))
+        }
+        with(viewModel.uiState.value) {
+            assertEquals(hostname, "")
+            assertEquals(username, "")
+            assertEquals(password, "")
+            assertEquals(sharedFolder, "")
+            assertEquals(shouldAutoConnect, false)
+            assertEquals(state, State.IDLE)
+        }
+
         viewModel.updateHost("google.com")
         viewModel.updateUsername("John")
         viewModel.updatePassword("Secret")
+        viewModel.updateSharedFolder("Public")
+        viewModel.updateShouldAutoConnect(true)
+
+        with(viewModel.uiState.value) {
+            assertEquals(hostname, "google.com")
+            assertEquals(username, "John")
+            assertEquals(password, "Secret")
+            assertEquals(sharedFolder, "Public")
+            assertEquals(shouldAutoConnect, true)
+            assertEquals(state, State.IDLE)
+        }
+    }
+
+    @Test
+    fun `UI State Auto Populate`() = runTest {
+        startKoin {
+            modules(testingModule(settings = settings))
+            with(viewModel.uiState.value) {
+                assertEquals(hostname, "defaultHostname")
+                assertEquals(username, "defaultUsername")
+                assertEquals(password, "defaultPassword")
+                assertEquals(sharedFolder, "")
+                assertEquals(shouldAutoConnect, false)
+                assertEquals(state, State.IDLE)
+            }
+        }
+    }
+
+    @Test
+    fun `Login Button State`() = runTest {
+        startKoin {
+            modules(testingModule(settings = emptySettings))
+        }
+        val host = "google.com"
+        val username = "John"
+        val password = "Secret"
+        val sharedFolder = "Public"
+
+        val uiState = viewModel.uiState
+        assertFalse(uiState.value.isLoginButtonEnabled)
+
+        viewModel.updateHost(host)
+        viewModel.updateUsername(username)
+        viewModel.updatePassword(password)
+        viewModel.updateSharedFolder(sharedFolder)
+        viewModel.updateShouldAutoConnect(true)
+        assertTrue(uiState.value.isLoginButtonEnabled)
+
+        // Host
+        viewModel.updateHost("")
+        assertFalse(uiState.value.isLoginButtonEnabled)
+
+        // Username
+        viewModel.updateHost(host)
+        assertTrue(uiState.value.isLoginButtonEnabled)
+        viewModel.updateUsername("")
+        assertFalse(uiState.value.isLoginButtonEnabled)
+
+        // Password
+        viewModel.updateUsername(username)
+        assertTrue(uiState.value.isLoginButtonEnabled)
+        viewModel.updatePassword("")
+        assertFalse(uiState.value.isLoginButtonEnabled)
+
+        // Shared Folder
+        viewModel.updatePassword(password)
+        assertTrue(uiState.value.isLoginButtonEnabled)
+        viewModel.updateSharedFolder("")
+        assertFalse(uiState.value.isLoginButtonEnabled)
+
+        // Password
+        viewModel.updateSharedFolder(sharedFolder)
+        assertTrue(uiState.value.isLoginButtonEnabled)
+
+        viewModel.updateShouldAutoConnect(false)
+        assertTrue(uiState.value.isLoginButtonEnabled)
+    }
+
+    @Test
+    fun `Login Failure`() = runTest {
+        startKoin {
+            modules(testingModule(settings = emptySettings))
+        }
+        viewModel.updateHost("google.com")
+        viewModel.updateUsername("John")
+        viewModel.updatePassword("Secret")
+        viewModel.updateSharedFolder("Public")
+        viewModel.updateShouldAutoConnect(true)
         viewModel.login()
 
-        val state = viewModel.uiState.value
-        assertEquals(state.state, State.LOADING)
+        with(viewModel.uiState.value) {
+            assertEquals(State.LOADING, state)
+        }
+
+        delay(2000)
+        with(viewModel.uiState.value) {
+            assertTrue(state is State.ERROR)
+        }
+    }
+
+    @Test
+    fun `Login Success`() = runTest {
+        startKoin {
+            modules(testingModule(settings = emptySettings))
+        }
+        viewModel.updateHost("192.168.1.1")
+        viewModel.updateUsername("admin")
+        viewModel.updatePassword("password")
+        viewModel.updateSharedFolder("Public")
+        viewModel.updateShouldAutoConnect(false)
+        viewModel.login()
+
+        with(viewModel.uiState.value) {
+            assertEquals(State.LOADING, state)
+        }
+
+        delay(2000)
+        with(viewModel.uiState.value) {
+            assertEquals(State.SUCCESS, state)
+        }
     }
 
     companion object {

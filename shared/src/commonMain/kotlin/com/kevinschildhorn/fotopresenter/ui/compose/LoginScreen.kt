@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter.ui.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Button
 import androidx.compose.material.Checkbox
@@ -29,23 +30,29 @@ fun LoginScreen(viewModel: LoginViewModel) {
         LoginTextField(
             value = uiState.username,
             onValueChange = { viewModel.updateUsername(it) },
-            placeholder = "HostName"
+            placeholder = "Username"
         )
         LoginTextField(
             value = uiState.password,
             onValueChange = { viewModel.updatePassword(it) },
-            placeholder = "HostName"
+            placeholder = "Password"
         )
         LoginTextField(
             value = uiState.sharedFolder,
             onValueChange = { viewModel.updateSharedFolder(it) },
-            placeholder = "HostName"
+            placeholder = "Shared Folder"
         )
-        Checkbox(
-            checked = uiState.shouldAutoConnect,
-            onCheckedChange = { viewModel.updateShouldAutoConnect(it) }
-        )
-        Button({}) {
+        Row {
+            Text("auto connect")
+            Checkbox(
+                checked = uiState.shouldAutoConnect,
+                onCheckedChange = { viewModel.updateShouldAutoConnect(it) }
+            )
+        }
+
+        Button({
+            viewModel.login()
+        }) {
             Text("Login")
         }
 

@@ -42,7 +42,7 @@ class ConnectToServerUseCaseTest : KoinTest {
     }
 
     @Test
-    fun `connect to server`() = runBlocking {
+    fun `connect to server success`() = runBlocking {
         val loginCredentials = LoginCredentials(
             "192.168.1.1",
             "admin",
@@ -58,6 +58,19 @@ class ConnectToServerUseCaseTest : KoinTest {
     fun `connect to server failure`() = runBlocking {
         val loginCredentials = LoginCredentials(
             "google.com",
+            "admin",
+            "password",
+            "Public",
+            shouldAutoConnect = false,
+        )
+        val result = useCase(loginCredentials)
+        assertFalse(result, "Should not have Connected to Server")
+    }
+
+    @Test
+    fun `connect to server throw`() = runBlocking {
+        val loginCredentials = LoginCredentials(
+            "throw",
             "admin",
             "password",
             "Public",

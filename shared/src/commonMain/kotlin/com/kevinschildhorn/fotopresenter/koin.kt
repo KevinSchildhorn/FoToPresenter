@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
+import com.kevinschildhorn.fotopresenter.domain.AutoConnectUseCase
 import com.kevinschildhorn.fotopresenter.domain.ConnectToServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
@@ -19,11 +20,12 @@ val commonModule = module {
 
     // Domain
     factory { ConnectToServerUseCase(get()) }
+    factory { AutoConnectUseCase(get(), get()) }
     factory { SaveCredentialsUseCase(get(), baseLogger.withTag("SaveCredentialsUseCase")) }
     //factory { AutoConnectUseCase(get()) }
 
     // UI
-    single { LoginViewModel(baseLogger.withTag("LoginViewModel")) }
+    single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
 }
 
 internal expect val platformModule: Module

@@ -40,7 +40,7 @@ class SaveCredentialsUseCaseTest : KoinTest {
     }
 
     @Test
-    fun `save credentials`() {
+    fun `save credentials success`() {
         val loginCredentials = LoginCredentials(
             "192.168.1.1",
             "admin",

@@ -15,7 +15,9 @@ class MockNetworkHandler : NetworkHandler {
     private val successDirectory:String = "photos"
     private val successImageName:String = "image.jpg"
 
+    @Throws(Exception::class)
     override suspend fun connect(credentials: LoginCredentials): Boolean {
+        if(credentials.hostname == "throw") throw Exception()
         return credentials == successLoginCredentials
     }
 
