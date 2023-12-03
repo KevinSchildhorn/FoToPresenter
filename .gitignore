@@ -26,7 +26,7 @@ replay_pid*
 .idea/*
 .gradle/*
 android/build/*
-common/build/*
+shared/build/*
 ios/Pods/*
 ios/Podfile.lock
 java_pid7192.hprof
