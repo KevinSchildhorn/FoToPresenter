@@ -1,37 +1,26 @@
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import com.kevinschildhorn.fotopresenter.ui.compose.DirectoryScreen
 import com.kevinschildhorn.fotopresenter.ui.compose.LoginScreen
+import com.kevinschildhorn.fotopresenter.ui.compose.Screen
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
 
 @Composable
 fun App(viewModel: LoginViewModel) {
+
+    val currentScreen = remember { mutableStateOf(Screen.LOGIN) }
+
     MaterialTheme {
-        var greetingText by remember { mutableStateOf("Hello, World!") }
-        var showImage by remember { mutableStateOf(false) }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            /*
-            Button(onClick = {
-                greetingText = "Hello, ${getPlatformName()}"
-                showImage = !showImage
-            }) {
-                Text(greetingText)
+        when (currentScreen.value) {
+            Screen.LOGIN -> LoginScreen(viewModel) {
+                currentScreen.value = Screen.DIRECTORY
             }
-            AnimatedVisibility(showImage) {
-                Image(
-                    painterResource("compose-multiplatform.xml"),
-                    contentDescription = "Compose Multiplatform icon"
-                )
-            }*/
-            LoginScreen(viewModel)
+
+            Screen.DIRECTORY -> DirectoryScreen()
         }
+
     }
 }
 

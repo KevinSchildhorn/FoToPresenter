@@ -2,13 +2,13 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("org.jetbrains.compose")
+    id("dev.icerock.mobile.multiplatform-resources").version("0.23.0")
 }
 
 kotlin {
+    applyDefaultHierarchyTemplate()
     androidTarget()
-
     jvm("desktop")
-
     listOf(
         iosX64(),
         iosArm64(),
@@ -23,16 +23,21 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(project(":atomik"))
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+
                 implementation("io.insert-koin:koin-core:3.4.0")
                 implementation("androidx.security:security-crypto:1.1.0-alpha06")
                 implementation("co.touchlab:kermit:1.2.2")
                 implementation("co.touchlab:kermit-koin:1.2.2")
                 implementation("com.russhwolf:multiplatform-settings:1.0.0")
+
+                api("dev.icerock.moko:resources:0.23.0")
+                api("dev.icerock.moko:resources-compose:0.23.0") // for compose multiplatform
             }
         }
         val commonTest by getting {
@@ -46,31 +51,38 @@ kotlin {
 
         val jvmMain by creating {
             dependsOn(commonMain)
+            resources.srcDir("src/commonMain/resources")
             dependencies {
                 implementation("com.hierynomus:smbj:0.13.0")
+                implementation(compose.uiTooling)
             }
         }
 
         val androidMain by getting {
             dependsOn(jvmMain)
+            resources.srcDirs("src/commonMain/resources")
             dependencies {
                 api("androidx.activity:activity-compose:1.8.1")
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.12.0")
+                implementation("io.github.kevinschildhorn:atomik:0.0.6")
             }
         }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
-        val iosMain by creating {
+        val iosMain by getting {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            resources.srcDirs("src/commonMain/resources")
         }
         val desktopMain by getting {
             dependsOn(jvmMain)
             dependencies {
+                resources.srcDirs("src/commonMain/resources")
+                implementation(compose.preview)
                 implementation(compose.desktop.common)
             }
         }
@@ -82,7 +94,7 @@ android {
     namespace = "com.kevinschildhorn.common"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].res.srcDirs("src/commonMain/resources")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
@@ -95,4 +107,8 @@ android {
     kotlin {
         jvmToolchain(17)
     }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.kevinschildhorn.fotopresenter" // required
 }
