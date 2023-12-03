@@ -1,12 +1,13 @@
-package com.kevinschildhorn.fotopresenter.ui.compose
+package com.kevinschildhorn.fotopresenter.ui.compose.login
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.atomik.atomic.atoms.shape
 import com.kevinschildhorn.atomik.atomic.atoms.textStyle
 import com.kevinschildhorn.atomik.atomic.molecules.colors
@@ -17,6 +18,7 @@ fun FotoTextField(
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String,
+    modifier: Modifier = Modifier,
 ) {
     val molecule = LoginScreenAtoms.textFieldMolecule
     OutlinedTextField(
@@ -30,7 +32,8 @@ fun FotoTextField(
         },
         colors = molecule.colors(),
         shape = molecule.shape,
-        textStyle = molecule.textAtom.textStyle
+        textStyle = molecule.textAtom.textStyle,
+        modifier = modifier,
     )
 }
 
@@ -39,6 +42,7 @@ fun FotoPasswordTextField(
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String,
+    modifier: Modifier = Modifier,
 ) {
     val molecule = LoginScreenAtoms.textFieldMolecule
 
@@ -54,6 +58,7 @@ fun FotoPasswordTextField(
         },
         colors = molecule.colors(),
         shape = molecule.shape,
-        textStyle = molecule.textAtom.textStyle
+        textStyle = molecule.textAtom.textStyle,
+        modifier = modifier,
     )
 }

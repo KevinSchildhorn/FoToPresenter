@@ -1,6 +1,7 @@
 package com.kevinschildhorn.atomik.atomic.atoms.interfaces
 
 import com.kevinschildhorn.atomik.atomic.atoms.Atom
+import com.kevinschildhorn.atomik.color.base.AtomikColor
 import com.kevinschildhorn.atomik.color.base.AtomikColorType
 
 /**
@@ -9,7 +10,7 @@ import com.kevinschildhorn.atomik.color.base.AtomikColorType
  * @property disabledColor the disabled color of the UI.
  */
 internal interface EnablableAtom : ColorAtom {
-    public val disabledColor: AtomikColorType?
+    public val disabledColor: AtomikColor?
 }
 
 /**

@@ -18,7 +18,7 @@ import com.kevinschildhorn.atomik.color.base.AtomikColor
  * @property errorColor the [AtomikColor] of the error, used for all error elements in the View
  * @property borderColor the [AtomikColor] of the border
  */
-public class OutlinedTextFieldMolecule(
+public open class OutlinedTextFieldMolecule(
     textAtom: TextAtom,
     backgroundColorAtom: ColorAtom,
     hintTextAtom: TextAtom? = null,
