@@ -15,9 +15,8 @@ import com.kevinschildhorn.atomik.color.base.ColorSet
  */
 internal class CustomColorSetTyped<E : Enum<*>>(
     override val fallbackColor: AtomikColor,
-    private val colors: Map<E, AtomikColor>
+    private val colors: Map<E, AtomikColor>,
 ) : ColorSet {
-
     /**
      * Gets the color based on an enum value. If none is found then the fallback is returned
      * @param type The enum associated with the typography you want to get as a [AtomikColor]

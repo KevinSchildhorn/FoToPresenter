@@ -16,9 +16,8 @@ import com.kevinschildhorn.atomik.typography.base.TypographySet
  */
 internal class CustomTypographySetTyped<E : Enum<*>>(
     override val fallbackTypography: AtomikTypography,
-    private val typographies: Map<E, AtomikTypography>
+    private val typographies: Map<E, AtomikTypography>,
 ) : TypographySet {
-
     /**
      * Gets the typography based on an enum value. If none is found then the fallback is returned
      * @param type The enum associated with the typography you want to get as a [AtomikTypographyType]

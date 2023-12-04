@@ -2,7 +2,6 @@ package com.kevinschildhorn.atomik.atomic.atoms.interfaces
 
 import com.kevinschildhorn.atomik.atomic.atoms.Atom
 import com.kevinschildhorn.atomik.color.base.AtomikColor
-import com.kevinschildhorn.atomik.color.base.AtomikColorType
 
 /**
  * An atom that can be enabled / disabled. Contains the disabled color of the UI and inherits [ColorAtom]

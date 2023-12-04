@@ -16,12 +16,10 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-
 class LoginViewModel(
     private val logger: Logger,
     private val credentialsRepository: CredentialsRepository,
 ) : ViewModel(), KoinComponent {
-
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
@@ -36,7 +34,7 @@ class LoginViewModel(
                 shouldAutoConnect = credentials.shouldAutoConnect,
             )
         }
-        if(credentials.isComplete && credentials.shouldAutoConnect) {
+        if (credentials.isComplete && credentials.shouldAutoConnect) {
             attemptAutoLogin()
         }
     }
@@ -68,9 +66,10 @@ class LoginViewModel(
 
         val connectToServer: ConnectToServerUseCase by inject()
         viewModelScope.launch(Dispatchers.Default) {
-            val result = connectToServer(
-                _uiState.value.asLoginCredentials
-            )
+            val result =
+                connectToServer(
+                    _uiState.value.asLoginCredentials,
+                )
 
             if (!result) {
                 _uiState.update { it.copy(state = State.ERROR("")) }

@@ -1,6 +1,5 @@
 package com.kevinschildhorn.atomik.atomic.molecules
 
-
 import com.kevinschildhorn.atomik.atomic.atoms.Atom
 import com.kevinschildhorn.atomik.atomic.atoms.interfaces.EnablableAtom
 import com.kevinschildhorn.atomik.atomic.atoms.interfaces.RoundedAtom
@@ -11,9 +10,7 @@ public class TextButtonMolecule(
     override val color: AtomikColor,
     override val disabledColor: AtomikColor,
     override val radius: Int,
-    public val textAtom: TextAtom
+    public val textAtom: TextAtom,
 ) : BaseMolecule(), EnablableAtom, RoundedAtom {
-
     override val atoms: List<Atom> = listOf(textAtom as Atom)
-
 }

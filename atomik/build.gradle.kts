@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("org.jetbrains.compose")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 /*
 // Exclude compose from iOS
@@ -31,14 +32,14 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 kotlin {
     explicitApi()
     applyDefaultHierarchyTemplate()
-    androidTarget() {
+    androidTarget {
         publishLibraryVariants("debug", "release")
     }
     jvm("desktop")
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "atomik"

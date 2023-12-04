@@ -10,8 +10,7 @@ fun DirectoryScreen() {
     Column {
         Text("You are Connected")
         OutlinedButton({
-
-        }){
+        }) {
             Text("Logout")
         }
     }

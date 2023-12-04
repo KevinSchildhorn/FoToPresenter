@@ -1,4 +1,6 @@
-// ktlint-disable filename
+
+@file:Suppress("ktlint:standard:filename")
+
 package com.kevinschildhorn.atomik.atomic.atoms.xml
 
 import android.widget.TextView
@@ -27,7 +29,10 @@ public fun TextView.applyTextAtom(textAtom: TextAtom?) {
  */
 public fun TextView.applyColorAtom(colorAtom: ColorAtom?, foreground: Boolean = true) {
     colorAtom?.let {
-        if (foreground) setTextColor(it.color.viewColor)
-        else setBackgroundColor(it.color.viewColor)
+        if (foreground) {
+            setTextColor(it.color.viewColor)
+        } else {
+            setBackgroundColor(it.color.viewColor)
+        }
     }
 }

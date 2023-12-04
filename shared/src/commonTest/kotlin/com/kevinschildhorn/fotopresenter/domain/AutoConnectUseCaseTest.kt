@@ -16,7 +16,6 @@ import kotlin.test.assertTrue
 Testing [AutoConnectUseCase]
  **/
 class AutoConnectUseCaseTest : KoinTest {
-
     private val useCase: AutoConnectUseCase by inject()
 
     @AfterTest
@@ -25,60 +24,79 @@ class AutoConnectUseCaseTest : KoinTest {
     }
 
     @Test
-    fun `connect to server success`() = runBlocking {
-        startKoin {
-            modules(testingModule(settings = MapSettings(
-                KEY_HOSTNAME to "192.168.1.1",
-                KEY_USERNAME to "admin",
-                KEY_PASSWORD to "password",
-                KEY_SHAREDFOLDER to "Public",
-                KEY_AUTOCONNECT to false,
-            )))
-        }
+    fun `connect to server success`() =
+        runBlocking {
+            startKoin {
+                modules(
+                    testingModule(
+                        settings =
+                        MapSettings(
+                            KEY_HOSTNAME to "192.168.1.1",
+                            KEY_USERNAME to "admin",
+                            KEY_PASSWORD to "password",
+                            KEY_SHAREDFOLDER to "Public",
+                            KEY_AUTOCONNECT to false,
+                        ),
+                    ),
+                )
+            }
 
-        val result = useCase()
-        assertTrue(result, "Failed to Connect to Server")
-    }
+            val result = useCase()
+            assertTrue(result, "Failed to Connect to Server")
+        }
 
     @Test
-    fun `connect to server failure`() = runBlocking {
-        startKoin {
-            modules(testingModule(settings = MapSettings(
-                KEY_HOSTNAME to "google.com",
-                KEY_USERNAME to "admin",
-                KEY_PASSWORD to "password",
-                KEY_SHAREDFOLDER to "Public",
-                KEY_AUTOCONNECT to false,
-            )))
+    fun `connect to server failure`() =
+        runBlocking {
+            startKoin {
+                modules(
+                    testingModule(
+                        settings =
+                        MapSettings(
+                            KEY_HOSTNAME to "google.com",
+                            KEY_USERNAME to "admin",
+                            KEY_PASSWORD to "password",
+                            KEY_SHAREDFOLDER to "Public",
+                            KEY_AUTOCONNECT to false,
+                        ),
+                    ),
+                )
+            }
+            val result = useCase()
+            assertFalse(result, "Should not have Connected to Server")
         }
-        val result = useCase()
-        assertFalse(result, "Should not have Connected to Server")
-    }
 
     @Test
-    fun `connect to server empty failure`() = runBlocking {
-        startKoin {
-            modules(testingModule())
+    fun `connect to server empty failure`() =
+        runBlocking {
+            startKoin {
+                modules(testingModule())
+            }
+            val result = useCase()
+            assertFalse(result, "Should not have Connected to Server")
         }
-        val result = useCase()
-        assertFalse(result, "Should not have Connected to Server")
-    }
 
     @Test
-    fun `connect to server throw`() = runBlocking {
-        startKoin {
-            modules(testingModule(settings = MapSettings(
-                KEY_HOSTNAME to "throw",
-                KEY_USERNAME to "admin",
-                KEY_PASSWORD to "password",
-                KEY_SHAREDFOLDER to "Public",
-                KEY_AUTOCONNECT to false,
-            )))
-        }
+    fun `connect to server throw`() =
+        runBlocking {
+            startKoin {
+                modules(
+                    testingModule(
+                        settings =
+                        MapSettings(
+                            KEY_HOSTNAME to "throw",
+                            KEY_USERNAME to "admin",
+                            KEY_PASSWORD to "password",
+                            KEY_SHAREDFOLDER to "Public",
+                            KEY_AUTOCONNECT to false,
+                        ),
+                    ),
+                )
+            }
 
-        val result = useCase()
-        assertFalse(result, "Should not have Connected to Server")
-    }
+            val result = useCase()
+            assertFalse(result, "Should not have Connected to Server")
+        }
 
     companion object {
         private const val KEY_HOSTNAME = "hostname"

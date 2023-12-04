@@ -13,5 +13,5 @@ import dev.icerock.moko.resources.FontResource
 public data class AtomikTypography(
     val weight: AtomikTypographyWeight = AtomikTypographyWeight.NORMAL,
     val size: Int,
-    val font: FontResource
+    val font: FontResource,
 )

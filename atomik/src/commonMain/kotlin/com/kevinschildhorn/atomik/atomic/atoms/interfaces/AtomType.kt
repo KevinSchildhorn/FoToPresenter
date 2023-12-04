@@ -14,5 +14,5 @@ public enum class AtomType {
     TEXT,
     IMAGE,
     TEXTFIELD,
-    VIEW
+    VIEW,
 }

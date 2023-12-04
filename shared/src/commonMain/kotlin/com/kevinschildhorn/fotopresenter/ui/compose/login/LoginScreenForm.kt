@@ -1,11 +1,8 @@
 package com.kevinschildhorn.fotopresenter.ui.compose.login
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -28,11 +25,11 @@ fun LoginScreenForm(
     loginButtonClicked: () -> Unit,
 ) {
     Column(modifier = Modifier.padding(horizontal = 20.dp)) {
-
         (uiState.state as? State.ERROR)?.let {
             ErrorView(
                 "Error Occurred! ${it.message}",
-                modifier = Modifier.fillMaxWidth())
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
 
         FormColumn(

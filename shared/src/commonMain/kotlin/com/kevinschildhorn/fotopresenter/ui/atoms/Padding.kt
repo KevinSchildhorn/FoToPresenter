@@ -8,7 +8,8 @@ enum class Padding(val rawValue: Int) {
     STANDARD(20),
     MEDIUM(12),
     SMALL(8),
-    NONE(0);
+    NONE(0),
+    ;
 
     val dp: Dp
         get() = this.rawValue.dp

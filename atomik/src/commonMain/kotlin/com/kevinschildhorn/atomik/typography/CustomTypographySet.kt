@@ -16,14 +16,12 @@ import com.kevinschildhorn.atomik.typography.base.TypographySet
  */
 internal class CustomTypographySet(
     override val fallbackTypography: AtomikTypography,
-    private val typographies: Map<AtomikTypographyType, AtomikTypography>
+    private val typographies: Map<AtomikTypographyType, AtomikTypography>,
 ) : TypographySet {
-
     /**
      * Gets the typography based on a type. If none is found then the fallback is returned
      * @param type The type of typography you want to get as a [AtomikTypographyType]
      * @return the [AtomikTypography] based on the type passed
      */
-    override fun getTypography(type: AtomikTypographyType): AtomikTypography =
-        typographies[type] ?: fallbackTypography
+    override fun getTypography(type: AtomikTypographyType): AtomikTypography = typographies[type] ?: fallbackTypography
 }

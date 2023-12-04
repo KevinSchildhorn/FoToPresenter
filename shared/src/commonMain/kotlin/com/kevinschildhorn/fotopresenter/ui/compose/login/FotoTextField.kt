@@ -1,13 +1,10 @@
 package com.kevinschildhorn.fotopresenter.ui.compose.login
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.atomik.atomic.atoms.shape
 import com.kevinschildhorn.atomik.atomic.atoms.textStyle
 import com.kevinschildhorn.atomik.atomic.molecules.colors
@@ -27,7 +24,7 @@ fun FotoTextField(
         placeholder = {
             Text(
                 placeholder,
-                style = molecule.hintTextAtom?.textStyle ?: molecule.textAtom.textStyle
+                style = molecule.hintTextAtom?.textStyle ?: molecule.textAtom.textStyle,
             )
         },
         colors = molecule.colors(),
@@ -53,7 +50,7 @@ fun FotoPasswordTextField(
         placeholder = {
             Text(
                 placeholder,
-                style = molecule.hintTextAtom?.textStyle ?: molecule.textAtom.textStyle
+                style = molecule.hintTextAtom?.textStyle ?: molecule.textAtom.textStyle,
             )
         },
         colors = molecule.colors(),

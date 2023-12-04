@@ -1,12 +1,8 @@
 package com.kevinschildhorn.fotopresenter.data.repositories
 
-import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.testingModule
-import com.russhwolf.settings.MapSettings
-import com.russhwolf.settings.Settings
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
-import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.get
 import org.koin.test.inject
@@ -19,7 +15,6 @@ import kotlin.test.assertEquals
 Testing [CredentialsRepository]
  **/
 class CredentialsRepositoryTest : KoinTest {
-
     private val repository: CredentialsRepository by inject()
 
     @BeforeTest
@@ -47,7 +42,7 @@ class CredentialsRepositoryTest : KoinTest {
             username = username,
             password = password,
             sharedFolder = sharedFolder,
-            shouldAutoConnect = shouldAutoConnect
+            shouldAutoConnect = shouldAutoConnect,
         )
         val credentials = repository.fetchCredentials()
         assertEquals(hostname, credentials.hostname)

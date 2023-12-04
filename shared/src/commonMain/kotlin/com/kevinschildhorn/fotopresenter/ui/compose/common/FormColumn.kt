@@ -14,9 +14,9 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 inline fun FormColumn(
     modifier: Modifier = Modifier,
     verticalPadding: Padding = Padding.STANDARD,
-    content: @Composable ColumnScope.() -> Unit
+    content: @Composable ColumnScope.() -> Unit,
 ) {
-    val halfPadding:Int = verticalPadding.rawValue / 2
+    val halfPadding: Int = verticalPadding.rawValue / 2
     Column(
         modifier
             .fillMaxWidth()

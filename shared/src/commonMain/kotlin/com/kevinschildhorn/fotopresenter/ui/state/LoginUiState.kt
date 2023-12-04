@@ -9,27 +9,29 @@ data class LoginUiState(
     val password: String = "",
     val sharedFolder: String = "",
     val shouldAutoConnect: Boolean = false,
-    override val state: State = State.IDLE
+    override val state: State = State.IDLE,
 ) : UiState {
-
     val isLoginButtonEnabled: Boolean
-        get() = hostname.isNotEmpty() &&
+        get() =
+            hostname.isNotEmpty() &&
                 sharedFolder.isNotEmpty() &&
                 username.isNotEmpty() &&
                 password.isNotEmpty()
 
     val loginbuttonState: ButtonState
-        get() = when {
-            state == State.LOADING -> ButtonState.LOADING
-            isLoginButtonEnabled -> ButtonState.ENABLED
-            else -> ButtonState.DISABLED
-        }
+        get() =
+            when {
+                state == State.LOADING -> ButtonState.LOADING
+                isLoginButtonEnabled -> ButtonState.ENABLED
+                else -> ButtonState.DISABLED
+            }
 
     val asLoginCredentials: LoginCredentials
-        get() = LoginCredentials(
-            hostname = hostname,
-            username = username,
-            password = password,
-            sharedFolder = sharedFolder
-        )
+        get() =
+            LoginCredentials(
+                hostname = hostname,
+                username = username,
+                password = password,
+                sharedFolder = sharedFolder,
+            )
 }
