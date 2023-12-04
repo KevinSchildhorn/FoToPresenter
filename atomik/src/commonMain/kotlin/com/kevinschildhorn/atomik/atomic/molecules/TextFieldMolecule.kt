@@ -34,7 +34,7 @@ public open class TextFieldMolecule(
         get() = listOf()
 
     @Composable
-    public fun colors(): TextFieldColors {
+    public open fun colors(): TextFieldColors {
         val textColor = textAtom.textColor.composeColor
         val backgroundColor = backgroundColorAtom.color.composeColor
         val disabledBackgroundColor = backgroundColor.copy(alpha = ContentAlpha.disabled)
@@ -44,26 +44,26 @@ public open class TextFieldMolecule(
             textColor = textColor,
             backgroundColor = backgroundColor,
             placeholderColor =
-                hintTextAtom?.textColor?.composeColor ?: backgroundColor.copy(
-                    ContentAlpha.medium,
-                ),
+            hintTextAtom?.textColor?.composeColor ?: backgroundColor.copy(
+                ContentAlpha.medium,
+            ),
             cursorColor = cursorColor?.composeColor ?: textColor,
             disabledTextColor =
-                disabledColorAtom?.color?.composeColor
-                    ?: textColor.copy(ContentAlpha.disabled),
+            disabledColorAtom?.color?.composeColor
+                ?: textColor.copy(ContentAlpha.disabled),
             disabledIndicatorColor =
-                disabledColorAtom?.color?.composeColor
-                    ?: disabledBackgroundColor,
+            disabledColorAtom?.color?.composeColor
+                ?: disabledBackgroundColor,
             disabledLabelColor = disabledColorAtom?.color?.composeColor ?: disabledBackgroundColor,
             disabledLeadingIconColor =
-                disabledColorAtom?.color?.composeColor
-                    ?: disabledBackgroundColor,
+            disabledColorAtom?.color?.composeColor
+                ?: disabledBackgroundColor,
             disabledPlaceholderColor =
-                disabledColorAtom?.color?.composeColor
-                    ?: disabledBackgroundColor,
+            disabledColorAtom?.color?.composeColor
+                ?: disabledBackgroundColor,
             disabledTrailingIconColor =
-                disabledColorAtom?.color?.composeColor
-                    ?: disabledBackgroundColor,
+            disabledColorAtom?.color?.composeColor
+                ?: disabledBackgroundColor,
             errorCursorColor = errorColor?.composeColor ?: errorTextColor,
             errorIndicatorColor = errorColor?.composeColor ?: errorTextColor,
             errorLabelColor = errorColor?.composeColor ?: errorTextColor,

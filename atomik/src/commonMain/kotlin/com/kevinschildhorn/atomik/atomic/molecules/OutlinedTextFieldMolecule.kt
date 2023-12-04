@@ -35,18 +35,17 @@ public open class OutlinedTextFieldMolecule(
     override val unFocusedBorderColor: AtomikColor = focusedBorderColor,
     override val radius: Int,
 ) : TextFieldMolecule(
-        textAtom,
-        backgroundColorAtom,
-        hintTextAtom,
-        errorTextAtom,
-        disabledColorAtom,
-        cursorColor,
-        errorColor,
-    ),
-    BorderedAtom,
-    RoundedAtom {
+    textAtom,
+    backgroundColorAtom,
+    hintTextAtom,
+    errorTextAtom,
+    disabledColorAtom,
+    cursorColor,
+    errorColor,
+), BorderedAtom, RoundedAtom {
+
     @Composable
-    public fun colors(): TextFieldColors {
+    public override fun colors(): TextFieldColors {
         val textColor = textAtom.textColor.composeColor
         val backgroundColor = backgroundColorAtom.color.composeColor
         val disabledBackgroundColor = backgroundColor.copy(alpha = ContentAlpha.disabled)
@@ -56,26 +55,26 @@ public open class OutlinedTextFieldMolecule(
             textColor = textColor,
             backgroundColor = backgroundColor,
             placeholderColor =
-                hintTextAtom?.textColor?.composeColor ?: backgroundColor.copy(
-                    ContentAlpha.medium,
-                ),
+            hintTextAtom?.textColor?.composeColor ?: backgroundColor.copy(
+                ContentAlpha.medium,
+            ),
             cursorColor = cursorColor?.composeColor ?: textColor,
             focusedBorderColor = focusedBorderColor.composeColor,
             unfocusedBorderColor = unFocusedBorderColor.composeColor,
             disabledTextColor =
-                disabledColorAtom?.color?.composeColor
-                    ?: textColor.copy(ContentAlpha.disabled),
+            disabledColorAtom?.color?.composeColor
+                ?: textColor.copy(ContentAlpha.disabled),
             disabledBorderColor = disabledColorAtom?.color?.composeColor ?: disabledBackgroundColor,
             disabledLabelColor = disabledColorAtom?.color?.composeColor ?: disabledBackgroundColor,
             disabledLeadingIconColor =
-                disabledColorAtom?.color?.composeColor
-                    ?: disabledBackgroundColor,
+            disabledColorAtom?.color?.composeColor
+                ?: disabledBackgroundColor,
             disabledPlaceholderColor =
-                disabledColorAtom?.color?.composeColor
-                    ?: disabledBackgroundColor,
+            disabledColorAtom?.color?.composeColor
+                ?: disabledBackgroundColor,
             disabledTrailingIconColor =
-                disabledColorAtom?.color?.composeColor
-                    ?: disabledBackgroundColor,
+            disabledColorAtom?.color?.composeColor
+                ?: disabledBackgroundColor,
             errorCursorColor = errorColor?.composeColor ?: errorTextColor,
             errorBorderColor = errorColor?.composeColor ?: errorTextColor,
             errorLabelColor = errorColor?.composeColor ?: errorTextColor,
