@@ -43,21 +43,27 @@ public open class TextFieldMolecule(
         return TextFieldDefaults.textFieldColors(
             textColor = textColor,
             backgroundColor = backgroundColor,
-            placeholderColor = hintTextAtom?.textColor?.composeColor ?: backgroundColor.copy(
-                ContentAlpha.medium,
-            ),
+            placeholderColor =
+                hintTextAtom?.textColor?.composeColor ?: backgroundColor.copy(
+                    ContentAlpha.medium,
+                ),
             cursorColor = cursorColor?.composeColor ?: textColor,
-            disabledTextColor = disabledColorAtom?.color?.composeColor
-                ?: textColor.copy(ContentAlpha.disabled),
-            disabledIndicatorColor = disabledColorAtom?.color?.composeColor
-                ?: disabledBackgroundColor,
+            disabledTextColor =
+                disabledColorAtom?.color?.composeColor
+                    ?: textColor.copy(ContentAlpha.disabled),
+            disabledIndicatorColor =
+                disabledColorAtom?.color?.composeColor
+                    ?: disabledBackgroundColor,
             disabledLabelColor = disabledColorAtom?.color?.composeColor ?: disabledBackgroundColor,
-            disabledLeadingIconColor = disabledColorAtom?.color?.composeColor
-                ?: disabledBackgroundColor,
-            disabledPlaceholderColor = disabledColorAtom?.color?.composeColor
-                ?: disabledBackgroundColor,
-            disabledTrailingIconColor = disabledColorAtom?.color?.composeColor
-                ?: disabledBackgroundColor,
+            disabledLeadingIconColor =
+                disabledColorAtom?.color?.composeColor
+                    ?: disabledBackgroundColor,
+            disabledPlaceholderColor =
+                disabledColorAtom?.color?.composeColor
+                    ?: disabledBackgroundColor,
+            disabledTrailingIconColor =
+                disabledColorAtom?.color?.composeColor
+                    ?: disabledBackgroundColor,
             errorCursorColor = errorColor?.composeColor ?: errorTextColor,
             errorIndicatorColor = errorColor?.composeColor ?: errorTextColor,
             errorLabelColor = errorColor?.composeColor ?: errorTextColor,

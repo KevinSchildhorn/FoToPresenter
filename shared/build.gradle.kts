@@ -113,3 +113,7 @@ android {
 multiplatformResources {
     multiplatformResourcesPackage = "com.kevinschildhorn.fotopresenter" // required
 }
+
+dependencies {
+    ktlintRuleset("com.twitter.compose.rules:ktlint:0.0.26")
+}

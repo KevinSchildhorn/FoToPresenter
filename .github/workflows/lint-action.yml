@@ -1,11 +1,14 @@
 name: Lint Action
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: Running KtLint for linting
 on: [pull_request]
 jobs:
   Lint-Action:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: GitHub Action for ktlint
+        uses: yutailang0119/action-ktlint@v3.1.0
 
-      - name: Run KtFormat
-        run: ./gradlew ktFormat
+
+
+

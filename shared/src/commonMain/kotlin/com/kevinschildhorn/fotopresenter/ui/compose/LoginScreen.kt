@@ -33,11 +33,11 @@ fun LoginScreen(
         TitleView(
             "Foto",
             modifier =
-            Modifier.padding(
-                top = Padding.SMALL.dp,
-                start = Padding.STANDARD.dp,
-                bottom = Padding.LARGE.dp,
-            ),
+                Modifier.padding(
+                    top = Padding.SMALL.dp,
+                    start = Padding.STANDARD.dp,
+                    bottom = Padding.LARGE.dp,
+                ),
         )
         LoginScreenForm(
             uiState = uiState,
