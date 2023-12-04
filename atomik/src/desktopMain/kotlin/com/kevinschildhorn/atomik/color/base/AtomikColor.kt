@@ -20,7 +20,6 @@ public actual class AtomikColor {
     public actual val b: Int
     public actual val a: Float
 
-
     /**
      * Constructor with hex variable
      *

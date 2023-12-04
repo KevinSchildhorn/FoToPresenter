@@ -19,7 +19,6 @@ fun TitleViewPreview() {
     TitleView("Foto")
 }
 
-
 @Preview
 @Composable
 fun ErrorViewPreview() {
@@ -52,13 +51,13 @@ fun PrimaryButtonPreview() {
 fun LoginScreenFormPreview() {
     LoginScreenForm(
         LoginUiState(
-            state = State.ERROR("No Internet")
+            state = State.ERROR("No Internet"),
         ),
         {},
         {},
         {},
         {},
         {},
-        {}
+        {},
     )
 }

@@ -6,7 +6,10 @@ interface UiState {
 
 sealed class State {
     data object IDLE : State()
+
     data object LOADING : State()
+
     data class ERROR(val message: String) : State()
+
     data object SUCCESS : State()
 }

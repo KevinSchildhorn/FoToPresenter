@@ -15,9 +15,8 @@ import com.kevinschildhorn.atomik.color.base.ColorSet
  */
 public class CustomColorSet(
     override val fallbackColor: AtomikColor,
-    private val colors: Map<String, AtomikColor>
+    private val colors: Map<String, AtomikColor>,
 ) : ColorSet {
-
     /**
      * Gets the color based on a type. If none is found then the fallback is returned
      * @param name The name of color you want to get as a [String]

@@ -1,8 +1,6 @@
 package com.kevinschildhorn.atomik.atomic.molecules
 
 import com.kevinschildhorn.atomik.atomic.atoms.Atom
-import com.kevinschildhorn.atomik.atomic.atoms.interfaces.ColorAtom
-import com.kevinschildhorn.atomik.atomic.atoms.interfaces.TextAtom
 
 /**
  * Represents a Molecule from Atomic Design, as an interface
@@ -15,4 +13,3 @@ import com.kevinschildhorn.atomik.atomic.atoms.interfaces.TextAtom
 public abstract class BaseMolecule {
     public abstract val atoms: List<Atom>
 }
-

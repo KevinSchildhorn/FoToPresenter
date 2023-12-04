@@ -5,4 +5,6 @@ plugins {
     id("com.android.application").apply(false)
     id("com.android.library").apply(false)
     id("org.jetbrains.compose").apply(false)
+    id("org.jlleitschuh.gradle.ktlint").version("12.0.2").apply(false)
+    id("dev.icerock.mobile.multiplatform-resources").version("0.23.0").apply(false)
 }

@@ -4,7 +4,6 @@ import com.kevinschildhorn.atomik.atomic.atoms.Atom
 import com.kevinschildhorn.atomik.color.base.AtomikColor
 import com.kevinschildhorn.atomik.typography.base.AtomikFontFamily
 import com.kevinschildhorn.atomik.typography.base.AtomikTypography
-import com.kevinschildhorn.atomik.typography.base.AtomikTypographyType
 
 /**
  * An atom that has text
@@ -31,7 +30,7 @@ public val Atom.textAtom: TextAtom?
 public class SimpleTextAtom(
     override val textColor: AtomikColor,
     override val typography: AtomikTypography,
-    override val fontFamily: AtomikFontFamily?
+    override val fontFamily: AtomikFontFamily?,
 ) : Atom(), TextAtom {
     override val type: AtomType = AtomType.TEXT
 }

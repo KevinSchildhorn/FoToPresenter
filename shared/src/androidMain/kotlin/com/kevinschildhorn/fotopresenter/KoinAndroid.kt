@@ -33,9 +33,9 @@ internal actual val platformModule: Module = module {
                     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                     .build(),
                 EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM,
             ),
-            commit = false
+            commit = false,
         )
     }
     single<NetworkHandler> {
@@ -53,16 +53,16 @@ fun KoinApplication.androidContext(androidContext: Context): KoinApplication {
             listOf(
                 module {
                     single { androidContext } binds arrayOf(Context::class, Application::class)
-                }
-            )
+                },
+            ),
         )
     } else {
         koin.loadModules(
             listOf(
                 module {
                     single { androidContext }
-                }
-            )
+                },
+            ),
         )
     }
 

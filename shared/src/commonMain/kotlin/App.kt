@@ -9,18 +9,17 @@ import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
 
 @Composable
 fun App(viewModel: LoginViewModel) {
-
     val currentScreen = remember { mutableStateOf(Screen.LOGIN) }
 
     MaterialTheme {
         when (currentScreen.value) {
-            Screen.LOGIN -> LoginScreen(viewModel) {
-                currentScreen.value = Screen.DIRECTORY
-            }
+            Screen.LOGIN ->
+                LoginScreen(viewModel) {
+                    currentScreen.value = Screen.DIRECTORY
+                }
 
             Screen.DIRECTORY -> DirectoryScreen()
         }
-
     }
 }
 

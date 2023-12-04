@@ -1,4 +1,5 @@
-// ktlint-disable filename
+@file:Suppress("ktlint:standard:filename")
+
 package com.kevinschildhorn.atomik.atomic.atoms.compose
 /*
 import androidx.compose.ui.graphics.Color

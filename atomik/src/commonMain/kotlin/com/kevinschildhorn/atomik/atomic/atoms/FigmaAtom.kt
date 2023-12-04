@@ -11,7 +11,6 @@ import com.kevinschildhorn.atomik.atomic.atoms.interfaces.TextAtom
 import com.kevinschildhorn.atomik.color.base.AtomikColor
 import com.kevinschildhorn.atomik.typography.base.AtomikFontFamily
 import com.kevinschildhorn.atomik.typography.base.AtomikTypography
-import com.kevinschildhorn.atomik.typography.base.AtomikTypographyType
 
 /**
  * Represents an Atom with all of the properties found in a Figma atom
@@ -30,7 +29,7 @@ public open class FigmaBaseAtom(
     override val width: Int?,
     override val height: Int?,
     override val constraintX: AtomikConstraintX,
-    override val constraintY: AtomikConstraintY
+    override val constraintY: AtomikConstraintY,
 ) : Atom(), FixedSizeAtom, ConstrainedAtom
 
 /**
@@ -69,7 +68,7 @@ public class FigmaShapeAtom(
     override val paddingLeft: Int? = paddingHorizontal,
     override val paddingRight: Int? = paddingHorizontal,
     override val paddingTop: Int? = paddingVertical,
-    override val paddingBottom: Int? = paddingVertical
+    override val paddingBottom: Int? = paddingVertical,
 ) : FigmaBaseAtom(type, width, height, constraintX, constraintY), ColorAtom, PaddingAtom
 
 /**
@@ -112,5 +111,5 @@ public class FigmaTextAtom(
     override val paddingLeft: Int? = paddingHorizontal,
     override val paddingRight: Int? = paddingHorizontal,
     override val paddingTop: Int? = paddingVertical,
-    override val paddingBottom: Int? = paddingVertical
+    override val paddingBottom: Int? = paddingVertical,
 ) : FigmaBaseAtom(type, width, height, constraintX, constraintY), TextAtom, PaddingAtom

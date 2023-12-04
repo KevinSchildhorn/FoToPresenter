@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.Color
  */
 @Suppress("SpellCheckingInspection")
 public expect class AtomikColor {
-
     public val hexString: String
     public val r: Int
     public val g: Int
@@ -44,9 +43,10 @@ public expect class AtomikColor {
 }
 
 public val AtomikColor.composeColor: Color
-    get() = Color(
-        red = r.toFloat() / 255,
-        green = g.toFloat() / 255,
-        blue = b.toFloat() / 255,
-        alpha = this.a
-    )
+    get() =
+        Color(
+            red = r.toFloat() / 255,
+            green = g.toFloat() / 255,
+            blue = b.toFloat() / 255,
+            alpha = this.a,
+        )

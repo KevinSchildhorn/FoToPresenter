@@ -13,7 +13,7 @@ import com.hierynomus.smbj.session.Session
 import com.hierynomus.smbj.share.DiskShare
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 
-object SMBJHandler: NetworkHandler {
+object SMBJHandler : NetworkHandler {
     private val client = SMBClient()
     private var connection: Connection? = null
     private var session: Session? = null
@@ -26,7 +26,6 @@ object SMBJHandler: NetworkHandler {
     private val createOptions: Set<SMB2CreateOptions> =
         setOf(SMB2CreateOptions.FILE_NON_DIRECTORY_FILE)
 
-
     override suspend fun connect(credentials: LoginCredentials): Boolean {
         try {
             with(credentials) {
@@ -35,7 +34,7 @@ object SMBJHandler: NetworkHandler {
                     AuthenticationContext(
                         username,
                         password.toCharArray(),
-                        null
+                        null,
                     )
                 val session: Session? = connection?.authenticate(context)
                 share = session?.connectShare("Public") as? DiskShare
@@ -53,17 +52,27 @@ object SMBJHandler: NetworkHandler {
 
     override fun openDirectory(directoryName: String) {
         share?.openDirectory(
-            directoryName, accessMask, attributes, shareAccesses, createDisposition, createOptions
+            directoryName,
+            accessMask,
+            attributes,
+            shareAccesses,
+            createDisposition,
+            createOptions,
         )
     }
 
     override fun openImage(imageName: String): ImageBitmap? {
         val file = share?.openFile(
-            imageName, accessMask, attributes, shareAccesses, createDisposition, createOptions
+            imageName,
+            accessMask,
+            attributes,
+            shareAccesses,
+            createDisposition,
+            createOptions,
         )
         return null
-        //val bMap = BitmapFactory.decodeStream(file.inputStream)
-        //return bMap
+        // val bMap = BitmapFactory.decodeStream(file.inputStream)
+        // return bMap
     }
 
     private fun closeConnection() {

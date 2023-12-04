@@ -22,9 +22,8 @@ internal data class AtomikColorData(
     val r: Int,
     val g: Int,
     val b: Int,
-    val a: Float
+    val a: Float,
 ) {
-
     /**
      * @constructor constructor with hex value
      * @param hex hex value
@@ -35,7 +34,7 @@ internal data class AtomikColorData(
         r = hex.red,
         g = hex.green,
         b = hex.blue,
-        a = hex.alpha
+        a = hex.alpha,
     )
 
     /**
@@ -51,7 +50,7 @@ internal data class AtomikColorData(
         r = r,
         g = g,
         b = b,
-        a = a ?: 1F
+        a = a ?: 1F,
     )
 }
 
@@ -75,7 +74,13 @@ private val Long.alpha: Float
 private val String.isLongFormHex: Boolean
     get() = this.length == 8 + 1
 
-private fun hexFromRGB(r: Int, g: Int, b: Int, a: Float?, alphaIsPrefix: Boolean): String {
+private fun hexFromRGB(
+    r: Int,
+    g: Int,
+    b: Int,
+    a: Float?,
+    alphaIsPrefix: Boolean,
+): String {
     val rgbString = (r.asHexString + g.asHexString + b.asHexString)
     return if (alphaIsPrefix) {
         "#${a.asAlphaString + rgbString}".uppercase()

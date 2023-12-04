@@ -1,10 +1,15 @@
 package com.kevinschildhorn.atomik.atomic.molecules
 
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.TextFieldColors
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.runtime.Composable
 import com.kevinschildhorn.atomik.atomic.atoms.interfaces.BorderedAtom
 import com.kevinschildhorn.atomik.atomic.atoms.interfaces.ColorAtom
 import com.kevinschildhorn.atomik.atomic.atoms.interfaces.RoundedAtom
 import com.kevinschildhorn.atomik.atomic.atoms.interfaces.TextAtom
 import com.kevinschildhorn.atomik.color.base.AtomikColor
+import com.kevinschildhorn.atomik.color.base.composeColor
 
 /**
  * A molecule that contains information about a TextField
@@ -30,11 +35,52 @@ public open class OutlinedTextFieldMolecule(
     override val unFocusedBorderColor: AtomikColor = focusedBorderColor,
     override val radius: Int,
 ) : TextFieldMolecule(
-    textAtom,
-    backgroundColorAtom,
-    hintTextAtom,
-    errorTextAtom,
-    disabledColorAtom,
-    cursorColor,
-    errorColor,
-), BorderedAtom, RoundedAtom
+        textAtom,
+        backgroundColorAtom,
+        hintTextAtom,
+        errorTextAtom,
+        disabledColorAtom,
+        cursorColor,
+        errorColor,
+    ),
+    BorderedAtom,
+    RoundedAtom {
+    @Composable
+    public override fun colors(): TextFieldColors {
+        val textColor = textAtom.textColor.composeColor
+        val backgroundColor = backgroundColorAtom.color.composeColor
+        val disabledBackgroundColor = backgroundColor.copy(alpha = ContentAlpha.disabled)
+        val errorTextColor = textAtom.textColor.composeColor
+
+        return TextFieldDefaults.outlinedTextFieldColors(
+            textColor = textColor,
+            backgroundColor = backgroundColor,
+            placeholderColor =
+                hintTextAtom?.textColor?.composeColor ?: backgroundColor.copy(
+                    ContentAlpha.medium,
+                ),
+            cursorColor = cursorColor?.composeColor ?: textColor,
+            focusedBorderColor = focusedBorderColor.composeColor,
+            unfocusedBorderColor = unFocusedBorderColor.composeColor,
+            disabledTextColor =
+                disabledColorAtom?.color?.composeColor
+                    ?: textColor.copy(ContentAlpha.disabled),
+            disabledBorderColor = disabledColorAtom?.color?.composeColor ?: disabledBackgroundColor,
+            disabledLabelColor = disabledColorAtom?.color?.composeColor ?: disabledBackgroundColor,
+            disabledLeadingIconColor =
+                disabledColorAtom?.color?.composeColor
+                    ?: disabledBackgroundColor,
+            disabledPlaceholderColor =
+                disabledColorAtom?.color?.composeColor
+                    ?: disabledBackgroundColor,
+            disabledTrailingIconColor =
+                disabledColorAtom?.color?.composeColor
+                    ?: disabledBackgroundColor,
+            errorCursorColor = errorColor?.composeColor ?: errorTextColor,
+            errorBorderColor = errorColor?.composeColor ?: errorTextColor,
+            errorLabelColor = errorColor?.composeColor ?: errorTextColor,
+            errorLeadingIconColor = errorColor?.composeColor ?: errorTextColor,
+            errorTrailingIconColor = errorColor?.composeColor ?: errorTextColor,
+        )
+    }
+}

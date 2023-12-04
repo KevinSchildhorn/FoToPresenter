@@ -11,8 +11,9 @@ data class LoginCredentials(
     val shouldAutoConnect: Boolean = false,
 ) {
     val isComplete: Boolean
-        get() = hostname.isNotBlank() &&
-                username.isNotBlank() &&
-                password.isNotBlank() &&
-                sharedFolder.isNotBlank()
+        get() =
+            hostname.isNotBlank() &&
+                    username.isNotBlank() &&
+                    password.isNotBlank() &&
+                    sharedFolder.isNotBlank()
 }

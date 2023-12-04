@@ -10,7 +10,6 @@ class AutoConnectUseCase(
     private val client: NetworkHandler,
     private val repository: CredentialsRepository,
 ) {
-
     suspend operator fun invoke(): Boolean =
         try {
             val credentials = repository.fetchCredentials()

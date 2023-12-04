@@ -1,4 +1,5 @@
-// ktlint-disable filename
+@file:Suppress("ktlint:standard:filename")
+
 package com.kevinschildhorn.atomik.atomic.atoms
 
 import androidx.compose.runtime.Composable
@@ -23,7 +24,7 @@ public val TextAtom.textStyle: TextStyle
             fontFamily = fontFamilyResource(this.typography.font),
             fontWeight = this.typography.weight.fontWeight,
             fontSize = this.typography.size.sp,
-            color = this.textColor.composeColor
+            color = this.textColor.composeColor,
         )
     }
 
@@ -38,5 +39,5 @@ public fun TextAtom.textStyle(fontFamily: FontFamily): TextStyle =
         fontFamily = fontFamily,
         fontWeight = this.typography.weight.fontWeight,
         fontSize = this.typography.size.sp,
-        color = this.textColor.composeColor
+        color = this.textColor.composeColor,
     )

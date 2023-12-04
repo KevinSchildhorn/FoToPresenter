@@ -11,10 +11,7 @@ class SaveCredentialsUseCase(
     private val repository: CredentialsRepository,
     private val logger: Logger,
 ) {
-
-    operator fun invoke(
-        loginCredentials: LoginCredentials,
-    ): Boolean {
+    operator fun invoke(loginCredentials: LoginCredentials): Boolean {
         with(loginCredentials) {
             logger.i { "Saving Credentials" }
             repository.saveCredentials(

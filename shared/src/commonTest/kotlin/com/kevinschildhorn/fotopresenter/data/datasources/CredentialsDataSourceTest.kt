@@ -9,20 +9,19 @@ import kotlin.test.assertEquals
 Testing [CredentialsDataSource]
  **/
 class CredentialsDataSourceTest {
-
-    private val settings = MapSettings(
-        KEY_HOSTNAME to "google.com",
-        KEY_SHAREDFOLDER to "Public",
-        KEY_USERNAME to "John",
-        KEY_PASSWORD to "secret",
-        KEY_AUTOCONNECT to true,
-    )
+    private val settings =
+        MapSettings(
+            KEY_HOSTNAME to "google.com",
+            KEY_SHAREDFOLDER to "Public",
+            KEY_USERNAME to "John",
+            KEY_PASSWORD to "secret",
+            KEY_AUTOCONNECT to true,
+        )
 
     private val dataSource = CredentialsDataSource(settings)
 
     @Test
     fun `update Credentials`() {
-
         assertEquals("google.com", dataSource.hostname)
         assertEquals("John", dataSource.username)
         assertEquals("secret", dataSource.password)

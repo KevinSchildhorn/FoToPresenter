@@ -23,7 +23,7 @@ public open class DesignSystem(
     public open val colorSet: ColorSet,
     public open val typographySet: TypographySet,
     public open val components: Map<String, Atom>,
-    public open var fontFamily: AtomikFontFamily? = null
+    public open var fontFamily: AtomikFontFamily? = null,
 )
 /*
 @OptIn(ExperimentalAtomik::class)
@@ -59,5 +59,5 @@ internal class CustomDesignSystem(
     override val colorSet: CustomColorSet,
     override val typographySet: CustomTypographySet,
     override val components: Map<String, Atom>,
-    override var fontFamily: AtomikFontFamily?
+    override var fontFamily: AtomikFontFamily?,
 ) : DesignSystem(colorSet, typographySet, components, fontFamily)

@@ -1,4 +1,6 @@
-// ktlint-disable filename
+
+@file:Suppress("ktlint:standard:filename")
+
 package com.kevinschildhorn.atomik.typography
 
 import com.kevinschildhorn.atomik.typography.base.AtomikTypographyWeight
@@ -19,10 +21,13 @@ internal val AtomikTypographyWeight.uiFontWeight: UIFontWeight
         AtomikTypographyWeight.NORMAL -> UIFontWeightRegular
         AtomikTypographyWeight.BOLD -> UIFontWeightBold
         AtomikTypographyWeight.BLACK,
-        AtomikTypographyWeight.EXTRABOLD -> UIFontWeightBlack
+        AtomikTypographyWeight.EXTRABOLD,
+        -> UIFontWeightBlack
         AtomikTypographyWeight.MEDIUM,
-        AtomikTypographyWeight.SEMIBOLD -> UIFontWeightMedium
+        AtomikTypographyWeight.SEMIBOLD,
+        -> UIFontWeightMedium
         AtomikTypographyWeight.THIN,
-        AtomikTypographyWeight.LIGHT -> UIFontWeightThin
+        AtomikTypographyWeight.LIGHT,
+        -> UIFontWeightThin
         AtomikTypographyWeight.EXTRALIGHT -> UIFontWeightUltraLight
     }

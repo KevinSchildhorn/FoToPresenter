@@ -2,7 +2,8 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("org.jetbrains.compose")
-    id("dev.icerock.mobile.multiplatform-resources").version("0.23.0")
+    id("org.jlleitschuh.gradle.ktlint")
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -12,7 +13,7 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "shared"
@@ -111,4 +112,8 @@ android {
 
 multiplatformResources {
     multiplatformResourcesPackage = "com.kevinschildhorn.fotopresenter" // required
+}
+
+dependencies {
+    ktlintRuleset("com.twitter.compose.rules:ktlint:0.0.26")
 }

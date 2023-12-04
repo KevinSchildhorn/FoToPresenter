@@ -1,6 +1,6 @@
-// ktlint-disable filename
-package com.kevinschildhorn.atomik.typography
+@file:Suppress("ktlint:standard:filename")
 
+package com.kevinschildhorn.atomik.typography
 
 import android.graphics.Typeface
 import androidx.compose.ui.text.TextStyle
@@ -15,7 +15,6 @@ public fun AtomikTypography.asComposeTextStyle(fontFamily: FontFamily): TextStyl
         fontWeight = this.weight.fontWeight,
         fontSize = this.size.sp,
     )
-
 
 /*
  * Converting the Weight to a Typeface

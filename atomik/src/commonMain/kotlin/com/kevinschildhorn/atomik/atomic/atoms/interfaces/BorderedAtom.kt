@@ -13,7 +13,6 @@ import com.kevinschildhorn.atomik.color.base.AtomikColor
 internal interface BorderedAtom : AtomInterface {
     public val focusedBorderColor: AtomikColor
     public val unFocusedBorderColor: AtomikColor
-
 }
 
 /**

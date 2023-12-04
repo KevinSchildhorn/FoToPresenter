@@ -1,10 +1,10 @@
-// ktlint-disable filename
+@file:Suppress("ktlint:standard:filename")
+
 package com.kevinschildhorn.atomik.atomic.atoms.xml
 
 import android.view.View
 import android.widget.TextView
 import com.kevinschildhorn.atomik.atomic.atoms.interfaces.ColorAtom
-import com.kevinschildhorn.atomik.atomic.atoms.interfaces.TextAtom
 
 /**
  * Applies a [ColorAtom] to a [TextView], setting the background color

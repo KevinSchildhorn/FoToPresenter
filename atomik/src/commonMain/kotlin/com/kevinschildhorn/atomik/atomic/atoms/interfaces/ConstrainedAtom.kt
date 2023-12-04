@@ -20,7 +20,7 @@ public enum class AtomikConstraintX {
     CENTER,
     ALIGN_LEFT,
     ALIGN_RIGHT,
-    SCALE
+    SCALE,
 }
 
 /**
@@ -30,7 +30,7 @@ public enum class AtomikConstraintY {
     CENTER,
     ALIGN_TOP,
     ALIGN_BOTTOM,
-    SCALE
+    SCALE,
 }
 
 /**

@@ -11,21 +11,22 @@ import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-val commonModule = module {
-    val baseLogger = Logger(LoggerConfig.default)
+val commonModule =
+    module {
+        val baseLogger = Logger(LoggerConfig.default)
 
-    // Data
-    single { CredentialsDataSource(get()) }
-    single { CredentialsRepository(get()) }
+        // Data
+        single { CredentialsDataSource(get()) }
+        single { CredentialsRepository(get()) }
 
-    // Domain
-    factory { ConnectToServerUseCase(get()) }
-    factory { AutoConnectUseCase(get(), get()) }
-    factory { SaveCredentialsUseCase(get(), baseLogger.withTag("SaveCredentialsUseCase")) }
-    //factory { AutoConnectUseCase(get()) }
+        // Domain
+        factory { ConnectToServerUseCase(get()) }
+        factory { AutoConnectUseCase(get(), get()) }
+        factory { SaveCredentialsUseCase(get(), baseLogger.withTag("SaveCredentialsUseCase")) }
+        // factory { AutoConnectUseCase(get()) }
 
-    // UI
-    single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
-}
+        // UI
+        single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
+    }
 
 internal expect val platformModule: Module

@@ -1,11 +1,16 @@
-name: Lint Action
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: reviewdog
 on: [pull_request]
 jobs:
-  Lint-Action:
+  ktlint:
+    name: Check Code Quality
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
 
-      - name: Run KtFormat
-        run: ./gradlew ktFormat
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - name: ktlint
+        uses: ScaCap/action-ktlint@master
+        with:
+          github_token: ${{ secrets.github_token }}

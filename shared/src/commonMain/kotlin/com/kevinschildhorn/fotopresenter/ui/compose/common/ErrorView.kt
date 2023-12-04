@@ -14,7 +14,7 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.LoginScreenAtoms.errorView
 @Composable
 fun ErrorView(
     message: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val atom = errorView
 
@@ -23,10 +23,11 @@ fun ErrorView(
         configuredModifier = configuredModifier.background(color = it.composeColor)
     }
     Box(
-        modifier = configuredModifier.padding(
+        modifier =
+        configuredModifier.padding(
             horizontal = atom.paddingHorizontal?.dp ?: 0.dp,
-            vertical = atom.paddingVertical?.dp ?: 0.dp
-        )
+            vertical = atom.paddingVertical?.dp ?: 0.dp,
+        ),
     ) {
         Text(
             text = message,
@@ -34,5 +35,4 @@ fun ErrorView(
             style = atom.textStyle,
         )
     }
-
 }

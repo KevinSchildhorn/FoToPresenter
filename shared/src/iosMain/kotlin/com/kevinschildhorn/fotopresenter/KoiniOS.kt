@@ -27,7 +27,7 @@ internal actual val platformModule: Module = module {
             defaultProperties = arrayOf(
                 kSecAttrService to CFBridgingRetain(CredentialsDataSource.DATABASE_NAME),
                 kSecAttrAccessible to kSecAttrAccessibleAfterFirstUnlock,
-            )
+            ),
         )
     }
 }

@@ -9,7 +9,6 @@ Fetches [LoginCredentials] from [CredentialsDataSource] to be used to sign into 
 class CredentialsRepository(
     private val dataSource: CredentialsDataSource,
 ) {
-
     fun fetchCredentials(): LoginCredentials =
         LoginCredentials(
             hostname = dataSource.hostname,
@@ -24,7 +23,7 @@ class CredentialsRepository(
         username: String,
         password: String,
         sharedFolder: String,
-        shouldAutoConnect: Boolean
+        shouldAutoConnect: Boolean,
     ) {
         dataSource.hostname = hostname
         dataSource.username = username

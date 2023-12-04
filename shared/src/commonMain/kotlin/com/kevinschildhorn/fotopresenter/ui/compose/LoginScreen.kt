@@ -23,21 +23,21 @@ fun LoginScreen(
     viewModel: LoginViewModel,
     onLoginSuccess: () -> Unit,
 ) {
-
     val uiState by viewModel.uiState.collectAsState()
     val uriHandler = LocalUriHandler.current
 
-    if(uiState.state == State.SUCCESS){
+    if (uiState.state == State.SUCCESS) {
         onLoginSuccess()
     }
     Column {
         TitleView(
             "Foto",
-            modifier = Modifier.padding(
+            modifier =
+            Modifier.padding(
                 top = Padding.SMALL.dp,
                 start = Padding.STANDARD.dp,
                 bottom = Padding.LARGE.dp,
-            )
+            ),
         )
         LoginScreenForm(
             uiState = uiState,
@@ -46,14 +46,14 @@ fun LoginScreen(
             onPasswordChange = { viewModel.updatePassword(it) },
             onSharedFolderChange = { viewModel.updateSharedFolder(it) },
             onShouldAutoConnectChange = { viewModel.updateShouldAutoConnect(it) },
-            loginButtonClicked = { viewModel.login() }
+            loginButtonClicked = { viewModel.login() },
         )
         ClickableText(
             buildAnnotatedString {
                 append("Setting up a QNAP NAS")
             },
             style = TextStyle(textAlign = TextAlign.Center),
-            modifier = Modifier.padding(top = Padding.STANDARD.dp).fillMaxWidth()
+            modifier = Modifier.padding(top = Padding.STANDARD.dp).fillMaxWidth(),
         ) {
             uriHandler.openUri("https://www.qnap.com/en/how-to/faq/article/how-to-map-network-drive-in-windows-os-by-qfinder")
         }
