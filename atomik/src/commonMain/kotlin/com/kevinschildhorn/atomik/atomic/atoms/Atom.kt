@@ -35,6 +35,5 @@ public abstract class Atom {
      * Finds a subComponent matching a specified [AtomInterface] if it exists
      * @return the subComponent of a specified interface if it's found
      */
-    public inline fun <reified T : AtomInterface> subAtom(): T? =
-        subComponents.find { it is T } as? T
+    public inline fun <reified T : AtomInterface> subAtom(): T? = subComponents.find { it is T } as? T
 }
