@@ -6,8 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: GitHub Action for ktlint
-        uses: yutailang0119/action-ktlint@v3.1.0
+      - name: Run ktlint with reviewdog
+        uses: ScaCap/action-ktlint@v1.8.0
+
 
 
 
