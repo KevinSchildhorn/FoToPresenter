@@ -19,7 +19,7 @@ object SMBJHandler : NetworkHandler {
     private var connection: Connection? = null
     private var session: Session? = null
     private var share: DiskShare? = null
-    private var currentPath:String = ""
+    private var currentPath: String = ""
 
     private val accessMask: Set<AccessMask> = setOf(AccessMask.FILE_READ_DATA)
     private val attributes: Set<FileAttributes> = setOf(FileAttributes.FILE_ATTRIBUTE_NORMAL)
@@ -54,17 +54,19 @@ object SMBJHandler : NetworkHandler {
 
     @Throws(NetworkHandlerException::class)
     override suspend fun getDirectoryContents(): List<NetworkDirectory> {
-        if(share == null) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
-        return share?.list("")?.map {
+        if (share == null) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
+        return share?.list(currentPath)?.filter {
+            it.fileName != "."
+        }?.map {
             SMBJNetworkDirectory(it)
         } ?: emptyList()
     }
 
     @Throws(NetworkHandlerException::class)
     override suspend fun openDirectory(directoryName: String) {
-        if(share == null) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
+        if (share == null) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
         val result = share?.openDirectory(
-            directoryName,
+            "$currentPath/$directoryName",
             accessMask,
             attributes,
             shareAccesses,
@@ -76,9 +78,9 @@ object SMBJHandler : NetworkHandler {
 
     @Throws(NetworkHandlerException::class)
     override suspend fun openImage(imageName: String): ImageBitmap? {
-        if(share == null) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
+        if (share == null) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
         val file = share?.openFile(
-            imageName,
+            "$currentPath/$imageName",
             accessMask,
             attributes,
             shareAccesses,

@@ -8,6 +8,7 @@ import com.kevinschildhorn.fotopresenter.ui.compose.directory.BaseDirectory
 import com.kevinschildhorn.fotopresenter.ui.compose.directory.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.compose.directory.FolderDirectoryEmpty
 import com.kevinschildhorn.fotopresenter.ui.compose.directory.PhotoDirectory
+import com.kevinschildhorn.fotopresenter.ui.state.DirectoryContents
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.Browser
@@ -44,12 +45,15 @@ fun FolderDirectoryEmptyPreview() {
 fun DirectoryGridPreview() {
     DirectoryGrid(
         listOf(
-            MockNetworkDirectory("Test 1", id = 1),
-            MockNetworkDirectory("Test 2", id = 2),
-            MockNetworkDirectory("Test 3", id = 3),
-            MockNetworkDirectory("Test 4", id = 4),
-            MockNetworkDirectory("Test 6", id = 5),
-            MockNetworkDirectory("Test 5", id = 6),
+            DirectoryContents(MockNetworkDirectory("Test 1", id = 1)),
+            DirectoryContents(MockNetworkDirectory("Test 2", id = 2)),
+            DirectoryContents(MockNetworkDirectory("Test 3", id = 3)),
+            DirectoryContents(MockNetworkDirectory("Test 4", id = 4)),
+            DirectoryContents(MockNetworkDirectory("Test 6", id = 5)),
+            DirectoryContents(MockNetworkDirectory("Test 5", id = 6)),
         )
-    )
+    ) {
+
+    }
+
 }

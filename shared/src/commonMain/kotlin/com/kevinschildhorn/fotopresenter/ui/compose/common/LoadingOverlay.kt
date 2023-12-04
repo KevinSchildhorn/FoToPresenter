@@ -16,9 +16,9 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 
 @Composable
 fun LoadingOverlay() {
-    Box(
+    Overlay(
+        z = 3f,
         modifier = Modifier
-            .zIndex(2f)
             .fillMaxSize()
             .background(Color(0x88FFFFFF))
     ) {

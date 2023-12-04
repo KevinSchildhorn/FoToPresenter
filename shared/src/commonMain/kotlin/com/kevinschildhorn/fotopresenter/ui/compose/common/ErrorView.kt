@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter.ui.compose.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -27,7 +28,7 @@ fun ErrorView(
         configuredModifier.padding(
             horizontal = atom.paddingHorizontal?.dp ?: 0.dp,
             vertical = atom.paddingVertical?.dp ?: 0.dp,
-        ),
+        ).fillMaxWidth(),
     ) {
         Text(
             text = message,

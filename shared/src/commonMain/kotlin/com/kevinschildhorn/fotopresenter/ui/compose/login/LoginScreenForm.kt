@@ -28,7 +28,6 @@ fun LoginScreenForm(
         (uiState.state as? State.ERROR)?.let {
             ErrorView(
                 "Error Occurred! ${it.message}",
-                modifier = Modifier.fillMaxWidth(),
             )
         }
 

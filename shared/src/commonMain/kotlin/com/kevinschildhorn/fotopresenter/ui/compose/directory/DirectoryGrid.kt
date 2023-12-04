@@ -25,12 +25,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectory
 import com.kevinschildhorn.fotopresenter.ui.compose.common.ActionSheet
+import com.kevinschildhorn.fotopresenter.ui.state.DirectoryContents
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DirectoryGrid(
-    directories: List<NetworkDirectory>,
+    directories: List<DirectoryContents>,
     gridSize: Int = 5,
+    modifier: Modifier = Modifier,
+    onDirectoryPressed: (NetworkDirectory) -> Unit
 ) {
     var actionSheetVisible by remember { mutableStateOf(false) }
     var contextMenuPhotoId by rememberSaveable { mutableStateOf<Int?>(null) }
@@ -38,21 +41,23 @@ fun DirectoryGrid(
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(gridSize),
-        modifier = Modifier.background(Color.Blue).zIndex(0f)
+        modifier = modifier.zIndex(0f)
     ) {
-        items(directories, { it.id }) {
+        items(directories, { it.associatedDirectory.id }) {
             FolderDirectoryEmpty(
                 it.name,
                 modifier = Modifier
                     .padding(5.dp)
                     .combinedClickable(
-                        onClick = { },
+                        onClick = {
+                            onDirectoryPressed(it.associatedDirectory)
+                        },
                         onLongClick = {
                             haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                            contextMenuPhotoId = it.id
+                            contextMenuPhotoId = it.associatedDirectory.id
                             actionSheetVisible = true
                         },
-                        onLongClickLabel = "Hello"
+                        onLongClickLabel = "Action Sheet"
                     ),
             )
         }
