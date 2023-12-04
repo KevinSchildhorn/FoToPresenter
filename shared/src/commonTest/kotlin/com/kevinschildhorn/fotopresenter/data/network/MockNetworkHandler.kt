@@ -22,13 +22,13 @@ class MockNetworkHandler : NetworkHandler {
         return credentials == successLoginCredentials
     }
 
-    override fun openDirectory(directoryName: String) {
+    override suspend fun openDirectory(directoryName: String) {
         if (directoryName == successDirectory) {
             print("")
         }
     }
 
-    override fun openImage(imageName: String): ImageBitmap? {
+    override suspend fun openImage(imageName: String): ImageBitmap? {
         if (imageName == successImageName) {
             print("")
         }

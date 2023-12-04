@@ -6,7 +6,10 @@ import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.domain.AutoConnectUseCase
 import com.kevinschildhorn.fotopresenter.domain.ConnectToServerUseCase
+import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryUseCase
+import com.kevinschildhorn.fotopresenter.domain.RetrievePhotosFromDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.SaveCredentialsUseCase
+import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -23,10 +26,12 @@ val commonModule =
         factory { ConnectToServerUseCase(get()) }
         factory { AutoConnectUseCase(get(), get()) }
         factory { SaveCredentialsUseCase(get(), baseLogger.withTag("SaveCredentialsUseCase")) }
-        // factory { AutoConnectUseCase(get()) }
+        factory { RetrieveDirectoryUseCase(get()) }
+        factory { RetrievePhotosFromDirectoryUseCase(get()) }
 
         // UI
         single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
+        single { DirectoryViewModel(baseLogger.withTag("DirectoryViewModel")) }
     }
 
 internal expect val platformModule: Module

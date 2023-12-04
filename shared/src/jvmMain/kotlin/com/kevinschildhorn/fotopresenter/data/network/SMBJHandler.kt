@@ -12,12 +12,14 @@ import com.hierynomus.smbj.connection.Connection
 import com.hierynomus.smbj.session.Session
 import com.hierynomus.smbj.share.DiskShare
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
+import kotlin.jvm.Throws
 
 object SMBJHandler : NetworkHandler {
     private val client = SMBClient()
     private var connection: Connection? = null
     private var session: Session? = null
     private var share: DiskShare? = null
+    private var currentPath:String = ""
 
     private val accessMask: Set<AccessMask> = setOf(AccessMask.FILE_READ_DATA)
     private val attributes: Set<FileAttributes> = setOf(FileAttributes.FILE_ATTRIBUTE_NORMAL)
@@ -37,7 +39,7 @@ object SMBJHandler : NetworkHandler {
                         null,
                     )
                 val session: Session? = connection?.authenticate(context)
-                share = session?.connectShare("Public") as? DiskShare
+                share = session?.connectShare(credentials.sharedFolder) as? DiskShare
                 if (share == null) {
                     closeConnection()
                     return false
@@ -50,8 +52,18 @@ object SMBJHandler : NetworkHandler {
         }
     }
 
-    override fun openDirectory(directoryName: String) {
-        share?.openDirectory(
+    @Throws(NetworkHandlerException::class)
+    override suspend fun getDirectoryContents(): List<NetworkDirectory> {
+        if(share == null) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
+        return share?.list("")?.map {
+            SMBJNetworkDirectory(it)
+        } ?: emptyList()
+    }
+
+    @Throws(NetworkHandlerException::class)
+    override suspend fun openDirectory(directoryName: String) {
+        if(share == null) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
+        val result = share?.openDirectory(
             directoryName,
             accessMask,
             attributes,
@@ -59,9 +71,12 @@ object SMBJHandler : NetworkHandler {
             createDisposition,
             createOptions,
         )
+        currentPath = result?.path ?: ""
     }
 
-    override fun openImage(imageName: String): ImageBitmap? {
+    @Throws(NetworkHandlerException::class)
+    override suspend fun openImage(imageName: String): ImageBitmap? {
+        if(share == null) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
         val file = share?.openFile(
             imageName,
             accessMask,

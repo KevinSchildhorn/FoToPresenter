@@ -5,20 +5,24 @@ import androidx.compose.runtime.remember
 import com.kevinschildhorn.fotopresenter.ui.compose.DirectoryScreen
 import com.kevinschildhorn.fotopresenter.ui.compose.LoginScreen
 import com.kevinschildhorn.fotopresenter.ui.compose.Screen
+import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
 
 @Composable
-fun App(viewModel: LoginViewModel) {
+fun App(
+    loginViewModel: LoginViewModel,
+    directoryViewModel: DirectoryViewModel,
+) {
     val currentScreen = remember { mutableStateOf(Screen.LOGIN) }
 
     MaterialTheme {
         when (currentScreen.value) {
             Screen.LOGIN ->
-                LoginScreen(viewModel) {
+                LoginScreen(loginViewModel) {
                     currentScreen.value = Screen.DIRECTORY
                 }
 
-            Screen.DIRECTORY -> DirectoryScreen()
+            Screen.DIRECTORY -> DirectoryScreen(directoryViewModel)
         }
     }
 }

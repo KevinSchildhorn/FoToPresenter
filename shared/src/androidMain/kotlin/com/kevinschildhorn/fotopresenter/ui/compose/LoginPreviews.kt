@@ -38,16 +38,6 @@ fun FotoTextFieldPreview() {
 
 @Preview
 @Composable
-fun PrimaryButtonPreview() {
-    Column {
-        PrimaryButton("Enabled", buttonState = ButtonState.ENABLED) {}
-        PrimaryButton("Disabled", buttonState = ButtonState.DISABLED) {}
-        PrimaryButton("Loading", buttonState = ButtonState.LOADING) {}
-    }
-}
-
-@Preview
-@Composable
 fun LoginScreenFormPreview() {
     LoginScreenForm(
         LoginUiState(

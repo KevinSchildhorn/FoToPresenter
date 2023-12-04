@@ -12,4 +12,7 @@ sealed class State {
     data class ERROR(val message: String) : State()
 
     data object SUCCESS : State()
+
+    val isLoading: Boolean
+        get() = this == State.LOADING
 }
