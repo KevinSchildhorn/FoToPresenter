@@ -1,4 +1,3 @@
-
 @file:Suppress("ktlint:standard:filename")
 
 package com.kevinschildhorn.atomik.atomic.atoms.xml

@@ -46,7 +46,7 @@ public open class OutlinedTextFieldMolecule(
     BorderedAtom,
     RoundedAtom {
     @Composable
-    public fun colors(): TextFieldColors {
+    public override fun colors(): TextFieldColors {
         val textColor = textAtom.textColor.composeColor
         val backgroundColor = backgroundColorAtom.color.composeColor
         val disabledBackgroundColor = backgroundColor.copy(alpha = ContentAlpha.disabled)

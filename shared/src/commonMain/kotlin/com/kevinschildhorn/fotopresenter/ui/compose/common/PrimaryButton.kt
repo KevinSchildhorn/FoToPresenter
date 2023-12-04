@@ -26,10 +26,10 @@ fun PrimaryButton(
         modifier = modifier.height(44.dp),
         enabled = buttonState.enabled,
         colors =
-            ButtonDefaults.buttonColors(
-                backgroundColor = molecule.color.composeColor,
-                disabledBackgroundColor = molecule.disabledColor.composeColor,
-            ),
+        ButtonDefaults.buttonColors(
+            backgroundColor = molecule.color.composeColor,
+            disabledBackgroundColor = molecule.disabledColor.composeColor,
+        ),
     ) {
         if (buttonState.loading) {
             CircularProgressIndicator(

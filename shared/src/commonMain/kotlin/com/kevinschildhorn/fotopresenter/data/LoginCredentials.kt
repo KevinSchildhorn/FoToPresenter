@@ -13,7 +13,7 @@ data class LoginCredentials(
     val isComplete: Boolean
         get() =
             hostname.isNotBlank() &&
-                username.isNotBlank() &&
-                password.isNotBlank() &&
-                sharedFolder.isNotBlank()
+                    username.isNotBlank() &&
+                    password.isNotBlank() &&
+                    sharedFolder.isNotBlank()
 }

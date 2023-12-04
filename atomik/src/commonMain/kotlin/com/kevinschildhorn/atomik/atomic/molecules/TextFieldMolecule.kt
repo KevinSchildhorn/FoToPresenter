@@ -34,7 +34,7 @@ public open class TextFieldMolecule(
         get() = listOf()
 
     @Composable
-    public fun colors(): TextFieldColors {
+    public open fun colors(): TextFieldColors {
         val textColor = textAtom.textColor.composeColor
         val backgroundColor = backgroundColorAtom.color.composeColor
         val disabledBackgroundColor = backgroundColor.copy(alpha = ContentAlpha.disabled)
