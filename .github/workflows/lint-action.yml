@@ -16,20 +16,7 @@ jobs:
           distribution: "adopt"
           java-version: "17"
 
-      - uses: reviewdog/action-setup@v1
-      - uses: touchlab-lab/ktlint-action-setup@1.0.0
-        with:
-          ktlint_version: 0.50.0
-
-      - name: Run reviewdog
+      - name: Run ktlint with reviewdog
+        uses: ScaCap/action-ktlint@v1.8.0
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ktlint --reporter=checkstyle --relative \
-            | reviewdog -f=checkstyle -name="ktlint" -reporter=github-pr-review -filter-mode=added -level=warning
-
-
-
-
-
-

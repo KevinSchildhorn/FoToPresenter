@@ -42,7 +42,9 @@ public open class OutlinedTextFieldMolecule(
     disabledColorAtom,
     cursorColor,
     errorColor,
-), BorderedAtom, RoundedAtom {
+),
+    BorderedAtom,
+    RoundedAtom {
 
     @Composable
     public override fun colors(): TextFieldColors {
