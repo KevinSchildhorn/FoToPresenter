@@ -12,6 +12,10 @@ class RetrieveDirectoryContentsUseCase(
     private val imageRepository: ImageRepository,
 ) {
     suspend operator fun invoke(path:String): DirectoryContents {
-        return directoryRepository.getDirectoryContents(path)
+        val directories = directoryRepository.getDirectoryContents(path)
+        val images = directories.images.map {
+            imageRepository.getImage(it)
+        }
+        return directories
     }
 }
