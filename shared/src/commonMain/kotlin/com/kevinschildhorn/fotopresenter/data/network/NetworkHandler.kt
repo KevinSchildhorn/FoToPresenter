@@ -5,24 +5,25 @@ import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import kotlin.coroutines.cancellation.CancellationException
 
 interface NetworkHandler {
-    @Throws(CancellationException::class, CancellationException::class)
+
+    val isConnected: Boolean
+
     suspend fun connect(credentials: LoginCredentials): Boolean
+    suspend fun disconnect()
 
-    @Throws(NetworkHandlerException::class, CancellationException::class)
-    suspend fun getDirectoryContents(): List<NetworkDirectory>
+    suspend fun getDirectoryContents(path: String): List<NetworkDirectory>
+    suspend fun openDirectory(path: String): String?
+    suspend fun openImage(path: String): ImageBitmap?
 
-    @Throws(NetworkHandlerException::class, CancellationException::class)
-    suspend fun openDirectory(directoryName: String)
-
-    @Throws(NetworkHandlerException::class, CancellationException::class)
-    suspend fun openImage(imageName: String): ImageBitmap?
 }
 
-class NetworkHandlerException: Exception {
-    constructor(error:NetworkHandlerError) : super(error.message)
+class NetworkHandlerException : Exception {
+    constructor(error: NetworkHandlerError) : super(error.message)
     constructor(message: String) : super(message)
 }
 
 enum class NetworkHandlerError(val message: String) {
-    NOT_CONNECTED("The Network Handler is not Connected")
+    NOT_CONNECTED("The Network Handler is not Connected"),
+    DIRECTORY_NOT_FOUND("The Directory you selected was not found"),
+
 }

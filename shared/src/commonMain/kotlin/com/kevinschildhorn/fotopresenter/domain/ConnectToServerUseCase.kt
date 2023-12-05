@@ -12,7 +12,6 @@ class ConnectToServerUseCase(
     suspend operator fun invoke(credentials: LoginCredentials): Boolean =
         try {
             client.connect(credentials)
-            true
         } catch (e: Exception) {
             false
         }

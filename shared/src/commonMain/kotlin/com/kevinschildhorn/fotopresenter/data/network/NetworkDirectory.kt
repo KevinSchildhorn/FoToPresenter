@@ -1,12 +1,19 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
 interface NetworkDirectory {
-    val name: String
-    val fileExtension: String?
+    val fullPath: String
     val id: Int
 
     val fileName: String
-        get() = "${name}.${fileExtension}"
+        get() = fullPath.split("\\").last()
+
+    val name: String
+        get() = fileName.split(".").first()
+    val fileExtension: String?
+        get() = fileName.split(".").takeIf { it.count() > 1 }?.last()
+
+    val isDirectory: Boolean
+        get() = this.fileExtension.isNullOrEmpty()
 
     val isAnImage: Boolean
         get() =
@@ -19,7 +26,6 @@ interface NetworkDirectory {
 
 
 class MockNetworkDirectory(
-    override val name: String,
-    override val fileExtension: String? = null,
+    override val fullPath: String,
     override val id: Int,
 ) : NetworkDirectory

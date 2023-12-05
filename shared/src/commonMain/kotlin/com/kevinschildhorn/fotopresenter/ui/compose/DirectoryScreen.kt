@@ -26,7 +26,7 @@ fun DirectoryScreen(
         )
     )
     DirectoryGrid(
-        uiState.directories,
+        uiState.directoryContents.allDirectories,
         modifier = Modifier
             .padding(top = Padding.EXTRA_LARGE.dp)
     ) {

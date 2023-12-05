@@ -12,14 +12,13 @@ import com.hierynomus.smbj.connection.Connection
 import com.hierynomus.smbj.session.Session
 import com.hierynomus.smbj.share.DiskShare
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
-import kotlin.jvm.Throws
+import com.kevinschildhorn.fotopresenter.extension.addPath
 
 object SMBJHandler : NetworkHandler {
     private val client = SMBClient()
     private var connection: Connection? = null
     private var session: Session? = null
     private var share: DiskShare? = null
-    private var currentPath: String = ""
 
     private val accessMask: Set<AccessMask> = setOf(AccessMask.FILE_READ_DATA)
     private val attributes: Set<FileAttributes> = setOf(FileAttributes.FILE_ATTRIBUTE_NORMAL)
@@ -28,59 +27,52 @@ object SMBJHandler : NetworkHandler {
     private val createOptions: Set<SMB2CreateOptions> =
         setOf(SMB2CreateOptions.FILE_NON_DIRECTORY_FILE)
 
+    override val isConnected: Boolean
+        get() = share != null
+
     override suspend fun connect(credentials: LoginCredentials): Boolean {
         try {
             with(credentials) {
                 connection = client.connect(hostname)
-                val context =
-                    AuthenticationContext(
-                        username,
-                        password.toCharArray(),
-                        null,
-                    )
+                val context = AuthenticationContext(username, password.toCharArray(), null)
                 val session: Session? = connection?.authenticate(context)
                 share = session?.connectShare(credentials.sharedFolder) as? DiskShare
                 if (share == null) {
-                    closeConnection()
+                    disconnect()
                     return false
                 }
-                return true
             }
         } catch (e: Exception) {
-            closeConnection()
+            disconnect()
             return false
         }
+        return true
     }
 
-    @Throws(NetworkHandlerException::class)
-    override suspend fun getDirectoryContents(): List<NetworkDirectory> {
-        if (share == null) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
-        return share?.list(currentPath)?.filter {
-            it.fileName != "."
-        }?.map {
-            SMBJNetworkDirectory(it)
+    override suspend fun getDirectoryContents(path: String): List<NetworkDirectory> {
+        return share?.list(path)?.map {
+            SMBJNetworkDirectory(
+                it,
+                fullPath = path.addPath(it.fileName),
+            )
         } ?: emptyList()
     }
 
-    @Throws(NetworkHandlerException::class)
-    override suspend fun openDirectory(directoryName: String) {
-        if (share == null) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
+    override suspend fun openDirectory(path: String): String? {
         val result = share?.openDirectory(
-            "$currentPath/$directoryName",
+            path,
             accessMask,
             attributes,
             shareAccesses,
             createDisposition,
             createOptions,
         )
-        currentPath = result?.path ?: ""
+        return result?.path
     }
 
-    @Throws(NetworkHandlerException::class)
-    override suspend fun openImage(imageName: String): ImageBitmap? {
-        if (share == null) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
+    override suspend fun openImage(path: String): ImageBitmap? {
         val file = share?.openFile(
-            "$currentPath/$imageName",
+            path,
             accessMask,
             attributes,
             shareAccesses,
@@ -92,7 +84,7 @@ object SMBJHandler : NetworkHandler {
         // return bMap
     }
 
-    private fun closeConnection() {
+    override suspend fun disconnect() {
         share?.close()
         session?.close()
         connection?.close(true)

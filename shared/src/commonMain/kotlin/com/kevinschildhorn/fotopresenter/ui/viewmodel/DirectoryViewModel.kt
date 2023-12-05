@@ -4,9 +4,8 @@ import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectory
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.domain.ChangeDirectoryUseCase
-import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryUseCase
-import com.kevinschildhorn.fotopresenter.domain.RetrievePhotosFromDirectoryUseCase
-import com.kevinschildhorn.fotopresenter.ui.state.DirectoryContents
+import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
+import com.kevinschildhorn.fotopresenter.extension.addPath
 import com.kevinschildhorn.fotopresenter.ui.state.DirectoryUiState
 import com.kevinschildhorn.fotopresenter.ui.state.State
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +23,8 @@ class DirectoryViewModel(
     private val _uiState = MutableStateFlow(DirectoryUiState())
     val uiState: StateFlow<DirectoryUiState> = _uiState.asStateFlow()
 
+    private val currentPath: String
+        get() = uiState.value.currentPath
 
     fun refreshScreen() {
         updateDirectories()
@@ -33,7 +34,9 @@ class DirectoryViewModel(
         viewModelScope.launch(Dispatchers.Default) {
             val changeDirectoryUseCase: ChangeDirectoryUseCase by inject()
             try {
-                changeDirectoryUseCase(directory.name)
+                changeDirectoryUseCase(currentPath.addPath(directory.name))?.let { newPath ->
+                    _uiState.update { it.copy(currentPath = newPath) }
+                }
                 updateDirectories()
             } catch (e: NetworkHandlerException) {
                 _uiState.update {
@@ -58,20 +61,11 @@ class DirectoryViewModel(
     private fun updateDirectories() {
         _uiState.update { it.copy(state = State.LOADING) }
         viewModelScope.launch(Dispatchers.Default) {
-            val retrieveDirectoryUseCase: RetrieveDirectoryUseCase by inject()
-            val retrievePhotosFromDirectoryUseCase: RetrievePhotosFromDirectoryUseCase by inject()
-
-            // TODO: RENAME SMBJ AS DATA SOURCE AND ADD REPOSITORY
-            val directories = retrieveDirectoryUseCase().map { DirectoryContents(it) }
-            val photos =
-                retrievePhotosFromDirectoryUseCase().map { DirectoryContents(it.first, it.second) }
-
-            val directoryContents = directories.toMutableList()
-            directoryContents.addAll(photos)
-
+            val retrieveDirectoryUseCase: RetrieveDirectoryContentsUseCase by inject()
+            val directoryContents = retrieveDirectoryUseCase(currentPath)
             _uiState.update {
                 it.copy(
-                    directories = directoryContents,
+                    directoryContents = directoryContents,
                     state = State.SUCCESS
                 )
             }

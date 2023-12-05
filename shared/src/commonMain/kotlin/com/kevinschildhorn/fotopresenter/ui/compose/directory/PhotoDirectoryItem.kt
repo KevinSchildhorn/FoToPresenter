@@ -12,7 +12,7 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 
 
 @Composable
-fun PhotoDirectory(
+fun PhotoDirectoryItem(
     imageVector: ImageVector,
     modifier: Modifier = Modifier,
 ) {
