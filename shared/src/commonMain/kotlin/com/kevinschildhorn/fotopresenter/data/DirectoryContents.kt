@@ -13,7 +13,7 @@ data class FolderDirectoryContent(
 
 data class ImageDirectoryContent(
     override val directory: NetworkDirectory,
-    val image: SharedImage? = null
+    val image: SharedImage? = null,
 ) : DirectoryContent
 
 data class DirectoryContents(

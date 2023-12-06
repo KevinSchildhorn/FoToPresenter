@@ -1,6 +1,5 @@
 package com.kevinschildhorn.fotopresenter.data.repositories
 
-import com.kevinschildhorn.fotopresenter.data.DirectoryContent
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.FolderDirectoryContent
 import com.kevinschildhorn.fotopresenter.data.ImageDirectoryContent

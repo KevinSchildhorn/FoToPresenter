@@ -9,11 +9,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class PhotoDirectoryViewModel(private val image: SharedImage?) : ViewModel() {
-
-    private val _imageState:MutableStateFlow<ImageBitmap?> = MutableStateFlow(null)
+    private val _imageState: MutableStateFlow<ImageBitmap?> = MutableStateFlow(null)
     val imageState: StateFlow<ImageBitmap?> = _imageState.asStateFlow()
 
-    fun refreshImageBitmap(){
+    fun refreshImageBitmap() {
         viewModelScope.launch(Dispatchers.Default) {
             _imageState.value = image?.getImageBitmap()
         }

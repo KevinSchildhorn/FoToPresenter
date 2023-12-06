@@ -15,7 +15,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.fail
 
-
 /**
 Testing [DirectoryRepository]
  **/
@@ -24,35 +23,38 @@ class DirectoryRepositoryTest : KoinTest {
     private val repository: DirectoryRepository by inject()
 
     @BeforeTest
-    fun startTest() = runBlocking {
-        startKoin {
-            modules(testingModule())
+    fun startTest() =
+        runBlocking {
+            startKoin {
+                modules(testingModule())
+            }
+            networkHandler.connectSuccessfully()
         }
-        networkHandler.connectSuccessfully()
-    }
 
     @AfterTest
-    fun tearDown() = runBlocking {
-        stopKoin()
-        networkHandler.disconnect()
-    }
-
-
-    @Test
-    fun `retrieve Directory Contents Success`() = runBlocking {
-        val result = repository.getDirectoryContents("")
-        assertEquals(1, result.folders.count())
-        assertEquals(2, result.images.count())
-    }
-
-    @Test
-    fun `retrieve Directory Contents Disconnected`() = runBlocking {
-        networkHandler.disconnect()
-        try {
-            val result = repository.getDirectoryContents("")
-            fail("Should Throw Exception")
-        } catch (e: NetworkHandlerException) {
-            assertEquals(e.message, NetworkHandlerError.NOT_CONNECTED.message)
+    fun tearDown() =
+        runBlocking {
+            stopKoin()
+            networkHandler.disconnect()
         }
-    }
+
+    @Test
+    fun `retrieve Directory Contents Success`() =
+        runBlocking {
+            val result = repository.getDirectoryContents("")
+            assertEquals(1, result.folders.count())
+            assertEquals(2, result.images.count())
+        }
+
+    @Test
+    fun `retrieve Directory Contents Disconnected`() =
+        runBlocking {
+            networkHandler.disconnect()
+            try {
+                val result = repository.getDirectoryContents("")
+                fail("Should Throw Exception")
+            } catch (e: NetworkHandlerException) {
+                assertEquals(e.message, NetworkHandlerError.NOT_CONNECTED.message)
+            }
+        }
 }

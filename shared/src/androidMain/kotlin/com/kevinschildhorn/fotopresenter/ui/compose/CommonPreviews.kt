@@ -23,8 +23,7 @@ fun ActionSheetPreview() {
     ActionSheet(
         true,
         offset = 200,
-        values = listOf("Option A", "Option B")
-    ){
-
+        values = listOf("Option A", "Option B"),
+    ) {
     }
 }

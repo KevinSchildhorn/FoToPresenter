@@ -1,6 +1,5 @@
 package com.kevinschildhorn.fotopresenter.domain
 
-import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectory
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import kotlin.coroutines.cancellation.CancellationException

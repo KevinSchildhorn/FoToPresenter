@@ -7,7 +7,5 @@ import com.kevinschildhorn.fotopresenter.ui.SharedImage
 class ImageRepository(
     private val remoteDataSource: ImageRemoteDataSource,
 ) {
-    suspend fun getImage(directory: NetworkDirectory): SharedImage? =
-        remoteDataSource.getImage(directory)
-
+    suspend fun getImage(directory: NetworkDirectory): SharedImage? = remoteDataSource.getImage(directory)
 }

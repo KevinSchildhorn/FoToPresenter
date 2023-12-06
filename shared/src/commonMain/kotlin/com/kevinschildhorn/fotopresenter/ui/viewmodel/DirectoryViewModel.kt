@@ -41,17 +41,19 @@ class DirectoryViewModel(
             } catch (e: NetworkHandlerException) {
                 _uiState.update {
                     it.copy(
-                        state = State.ERROR(
-                            e.message ?: "An Unknown Network Error Occurred"
-                        )
+                        state =
+                        State.ERROR(
+                            e.message ?: "An Unknown Network Error Occurred",
+                        ),
                     )
                 }
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(
-                        state = State.ERROR(
-                            e.message ?: "Something Went Wrong"
-                        )
+                        state =
+                        State.ERROR(
+                            e.message ?: "Something Went Wrong",
+                        ),
                     )
                 }
             }
@@ -66,7 +68,7 @@ class DirectoryViewModel(
             _uiState.update {
                 it.copy(
                     directoryContents = directoryContents,
-                    state = State.SUCCESS
+                    state = State.SUCCESS,
                 )
             }
         }

@@ -42,40 +42,45 @@ fun ActionSheet(
     AnimatedVisibility(
         visible = visible,
         enter = fadeIn(),
-        exit = fadeOut()
+        exit = fadeOut(),
     ) {
         Overlay(
             1f,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .background(FotoColors.shadow.composeColor)
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null,
-                    onClick = onDismiss
-                )
+                    onClick = onDismiss,
+                ),
         ) { }
     }
 
     AnimatedVisibility(
         visible = visible,
-        enter = slideInVertically(
-            initialOffsetY = { offset }
+        enter =
+        slideInVertically(
+            initialOffsetY = { offset },
         ),
-        exit = slideOutVertically(
-            targetOffsetY = { offset }
-        )
+        exit =
+        slideOutVertically(
+            targetOffsetY = { offset },
+        ),
     ) {
         Overlay(
             2f,
         ) {
             Column(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Spacer(modifier = Modifier.fillMaxWidth())
                 Column(
-                    modifier = Modifier
+                    modifier =
+                    Modifier
                         .clip(shape = RoundedCornerShape(15.dp))
                         .fillMaxWidth()
                         .padding(10.dp)
@@ -86,18 +91,19 @@ fun ActionSheet(
                     LazyColumn {
                         items(values) {
                             TextButton(
-                                modifier = Modifier
+                                modifier =
+                                Modifier
                                     .fillMaxWidth()
                                     .wrapContentHeight()
                                     .padding(start = 10.dp),
                                 onClick = {
-
-                                }) {
+                                },
+                            ) {
                                 Text(
                                     it,
                                     color = FotoColors.secondaryText.composeColor,
                                     textAlign = TextAlign.Start,
-                                    modifier = Modifier.fillMaxWidth()
+                                    modifier = Modifier.fillMaxWidth(),
                                 )
                             }
                         }

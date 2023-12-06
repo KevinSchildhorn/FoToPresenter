@@ -8,7 +8,6 @@ import kotlin.test.assertEquals
 Testing [String]
  **/
 class StringTest {
-
     @Test
     fun `Add Path`() {
         var path = ""

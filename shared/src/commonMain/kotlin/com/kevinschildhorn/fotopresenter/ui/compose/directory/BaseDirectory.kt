@@ -5,17 +5,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.atomic.atoms.interfaces.TextAtom
 import com.kevinschildhorn.atomik.atomic.atoms.textStyle
 import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.ui.atoms.DirectoryAtoms
@@ -28,7 +25,8 @@ fun BaseDirectory(
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
-        modifier = modifier
+        modifier =
+        modifier
             .clip(shape = RoundedCornerShape(5.dp))
             .aspectRatio(1f)
             .background(color = backgroundColor),
@@ -38,15 +36,16 @@ fun BaseDirectory(
 
 @Composable
 fun DirectoryText(
-    text:String,
+    text: String,
     modifier: Modifier = Modifier,
-){
+) {
     val molecule: DirectoryAtoms.EmptyPhotoMolecule = DirectoryAtoms.emptyDirectory
     Text(
         text = text,
         style = molecule.textAtom.textStyle,
         textAlign = TextAlign.Center,
-        modifier = modifier
-            .fillMaxSize()
+        modifier =
+        modifier
+            .fillMaxSize(),
     )
 }

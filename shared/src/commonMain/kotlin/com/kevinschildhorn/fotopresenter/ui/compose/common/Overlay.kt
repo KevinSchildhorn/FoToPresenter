@@ -11,7 +11,7 @@ import androidx.compose.ui.zIndex
 fun Overlay(
     z: Float,
     modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit
+    content: @Composable BoxScope.() -> Unit,
 ) {
     Box(modifier = modifier.fillMaxSize().zIndex(z), content = content)
 }

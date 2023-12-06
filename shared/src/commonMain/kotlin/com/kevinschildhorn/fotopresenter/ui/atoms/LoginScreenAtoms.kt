@@ -33,11 +33,11 @@ object LoginScreenAtoms {
             disabledColor = FotoColors.disabled,
             radius = 15,
             textAtom =
-                SimpleTextAtom(
-                    textColor = FotoColors.primaryText,
-                    typography = FotoTypography.button,
-                    fontFamily = null,
-                ),
+            SimpleTextAtom(
+                textColor = FotoColors.primaryText,
+                typography = FotoTypography.button,
+                fontFamily = null,
+            ),
         )
     val textFieldMolecule =
         OutlinedTextFieldMolecule(

@@ -11,24 +11,24 @@ import com.kevinschildhorn.fotopresenter.ui.compose.directory.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
 
 @Composable
-fun DirectoryScreen(
-    viewModel: DirectoryViewModel,
-) {
+fun DirectoryScreen(viewModel: DirectoryViewModel) {
     LaunchedEffect(Unit) {
         viewModel.refreshScreen()
     }
     val uiState by viewModel.uiState.collectAsState()
 
     uiState.state.asComposable(
-        modifier = Modifier.padding(
+        modifier =
+        Modifier.padding(
             horizontal = Padding.STANDARD.dp,
-            vertical = Padding.SMALL.dp
-        )
+            vertical = Padding.SMALL.dp,
+        ),
     )
     DirectoryGrid(
         uiState.directoryContents,
-        modifier = Modifier
-            .padding(top = Padding.EXTRA_LARGE.dp)
+        modifier =
+        Modifier
+            .padding(top = Padding.EXTRA_LARGE.dp),
     ) {
         viewModel.changeDirectory(it)
     }

@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,7 +29,7 @@ fun DirectoryGrid(
     directoryContent: DirectoryContents,
     gridSize: Int = 5,
     modifier: Modifier = Modifier,
-    onDirectoryPressed: (NetworkDirectory) -> Unit
+    onDirectoryPressed: (NetworkDirectory) -> Unit,
 ) {
     var actionSheetVisible by remember { mutableStateOf(false) }
     var contextMenuPhotoId by rememberSaveable { mutableStateOf<Int?>(null) }
@@ -39,23 +37,24 @@ fun DirectoryGrid(
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(gridSize),
-        modifier = modifier.zIndex(0f)
+        modifier = modifier.zIndex(0f),
     ) {
         items(directoryContent.allDirectories, { it.directory.id }) { content ->
 
-            val directoryItemModifier = Modifier
-                .padding(5.dp)
-                .combinedClickable(
-                    onClick = {
-                        onDirectoryPressed(content.directory)
-                    },
-                    onLongClick = {
-                        haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                        contextMenuPhotoId = content.directory.id
-                        actionSheetVisible = true
-                    },
-                    onLongClickLabel = "Action Sheet"
-                )
+            val directoryItemModifier =
+                Modifier
+                    .padding(5.dp)
+                    .combinedClickable(
+                        onClick = {
+                            onDirectoryPressed(content.directory)
+                        },
+                        onLongClick = {
+                            haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                            contextMenuPhotoId = content.directory.id
+                            actionSheetVisible = true
+                        },
+                        onLongClickLabel = "Action Sheet",
+                    )
             (content as? FolderDirectoryContent)?.let { folderContent ->
                 FolderDirectoryItem(
                     folderContent.directory.name,
@@ -67,14 +66,13 @@ fun DirectoryGrid(
                     imageContent,
                     modifier = directoryItemModifier,
                 )
-
             }
         }
     }
     ActionSheet(
         visible = actionSheetVisible,
         offset = 200,
-        values = listOf("Option A", "Option B")
+        values = listOf("Option A", "Option B"),
     ) {
         actionSheetVisible = false
         contextMenuPhotoId = null

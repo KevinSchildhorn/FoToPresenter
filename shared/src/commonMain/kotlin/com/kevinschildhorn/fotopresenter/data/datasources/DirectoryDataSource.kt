@@ -10,7 +10,6 @@ import kotlin.coroutines.cancellation.CancellationException
 Fetches Directory info from a NAS
  **/
 class DirectoryDataSource(private val networkHandler: NetworkHandler) {
-
     @Throws(NetworkHandlerException::class, CancellationException::class)
     suspend fun changeDirectory(directoryName: String): String {
         if (!networkHandler.isConnected) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
@@ -19,14 +18,14 @@ class DirectoryDataSource(private val networkHandler: NetworkHandler) {
         throw NetworkHandlerException(NetworkHandlerError.DIRECTORY_NOT_FOUND)
     }
 
-    suspend fun getFolderDirectories(path:String): List<NetworkDirectory> {
+    suspend fun getFolderDirectories(path: String): List<NetworkDirectory> {
         if (!networkHandler.isConnected) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
         return networkHandler.getDirectoryContents(path).filter {
             it.fileName != "."
         }.filter { it.isDirectory }
     }
 
-    suspend fun getImageDirectories(path:String): List<NetworkDirectory> {
+    suspend fun getImageDirectories(path: String): List<NetworkDirectory> {
         if (!networkHandler.isConnected) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
         return networkHandler.getDirectoryContents(path).filter {
             it.fileName != "."

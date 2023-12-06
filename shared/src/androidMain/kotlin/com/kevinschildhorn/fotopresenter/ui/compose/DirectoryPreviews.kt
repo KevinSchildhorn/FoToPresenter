@@ -26,7 +26,6 @@ fun FolderDirectoryEmptyPreview() {
     }
 }
 
-
 @Preview
 @Composable
 fun DirectoryGridPreview() {
@@ -39,10 +38,8 @@ fun DirectoryGridPreview() {
                 FolderDirectoryContent(MockNetworkDirectory("Test 4", id = 4)),
                 FolderDirectoryContent(MockNetworkDirectory("Test 6", id = 5)),
                 FolderDirectoryContent(MockNetworkDirectory("Test 5", id = 6)),
-            )
-        )
+            ),
+        ),
     ) {
-
     }
-
 }

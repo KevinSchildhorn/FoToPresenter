@@ -4,7 +4,6 @@ import com.kevinschildhorn.atomik.atomic.atoms.interfaces.AtomType
 import com.kevinschildhorn.atomik.atomic.atoms.interfaces.ResourceAtom
 import com.kevinschildhorn.atomik.color.base.AtomikColor
 
-
 public class ImageAtom<T>(
     public val color: AtomikColor,
     override val image: T,

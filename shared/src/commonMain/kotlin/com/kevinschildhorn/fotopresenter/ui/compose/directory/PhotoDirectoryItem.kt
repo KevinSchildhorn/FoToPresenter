@@ -24,7 +24,7 @@ import compose.icons.evaicons.fill.QuestionMark
 fun PhotoDirectoryItem(
     imageContent: ImageDirectoryContent,
     modifier: Modifier = Modifier,
-    viewModel: PhotoDirectoryViewModel = PhotoDirectoryViewModel(imageContent.image)
+    viewModel: PhotoDirectoryViewModel = PhotoDirectoryViewModel(imageContent.image),
 ) {
     val imageState by viewModel.imageState.collectAsState(null)
 
@@ -40,14 +40,15 @@ fun PhotoDirectoryItem(
             )
         } ?: run {
             Column(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxSize()
-                    .padding(5.dp)
+                    .padding(5.dp),
             ) {
                 Image(
                     imageVector = EvaIcons.Fill.QuestionMark,
                     contentDescription = "Question Mark",
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
                 DirectoryText(
                     imageContent.directory.name,
@@ -57,4 +58,3 @@ fun PhotoDirectoryItem(
         }
     }
 }
-

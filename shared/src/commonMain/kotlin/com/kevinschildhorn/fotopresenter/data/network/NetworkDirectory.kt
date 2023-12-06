@@ -18,12 +18,10 @@ interface NetworkDirectory {
     val isAnImage: Boolean
         get() =
             fileExtension == "png" ||
-                    fileExtension == "jpg" ||
-                    fileExtension == "jpeg" ||
-                    fileExtension == "bmp"
-
+                fileExtension == "jpg" ||
+                fileExtension == "jpeg" ||
+                fileExtension == "bmp"
 }
-
 
 class MockNetworkDirectory(
     override val fullPath: String,

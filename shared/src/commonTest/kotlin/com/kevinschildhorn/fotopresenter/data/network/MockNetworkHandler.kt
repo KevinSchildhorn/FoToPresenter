@@ -13,23 +13,27 @@ object MockNetworkHandler : NetworkHandler {
             shouldAutoConnect = false,
         )
 
-    private val networkContents = mapOf(
-        "" to listOf<NetworkDirectory>(
-            MockNetworkDirectory(fullPath = "NewDirectory", id = 1),
-            MockNetworkDirectory(fullPath = "Peeng.png", id = 2),
-            MockNetworkDirectory(fullPath = "Jaypeg.jpg", id = 3),
-            MockNetworkDirectory(fullPath = "textFile.txt", id = 4),
-        ),
-        "Directories" to listOf<NetworkDirectory>(
-            MockNetworkDirectory(fullPath = "Directories/NewDirectory", id = 1),
-            MockNetworkDirectory(fullPath = "Directories/NewDirectory2", id = 2),
-        ),
-        "Photos" to listOf<NetworkDirectory>(
-            MockNetworkDirectory(fullPath = "Photos/Peeng.png", id = 2),
-            MockNetworkDirectory(fullPath = "Photos/Jaypeg.jpg", id = 3),
-            MockNetworkDirectory(fullPath = "Photos/textFile.txt", id = 4),
-        ),
-    )
+    private val networkContents =
+        mapOf(
+            "" to
+                listOf<NetworkDirectory>(
+                    MockNetworkDirectory(fullPath = "NewDirectory", id = 1),
+                    MockNetworkDirectory(fullPath = "Peeng.png", id = 2),
+                    MockNetworkDirectory(fullPath = "Jaypeg.jpg", id = 3),
+                    MockNetworkDirectory(fullPath = "textFile.txt", id = 4),
+                ),
+            "Directories" to
+                listOf<NetworkDirectory>(
+                    MockNetworkDirectory(fullPath = "Directories/NewDirectory", id = 1),
+                    MockNetworkDirectory(fullPath = "Directories/NewDirectory2", id = 2),
+                ),
+            "Photos" to
+                listOf<NetworkDirectory>(
+                    MockNetworkDirectory(fullPath = "Photos/Peeng.png", id = 2),
+                    MockNetworkDirectory(fullPath = "Photos/Jaypeg.jpg", id = 3),
+                    MockNetworkDirectory(fullPath = "Photos/textFile.txt", id = 4),
+                ),
+        )
 
     private val successImageName: String = "image.jpg"
 
