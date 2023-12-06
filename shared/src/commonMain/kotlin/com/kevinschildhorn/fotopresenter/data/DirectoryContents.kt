@@ -1,6 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data
 
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectory
+import com.kevinschildhorn.fotopresenter.ui.SharedImage
 
 interface DirectoryContent {
     val directory: NetworkDirectory

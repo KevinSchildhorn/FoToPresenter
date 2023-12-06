@@ -37,13 +37,8 @@ fun FolderDirectoryItem(
                     .fillMaxHeight(0.66f),
                 tint = molecule.imageAtom.color.composeColor,
             )
-            Text(
-                text = folderName,
-                style = molecule.textAtom.textStyle,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .fillMaxSize()
+            DirectoryText(
+                folderName, modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }
     }

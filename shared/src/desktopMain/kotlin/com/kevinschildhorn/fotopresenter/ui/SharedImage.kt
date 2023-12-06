@@ -1,11 +1,8 @@
 package com.kevinschildhorn.fotopresenter.ui
 
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.res.loadImageBitmap
 import com.hierynomus.smbj.share.File
 
-class DesktopSharedImage(file: File): SharedImage(file) {
-
-    override fun getBitmap(): ImageBitmap? {
-        return super.getBitmap()
-    }
-}
+actual fun getBitmapFromFile(file: File): ImageBitmap? =
+    file.inputStream.buffered().use(::loadImageBitmap)

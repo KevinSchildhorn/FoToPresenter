@@ -63,12 +63,11 @@ fun DirectoryGrid(
                 )
             }
             (content as? ImageDirectoryContent)?.let { imageContent ->
-                imageContent.image?.getImage()?.let { bitmap ->
-                    PhotoDirectoryItem(
-                        bitmap,
-                        modifier = directoryItemModifier,
-                    )
-                }
+                PhotoDirectoryItem(
+                    imageContent,
+                    modifier = directoryItemModifier,
+                )
+
             }
         }
     }

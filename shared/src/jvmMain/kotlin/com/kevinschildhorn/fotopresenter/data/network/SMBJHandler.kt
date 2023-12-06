@@ -12,6 +12,7 @@ import com.hierynomus.smbj.session.Session
 import com.hierynomus.smbj.share.DiskShare
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.extension.addPath
+import com.kevinschildhorn.fotopresenter.ui.SharedImage
 
 object SMBJHandler : NetworkHandler {
     private val client = SMBClient()
