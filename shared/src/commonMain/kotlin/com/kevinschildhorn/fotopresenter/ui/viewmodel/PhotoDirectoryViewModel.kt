@@ -14,11 +14,11 @@ class PhotoDirectoryViewModel(private val image: SharedImage?) : ViewModel() {
     private val _imageState: MutableStateFlow<State<ImageBitmap>> = MutableStateFlow(State.IDLE)
     val imageState: StateFlow<State<ImageBitmap>> = _imageState.asStateFlow()
 
-    fun refreshImageBitmap() {
+    fun refreshImageBitmap(size:Int) {
         var state: State<ImageBitmap> = State.LOADING
         _imageState.update { state }
         viewModelScope.launch(Dispatchers.Default) {
-            image?.getImageBitmap()?.let {
+            image?.getImageBitmap(size)?.let {
                 state = State.SUCCESS(it)
                 _imageState.update { state }
             } ?: run {

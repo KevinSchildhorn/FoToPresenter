@@ -5,6 +5,9 @@ import com.kevinschildhorn.fotopresenter.ui.SharedImage
 
 interface DirectoryContent {
     val directory: NetworkDirectory
+
+    val asImageDirectory: ImageDirectoryContent?
+        get() = this as? ImageDirectoryContent
 }
 
 data class FolderDirectoryContent(

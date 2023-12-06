@@ -17,6 +17,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.kevinschildhorn.fotopresenter.data.DirectoryContent
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.FolderDirectoryContent
 import com.kevinschildhorn.fotopresenter.data.ImageDirectoryContent
@@ -29,7 +30,7 @@ fun DirectoryGrid(
     directoryContent: DirectoryContents,
     gridSize: Int = 5,
     modifier: Modifier = Modifier,
-    onDirectoryPressed: (NetworkDirectory) -> Unit,
+    onDirectoryPressed: (DirectoryContent) -> Unit,
 ) {
     var actionSheetVisible by remember { mutableStateOf(false) }
     var contextMenuPhotoId by rememberSaveable { mutableStateOf<Int?>(null) }
@@ -45,7 +46,7 @@ fun DirectoryGrid(
                     .padding(5.dp)
                     .combinedClickable(
                         onClick = {
-                            onDirectoryPressed(content.directory)
+                            onDirectoryPressed(content)
                         },
                         onLongClick = {
                             haptics.performHapticFeedback(HapticFeedbackType.LongPress)
