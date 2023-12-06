@@ -3,14 +3,14 @@ package com.kevinschildhorn.fotopresenter.ui.state
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.ui.compose.common.ButtonState
 
-data class LoginUiState(
+data class LoginScreenState(
     val hostname: String = "",
     val username: String = "",
     val password: String = "",
     val sharedFolder: String = "",
     val shouldAutoConnect: Boolean = false,
-    override val state: State = State.IDLE,
-) : UiState {
+    override val state: UiState = UiState.IDLE,
+) : ScreenState {
     val isLoginButtonEnabled: Boolean
         get() =
             hostname.isNotEmpty() &&
@@ -21,7 +21,7 @@ data class LoginUiState(
     val loginbuttonState: ButtonState
         get() =
             when {
-                state == State.LOADING -> ButtonState.LOADING
+                state == UiState.LOADING -> ButtonState.LOADING
                 isLoginButtonEnabled -> ButtonState.ENABLED
                 else -> ButtonState.DISABLED
             }

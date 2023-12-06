@@ -16,6 +16,7 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.compose.common.TitleView
 import com.kevinschildhorn.fotopresenter.ui.compose.login.LoginScreenForm
 import com.kevinschildhorn.fotopresenter.ui.state.State
+import com.kevinschildhorn.fotopresenter.ui.state.UiState
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
 
 @Composable
@@ -26,7 +27,7 @@ fun LoginScreen(
     val uiState by viewModel.uiState.collectAsState()
     val uriHandler = LocalUriHandler.current
 
-    if (uiState.state == State.SUCCESS) {
+    if (uiState.state is UiState.SUCCESS) {
         onLoginSuccess()
     }
     Column {

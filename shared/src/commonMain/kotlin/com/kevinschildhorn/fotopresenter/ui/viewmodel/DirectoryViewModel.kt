@@ -6,8 +6,9 @@ import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.domain.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.extension.addPath
-import com.kevinschildhorn.fotopresenter.ui.state.DirectoryUiState
+import com.kevinschildhorn.fotopresenter.ui.state.DirectoryScreenState
 import com.kevinschildhorn.fotopresenter.ui.state.State
+import com.kevinschildhorn.fotopresenter.ui.state.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,8 +21,8 @@ import org.koin.core.component.inject
 class DirectoryViewModel(
     private val logger: Logger,
 ) : ViewModel(), KoinComponent {
-    private val _uiState = MutableStateFlow(DirectoryUiState())
-    val uiState: StateFlow<DirectoryUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(DirectoryScreenState())
+    val uiState: StateFlow<DirectoryScreenState> = _uiState.asStateFlow()
 
     private val currentPath: String
         get() = uiState.value.currentPath
@@ -42,7 +43,7 @@ class DirectoryViewModel(
                 _uiState.update {
                     it.copy(
                         state =
-                        State.ERROR(
+                        UiState.ERROR(
                             e.message ?: "An Unknown Network Error Occurred",
                         ),
                     )
@@ -51,7 +52,7 @@ class DirectoryViewModel(
                 _uiState.update {
                     it.copy(
                         state =
-                        State.ERROR(
+                        UiState.ERROR(
                             e.message ?: "Something Went Wrong",
                         ),
                     )
@@ -61,14 +62,14 @@ class DirectoryViewModel(
     }
 
     private fun updateDirectories() {
-        _uiState.update { it.copy(state = State.LOADING) }
+        _uiState.update { it.copy(state = UiState.LOADING) }
         viewModelScope.launch(Dispatchers.Default) {
             val retrieveDirectoryUseCase: RetrieveDirectoryContentsUseCase by inject()
             val directoryContents = retrieveDirectoryUseCase(currentPath)
             _uiState.update {
                 it.copy(
                     directoryContents = directoryContents,
-                    state = State.SUCCESS,
+                    state = UiState.SUCCESS,
                 )
             }
         }

@@ -11,12 +11,12 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.compose.common.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.compose.common.FormColumn
 import com.kevinschildhorn.fotopresenter.ui.compose.common.PrimaryButton
-import com.kevinschildhorn.fotopresenter.ui.state.LoginUiState
+import com.kevinschildhorn.fotopresenter.ui.state.LoginScreenState
 import com.kevinschildhorn.fotopresenter.ui.state.State
 
 @Composable
 fun LoginScreenForm(
-    uiState: LoginUiState,
+    uiState: LoginScreenState,
     onHostnameChange: (String) -> Unit,
     onUsernameChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
