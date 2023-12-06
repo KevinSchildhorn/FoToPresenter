@@ -15,12 +15,15 @@ class PhotoDirectoryViewModel(private val image: SharedImage?) : ViewModel() {
     val imageState: StateFlow<State<ImageBitmap>> = _imageState.asStateFlow()
 
     fun refreshImageBitmap() {
-        _imageState.update { State.LOADING }
+        var state:State<ImageBitmap> = State.LOADING
+        _imageState.update { state }
         viewModelScope.launch(Dispatchers.Default) {
             image?.getImageBitmap()?.let {
-                _imageState.update { State.SUCCESS(it) }
+                state = State.SUCCESS(it)
+                _imageState.update { state }
             } ?: run {
-                _imageState.update { State.ERROR("No Image Found") }
+                state = State.ERROR("No Image Found")
+                _imageState.update { state }
             }
         }
     }

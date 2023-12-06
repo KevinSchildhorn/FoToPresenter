@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
 import com.kevinschildhorn.fotopresenter.testingModule
 import com.kevinschildhorn.fotopresenter.ui.state.State
+import com.kevinschildhorn.fotopresenter.ui.state.UiState
 import com.russhwolf.settings.MapSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -58,7 +59,7 @@ class LoginViewModelTest : KoinTest {
                 assertEquals(password, "")
                 assertEquals(sharedFolder, "")
                 assertEquals(shouldAutoConnect, false)
-                assertEquals(state, State.IDLE)
+                assertEquals(state, UiState.IDLE)
             }
 
             viewModel.updateHost("google.com")
@@ -73,7 +74,7 @@ class LoginViewModelTest : KoinTest {
                 assertEquals(password, "Secret")
                 assertEquals(sharedFolder, "Public")
                 assertEquals(shouldAutoConnect, true)
-                assertEquals(state, State.IDLE)
+                assertEquals(state, UiState.IDLE)
             }
         }
 
@@ -88,7 +89,7 @@ class LoginViewModelTest : KoinTest {
                     assertEquals(password, "defaultPassword")
                     assertEquals(sharedFolder, "")
                     assertEquals(shouldAutoConnect, false)
-                    assertEquals(state, State.IDLE)
+                    assertEquals(state, UiState.IDLE)
                 }
             }
         }
@@ -158,12 +159,12 @@ class LoginViewModelTest : KoinTest {
             viewModel.login()
 
             with(viewModel.uiState.value) {
-                assertEquals(State.LOADING, state)
+                assertEquals(UiState.LOADING, state)
             }
 
             delay(2000)
             with(viewModel.uiState.value) {
-                assertTrue(state is State.ERROR)
+                assertTrue(state is UiState.ERROR)
             }
         }
 
@@ -181,12 +182,12 @@ class LoginViewModelTest : KoinTest {
             viewModel.login()
 
             with(viewModel.uiState.value) {
-                assertEquals(State.LOADING, state)
+                assertEquals(UiState.LOADING, state)
             }
 
             delay(2000)
             with(viewModel.uiState.value) {
-                assertEquals(State.SUCCESS, state)
+                assertEquals(UiState.SUCCESS, state)
             }
         }
 

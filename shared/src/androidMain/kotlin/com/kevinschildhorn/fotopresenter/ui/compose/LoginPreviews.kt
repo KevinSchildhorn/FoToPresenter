@@ -10,6 +10,7 @@ import com.kevinschildhorn.fotopresenter.ui.compose.login.FotoTextField
 import com.kevinschildhorn.fotopresenter.ui.compose.login.LoginScreenForm
 import com.kevinschildhorn.fotopresenter.ui.state.LoginScreenState
 import com.kevinschildhorn.fotopresenter.ui.state.State
+import com.kevinschildhorn.fotopresenter.ui.state.UiState
 
 @Preview
 @Composable
@@ -39,7 +40,7 @@ fun FotoTextFieldPreview() {
 fun LoginScreenFormPreview() {
     LoginScreenForm(
         LoginScreenState(
-            state = State.ERROR("No Internet"),
+            state = UiState.ERROR("No Internet"),
         ),
         {},
         {},

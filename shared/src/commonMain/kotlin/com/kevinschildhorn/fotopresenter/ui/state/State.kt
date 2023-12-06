@@ -7,21 +7,18 @@ import com.kevinschildhorn.fotopresenter.ui.compose.common.LoadingOverlay
 
 sealed class State<out DATA> {
     data object IDLE : State<Nothing>()
-
     data object LOADING : State<Nothing>()
+    data class ERROR(
+        val message:String,
+    ) : State<Nothing>()
 
-    data class ERROR(val message: String) : State<Nothing>()
+    data class SUCCESS<DATA>(
+        val data: DATA,
+    ) : State<DATA>()
 
-    data class SUCCESS<DATA> (val result: DATA) : State<DATA>()
-
-    val isLoading: Boolean
-        get() = this == LOADING
-
-    val asError: ERROR?
-        get() = this as? ERROR
 
     inline fun onSuccess(block: (DATA) -> Unit): State<DATA> {
-        if (this is SUCCESS) block(result)
+        if (this is SUCCESS) block(data)
         return this
     }
 

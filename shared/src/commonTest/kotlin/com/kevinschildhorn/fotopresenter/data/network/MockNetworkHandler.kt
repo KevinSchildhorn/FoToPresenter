@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter.data.network
 
 import androidx.compose.ui.graphics.ImageBitmap
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
+import com.kevinschildhorn.fotopresenter.ui.SharedImage
 
 object MockNetworkHandler : NetworkHandler {
     private val successLoginCredentials =
@@ -35,7 +36,7 @@ object MockNetworkHandler : NetworkHandler {
                 ),
         )
 
-    private val successImageName: String = "image.jpg"
+    private val successImageName: String = "Photos/Peeng.png"
 
     private var connected: Boolean = false
     override val isConnected: Boolean
@@ -66,9 +67,9 @@ object MockNetworkHandler : NetworkHandler {
         return null
     }
 
-    override suspend fun openImage(imageName: String): ImageBitmap? {
+    override suspend fun openImage(imageName: String): SharedImage? {
         if (imageName == successImageName) {
-            print("")
+            throw Exception("Success") // TODO: This is messy, but SharedImageIs expect
         }
         return null
     }
