@@ -3,10 +3,12 @@ package com.kevinschildhorn.fotopresenter.domain
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
+import co.touchlab.kermit.Logger
 import kotlin.coroutines.cancellation.CancellationException
 
 class ChangeDirectoryUseCase(
     private val dataSource: DirectoryDataSource,
+    private val logger: Logger,
 ) {
     @Throws(NetworkHandlerException::class, CancellationException::class)
     suspend operator fun invoke(path: String) =

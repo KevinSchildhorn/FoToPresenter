@@ -35,9 +35,8 @@ class DirectoryViewModel(
         viewModelScope.launch(Dispatchers.Default) {
             val changeDirectoryUseCase: ChangeDirectoryUseCase by inject()
             try {
-                changeDirectoryUseCase(currentPath.addPath(directory.name))?.let { newPath ->
-                    _uiState.update { it.copy(currentPath = newPath) }
-                }
+                val newPath = changeDirectoryUseCase(currentPath.addPath(directory.name))
+                _uiState.update { it.copy(currentPath = newPath) }
                 updateDirectories()
             } catch (e: NetworkHandlerException) {
                 _uiState.update {

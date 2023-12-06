@@ -6,7 +6,6 @@ import com.kevinschildhorn.fotopresenter.domain.AutoConnectUseCase
 import com.kevinschildhorn.fotopresenter.domain.ConnectToServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.ui.state.LoginScreenState
-import com.kevinschildhorn.fotopresenter.ui.state.State
 import com.kevinschildhorn.fotopresenter.ui.state.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -67,16 +66,22 @@ class LoginViewModel(
 
         val connectToServer: ConnectToServerUseCase by inject()
         viewModelScope.launch(Dispatchers.Default) {
+            logger.i { "Connecting To Server With Credentials" }
+
             val result =
                 connectToServer(
                     _uiState.value.asLoginCredentials,
                 )
 
             if (!result) {
+                logger.w { "Error Occurred" }
                 _uiState.update { it.copy(state = UiState.ERROR("")) }
                 return@launch
             } else {
+                logger.i { "Successfully Logged In" }
                 _uiState.update { it.copy(state = UiState.SUCCESS) }
+                logger.i { "Saving Credentials" }
+                logger.i { "State is ${uiState.value}" }
                 val saveCredentials: SaveCredentialsUseCase by inject()
                 saveCredentials(_uiState.value.asLoginCredentials)
             }

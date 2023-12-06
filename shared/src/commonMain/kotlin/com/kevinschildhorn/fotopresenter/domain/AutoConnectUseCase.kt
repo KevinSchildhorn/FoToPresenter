@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter.domain
 
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
+import co.touchlab.kermit.Logger
 
 /**
 Automatically connect to the server using saved credentials
@@ -9,6 +10,7 @@ Automatically connect to the server using saved credentials
 class AutoConnectUseCase(
     private val client: NetworkHandler,
     private val repository: CredentialsRepository,
+    private val logger: Logger,
 ) {
     suspend operator fun invoke(): Boolean =
         try {

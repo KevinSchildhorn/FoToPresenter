@@ -1,10 +1,12 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
-import androidx.compose.ui.graphics.ImageBitmap
+import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.ui.SharedImage
+import org.koin.java.KoinJavaComponent.inject
 
 object MockNetworkHandler : NetworkHandler {
+
     private val successLoginCredentials =
         LoginCredentials(
             "192.168.1.1",
@@ -47,8 +49,13 @@ object MockNetworkHandler : NetworkHandler {
     }
 
     override suspend fun connect(credentials: LoginCredentials): Boolean {
-        if (credentials.hostname == "throw") throw Exception()
+        print("Connecting\n")
+        if (credentials.hostname == "throw") {
+            print("Exception Occured\n")
+            throw Exception()
+        }
         connected = credentials == successLoginCredentials
+        print("Is Connected $connected\n")
         return connected
     }
 
