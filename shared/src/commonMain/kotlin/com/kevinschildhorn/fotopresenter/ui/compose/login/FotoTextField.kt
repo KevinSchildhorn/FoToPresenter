@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import com.kevinschildhorn.atomik.atomic.atoms.shape
 import com.kevinschildhorn.atomik.atomic.atoms.textStyle
-import com.kevinschildhorn.atomik.atomic.molecules.colors
 import com.kevinschildhorn.fotopresenter.ui.atoms.LoginScreenAtoms
 
 @Composable

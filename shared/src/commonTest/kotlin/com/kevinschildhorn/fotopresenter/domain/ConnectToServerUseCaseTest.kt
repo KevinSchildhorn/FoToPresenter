@@ -73,6 +73,6 @@ class ConnectToServerUseCaseTest : KoinTest {
                     shouldAutoConnect = false,
                 )
             val result = useCase(loginCredentials)
-            assertFalse(result, "Should not have Connected to Server")
+            assertFalse(result, "Should not have Connected to Server, should have thrown")
         }
 }

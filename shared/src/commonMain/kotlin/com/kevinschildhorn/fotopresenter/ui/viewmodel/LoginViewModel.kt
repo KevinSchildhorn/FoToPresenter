@@ -18,7 +18,7 @@ import org.koin.core.component.inject
 
 class LoginViewModel(
     private val logger: Logger,
-    private val credentialsRepository: CredentialsRepository,
+    credentialsRepository: CredentialsRepository,
 ) : ViewModel(), KoinComponent {
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()

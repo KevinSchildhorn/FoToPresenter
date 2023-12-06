@@ -1,6 +1,5 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
-import androidx.compose.ui.graphics.ImageBitmap
 import com.hierynomus.msdtyp.AccessMask
 import com.hierynomus.msfscc.FileAttributes
 import com.hierynomus.mssmb2.SMB2CreateDisposition
@@ -12,6 +11,8 @@ import com.hierynomus.smbj.connection.Connection
 import com.hierynomus.smbj.session.Session
 import com.hierynomus.smbj.share.DiskShare
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
+import com.kevinschildhorn.fotopresenter.extension.addPath
+import com.kevinschildhorn.fotopresenter.ui.SharedImage
 
 object SMBJHandler : NetworkHandler {
     private val client = SMBClient()
@@ -26,56 +27,64 @@ object SMBJHandler : NetworkHandler {
     private val createOptions: Set<SMB2CreateOptions> =
         setOf(SMB2CreateOptions.FILE_NON_DIRECTORY_FILE)
 
+    override val isConnected: Boolean
+        get() = share != null
+
     override suspend fun connect(credentials: LoginCredentials): Boolean {
         try {
             with(credentials) {
                 connection = client.connect(hostname)
-                val context =
-                    AuthenticationContext(
-                        username,
-                        password.toCharArray(),
-                        null,
-                    )
+                val context = AuthenticationContext(username, password.toCharArray(), null)
                 val session: Session? = connection?.authenticate(context)
-                share = session?.connectShare("Public") as? DiskShare
+                share = session?.connectShare(credentials.sharedFolder) as? DiskShare
                 if (share == null) {
-                    closeConnection()
+                    disconnect()
                     return false
                 }
-                return true
             }
         } catch (e: Exception) {
-            closeConnection()
+            disconnect()
             return false
         }
+        return true
     }
 
-    override fun openDirectory(directoryName: String) {
-        share?.openDirectory(
-            directoryName,
+    override suspend fun getDirectoryContents(path: String): List<NetworkDirectory> {
+        return share?.list(path)?.map {
+            SMBJNetworkDirectory(
+                it,
+                fullPath = path.addPath(it.fileName),
+            )
+        } ?: emptyList()
+    }
+
+    override suspend fun openDirectory(path: String): String? {
+        val result = share?.openDirectory(
+            path,
             accessMask,
             attributes,
             shareAccesses,
             createDisposition,
             createOptions,
         )
+        return result?.path
     }
 
-    override fun openImage(imageName: String): ImageBitmap? {
-        val file = share?.openFile(
-            imageName,
+    override suspend fun openImage(path: String): SharedImage? {
+        share?.openFile(
+            path,
             accessMask,
             attributes,
             shareAccesses,
             createDisposition,
             createOptions,
-        )
+        )?.let {
+            return SharedImage(it)
+        }
         return null
-        // val bMap = BitmapFactory.decodeStream(file.inputStream)
-        // return bMap
     }
 
-    private fun closeConnection() {
+    override suspend fun disconnect() {
         share?.close()
         session?.close()
         connection?.close(true)

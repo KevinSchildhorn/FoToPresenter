@@ -30,13 +30,13 @@ class AutoConnectUseCaseTest : KoinTest {
                 modules(
                     testingModule(
                         settings =
-                            MapSettings(
-                                KEY_HOSTNAME to "192.168.1.1",
-                                KEY_USERNAME to "admin",
-                                KEY_PASSWORD to "password",
-                                KEY_SHAREDFOLDER to "Public",
-                                KEY_AUTOCONNECT to false,
-                            ),
+                        MapSettings(
+                            KEY_HOSTNAME to "192.168.1.1",
+                            KEY_USERNAME to "admin",
+                            KEY_PASSWORD to "password",
+                            KEY_SHAREDFOLDER to "Public",
+                            KEY_AUTOCONNECT to false,
+                        ),
                     ),
                 )
             }
@@ -52,13 +52,13 @@ class AutoConnectUseCaseTest : KoinTest {
                 modules(
                     testingModule(
                         settings =
-                            MapSettings(
-                                KEY_HOSTNAME to "google.com",
-                                KEY_USERNAME to "admin",
-                                KEY_PASSWORD to "password",
-                                KEY_SHAREDFOLDER to "Public",
-                                KEY_AUTOCONNECT to false,
-                            ),
+                        MapSettings(
+                            KEY_HOSTNAME to "google.com",
+                            KEY_USERNAME to "admin",
+                            KEY_PASSWORD to "password",
+                            KEY_SHAREDFOLDER to "Public",
+                            KEY_AUTOCONNECT to false,
+                        ),
                     ),
                 )
             }
@@ -83,13 +83,13 @@ class AutoConnectUseCaseTest : KoinTest {
                 modules(
                     testingModule(
                         settings =
-                            MapSettings(
-                                KEY_HOSTNAME to "throw",
-                                KEY_USERNAME to "admin",
-                                KEY_PASSWORD to "password",
-                                KEY_SHAREDFOLDER to "Public",
-                                KEY_AUTOCONNECT to false,
-                            ),
+                        MapSettings(
+                            KEY_HOSTNAME to "throw",
+                            KEY_USERNAME to "admin",
+                            KEY_PASSWORD to "password",
+                            KEY_SHAREDFOLDER to "Public",
+                            KEY_AUTOCONNECT to false,
+                        ),
                     ),
                 )
             }
