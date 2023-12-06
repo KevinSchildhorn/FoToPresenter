@@ -19,13 +19,16 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.kevinschildhorn.fotopresenter.data.DirectoryContents
+import com.kevinschildhorn.fotopresenter.data.FolderDirectoryContent
+import com.kevinschildhorn.fotopresenter.data.ImageDirectoryContent
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectory
 import com.kevinschildhorn.fotopresenter.ui.compose.common.ActionSheet
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DirectoryGrid(
-    directories: List<NetworkDirectory>,
+    directoryContent: DirectoryContents,
     gridSize: Int = 5,
     modifier: Modifier = Modifier,
     onDirectoryPressed: (NetworkDirectory) -> Unit
@@ -38,31 +41,34 @@ fun DirectoryGrid(
         columns = GridCells.Fixed(gridSize),
         modifier = modifier.zIndex(0f)
     ) {
-        items(directories, { it.id }) {
+        items(directoryContent.allDirectories, { it.directory.id }) { content ->
 
             val directoryItemModifier = Modifier
                 .padding(5.dp)
                 .combinedClickable(
                     onClick = {
-                        onDirectoryPressed(it)
+                        onDirectoryPressed(content.directory)
                     },
                     onLongClick = {
                         haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                        contextMenuPhotoId = it.id
+                        contextMenuPhotoId = content.directory.id
                         actionSheetVisible = true
                     },
                     onLongClickLabel = "Action Sheet"
                 )
-            if (it.isDirectory) {
+            (content as? FolderDirectoryContent)?.let { folderContent ->
                 FolderDirectoryItem(
-                    it.name,
+                    folderContent.directory.name,
                     modifier = directoryItemModifier,
                 )
-            } else if (it.isAnImage) {
-                PhotoDirectoryItem(
-                    Icons.Default.AccountBox, // TODO
-                    modifier = directoryItemModifier,
-                )
+            }
+            (content as? ImageDirectoryContent)?.let { imageContent ->
+                imageContent.image?.getImage()?.let { bitmap ->
+                    PhotoDirectoryItem(
+                        bitmap,
+                        modifier = directoryItemModifier,
+                    )
+                }
             }
         }
     }

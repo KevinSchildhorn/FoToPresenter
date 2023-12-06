@@ -1,6 +1,5 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
-import androidx.compose.ui.graphics.ImageBitmap
 import com.hierynomus.msdtyp.AccessMask
 import com.hierynomus.msfscc.FileAttributes
 import com.hierynomus.mssmb2.SMB2CreateDisposition
@@ -70,18 +69,18 @@ object SMBJHandler : NetworkHandler {
         return result?.path
     }
 
-    override suspend fun openImage(path: String): ImageBitmap? {
-        val file = share?.openFile(
+    override suspend fun openImage(path: String): SharedImage? {
+        share?.openFile(
             path,
             accessMask,
             attributes,
             shareAccesses,
             createDisposition,
             createOptions,
-        )
+        )?.let {
+            return SharedImage(it)
+        }
         return null
-        // val bMap = BitmapFactory.decodeStream(file.inputStream)
-        // return bMap
     }
 
     override suspend fun disconnect() {

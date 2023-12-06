@@ -1,6 +1,7 @@
 package com.kevinschildhorn.fotopresenter.domain
 
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
+import com.kevinschildhorn.fotopresenter.data.ImageDirectoryContent
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
 
@@ -12,10 +13,10 @@ class RetrieveDirectoryContentsUseCase(
     private val imageRepository: ImageRepository,
 ) {
     suspend operator fun invoke(path:String): DirectoryContents {
-        val directories = directoryRepository.getDirectoryContents(path)
-        val images = directories.images.map {
-            imageRepository.getImage(it)
+        val directoryContents = directoryRepository.getDirectoryContents(path)
+        val imageDirectories = directoryContents.images.map {
+            ImageDirectoryContent(it.directory, image = imageRepository.getImage(it.directory))
         }
-        return directories
+        return directoryContents.copy(images = imageDirectories)
     }
 }

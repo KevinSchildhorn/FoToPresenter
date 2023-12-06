@@ -1,8 +1,6 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
-import androidx.compose.ui.graphics.ImageBitmap
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
-import kotlin.coroutines.cancellation.CancellationException
 
 interface NetworkHandler {
 
@@ -13,7 +11,7 @@ interface NetworkHandler {
 
     suspend fun getDirectoryContents(path: String): List<NetworkDirectory>
     suspend fun openDirectory(path: String): String?
-    suspend fun openImage(path: String): ImageBitmap?
+    suspend fun openImage(path: String): SharedImage?
 
 }
 
