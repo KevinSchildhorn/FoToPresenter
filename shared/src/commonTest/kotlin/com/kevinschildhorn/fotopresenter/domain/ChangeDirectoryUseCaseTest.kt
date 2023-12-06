@@ -13,7 +13,6 @@ import org.koin.test.inject
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
 import kotlin.test.fail
 
 /**
@@ -23,44 +22,48 @@ class ChangeDirectoryUseCaseTest : KoinTest {
     private val useCase: ChangeDirectoryUseCase by inject()
 
     @BeforeTest
-    fun startTest() = runBlocking {
-        startKoin {
-            modules(testingModule())
+    fun startTest() =
+        runBlocking {
+            startKoin {
+                modules(testingModule())
+            }
+            MockNetworkHandler.connectSuccessfully()
         }
-        MockNetworkHandler.connectSuccessfully()
-    }
 
     @AfterTest
-    fun tearDown() = runBlocking {
-        stopKoin()
-        MockNetworkHandler.disconnect()
-    }
-
-    @Test
-    fun `change directory success`() = runBlocking {
-        val result = useCase("Photos")
-        assertEquals("Photos", result)
-    }
-
-    @Test
-    fun `change directory failure`() = runBlocking {
-
-        try {
-            val result = useCase("nonExistant")
-            fail("Should've thrown")
-        } catch (e: NetworkHandlerException) {
-            assertEquals(NetworkHandlerError.DIRECTORY_NOT_FOUND.message, e.message)
+    fun tearDown() =
+        runBlocking {
+            stopKoin()
+            MockNetworkHandler.disconnect()
         }
-    }
 
     @Test
-    fun `change directory disconnected`() = runBlocking {
-        MockNetworkHandler.disconnect()
-        try {
+    fun `change directory success`() =
+        runBlocking {
             val result = useCase("Photos")
-            fail("Should've thrown")
-        } catch (e: NetworkHandlerException) {
-            assertEquals(NetworkHandlerError.NOT_CONNECTED.message, e.message)
+            assertEquals("Photos", result)
         }
-    }
+
+    @Test
+    fun `change directory failure`() =
+        runBlocking {
+            try {
+                val result = useCase("nonExistant")
+                fail("Should've thrown")
+            } catch (e: NetworkHandlerException) {
+                assertEquals(NetworkHandlerError.DIRECTORY_NOT_FOUND.message, e.message)
+            }
+        }
+
+    @Test
+    fun `change directory disconnected`() =
+        runBlocking {
+            MockNetworkHandler.disconnect()
+            try {
+                val result = useCase("Photos")
+                fail("Should've thrown")
+            } catch (e: NetworkHandlerException) {
+                assertEquals(NetworkHandlerError.NOT_CONNECTED.message, e.message)
+            }
+        }
 }

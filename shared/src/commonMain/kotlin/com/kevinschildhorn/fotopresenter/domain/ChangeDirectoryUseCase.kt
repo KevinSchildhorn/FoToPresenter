@@ -1,9 +1,8 @@
 package com.kevinschildhorn.fotopresenter.domain
 
-import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
-import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
-import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import co.touchlab.kermit.Logger
+import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
+import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import kotlin.coroutines.cancellation.CancellationException
 
 class ChangeDirectoryUseCase(

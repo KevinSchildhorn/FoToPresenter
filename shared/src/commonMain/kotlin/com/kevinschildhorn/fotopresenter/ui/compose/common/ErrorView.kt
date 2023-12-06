@@ -25,10 +25,10 @@ fun ErrorView(
     }
     Box(
         modifier =
-        configuredModifier.padding(
-            horizontal = atom.paddingHorizontal?.dp ?: 0.dp,
-            vertical = atom.paddingVertical?.dp ?: 0.dp,
-        ).fillMaxWidth(),
+            configuredModifier.padding(
+                horizontal = atom.paddingHorizontal?.dp ?: 0.dp,
+                vertical = atom.paddingVertical?.dp ?: 0.dp,
+            ).fillMaxWidth(),
     ) {
         Text(
             text = message,

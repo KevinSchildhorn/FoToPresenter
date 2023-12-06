@@ -1,12 +1,12 @@
 package com.kevinschildhorn.fotopresenter.domain
 
+import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.ImageDirectoryContent
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectory
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
 import com.kevinschildhorn.fotopresenter.ui.SharedImage
-import co.touchlab.kermit.Logger
 
 /**
 Retrieving Directories from Location
@@ -26,7 +26,8 @@ class RetrieveDirectoryContentsUseCase(
 
 private suspend fun DirectoryContents.updateImages(block: suspend (NetworkDirectory) -> SharedImage?): DirectoryContents =
     this.copy(
-        images = images.map {
-            ImageDirectoryContent(it.directory, image = block(it.directory))
-        }
+        images =
+            images.map {
+                ImageDirectoryContent(it.directory, image = block(it.directory))
+            },
     )

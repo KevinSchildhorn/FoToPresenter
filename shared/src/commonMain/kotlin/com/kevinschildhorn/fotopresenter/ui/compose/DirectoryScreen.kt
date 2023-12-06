@@ -19,16 +19,16 @@ fun DirectoryScreen(viewModel: DirectoryViewModel) {
 
     uiState.state.asComposable(
         modifier =
-        Modifier.padding(
-            horizontal = Padding.STANDARD.dp,
-            vertical = Padding.SMALL.dp,
-        ),
+            Modifier.padding(
+                horizontal = Padding.STANDARD.dp,
+                vertical = Padding.SMALL.dp,
+            ),
     )
     DirectoryGrid(
         uiState.directoryContents,
         modifier =
-        Modifier
-            .padding(top = Padding.EXTRA_LARGE.dp),
+            Modifier
+                .padding(top = Padding.EXTRA_LARGE.dp),
     ) {
         viewModel.changeDirectory(it)
     }

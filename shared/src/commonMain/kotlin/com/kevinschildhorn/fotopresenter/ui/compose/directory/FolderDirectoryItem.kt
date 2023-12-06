@@ -23,17 +23,17 @@ fun FolderDirectoryItem(
     BaseDirectory(modifier) {
         Column(
             modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(5.dp),
+                Modifier
+                    .fillMaxSize()
+                    .padding(5.dp),
         ) {
             Icon(
                 imageVector = molecule.imageAtom.image,
                 contentDescription = "Folder",
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.66f),
+                    Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.66f),
                 tint = molecule.imageAtom.color.composeColor,
             )
             DirectoryText(

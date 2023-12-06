@@ -39,7 +39,7 @@ val commonModule =
             RetrieveDirectoryContentsUseCase(
                 get(),
                 get(),
-                baseLogger.withTag("RetrieveDirectoryContentsUseCase")
+                baseLogger.withTag("RetrieveDirectoryContentsUseCase"),
             )
         }
 

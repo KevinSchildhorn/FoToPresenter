@@ -13,7 +13,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.data.ImageDirectoryContent
@@ -45,9 +44,9 @@ fun PhotoDirectoryItem(
         }.onError {
             Column(
                 modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(5.dp),
+                    Modifier
+                        .fillMaxSize()
+                        .padding(5.dp),
             ) {
                 Image(
                     imageVector = EvaIcons.Fill.QuestionMark,

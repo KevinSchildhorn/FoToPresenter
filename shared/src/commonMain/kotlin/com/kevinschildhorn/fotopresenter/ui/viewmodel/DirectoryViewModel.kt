@@ -7,7 +7,6 @@ import com.kevinschildhorn.fotopresenter.domain.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.extension.addPath
 import com.kevinschildhorn.fotopresenter.ui.state.DirectoryScreenState
-import com.kevinschildhorn.fotopresenter.ui.state.State
 import com.kevinschildhorn.fotopresenter.ui.state.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,18 +41,18 @@ class DirectoryViewModel(
                 _uiState.update {
                     it.copy(
                         state =
-                        UiState.ERROR(
-                            e.message ?: "An Unknown Network Error Occurred",
-                        ),
+                            UiState.ERROR(
+                                e.message ?: "An Unknown Network Error Occurred",
+                            ),
                     )
                 }
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(
                         state =
-                        UiState.ERROR(
-                            e.message ?: "Something Went Wrong",
-                        ),
+                            UiState.ERROR(
+                                e.message ?: "Something Went Wrong",
+                            ),
                     )
                 }
             }

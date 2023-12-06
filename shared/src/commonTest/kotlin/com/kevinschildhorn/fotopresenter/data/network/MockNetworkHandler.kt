@@ -1,12 +1,9 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
-import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.ui.SharedImage
-import org.koin.java.KoinJavaComponent.inject
 
 object MockNetworkHandler : NetworkHandler {
-
     private val successLoginCredentials =
         LoginCredentials(
             "192.168.1.1",

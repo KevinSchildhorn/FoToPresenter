@@ -7,8 +7,11 @@ import com.kevinschildhorn.fotopresenter.ui.compose.common.LoadingOverlay
 
 sealed class UiState {
     data object IDLE : UiState()
+
     data object LOADING : UiState()
+
     data class ERROR(val message: String) : UiState()
+
     data object SUCCESS : UiState()
 
     @Composable
@@ -20,5 +23,3 @@ sealed class UiState {
         }
     }
 }
-
-

@@ -1,8 +1,8 @@
 package com.kevinschildhorn.fotopresenter.domain
 
+import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
-import co.touchlab.kermit.Logger
 
 /**
 Automatically connect to the server using saved credentials

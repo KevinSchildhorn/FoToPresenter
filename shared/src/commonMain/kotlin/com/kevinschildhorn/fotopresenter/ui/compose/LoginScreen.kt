@@ -15,7 +15,6 @@ import androidx.compose.ui.text.style.TextAlign
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.compose.common.TitleView
 import com.kevinschildhorn.fotopresenter.ui.compose.login.LoginScreenForm
-import com.kevinschildhorn.fotopresenter.ui.state.State
 import com.kevinschildhorn.fotopresenter.ui.state.UiState
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
 
@@ -34,11 +33,11 @@ fun LoginScreen(
         TitleView(
             "Foto",
             modifier =
-            Modifier.padding(
-                top = Padding.SMALL.dp,
-                start = Padding.STANDARD.dp,
-                bottom = Padding.LARGE.dp,
-            ),
+                Modifier.padding(
+                    top = Padding.SMALL.dp,
+                    start = Padding.STANDARD.dp,
+                    bottom = Padding.LARGE.dp,
+                ),
         )
         LoginScreenForm(
             uiState = uiState,

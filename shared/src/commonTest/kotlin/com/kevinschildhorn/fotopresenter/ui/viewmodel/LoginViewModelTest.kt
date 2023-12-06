@@ -5,8 +5,6 @@ import com.kevinschildhorn.fotopresenter.testingModule
 import com.kevinschildhorn.fotopresenter.ui.state.UiState
 import com.russhwolf.settings.MapSettings
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
@@ -25,7 +23,6 @@ Testing [LoginViewModel]
  **/
 @OptIn(ExperimentalCoroutinesApi::class)
 class LoginViewModelTest : KoinTest {
-
     @ExperimentalCoroutinesApi
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
@@ -162,7 +159,7 @@ class LoginViewModelTest : KoinTest {
             advanceUntilIdle()
             with(viewModel.uiState.value) {
                 print(this.state)
-                //assertTrue(state is UiState.ERROR) TODO
+                // assertTrue(state is UiState.ERROR) TODO
             }
         }
 
@@ -185,7 +182,7 @@ class LoginViewModelTest : KoinTest {
 
             advanceUntilIdle()
             with(viewModel.uiState.value) {
-                //assertEquals(UiState.SUCCESS, state) TODO
+                // assertEquals(UiState.SUCCESS, state) TODO
             }
         }
 

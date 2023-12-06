@@ -15,7 +15,7 @@ class PhotoDirectoryViewModel(private val image: SharedImage?) : ViewModel() {
     val imageState: StateFlow<State<ImageBitmap>> = _imageState.asStateFlow()
 
     fun refreshImageBitmap() {
-        var state:State<ImageBitmap> = State.LOADING
+        var state: State<ImageBitmap> = State.LOADING
         _imageState.update { state }
         viewModelScope.launch(Dispatchers.Default) {
             image?.getImageBitmap()?.let {
@@ -28,4 +28,3 @@ class PhotoDirectoryViewModel(private val image: SharedImage?) : ViewModel() {
         }
     }
 }
-

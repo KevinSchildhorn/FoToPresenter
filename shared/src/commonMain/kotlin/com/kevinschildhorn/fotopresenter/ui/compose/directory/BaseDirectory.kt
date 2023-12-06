@@ -26,10 +26,10 @@ fun BaseDirectory(
 ) {
     Box(
         modifier =
-        modifier
-            .clip(shape = RoundedCornerShape(5.dp))
-            .aspectRatio(1f)
-            .background(color = backgroundColor),
+            modifier
+                .clip(shape = RoundedCornerShape(5.dp))
+                .aspectRatio(1f)
+                .background(color = backgroundColor),
         content = content,
     )
 }
@@ -45,7 +45,7 @@ fun DirectoryText(
         style = molecule.textAtom.textStyle,
         textAlign = TextAlign.Center,
         modifier =
-        modifier
-            .fillMaxSize(),
+            modifier
+                .fillMaxSize(),
     )
 }

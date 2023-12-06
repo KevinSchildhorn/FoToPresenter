@@ -1,8 +1,8 @@
 package com.kevinschildhorn.fotopresenter.domain
 
+import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
-import co.touchlab.kermit.Logger
 
 /**
 Connect to Server using FTPS
