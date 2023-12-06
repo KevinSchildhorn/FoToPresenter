@@ -17,9 +17,9 @@ fun LoadingOverlay() {
     Overlay(
         z = 3f,
         modifier =
-        Modifier
-            .fillMaxSize()
-            .background(Color(0x88FFFFFF)),
+            Modifier
+                .fillMaxSize()
+                .background(Color(0x88FFFFFF)),
     ) {
         CircularProgressIndicator(
             modifier = Modifier.width(75.dp).align(Alignment.Center),

@@ -5,8 +5,8 @@ import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.domain.AutoConnectUseCase
 import com.kevinschildhorn.fotopresenter.domain.ConnectToServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.SaveCredentialsUseCase
-import com.kevinschildhorn.fotopresenter.ui.state.LoginUiState
-import com.kevinschildhorn.fotopresenter.ui.state.State
+import com.kevinschildhorn.fotopresenter.ui.state.LoginScreenState
+import com.kevinschildhorn.fotopresenter.ui.state.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,8 +20,8 @@ class LoginViewModel(
     private val logger: Logger,
     credentialsRepository: CredentialsRepository,
 ) : ViewModel(), KoinComponent {
-    private val _uiState = MutableStateFlow(LoginUiState())
-    val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(LoginScreenState())
+    val uiState: StateFlow<LoginScreenState> = _uiState.asStateFlow()
 
     init {
         val credentials = credentialsRepository.fetchCredentials()
@@ -62,20 +62,26 @@ class LoginViewModel(
     fun login() {
         logger.i { "Logging In" }
 
-        _uiState.update { it.copy(state = State.LOADING) }
+        _uiState.update { it.copy(state = UiState.LOADING) }
 
         val connectToServer: ConnectToServerUseCase by inject()
         viewModelScope.launch(Dispatchers.Default) {
+            logger.i { "Connecting To Server With Credentials" }
+
             val result =
                 connectToServer(
                     _uiState.value.asLoginCredentials,
                 )
 
             if (!result) {
-                _uiState.update { it.copy(state = State.ERROR("")) }
+                logger.w { "Error Occurred" }
+                _uiState.update { it.copy(state = UiState.ERROR("")) }
                 return@launch
             } else {
-                _uiState.update { it.copy(state = State.SUCCESS) }
+                logger.i { "Successfully Logged In" }
+                _uiState.update { it.copy(state = UiState.SUCCESS) }
+                logger.i { "Saving Credentials" }
+                logger.i { "State is ${uiState.value}" }
                 val saveCredentials: SaveCredentialsUseCase by inject()
                 saveCredentials(_uiState.value.asLoginCredentials)
             }

@@ -31,11 +31,17 @@ val commonModule =
         single { ImageRepository(get()) }
 
         // Domain
-        factory { ConnectToServerUseCase(get()) }
-        factory { ChangeDirectoryUseCase(get()) }
-        factory { AutoConnectUseCase(get(), get()) }
+        factory { ConnectToServerUseCase(get(), baseLogger.withTag("ConnectToServerUseCase")) }
+        factory { ChangeDirectoryUseCase(get(), baseLogger.withTag("ChangeDirectoryUseCase")) }
+        factory { AutoConnectUseCase(get(), get(), baseLogger.withTag("AutoConnectUseCase")) }
         factory { SaveCredentialsUseCase(get(), baseLogger.withTag("SaveCredentialsUseCase")) }
-        factory { RetrieveDirectoryContentsUseCase(get(), get()) }
+        factory {
+            RetrieveDirectoryContentsUseCase(
+                get(),
+                get(),
+                baseLogger.withTag("RetrieveDirectoryContentsUseCase"),
+            )
+        }
 
         // UI
         single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }

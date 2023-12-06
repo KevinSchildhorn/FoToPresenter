@@ -10,7 +10,8 @@ kotlin {
     applyDefaultHierarchyTemplate()
     androidTarget()
     jvm("desktop")
-    listOf(
+    /*
+    listOf( TODO re-add
         iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
@@ -19,7 +20,7 @@ kotlin {
             baseName = "shared"
             isStatic = true
         }
-    }
+    }*/
 
     sourceSets {
         val commonMain by getting {
@@ -70,6 +71,7 @@ kotlin {
                 implementation("io.github.kevinschildhorn:atomik:0.0.6")
             }
         }
+        /*
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -79,7 +81,7 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             resources.srcDirs("src/commonMain/resources")
-        }
+        }*/
         val desktopMain by getting {
             dependsOn(jvmMain)
             dependencies {

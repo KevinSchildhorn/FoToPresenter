@@ -5,24 +5,14 @@ import androidx.compose.ui.Modifier
 import com.kevinschildhorn.fotopresenter.ui.compose.common.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.compose.common.LoadingOverlay
 
-interface UiState {
-    val state: State
-}
+sealed class UiState {
+    data object IDLE : UiState()
 
-sealed class State {
-    data object IDLE : State()
+    data object LOADING : UiState()
 
-    data object LOADING : State()
+    data class ERROR(val message: String) : UiState()
 
-    data class ERROR(val message: String) : State()
-
-    data object SUCCESS : State()
-
-    val isLoading: Boolean
-        get() = this == State.LOADING
-
-    val asError: State.ERROR?
-        get() = this as? ERROR
+    data object SUCCESS : UiState()
 
     @Composable
     fun asComposable(modifier: Modifier = Modifier) {

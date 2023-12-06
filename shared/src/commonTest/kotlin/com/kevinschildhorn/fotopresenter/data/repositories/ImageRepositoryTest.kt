@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.data.repositories
 
+import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectory
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerError
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
@@ -13,14 +14,15 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 import kotlin.test.fail
 
 /**
-Testing [DirectoryRepository]
+Testing [ImageRepository]
  **/
-class DirectoryRepositoryTest : KoinTest {
+class ImageRepositoryTest : KoinTest {
     private val networkHandler: MockNetworkHandler = MockNetworkHandler
-    private val repository: DirectoryRepository by inject()
+    private val repository: ImageRepository by inject()
 
     @BeforeTest
     fun startTest() =
@@ -39,27 +41,46 @@ class DirectoryRepositoryTest : KoinTest {
         }
 
     @Test
-    fun `retrieve Directory Contents Success`() =
+    fun `get Image Success`() =
         runBlocking {
-            val result = repository.getDirectoryContents("")
-            assertEquals(1, result.folders.count())
-            assertEquals(2, result.images.count())
+            try {
+                val result =
+                    repository.getImage(
+                        MockNetworkDirectory(
+                            fullPath = "Photos/Peeng.png",
+                            id = 1,
+                        ),
+                    )
+            } catch (e: Exception) {
+                assertEquals("Success", e.message)
+            }
         }
 
     @Test
-    fun `retrieve Directory Contents Failure`() =
+    fun `get Image Failure`() =
         runBlocking {
-            val result = repository.getDirectoryContents("nonExistant")
-            assertEquals(0, result.folders.count())
-            assertEquals(0, result.images.count())
+            val result =
+                repository.getImage(
+                    MockNetworkDirectory(
+                        fullPath = "Photos/nonExistant.png",
+                        id = 1,
+                    ),
+                )
+            assertNull(result)
         }
 
     @Test
-    fun `retrieve Directory Contents Disconnected`() =
+    fun `get Image Disconnected`() =
         runBlocking {
             networkHandler.disconnect()
             try {
-                val result = repository.getDirectoryContents("")
+                val result =
+                    repository.getImage(
+                        MockNetworkDirectory(
+                            fullPath = "Photos/nonExistant.png",
+                            id = 1,
+                        ),
+                    )
                 fail("Should Throw Exception")
             } catch (e: NetworkHandlerException) {
                 assertEquals(e.message, NetworkHandlerError.NOT_CONNECTED.message)

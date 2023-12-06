@@ -40,7 +40,6 @@ fun DirectoryGrid(
         modifier = modifier.zIndex(0f),
     ) {
         items(directoryContent.allDirectories, { it.directory.id }) { content ->
-
             val directoryItemModifier =
                 Modifier
                     .padding(5.dp)
