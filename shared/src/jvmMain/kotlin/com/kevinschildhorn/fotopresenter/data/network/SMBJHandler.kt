@@ -49,9 +49,9 @@ object SMBJHandler : NetworkHandler {
         return true
     }
 
-    override suspend fun getDirectoryContents(path: String): List<NetworkDirectory> {
+    override suspend fun getDirectoryContents(path: String): List<NetworkDirectoryDetails> {
         return share?.list(path)?.map {
-            SMBJNetworkDirectory(
+            SMBJNetworkDirectoryDetails(
                 it,
                 fullPath = path.addPath(it.fileName),
             )

@@ -10,7 +10,7 @@ interface NetworkHandler {
 
     suspend fun disconnect()
 
-    suspend fun getDirectoryContents(path: String): List<NetworkDirectory>
+    suspend fun getDirectoryContents(path: String): List<NetworkDirectoryDetails>
 
     suspend fun openDirectory(path: String): String?
 

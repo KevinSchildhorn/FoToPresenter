@@ -12,15 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.ui.atoms.DirectoryAtoms
+import com.kevinschildhorn.fotopresenter.ui.state.FolderDirectoryGridCellState
 
 @Composable
-fun FolderDirectoryItem(
-    folderName: String,
+fun FolderDirectoryGridCell(
+    folderState: FolderDirectoryGridCellState,
     modifier: Modifier = Modifier,
 ) {
     val molecule: DirectoryAtoms.EmptyPhotoMolecule = DirectoryAtoms.emptyDirectory
 
-    BaseDirectory(modifier) {
+    DirectoryGridCell(modifier) {
         Column(
             modifier =
                 Modifier
@@ -36,8 +37,8 @@ fun FolderDirectoryItem(
                         .fillMaxHeight(0.66f),
                 tint = molecule.imageAtom.color.composeColor,
             )
-            DirectoryText(
-                folderName,
+            DirectoryGridCellText(
+                folderState.name,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )
         }

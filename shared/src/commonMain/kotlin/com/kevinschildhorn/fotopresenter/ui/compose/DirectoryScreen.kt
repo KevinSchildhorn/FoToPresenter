@@ -9,7 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.kevinschildhorn.fotopresenter.data.ImageDirectoryContent
+import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.compose.directory.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
@@ -17,13 +17,13 @@ import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
 @Composable
 fun DirectoryScreen(
     viewModel: DirectoryViewModel,
-    onImageSelected: (ImageDirectoryContent) -> Unit,
+    onImageSelected: (ImageDirectory) -> Unit,
 ) {
     LaunchedEffect(Unit) {
         viewModel.refreshScreen()
     }
     val uiState by viewModel.uiState.collectAsState()
-    var imageState: ImageDirectoryContent? by remember { mutableStateOf(null) }
+    var imageState: ImageDirectory? by remember { mutableStateOf(null) }
     uiState.state.asComposable(
         modifier =
         Modifier.padding(

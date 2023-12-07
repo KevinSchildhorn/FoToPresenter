@@ -12,7 +12,7 @@ import com.kevinschildhorn.fotopresenter.ui.compose.common.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.compose.common.FormColumn
 import com.kevinschildhorn.fotopresenter.ui.compose.common.PrimaryButton
 import com.kevinschildhorn.fotopresenter.ui.state.LoginScreenState
-import com.kevinschildhorn.fotopresenter.ui.state.State
+import com.kevinschildhorn.fotopresenter.data.State
 
 @Composable
 fun LoginScreenForm(
@@ -34,25 +34,25 @@ fun LoginScreenForm(
         FormColumn(
             verticalPadding = Padding.STANDARD,
         ) {
-            FotoTextField(
+            LoginTextField(
                 value = uiState.hostname,
                 onValueChange = onHostnameChange,
                 placeholder = "HostName*",
                 modifier = Modifier.fillMaxWidth(),
             )
-            FotoTextField(
+            LoginTextField(
                 value = uiState.username,
                 onValueChange = onUsernameChange,
                 placeholder = "Username".required(),
                 modifier = Modifier.fillMaxWidth(),
             )
-            FotoPasswordTextField(
+            LoginPasswordTextField(
                 value = uiState.password,
                 onValueChange = onPasswordChange,
                 placeholder = "Password".required(),
                 modifier = Modifier.fillMaxWidth(),
             )
-            FotoTextField(
+            LoginTextField(
                 value = uiState.sharedFolder,
                 onValueChange = onSharedFolderChange,
                 placeholder = "Shared Folder".required(),
@@ -62,7 +62,7 @@ fun LoginScreenForm(
         FormColumn(
             verticalPadding = Padding.NONE,
         ) {
-            FotoCheckbox(
+            LoginCheckbox(
                 title = "Should autoConnect",
                 checked = uiState.shouldAutoConnect,
                 onCheckedChange = onShouldAutoConnectChange,

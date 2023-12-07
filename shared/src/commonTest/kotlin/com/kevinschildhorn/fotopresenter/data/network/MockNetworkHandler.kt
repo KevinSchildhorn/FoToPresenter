@@ -16,22 +16,22 @@ object MockNetworkHandler : NetworkHandler {
     private val networkContents =
         mapOf(
             "" to
-                listOf<NetworkDirectory>(
-                    MockNetworkDirectory(fullPath = "NewDirectory", id = 1),
-                    MockNetworkDirectory(fullPath = "Peeng.png", id = 2),
-                    MockNetworkDirectory(fullPath = "Jaypeg.jpg", id = 3),
-                    MockNetworkDirectory(fullPath = "textFile.txt", id = 4),
+                listOf<NetworkDirectoryDetails>(
+                    MockNetworkDirectoryDetails(fullPath = "NewDirectory", id = 1),
+                    MockNetworkDirectoryDetails(fullPath = "Peeng.png", id = 2),
+                    MockNetworkDirectoryDetails(fullPath = "Jaypeg.jpg", id = 3),
+                    MockNetworkDirectoryDetails(fullPath = "textFile.txt", id = 4),
                 ),
             "Directories" to
-                listOf<NetworkDirectory>(
-                    MockNetworkDirectory(fullPath = "Directories/NewDirectory", id = 1),
-                    MockNetworkDirectory(fullPath = "Directories/NewDirectory2", id = 2),
+                listOf<NetworkDirectoryDetails>(
+                    MockNetworkDirectoryDetails(fullPath = "Directories/NewDirectory", id = 1),
+                    MockNetworkDirectoryDetails(fullPath = "Directories/NewDirectory2", id = 2),
                 ),
             "Photos" to
-                listOf<NetworkDirectory>(
-                    MockNetworkDirectory(fullPath = "Photos/Peeng.png", id = 2),
-                    MockNetworkDirectory(fullPath = "Photos/Jaypeg.jpg", id = 3),
-                    MockNetworkDirectory(fullPath = "Photos/textFile.txt", id = 4),
+                listOf<NetworkDirectoryDetails>(
+                    MockNetworkDirectoryDetails(fullPath = "Photos/Peeng.png", id = 2),
+                    MockNetworkDirectoryDetails(fullPath = "Photos/Jaypeg.jpg", id = 3),
+                    MockNetworkDirectoryDetails(fullPath = "Photos/textFile.txt", id = 4),
                 ),
         )
 
@@ -60,7 +60,7 @@ object MockNetworkHandler : NetworkHandler {
         connected = false
     }
 
-    override suspend fun getDirectoryContents(path: String): List<NetworkDirectory> {
+    override suspend fun getDirectoryContents(path: String): List<NetworkDirectoryDetails> {
         return networkContents[path] ?: emptyList()
     }
 

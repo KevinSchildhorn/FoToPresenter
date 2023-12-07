@@ -8,37 +8,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.data.ImageDirectoryContent
 import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
-import com.kevinschildhorn.fotopresenter.ui.state.State
-import com.kevinschildhorn.fotopresenter.ui.viewmodel.PhotoDirectoryViewModel
+import com.kevinschildhorn.fotopresenter.ui.state.ImageDirectoryGridCellState
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.QuestionMark
 
 @Composable
-fun PhotoDirectoryItem(
-    imageContent: ImageDirectoryContent,
+fun ImageDirectoryGridCell(
+    imageContent: ImageDirectoryGridCellState,
     modifier: Modifier = Modifier,
-    viewModel: PhotoDirectoryViewModel = PhotoDirectoryViewModel(imageContent.image),
 ) {
-    val imageState by viewModel.imageState.collectAsState(State.IDLE)
-
-    LaunchedEffect(Unit) {
-        viewModel.refreshImageBitmap(200)
-    }
-    BaseDirectory(modifier) {
-        imageState.onSuccess {
+    DirectoryGridCell(modifier) {
+        imageContent.imageState.onSuccess {
             Image(
                 bitmap = it,
-                contentDescription = "Image",
+                contentDescription = imageContent.name,
                 modifier = Modifier.fillMaxSize().background(FotoColors.surface.composeColor),
             )
         }.onError {
@@ -53,8 +42,8 @@ fun PhotoDirectoryItem(
                     contentDescription = "Question Mark",
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
-                DirectoryText(
-                    imageContent.directory.name,
+                DirectoryGridCellText(
+                    imageContent.name,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
             }

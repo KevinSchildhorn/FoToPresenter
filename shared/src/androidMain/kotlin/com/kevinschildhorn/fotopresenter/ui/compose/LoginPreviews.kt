@@ -5,11 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.kevinschildhorn.fotopresenter.ui.compose.common.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.compose.common.TitleView
-import com.kevinschildhorn.fotopresenter.ui.compose.login.FotoPasswordTextField
-import com.kevinschildhorn.fotopresenter.ui.compose.login.FotoTextField
+import com.kevinschildhorn.fotopresenter.ui.compose.login.LoginPasswordTextField
+import com.kevinschildhorn.fotopresenter.ui.compose.login.LoginTextField
 import com.kevinschildhorn.fotopresenter.ui.compose.login.LoginScreenForm
 import com.kevinschildhorn.fotopresenter.ui.state.LoginScreenState
-import com.kevinschildhorn.fotopresenter.ui.state.State
 import com.kevinschildhorn.fotopresenter.ui.state.UiState
 
 @Preview
@@ -28,10 +27,10 @@ fun ErrorViewPreview() {
 @Composable
 fun FotoTextFieldPreview() {
     Column {
-        FotoTextField("", {}, "Hint")
-        FotoTextField("Value", {}, "Hint")
-        FotoPasswordTextField("", {}, "Password")
-        FotoPasswordTextField("Value", {}, "Password")
+        LoginTextField("", {}, "Hint")
+        LoginTextField("Value", {}, "Hint")
+        LoginPasswordTextField("", {}, "Password")
+        LoginPasswordTextField("Value", {}, "Password")
     }
 }
 

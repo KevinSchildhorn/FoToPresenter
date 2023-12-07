@@ -16,19 +16,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.data.ImageDirectoryContent
+import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.compose.common.Overlay
-import com.kevinschildhorn.fotopresenter.ui.state.State
+import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.PhotoDirectoryViewModel
 
 @Composable
 fun ImagePreviewOverlay(
-    imageContent: ImageDirectoryContent,
+    imageContent: ImageDirectory,
     viewModel: PhotoDirectoryViewModel = PhotoDirectoryViewModel(imageContent.image),
     onDismiss: () -> Unit,
 ) {
