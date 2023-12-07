@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.ui
+package com.kevinschildhorn.fotopresenter.ui.shared
 
 import androidx.compose.ui.graphics.ImageBitmap
 import com.hierynomus.smbj.share.File
