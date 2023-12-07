@@ -10,6 +10,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
@@ -28,6 +29,7 @@ fun ImageDirectoryGridCell(
             Image(
                 bitmap = it,
                 contentDescription = imageContent.name,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize().background(FotoColors.surface.composeColor),
             )
         }.onError {

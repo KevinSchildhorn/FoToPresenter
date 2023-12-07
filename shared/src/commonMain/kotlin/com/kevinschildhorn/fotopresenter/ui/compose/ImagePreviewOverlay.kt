@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
@@ -27,16 +28,10 @@ import com.kevinschildhorn.fotopresenter.ui.viewmodel.PhotoDirectoryViewModel
 
 @Composable
 fun ImagePreviewOverlay(
-    imageContent: ImageDirectory,
-    viewModel: PhotoDirectoryViewModel = PhotoDirectoryViewModel(imageContent.image),
+    imageState: State<ImageBitmap>,
     onDismiss: () -> Unit,
 ) {
-    val imageState by viewModel.imageState.collectAsState(State.IDLE)
     val interactionSource = remember { MutableInteractionSource() }
-
-    LaunchedEffect(Unit) {
-        viewModel.refreshImageBitmap(500)
-    }
 
     Overlay(
         5f,

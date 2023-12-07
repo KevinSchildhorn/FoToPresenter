@@ -38,7 +38,13 @@ class DirectoryViewModel(
         updateDirectories()
     }
 
-    fun changeDirectory(directory: NetworkDirectoryDetails) {
+    fun changeDirectory(id: Int) {
+        _directoryContentsState.value.allDirectories.find { it.id == id }?.let {
+            changeDirectory(it.details)
+        }
+    }
+
+    private fun changeDirectory(directory: NetworkDirectoryDetails) {
         logger.i { "Changing Directory: ${directory.name}" }
         viewModelScope.launch(Dispatchers.Default) {
             val changeDirectoryUseCase: ChangeDirectoryUseCase by inject()
@@ -87,6 +93,34 @@ class DirectoryViewModel(
                     state = UiState.SUCCESS,
                 )
             }
+            updatePhotos()
+        }
+    }
+
+    private fun updatePhotos() {
+        _directoryContentsState.value.images.forEach { imageDirectory ->
+            viewModelScope.launch(Dispatchers.Default) {
+
+                _uiState.update {
+                    it.copyImageState(
+                        imageDirectory.id,
+                        state = State.LOADING
+                    )
+                }
+
+                val newState = imageDirectory.image?.getImageBitmap(400)?.let {
+                    State.SUCCESS(it)
+                } ?: State.ERROR("No Image Found")
+
+                viewModelScope.launch(Dispatchers.Main) {
+                    _uiState.update {
+                        it.copyImageState(
+                            imageDirectory.id,
+                            state = newState
+                        )
+                    }
+                }
+            }
         }
     }
 
@@ -100,6 +134,6 @@ class DirectoryViewModel(
                         it.name,
                         it.id
                     )
-                }
+                }.toMutableList()
             )
 }

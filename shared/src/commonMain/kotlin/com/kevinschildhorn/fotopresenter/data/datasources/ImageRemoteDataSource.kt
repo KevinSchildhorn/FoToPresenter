@@ -4,7 +4,7 @@ import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerError
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
-import com.kevinschildhorn.fotopresenter.ui.SharedImage
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import kotlin.coroutines.cancellation.CancellationException
 
 /**

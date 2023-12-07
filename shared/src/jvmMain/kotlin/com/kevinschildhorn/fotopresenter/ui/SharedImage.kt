@@ -8,3 +8,4 @@ actual open class SharedImage(val file: File) {
 }
 
 expect fun getBitmapFromFile(file: File, size: Int): ImageBitmap?
+

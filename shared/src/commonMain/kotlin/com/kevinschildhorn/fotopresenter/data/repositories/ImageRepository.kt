@@ -2,7 +2,7 @@ package com.kevinschildhorn.fotopresenter.data.repositories
 
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageRemoteDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
-import com.kevinschildhorn.fotopresenter.ui.SharedImage
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 class ImageRepository(
     private val remoteDataSource: ImageRemoteDataSource,

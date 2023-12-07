@@ -1,7 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
-import com.kevinschildhorn.fotopresenter.ui.SharedImage
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 object MockNetworkHandler : NetworkHandler {
     private val successLoginCredentials =

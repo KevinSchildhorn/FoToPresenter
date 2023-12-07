@@ -1,7 +1,7 @@
 package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
 import androidx.compose.ui.graphics.ImageBitmap
-import com.kevinschildhorn.fotopresenter.ui.SharedImage
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import com.kevinschildhorn.fotopresenter.data.State
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

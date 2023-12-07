@@ -6,7 +6,7 @@ import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
-import com.kevinschildhorn.fotopresenter.ui.SharedImage
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 /**
 Retrieving Directories from Location
@@ -27,7 +27,7 @@ class RetrieveDirectoryContentsUseCase(
 private suspend fun DirectoryContents.updateImages(block: suspend (NetworkDirectoryDetails) -> SharedImage?): DirectoryContents =
     this.copy(
         images =
-            images.map {
-                ImageDirectory(it.details, image = block(it.details))
-            },
+        images.map {
+            ImageDirectory(it.details, image = block(it.details))
+        },
     )

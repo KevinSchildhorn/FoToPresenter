@@ -1,7 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data
 
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
-import com.kevinschildhorn.fotopresenter.ui.SharedImage
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 interface Directory {
     val details: NetworkDirectoryDetails
@@ -23,8 +23,8 @@ data class ImageDirectory(
 ) : Directory
 
 data class DirectoryContents(
-    val folders: List<Directory> = emptyList(),
-    val images: List<Directory> = emptyList(),
+    val folders: List<FolderDirectory> = emptyList(),
+    val images: List<ImageDirectory> = emptyList(),
 ) {
     val allDirectories: List<Directory>
         get() = folders + images

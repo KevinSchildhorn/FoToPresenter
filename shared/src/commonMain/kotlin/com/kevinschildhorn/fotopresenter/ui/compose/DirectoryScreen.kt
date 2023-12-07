@@ -9,7 +9,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
+import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.compose.directory.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
@@ -17,13 +19,12 @@ import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
 @Composable
 fun DirectoryScreen(
     viewModel: DirectoryViewModel,
-    onImageSelected: (ImageDirectory) -> Unit,
 ) {
     LaunchedEffect(Unit) {
         viewModel.refreshScreen()
     }
     val uiState by viewModel.uiState.collectAsState()
-    var imageState: ImageDirectory? by remember { mutableStateOf(null) }
+
     uiState.state.asComposable(
         modifier =
         Modifier.padding(
@@ -32,21 +33,21 @@ fun DirectoryScreen(
         ),
     )
     DirectoryGrid(
-        uiState.directoryContents,
+        uiState.directoryGridState,
         modifier =
         Modifier
             .padding(top = Padding.EXTRA_LARGE.dp),
-    ) {
-        it.asImageDirectory?.let {
-            imageState = it
-            onImageSelected(it)
-        } ?: run {
-            viewModel.changeDirectory(it.directory)
+        onFolderPressed = {
+            uiState.selectedImage = State.IDLE
+            viewModel.changeDirectory(it)
+        },
+        onImageDirectoryPressed = {
+            uiState.selectedImage = it
         }
-    }
-    imageState?.let {
-        ImagePreviewOverlay(it){
-            imageState = null
+    )
+    if(uiState.selectedImage != State.IDLE) {
+        ImagePreviewOverlay(uiState.selectedImage){
+            uiState.selectedImage = State.IDLE
         }
     }
 }

@@ -5,9 +5,27 @@ import com.kevinschildhorn.fotopresenter.data.State
 
 data class DirectoryScreenState(
     val currentPath: String = "",
-    val directoryGridState: DirectoryGridState = DirectoryGridState(emptyList(), emptyList()),
+    var directoryGridState: DirectoryGridState = DirectoryGridState(emptyList(), mutableListOf()),
+    var selectedImage: State<ImageBitmap> = State.IDLE,
     override val state: UiState = UiState.IDLE,
-) : ScreenState
+) : ScreenState {
+
+    fun copyImageState(id: Int, state: State<ImageBitmap>): DirectoryScreenState {
+        val list = directoryGridState.imageStates.toMutableList()
+            val index = list.indexOfFirst { it.id == id }
+        if (index != -1) {
+            val element = list[index]
+            list[index] = element.copy(
+                imageState = state
+            )
+        }
+        return this.copy(
+            directoryGridState = directoryGridState.copy(
+                imageStates = list
+            )
+        )
+    }
+}
 
 data class DirectoryGridState(
     val folderStates: List<FolderDirectoryGridCellState>,
@@ -20,16 +38,22 @@ data class DirectoryGridState(
 data class FolderDirectoryGridCellState(
     override val name: String,
     override val id: Int,
-):DirectoryGridCellState
+) : DirectoryGridCellState
 
 data class ImageDirectoryGridCellState(
     val imageState: State<ImageBitmap>,
     override val name: String,
     override val id: Int,
-):DirectoryGridCellState
+) : DirectoryGridCellState
 
 
 interface DirectoryGridCellState {
     val name: String
     val id: Int
+
+    val isFolderGridCell: Boolean
+        get() = (this is FolderDirectoryGridCellState)
+
+    val isImageGridCell: Boolean
+        get() = (this is ImageDirectoryGridCellState)
 }
