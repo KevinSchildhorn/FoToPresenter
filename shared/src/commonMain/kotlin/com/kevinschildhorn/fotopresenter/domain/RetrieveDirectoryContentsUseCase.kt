@@ -27,7 +27,7 @@ class RetrieveDirectoryContentsUseCase(
 private suspend fun DirectoryContents.updateImages(block: suspend (NetworkDirectoryDetails) -> SharedImage?): DirectoryContents =
     this.copy(
         images =
-        images.map {
-            ImageDirectory(it.details, image = block(it.details))
-        },
+            images.map {
+                ImageDirectory(it.details, image = block(it.details))
+            },
     )

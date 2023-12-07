@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
+import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.domain.ChangeDirectoryUseCase
@@ -20,12 +21,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import com.kevinschildhorn.fotopresenter.data.State
 
 class DirectoryViewModel(
     private val logger: Logger,
 ) : ViewModel(), KoinComponent {
-
     private val _uiState = MutableStateFlow(DirectoryScreenState())
     val uiState: StateFlow<DirectoryScreenState> = _uiState.asStateFlow()
 
@@ -59,9 +58,9 @@ class DirectoryViewModel(
                 _uiState.update {
                     it.copy(
                         state =
-                        UiState.ERROR(
-                            e.message ?: "An Unknown Network Error Occurred",
-                        ),
+                            UiState.ERROR(
+                                e.message ?: "An Unknown Network Error Occurred",
+                            ),
                     )
                 }
             } catch (e: Exception) {
@@ -69,9 +68,9 @@ class DirectoryViewModel(
                 _uiState.update {
                     it.copy(
                         state =
-                        UiState.ERROR(
-                            e.message ?: "Something Went Wrong",
-                        ),
+                            UiState.ERROR(
+                                e.message ?: "Something Went Wrong",
+                            ),
                     )
                 }
             }
@@ -100,23 +99,23 @@ class DirectoryViewModel(
     private fun updatePhotos() {
         _directoryContentsState.value.images.forEach { imageDirectory ->
             viewModelScope.launch(Dispatchers.Default) {
-
                 _uiState.update {
                     it.copyImageState(
                         imageDirectory.id,
-                        state = State.LOADING
+                        state = State.LOADING,
                     )
                 }
 
-                val newState = imageDirectory.image?.getImageBitmap(400)?.let {
-                    State.SUCCESS(it)
-                } ?: State.ERROR("No Image Found")
+                val newState =
+                    imageDirectory.image?.getImageBitmap(400)?.let {
+                        State.SUCCESS(it)
+                    } ?: State.ERROR("No Image Found")
 
                 viewModelScope.launch(Dispatchers.Main) {
                     _uiState.update {
                         it.copyImageState(
                             imageDirectory.id,
-                            state = newState
+                            state = newState,
                         )
                     }
                 }
@@ -128,12 +127,13 @@ class DirectoryViewModel(
         get() =
             DirectoryGridState(
                 folderStates = this.folders.map { FolderDirectoryGridCellState(it.name, it.id) },
-                imageStates = this.images.map {
-                    ImageDirectoryGridCellState(
-                        State.IDLE,
-                        it.name,
-                        it.id
-                    )
-                }.toMutableList()
+                imageStates =
+                    this.images.map {
+                        ImageDirectoryGridCellState(
+                            State.IDLE,
+                            it.name,
+                            it.id,
+                        )
+                    }.toMutableList(),
             )
 }

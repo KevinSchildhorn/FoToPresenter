@@ -6,13 +6,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.extension.required
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.compose.common.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.compose.common.FormColumn
 import com.kevinschildhorn.fotopresenter.ui.compose.common.PrimaryButton
 import com.kevinschildhorn.fotopresenter.ui.state.LoginScreenState
-import com.kevinschildhorn.fotopresenter.data.State
 
 @Composable
 fun LoginScreenForm(

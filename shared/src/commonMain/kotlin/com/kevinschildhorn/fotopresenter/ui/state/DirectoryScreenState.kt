@@ -9,20 +9,24 @@ data class DirectoryScreenState(
     var selectedImage: State<ImageBitmap> = State.IDLE,
     override val state: UiState = UiState.IDLE,
 ) : ScreenState {
-
-    fun copyImageState(id: Int, state: State<ImageBitmap>): DirectoryScreenState {
+    fun copyImageState(
+        id: Int,
+        state: State<ImageBitmap>,
+    ): DirectoryScreenState {
         val list = directoryGridState.imageStates.toMutableList()
-            val index = list.indexOfFirst { it.id == id }
+        val index = list.indexOfFirst { it.id == id }
         if (index != -1) {
             val element = list[index]
-            list[index] = element.copy(
-                imageState = state
-            )
+            list[index] =
+                element.copy(
+                    imageState = state,
+                )
         }
         return this.copy(
-            directoryGridState = directoryGridState.copy(
-                imageStates = list
-            )
+            directoryGridState =
+                directoryGridState.copy(
+                    imageStates = list,
+                ),
         )
     }
 }
@@ -45,7 +49,6 @@ data class ImageDirectoryGridCellState(
     override val name: String,
     override val id: Int,
 ) : DirectoryGridCellState
-
 
 interface DirectoryGridCellState {
     val name: String

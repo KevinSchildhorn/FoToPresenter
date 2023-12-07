@@ -9,7 +9,6 @@ import com.kevinschildhorn.atomik.atomic.atoms.shape
 import com.kevinschildhorn.atomik.atomic.atoms.textStyle
 import com.kevinschildhorn.fotopresenter.ui.atoms.LoginScreenAtoms
 
-
 @Composable
 fun LoginPasswordTextField(
     value: String,

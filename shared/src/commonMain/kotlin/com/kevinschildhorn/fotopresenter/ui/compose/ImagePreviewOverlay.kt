@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -19,12 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.data.ImageDirectory
+import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.compose.common.Overlay
-import com.kevinschildhorn.fotopresenter.data.State
-import com.kevinschildhorn.fotopresenter.ui.viewmodel.PhotoDirectoryViewModel
 
 @Composable
 fun ImagePreviewOverlay(
@@ -35,19 +31,20 @@ fun ImagePreviewOverlay(
 
     Overlay(
         5f,
-        modifier = Modifier
-            .background(FotoColors.shadow.composeColor)
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                onClick = onDismiss,
-            ),
+        modifier =
+            Modifier
+                .background(FotoColors.shadow.composeColor)
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    onClick = onDismiss,
+                ),
     ) {
         imageState.onSuccess {
             Image(
                 bitmap = it,
                 contentDescription = null,
-                modifier = Modifier.fillMaxSize().padding(Padding.IMAGE.dp)
+                modifier = Modifier.fillMaxSize().padding(Padding.IMAGE.dp),
             )
         }.onLoading {
             CircularProgressIndicator(

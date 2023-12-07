@@ -1,8 +1,8 @@
 package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
 import androidx.compose.ui.graphics.ImageBitmap
-import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import com.kevinschildhorn.fotopresenter.data.State
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +14,7 @@ class PhotoDirectoryViewModel(private val image: SharedImage?) : ViewModel() {
     private val _imageState: MutableStateFlow<State<ImageBitmap>> = MutableStateFlow(State.IDLE)
     val imageState: StateFlow<State<ImageBitmap>> = _imageState.asStateFlow()
 
-    fun refreshImageBitmap(size:Int) {
+    fun refreshImageBitmap(size: Int) {
         var state: State<ImageBitmap> = State.LOADING
         _imageState.update { state }
         viewModelScope.launch(Dispatchers.Default) {
