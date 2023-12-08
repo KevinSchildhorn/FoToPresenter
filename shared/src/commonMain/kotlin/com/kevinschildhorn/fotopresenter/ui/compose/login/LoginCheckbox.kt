@@ -19,13 +19,13 @@ fun LoginCheckbox(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.End,
+        horizontalArrangement = horizontalArrangement,
         modifier = modifier.fillMaxWidth(),
     ) {
         Text(title)
         Checkbox(
             checked = checked,
-            onCheckedChange = { onCheckedChange },
+            onCheckedChange = onCheckedChange,
         )
     }
 }

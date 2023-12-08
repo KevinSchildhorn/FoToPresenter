@@ -88,12 +88,16 @@ class LoginViewModel(
         }
     }
 
+    fun setLoggedOut()  {
+        _uiState.update { it.copy(state = UiState.IDLE) }
+    }
+
     private fun attemptAutoLogin() {
         logger.i { "Attempting To Auto Login" }
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             val autoConnectUseCase: AutoConnectUseCase by inject()
             if (autoConnectUseCase()) {
-                // TODO
+                _uiState.update { it.copy(state = UiState.SUCCESS) }
             }
         }
     }

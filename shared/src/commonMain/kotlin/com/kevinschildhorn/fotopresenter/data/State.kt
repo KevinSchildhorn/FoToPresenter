@@ -33,6 +33,9 @@ sealed class State<out DATA> {
         return this
     }
 
+    val value: DATA?
+        get() = (this as? SUCCESS)?.data
+
     @Composable
     fun asComposable(modifier: Modifier = Modifier) {
         when (this) {

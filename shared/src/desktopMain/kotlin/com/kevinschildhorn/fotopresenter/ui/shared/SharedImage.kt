@@ -6,3 +6,4 @@ import com.hierynomus.smbj.share.File
 
 actual fun getBitmapFromFile(file: File, size:Int): ImageBitmap? =
     file.inputStream.buffered().use(::loadImageBitmap)
+

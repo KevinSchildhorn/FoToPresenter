@@ -11,7 +11,9 @@ import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
 import com.kevinschildhorn.fotopresenter.domain.AutoConnectUseCase
 import com.kevinschildhorn.fotopresenter.domain.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.ConnectToServerUseCase
+import com.kevinschildhorn.fotopresenter.domain.LogoutUseCase
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
+import com.kevinschildhorn.fotopresenter.domain.RetrieveImagesUseCase
 import com.kevinschildhorn.fotopresenter.domain.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
@@ -35,6 +37,7 @@ val commonModule =
         factory { ChangeDirectoryUseCase(get(), baseLogger.withTag("ChangeDirectoryUseCase")) }
         factory { AutoConnectUseCase(get(), get(), baseLogger.withTag("AutoConnectUseCase")) }
         factory { SaveCredentialsUseCase(get(), baseLogger.withTag("SaveCredentialsUseCase")) }
+        factory { LogoutUseCase(get(), get(), baseLogger.withTag("LogoutUseCase")) }
         factory {
             RetrieveDirectoryContentsUseCase(
                 get(),
@@ -42,6 +45,7 @@ val commonModule =
                 baseLogger.withTag("RetrieveDirectoryContentsUseCase"),
             )
         }
+        factory { RetrieveImagesUseCase(baseLogger.withTag("RetrieveImagesUseCase")) }
 
         // UI
         single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
