@@ -13,12 +13,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.ui.compose.common.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.state.DirectoryGridState
 import com.kevinschildhorn.fotopresenter.ui.state.FolderDirectoryGridCellState
@@ -31,7 +29,7 @@ fun DirectoryGrid(
     gridSize: Int = 5,
     modifier: Modifier = Modifier,
     onFolderPressed: (Int) -> Unit,
-    onImageDirectoryPressed: (State<ImageBitmap>) -> Unit,
+    onImageDirectoryPressed: (Int) -> Unit,
 ) {
     var actionSheetVisible by remember { mutableStateOf(false) }
     var contextMenuPhotoId by rememberSaveable { mutableStateOf<Int?>(null) }
@@ -48,7 +46,7 @@ fun DirectoryGrid(
                     .combinedClickable(
                         onClick = {
                             (state as? ImageDirectoryGridCellState)?.let { imageContent ->
-                                onImageDirectoryPressed(imageContent.imageState)
+                                onImageDirectoryPressed(imageContent.id)
                             } ?: run {
                                 onFolderPressed(state.id)
                             }

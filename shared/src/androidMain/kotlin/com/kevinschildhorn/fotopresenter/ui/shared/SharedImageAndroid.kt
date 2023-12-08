@@ -14,6 +14,5 @@ actual fun getBitmapFromFile(file: File, size: Int): ImageBitmap? {
         return Bitmap.createScaledBitmap(it, dimensions.first, dimensions.second, false)
             .asImageBitmap()
     }
-
     return null
 }

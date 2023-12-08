@@ -33,5 +33,6 @@ data class LoginScreenState(
                 username = username,
                 password = password,
                 sharedFolder = sharedFolder,
+                shouldAutoConnect = shouldAutoConnect,
             )
 }

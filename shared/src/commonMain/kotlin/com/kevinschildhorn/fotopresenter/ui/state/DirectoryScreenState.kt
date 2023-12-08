@@ -2,11 +2,15 @@ package com.kevinschildhorn.fotopresenter.ui.state
 
 import androidx.compose.ui.graphics.ImageBitmap
 import com.kevinschildhorn.fotopresenter.data.State
+import com.kevinschildhorn.fotopresenter.extension.getNextIndex
+import com.kevinschildhorn.fotopresenter.extension.getPreviousIndex
 
 data class DirectoryScreenState(
     val currentPath: String = "",
     var directoryGridState: DirectoryGridState = DirectoryGridState(emptyList(), mutableListOf()),
-    var selectedImage: State<ImageBitmap> = State.IDLE,
+    val selectedImageIndex: Int? = null,
+    val selectedImage: ImageBitmap? = null,
+    val loggedIn: Boolean = true,
     override val state: UiState = UiState.IDLE,
 ) : ScreenState {
     fun copyImageState(
@@ -28,6 +32,29 @@ data class DirectoryScreenState(
                     imageStates = list,
                 ),
         )
+    }
+
+    fun getImageIndexFromId(id: Int): Int = directoryGridState.imageStates.indexOfFirst { it.id == id }
+
+    fun getImageStateByIndex(): State<ImageBitmap>? =
+        selectedImageIndex?.let { index ->
+            directoryGridState.imageStates.getOrNull(index)?.imageState
+        }
+
+    fun getNextImageIndex(): Int? {
+        selectedImageIndex?.let {
+            return directoryGridState.imageStates.getNextIndex(it)
+        } ?: run {
+            return null
+        }
+    }
+
+    fun getPreviousImageIndex(): Int? {
+        selectedImageIndex?.let {
+            return directoryGridState.imageStates.getPreviousIndex(it)
+        } ?: run {
+            return null
+        }
     }
 }
 

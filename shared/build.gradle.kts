@@ -33,6 +33,8 @@ kotlin {
                 implementation(compose.components.resources)
                 implementation("br.com.devsrsouza.compose.icons:eva-icons:1.1.0")
 
+                implementation("io.github.reactivecircus.cache4k:cache4k:0.12.0")
+
                 implementation("io.insert-koin:koin-core:3.4.0")
                 implementation("androidx.security:security-crypto:1.1.0-alpha06")
                 implementation("co.touchlab:kermit:1.2.2")

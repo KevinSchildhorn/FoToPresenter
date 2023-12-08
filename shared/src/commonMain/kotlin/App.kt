@@ -19,9 +19,15 @@ fun App(
         when (currentScreen.value) {
             Screen.LOGIN ->
                 LoginScreen(loginViewModel) {
+                    directoryViewModel.setLoggedIn()
                     currentScreen.value = Screen.DIRECTORY
                 }
-            Screen.DIRECTORY -> DirectoryScreen(directoryViewModel)
+
+            Screen.DIRECTORY ->
+                DirectoryScreen(directoryViewModel) {
+                    loginViewModel.setLoggedOut()
+                    currentScreen.value = Screen.LOGIN
+                }
         }
     }
 }

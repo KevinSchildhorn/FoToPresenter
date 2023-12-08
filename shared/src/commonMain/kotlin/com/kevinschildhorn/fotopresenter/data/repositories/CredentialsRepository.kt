@@ -31,4 +31,8 @@ class CredentialsRepository(
         dataSource.sharedFolder = sharedFolder
         dataSource.shouldAutoConnect = shouldAutoConnect
     }
+
+    fun clearAutoConnect() {
+        dataSource.shouldAutoConnect = false
+    }
 }

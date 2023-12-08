@@ -6,7 +6,9 @@ import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.domain.ChangeDirectoryUseCase
+import com.kevinschildhorn.fotopresenter.domain.LogoutUseCase
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
+import com.kevinschildhorn.fotopresenter.domain.RetrieveImagesUseCase
 import com.kevinschildhorn.fotopresenter.extension.addPath
 import com.kevinschildhorn.fotopresenter.ui.state.DirectoryGridState
 import com.kevinschildhorn.fotopresenter.ui.state.DirectoryScreenState
@@ -36,6 +38,57 @@ class DirectoryViewModel(
     fun refreshScreen() {
         updateDirectories()
     }
+
+    fun setLoggedIn()  {
+        _uiState.update { it.copy(loggedIn = true) }
+    }
+
+    fun logout() {
+        viewModelScope.launch(Dispatchers.Default) {
+            val logoutUseCase: LogoutUseCase by inject()
+            logoutUseCase()
+            _uiState.update { it.copy(loggedIn = false) }
+        }
+    }
+    //region Image
+
+    fun showPreviousImage() {
+        val newIndex = _uiState.value.getPreviousImageIndex()
+        _uiState.update { it.copy(selectedImageIndex = newIndex) }
+        updateSelectedImage()
+    }
+
+    fun showNextImage() {
+        val newIndex = _uiState.value.getNextImageIndex()
+        _uiState.update { it.copy(selectedImageIndex = newIndex) }
+        updateSelectedImage()
+    }
+
+    fun clearPresentedImage() {
+        _uiState.update { it.copy(selectedImage = null, selectedImageIndex = null) }
+    }
+
+    fun setSelectedImageById(imageId: Int?) {
+        var index: Int? = null
+        imageId?.let {
+            index = _uiState.value.getImageIndexFromId(it)
+        }
+        _uiState.update { it.copy(selectedImageIndex = index) }
+        updateSelectedImage()
+    }
+
+    private fun updateSelectedImage() {
+        val state =
+            _uiState.value.getImageStateByIndex()?.let { state ->
+                _uiState.update { it.copy(selectedImage = state.value) }
+            } ?: run {
+                _uiState.update { it.copy(selectedImage = null) }
+            }
+    }
+
+    //endregion
+
+    //region Directory
 
     fun changeDirectory(id: Int) {
         _directoryContentsState.value.allDirectories.find { it.id == id }?.let {
@@ -99,19 +152,9 @@ class DirectoryViewModel(
     private fun updatePhotos() {
         _directoryContentsState.value.images.forEach { imageDirectory ->
             viewModelScope.launch(Dispatchers.Default) {
-                _uiState.update {
-                    it.copyImageState(
-                        imageDirectory.id,
-                        state = State.LOADING,
-                    )
-                }
+                val retrieveImagesUseCase: RetrieveImagesUseCase by inject()
 
-                val newState =
-                    imageDirectory.image?.getImageBitmap(400)?.let {
-                        State.SUCCESS(it)
-                    } ?: State.ERROR("No Image Found")
-
-                viewModelScope.launch(Dispatchers.Main) {
+                retrieveImagesUseCase(imageDirectory) { newState ->
                     _uiState.update {
                         it.copyImageState(
                             imageDirectory.id,
@@ -136,4 +179,6 @@ class DirectoryViewModel(
                         )
                     }.toMutableList(),
             )
+
+    //endregion
 }
