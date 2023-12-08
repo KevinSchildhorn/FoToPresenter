@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.domain
+package com.kevinschildhorn.fotopresenter.domain.image
 
 import androidx.compose.ui.graphics.ImageBitmap
 import co.touchlab.kermit.Logger
@@ -9,7 +9,7 @@ import com.kevinschildhorn.fotopresenter.ui.shared.SharedCache
 /**
 Retrieving Directories from Location
  **/
-class RetrieveImagesUseCase(
+class RetrieveImageUseCase(
     private val logger: Logger,
 ) {
     suspend operator fun invoke(

@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.domain
+package com.kevinschildhorn.fotopresenter.domain.directory
 
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource

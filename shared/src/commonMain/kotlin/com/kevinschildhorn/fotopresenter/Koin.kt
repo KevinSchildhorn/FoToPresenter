@@ -8,15 +8,16 @@ import com.kevinschildhorn.fotopresenter.data.datasources.ImageRemoteDataSource
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
-import com.kevinschildhorn.fotopresenter.domain.AutoConnectUseCase
-import com.kevinschildhorn.fotopresenter.domain.ChangeDirectoryUseCase
-import com.kevinschildhorn.fotopresenter.domain.ConnectToServerUseCase
-import com.kevinschildhorn.fotopresenter.domain.LogoutUseCase
-import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
-import com.kevinschildhorn.fotopresenter.domain.RetrieveImagesUseCase
-import com.kevinschildhorn.fotopresenter.domain.SaveCredentialsUseCase
+import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
+import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
+import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCase
+import com.kevinschildhorn.fotopresenter.domain.connection.LogoutUseCase
+import com.kevinschildhorn.fotopresenter.domain.directory.RetrieveDirectoryContentsUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
+import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
+import com.kevinschildhorn.fotopresenter.ui.viewmodel.SlideshowViewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -45,11 +46,12 @@ val commonModule =
                 baseLogger.withTag("RetrieveDirectoryContentsUseCase"),
             )
         }
-        factory { RetrieveImagesUseCase(baseLogger.withTag("RetrieveImagesUseCase")) }
+        factory { RetrieveImageUseCase(baseLogger.withTag("RetrieveImagesUseCase")) }
 
         // UI
         single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
         single { DirectoryViewModel(baseLogger.withTag("DirectoryViewModel")) }
+        single { SlideshowViewModel(baseLogger.withTag("SlideshowViewModel")) }
     }
 
 internal expect val platformModule: Module

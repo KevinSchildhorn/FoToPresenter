@@ -16,22 +16,22 @@ import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
 fun DirectoryScreen(
     viewModel: DirectoryViewModel,
     onLogout: () -> Unit,
+    onStartSlideshow: (Int) -> Unit,
 ) {
     LaunchedEffect(Unit) {
         viewModel.refreshScreen()
     }
     val uiState by viewModel.uiState.collectAsState()
 
-    if (!uiState.loggedIn)
-        {
-            onLogout()
-        }
+    if (!uiState.loggedIn) {
+        onLogout()
+    }
     uiState.state.asComposable(
         modifier =
-            Modifier.padding(
-                horizontal = Padding.STANDARD.dp,
-                vertical = Padding.SMALL.dp,
-            ),
+        Modifier.padding(
+            horizontal = Padding.STANDARD.dp,
+            vertical = Padding.SMALL.dp,
+        ),
     )
     PrimaryButton("Logout") {
         viewModel.logout()
@@ -39,13 +39,16 @@ fun DirectoryScreen(
     DirectoryGrid(
         uiState.directoryGridState,
         modifier =
-            Modifier
-                .padding(top = Padding.EXTRA_LARGE.dp),
+        Modifier
+            .padding(top = Padding.EXTRA_LARGE.dp),
         onFolderPressed = {
             viewModel.changeDirectory(it)
         },
         onImageDirectoryPressed = {
             viewModel.setSelectedImageById(it)
+        },
+        onStartSlideshow = {
+            viewModel.startSlideshow(it)
         },
     )
     uiState.selectedImage?.let {

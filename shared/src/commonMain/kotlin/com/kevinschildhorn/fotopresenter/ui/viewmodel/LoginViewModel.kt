@@ -2,9 +2,9 @@ package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
-import com.kevinschildhorn.fotopresenter.domain.AutoConnectUseCase
-import com.kevinschildhorn.fotopresenter.domain.ConnectToServerUseCase
-import com.kevinschildhorn.fotopresenter.domain.SaveCredentialsUseCase
+import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
+import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCase
+import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.ui.state.LoginScreenState
 import com.kevinschildhorn.fotopresenter.ui.state.UiState
 import kotlinx.coroutines.Dispatchers

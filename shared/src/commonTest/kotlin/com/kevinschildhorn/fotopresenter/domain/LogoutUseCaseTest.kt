@@ -1,6 +1,7 @@
 package com.kevinschildhorn.fotopresenter.domain
 
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
+import com.kevinschildhorn.fotopresenter.domain.connection.LogoutUseCase
 import com.kevinschildhorn.fotopresenter.testingModule
 import kotlinx.coroutines.runBlocking
 import org.junit.Test

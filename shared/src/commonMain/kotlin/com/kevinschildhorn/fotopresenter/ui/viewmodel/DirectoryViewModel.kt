@@ -5,10 +5,10 @@ import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
-import com.kevinschildhorn.fotopresenter.domain.ChangeDirectoryUseCase
-import com.kevinschildhorn.fotopresenter.domain.LogoutUseCase
-import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
-import com.kevinschildhorn.fotopresenter.domain.RetrieveImagesUseCase
+import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
+import com.kevinschildhorn.fotopresenter.domain.connection.LogoutUseCase
+import com.kevinschildhorn.fotopresenter.domain.directory.RetrieveDirectoryContentsUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.extension.addPath
 import com.kevinschildhorn.fotopresenter.ui.state.DirectoryGridState
 import com.kevinschildhorn.fotopresenter.ui.state.DirectoryScreenState
@@ -39,7 +39,7 @@ class DirectoryViewModel(
         updateDirectories()
     }
 
-    fun setLoggedIn()  {
+    fun setLoggedIn() {
         _uiState.update { it.copy(loggedIn = true) }
     }
 
@@ -50,6 +50,13 @@ class DirectoryViewModel(
             _uiState.update { it.copy(loggedIn = false) }
         }
     }
+
+    fun startSlideshow(directoryId:Int){
+        _directoryContentsState.value.folders.find { it.id == directoryId }?.let {
+            it.details.fullPath
+        }
+    }
+
     //region Image
 
     fun showPreviousImage() {
@@ -78,12 +85,11 @@ class DirectoryViewModel(
     }
 
     private fun updateSelectedImage() {
-        val state =
-            _uiState.value.getImageStateByIndex()?.let { state ->
-                _uiState.update { it.copy(selectedImage = state.value) }
-            } ?: run {
-                _uiState.update { it.copy(selectedImage = null) }
-            }
+        _uiState.value.getImageStateByIndex()?.let { state ->
+            _uiState.update { it.copy(selectedImage = state.value) }
+        } ?: run {
+            _uiState.update { it.copy(selectedImage = null) }
+        }
     }
 
     //endregion
@@ -111,9 +117,9 @@ class DirectoryViewModel(
                 _uiState.update {
                     it.copy(
                         state =
-                            UiState.ERROR(
-                                e.message ?: "An Unknown Network Error Occurred",
-                            ),
+                        UiState.ERROR(
+                            e.message ?: "An Unknown Network Error Occurred",
+                        ),
                     )
                 }
             } catch (e: Exception) {
@@ -121,9 +127,9 @@ class DirectoryViewModel(
                 _uiState.update {
                     it.copy(
                         state =
-                            UiState.ERROR(
-                                e.message ?: "Something Went Wrong",
-                            ),
+                        UiState.ERROR(
+                            e.message ?: "Something Went Wrong",
+                        ),
                     )
                 }
             }
@@ -152,7 +158,7 @@ class DirectoryViewModel(
     private fun updatePhotos() {
         _directoryContentsState.value.images.forEach { imageDirectory ->
             viewModelScope.launch(Dispatchers.Default) {
-                val retrieveImagesUseCase: RetrieveImagesUseCase by inject()
+                val retrieveImagesUseCase: RetrieveImageUseCase by inject()
 
                 retrieveImagesUseCase(imageDirectory) { newState ->
                     _uiState.update {
@@ -171,13 +177,13 @@ class DirectoryViewModel(
             DirectoryGridState(
                 folderStates = this.folders.map { FolderDirectoryGridCellState(it.name, it.id) },
                 imageStates =
-                    this.images.map {
-                        ImageDirectoryGridCellState(
-                            State.IDLE,
-                            it.name,
-                            it.id,
-                        )
-                    }.toMutableList(),
+                this.images.map {
+                    ImageDirectoryGridCellState(
+                        State.IDLE,
+                        it.name,
+                        it.id,
+                    )
+                }.toMutableList(),
             )
 
     //endregion

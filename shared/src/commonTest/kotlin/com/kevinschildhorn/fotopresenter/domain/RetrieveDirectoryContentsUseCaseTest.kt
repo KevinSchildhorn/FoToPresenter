@@ -3,6 +3,7 @@ package com.kevinschildhorn.fotopresenter.domain
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerError
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
+import com.kevinschildhorn.fotopresenter.domain.directory.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.testingModule
 import kotlinx.coroutines.runBlocking
 import org.junit.Test

@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.domain
 
+import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
 import com.kevinschildhorn.fotopresenter.testingModule
 import com.russhwolf.settings.MapSettings
 import kotlinx.coroutines.runBlocking
