@@ -1,6 +1,6 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
-interface NetworkDirectory {
+interface NetworkDirectoryDetails {
     val fullPath: String
     val id: Int
 
@@ -23,7 +23,7 @@ interface NetworkDirectory {
                 fileExtension == "bmp"
 }
 
-class MockNetworkDirectory(
+class MockNetworkDirectoryDetails(
     override val fullPath: String,
     override val id: Int,
-) : NetworkDirectory
+) : NetworkDirectoryDetails

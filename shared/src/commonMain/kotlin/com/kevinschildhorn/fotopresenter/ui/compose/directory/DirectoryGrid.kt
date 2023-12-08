@@ -13,23 +13,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.kevinschildhorn.fotopresenter.data.DirectoryContents
-import com.kevinschildhorn.fotopresenter.data.FolderDirectoryContent
-import com.kevinschildhorn.fotopresenter.data.ImageDirectoryContent
-import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectory
+import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.ui.compose.common.ActionSheet
+import com.kevinschildhorn.fotopresenter.ui.state.DirectoryGridState
+import com.kevinschildhorn.fotopresenter.ui.state.FolderDirectoryGridCellState
+import com.kevinschildhorn.fotopresenter.ui.state.ImageDirectoryGridCellState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DirectoryGrid(
-    directoryContent: DirectoryContents,
+    directoryContent: DirectoryGridState,
     gridSize: Int = 5,
     modifier: Modifier = Modifier,
-    onDirectoryPressed: (NetworkDirectory) -> Unit,
+    onFolderPressed: (Int) -> Unit,
+    onImageDirectoryPressed: (State<ImageBitmap>) -> Unit,
 ) {
     var actionSheetVisible by remember { mutableStateOf(false) }
     var contextMenuPhotoId by rememberSaveable { mutableStateOf<Int?>(null) }
@@ -39,29 +41,33 @@ fun DirectoryGrid(
         columns = GridCells.Fixed(gridSize),
         modifier = modifier.zIndex(0f),
     ) {
-        items(directoryContent.allDirectories, { it.directory.id }) { content ->
+        items(directoryContent.allStates, { it.id }) { state ->
             val directoryItemModifier =
                 Modifier
                     .padding(5.dp)
                     .combinedClickable(
                         onClick = {
-                            onDirectoryPressed(content.directory)
+                            (state as? ImageDirectoryGridCellState)?.let { imageContent ->
+                                onImageDirectoryPressed(imageContent.imageState)
+                            } ?: run {
+                                onFolderPressed(state.id)
+                            }
                         },
                         onLongClick = {
                             haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                            contextMenuPhotoId = content.directory.id
+                            contextMenuPhotoId = state.id
                             actionSheetVisible = true
                         },
                         onLongClickLabel = "Action Sheet",
                     )
-            (content as? FolderDirectoryContent)?.let { folderContent ->
-                FolderDirectoryItem(
-                    folderContent.directory.name,
+            (state as? FolderDirectoryGridCellState)?.let { folderContent ->
+                FolderDirectoryGridCell(
+                    folderContent,
                     modifier = directoryItemModifier,
                 )
             }
-            (content as? ImageDirectoryContent)?.let { imageContent ->
-                PhotoDirectoryItem(
+            (state as? ImageDirectoryGridCellState)?.let { imageContent ->
+                ImageDirectoryGridCell(
                     imageContent,
                     modifier = directoryItemModifier,
                 )

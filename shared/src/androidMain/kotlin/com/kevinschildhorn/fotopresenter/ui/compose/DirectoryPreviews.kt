@@ -4,17 +4,21 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
-import com.kevinschildhorn.fotopresenter.data.FolderDirectoryContent
-import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectory
-import com.kevinschildhorn.fotopresenter.ui.compose.directory.BaseDirectory
+import com.kevinschildhorn.fotopresenter.data.FolderDirectory
+import com.kevinschildhorn.fotopresenter.data.State
+import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectoryDetails
+import com.kevinschildhorn.fotopresenter.ui.compose.directory.DirectoryGridCell
 import com.kevinschildhorn.fotopresenter.ui.compose.directory.DirectoryGrid
-import com.kevinschildhorn.fotopresenter.ui.compose.directory.FolderDirectoryItem
+import com.kevinschildhorn.fotopresenter.ui.compose.directory.FolderDirectoryGridCell
+import com.kevinschildhorn.fotopresenter.ui.state.DirectoryGridState
+import com.kevinschildhorn.fotopresenter.ui.state.FolderDirectoryGridCellState
+import com.kevinschildhorn.fotopresenter.ui.state.ImageDirectoryGridCellState
 
 @Preview
 @Composable
 fun BaseDirectoryPreview() {
     Column {
-        BaseDirectory() {}
+        DirectoryGridCell() {}
     }
 }
 
@@ -22,7 +26,7 @@ fun BaseDirectoryPreview() {
 @Composable
 fun FolderDirectoryEmptyPreview() {
     Column {
-        FolderDirectoryItem("Folder")
+        FolderDirectoryGridCell(FolderDirectoryGridCellState("Hello",0))
     }
 }
 
@@ -30,16 +34,15 @@ fun FolderDirectoryEmptyPreview() {
 @Composable
 fun DirectoryGridPreview() {
     DirectoryGrid(
-        DirectoryContents(
-            folders = listOf(
-                FolderDirectoryContent(MockNetworkDirectory("Test 1", id = 1)),
-                FolderDirectoryContent(MockNetworkDirectory("Test 2", id = 2)),
-                FolderDirectoryContent(MockNetworkDirectory("Test 3", id = 3)),
-                FolderDirectoryContent(MockNetworkDirectory("Test 4", id = 4)),
-                FolderDirectoryContent(MockNetworkDirectory("Test 6", id = 5)),
-                FolderDirectoryContent(MockNetworkDirectory("Test 5", id = 6)),
+        directoryContent = DirectoryGridState(
+            folderStates = listOf(
+                FolderDirectoryGridCellState("Hello",0),
             ),
+            imageStates = mutableListOf(
+                ImageDirectoryGridCellState(State.IDLE,"Hello", 1)
+            )
         ),
-    ) {
-    }
+        onFolderPressed = {},
+        onImageDirectoryPressed = {},
+    )
 }

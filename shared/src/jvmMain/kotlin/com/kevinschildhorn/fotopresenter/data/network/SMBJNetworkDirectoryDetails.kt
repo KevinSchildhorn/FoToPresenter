@@ -2,9 +2,9 @@ package com.kevinschildhorn.fotopresenter.data.network
 
 import com.hierynomus.msfscc.fileinformation.FileIdBothDirectoryInformation
 
-class SMBJNetworkDirectory(
+class SMBJNetworkDirectoryDetails(
     information: FileIdBothDirectoryInformation,
     override val fullPath: String,
-) : NetworkDirectory {
+) : NetworkDirectoryDetails {
     override val id: Int = information.fileId.toInt()
 }

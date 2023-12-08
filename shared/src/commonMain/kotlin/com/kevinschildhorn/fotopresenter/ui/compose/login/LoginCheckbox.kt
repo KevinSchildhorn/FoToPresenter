@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun FotoCheckbox(
+fun LoginCheckbox(
     title: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,

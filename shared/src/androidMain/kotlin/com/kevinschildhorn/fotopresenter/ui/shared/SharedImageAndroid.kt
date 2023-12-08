@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.ui
+package com.kevinschildhorn.fotopresenter.ui.shared
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -6,11 +6,13 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import com.hierynomus.smbj.share.File
 
-actual fun getBitmapFromFile(file: File): ImageBitmap? {
+actual fun getBitmapFromFile(file: File, size: Int): ImageBitmap? {
     val options = BitmapFactory.Options()
-    options.inSampleSize = 3
+    options.inSampleSize = 2
     BitmapFactory.decodeStream(file.inputStream, null, options)?.let {
-        return Bitmap.createScaledBitmap(it, 200, 200, false).asImageBitmap()
+        val dimensions = getScaledDimensions(it.width, it.height, size)
+        return Bitmap.createScaledBitmap(it, dimensions.first, dimensions.second, false)
+            .asImageBitmap()
     }
 
     return null

@@ -19,7 +19,7 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.DirectoryAtoms
 import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 
 @Composable
-fun BaseDirectory(
+fun DirectoryGridCell(
     modifier: Modifier = Modifier,
     backgroundColor: Color = FotoColors.surface.composeColor,
     content: @Composable BoxScope.() -> Unit,
@@ -35,7 +35,7 @@ fun BaseDirectory(
 }
 
 @Composable
-fun DirectoryText(
+fun DirectoryGridCellText(
     text: String,
     modifier: Modifier = Modifier,
 ) {

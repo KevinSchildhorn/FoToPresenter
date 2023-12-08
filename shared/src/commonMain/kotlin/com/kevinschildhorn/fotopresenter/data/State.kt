@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.ui.state
+package com.kevinschildhorn.fotopresenter.data
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

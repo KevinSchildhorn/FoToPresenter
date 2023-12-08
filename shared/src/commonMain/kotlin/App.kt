@@ -21,7 +21,6 @@ fun App(
                 LoginScreen(loginViewModel) {
                     currentScreen.value = Screen.DIRECTORY
                 }
-
             Screen.DIRECTORY -> DirectoryScreen(directoryViewModel)
         }
     }

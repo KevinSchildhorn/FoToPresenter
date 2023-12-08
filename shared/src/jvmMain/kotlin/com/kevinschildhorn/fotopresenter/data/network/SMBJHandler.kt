@@ -12,7 +12,7 @@ import com.hierynomus.smbj.session.Session
 import com.hierynomus.smbj.share.DiskShare
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.extension.addPath
-import com.kevinschildhorn.fotopresenter.ui.SharedImage
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 object SMBJHandler : NetworkHandler {
     private val client = SMBClient()
@@ -49,9 +49,9 @@ object SMBJHandler : NetworkHandler {
         return true
     }
 
-    override suspend fun getDirectoryContents(path: String): List<NetworkDirectory> {
+    override suspend fun getDirectoryContents(path: String): List<NetworkDirectoryDetails> {
         return share?.list(path)?.map {
-            SMBJNetworkDirectory(
+            SMBJNetworkDirectoryDetails(
                 it,
                 fullPath = path.addPath(it.fileName),
             )

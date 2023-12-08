@@ -10,31 +10,7 @@ import com.kevinschildhorn.atomik.atomic.atoms.textStyle
 import com.kevinschildhorn.fotopresenter.ui.atoms.LoginScreenAtoms
 
 @Composable
-fun FotoTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    placeholder: String,
-    modifier: Modifier = Modifier,
-) {
-    val molecule = LoginScreenAtoms.textFieldMolecule
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        placeholder = {
-            Text(
-                placeholder,
-                style = molecule.hintTextAtom?.textStyle ?: molecule.textAtom.textStyle,
-            )
-        },
-        colors = molecule.colors(),
-        shape = molecule.shape,
-        textStyle = molecule.textAtom.textStyle,
-        modifier = modifier,
-    )
-}
-
-@Composable
-fun FotoPasswordTextField(
+fun LoginPasswordTextField(
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String,

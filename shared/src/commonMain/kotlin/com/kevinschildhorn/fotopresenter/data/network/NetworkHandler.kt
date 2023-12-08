@@ -1,7 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
-import com.kevinschildhorn.fotopresenter.ui.SharedImage
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 interface NetworkHandler {
     val isConnected: Boolean
@@ -10,7 +10,7 @@ interface NetworkHandler {
 
     suspend fun disconnect()
 
-    suspend fun getDirectoryContents(path: String): List<NetworkDirectory>
+    suspend fun getDirectoryContents(path: String): List<NetworkDirectoryDetails>
 
     suspend fun openDirectory(path: String): String?
 

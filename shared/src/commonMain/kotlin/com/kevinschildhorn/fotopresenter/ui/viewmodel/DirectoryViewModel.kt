@@ -1,12 +1,17 @@
 package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
 import co.touchlab.kermit.Logger
-import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectory
+import com.kevinschildhorn.fotopresenter.data.DirectoryContents
+import com.kevinschildhorn.fotopresenter.data.State
+import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.domain.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.extension.addPath
+import com.kevinschildhorn.fotopresenter.ui.state.DirectoryGridState
 import com.kevinschildhorn.fotopresenter.ui.state.DirectoryScreenState
+import com.kevinschildhorn.fotopresenter.ui.state.FolderDirectoryGridCellState
+import com.kevinschildhorn.fotopresenter.ui.state.ImageDirectoryGridCellState
 import com.kevinschildhorn.fotopresenter.ui.state.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +28,8 @@ class DirectoryViewModel(
     private val _uiState = MutableStateFlow(DirectoryScreenState())
     val uiState: StateFlow<DirectoryScreenState> = _uiState.asStateFlow()
 
+    private val _directoryContentsState = MutableStateFlow(DirectoryContents())
+
     private val currentPath: String
         get() = uiState.value.currentPath
 
@@ -30,14 +37,24 @@ class DirectoryViewModel(
         updateDirectories()
     }
 
-    fun changeDirectory(directory: NetworkDirectory) {
+    fun changeDirectory(id: Int) {
+        _directoryContentsState.value.allDirectories.find { it.id == id }?.let {
+            changeDirectory(it.details)
+        }
+    }
+
+    private fun changeDirectory(directory: NetworkDirectoryDetails) {
+        logger.i { "Changing Directory: ${directory.name}" }
         viewModelScope.launch(Dispatchers.Default) {
             val changeDirectoryUseCase: ChangeDirectoryUseCase by inject()
             try {
+                logger.i { "Getting New Path" }
                 val newPath = changeDirectoryUseCase(currentPath.addPath(directory.name))
+                logger.i { "New Path got: $newPath" }
                 _uiState.update { it.copy(currentPath = newPath) }
                 updateDirectories()
             } catch (e: NetworkHandlerException) {
+                logger.e(e) { "Error Occurred Getting new path" }
                 _uiState.update {
                     it.copy(
                         state =
@@ -47,6 +64,7 @@ class DirectoryViewModel(
                     )
                 }
             } catch (e: Exception) {
+                logger.e(e) { "Something went wrong" }
                 _uiState.update {
                     it.copy(
                         state =
@@ -60,16 +78,62 @@ class DirectoryViewModel(
     }
 
     private fun updateDirectories() {
+        logger.i { "Updating Directories" }
         _uiState.update { it.copy(state = UiState.LOADING) }
         viewModelScope.launch(Dispatchers.Default) {
             val retrieveDirectoryUseCase: RetrieveDirectoryContentsUseCase by inject()
+            logger.i { "Getting Directory Contents" }
             val directoryContents = retrieveDirectoryUseCase(currentPath)
+            logger.i { "Got Directory Contents: ${directoryContents.allDirectories.count()}" }
+            _directoryContentsState.update { directoryContents }
             _uiState.update {
                 it.copy(
-                    directoryContents = directoryContents,
+                    directoryGridState = directoryContents.asDirectoryGridState,
                     state = UiState.SUCCESS,
                 )
             }
+            updatePhotos()
         }
     }
+
+    private fun updatePhotos() {
+        _directoryContentsState.value.images.forEach { imageDirectory ->
+            viewModelScope.launch(Dispatchers.Default) {
+                _uiState.update {
+                    it.copyImageState(
+                        imageDirectory.id,
+                        state = State.LOADING,
+                    )
+                }
+
+                val newState =
+                    imageDirectory.image?.getImageBitmap(400)?.let {
+                        State.SUCCESS(it)
+                    } ?: State.ERROR("No Image Found")
+
+                viewModelScope.launch(Dispatchers.Main) {
+                    _uiState.update {
+                        it.copyImageState(
+                            imageDirectory.id,
+                            state = newState,
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private val DirectoryContents.asDirectoryGridState: DirectoryGridState
+        get() =
+            DirectoryGridState(
+                folderStates = this.folders.map { FolderDirectoryGridCellState(it.name, it.id) },
+                imageStates =
+                    this.images.map {
+                        ImageDirectoryGridCellState(
+                            State.IDLE,
+                            it.name,
+                            it.id,
+                        )
+                    }.toMutableList(),
+            )
 }
