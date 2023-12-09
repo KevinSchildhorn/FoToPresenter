@@ -14,9 +14,12 @@ class AutoConnectUseCase(
 ) {
     suspend operator fun invoke(): Boolean =
         try {
+            logger.i { "Fetching Credentials" }
             val credentials = repository.fetchCredentials()
+            logger.i { "Connecting to the client with auto-connect:${credentials.shouldAutoConnect}" }
             client.connect(credentials)
         } catch (e: Exception) {
+            logger.e(e) { "Could not connect" }
             false
         }
 }

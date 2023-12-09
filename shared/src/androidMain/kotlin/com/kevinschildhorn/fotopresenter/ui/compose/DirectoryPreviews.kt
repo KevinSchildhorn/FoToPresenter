@@ -3,16 +3,13 @@ package com.kevinschildhorn.fotopresenter.ui.compose
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.kevinschildhorn.fotopresenter.data.DirectoryContents
-import com.kevinschildhorn.fotopresenter.data.FolderDirectory
 import com.kevinschildhorn.fotopresenter.data.State
-import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectoryDetails
-import com.kevinschildhorn.fotopresenter.ui.compose.directory.DirectoryGridCell
-import com.kevinschildhorn.fotopresenter.ui.compose.directory.DirectoryGrid
-import com.kevinschildhorn.fotopresenter.ui.compose.directory.FolderDirectoryGridCell
-import com.kevinschildhorn.fotopresenter.ui.state.DirectoryGridState
-import com.kevinschildhorn.fotopresenter.ui.state.FolderDirectoryGridCellState
-import com.kevinschildhorn.fotopresenter.ui.state.ImageDirectoryGridCellState
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryGridCell
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryGrid
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.FolderDirectoryGridCell
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridState
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.FolderDirectoryGridCellState
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.ImageDirectoryGridCellState
 
 @Preview
 @Composable
@@ -44,5 +41,6 @@ fun DirectoryGridPreview() {
         ),
         onFolderPressed = {},
         onImageDirectoryPressed = {},
+        onStartSlideshow = {},
     )
 }

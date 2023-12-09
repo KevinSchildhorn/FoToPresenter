@@ -17,6 +17,7 @@ object MockNetworkHandler : NetworkHandler {
         mapOf(
             "" to
                 listOf<NetworkDirectoryDetails>(
+                    MockNetworkDirectoryDetails(fullPath = "Photos", id = 0),
                     MockNetworkDirectoryDetails(fullPath = "NewDirectory", id = 1),
                     MockNetworkDirectoryDetails(fullPath = "Peeng.png", id = 2),
                     MockNetworkDirectoryDetails(fullPath = "Jaypeg.jpg", id = 3),
@@ -35,7 +36,7 @@ object MockNetworkHandler : NetworkHandler {
                 ),
         )
 
-    private val successImageName: String = "Photos/Peeng.png"
+    private val successImageName: String = "Photos/Success.png"
 
     private var connected: Boolean = false
     override val isConnected: Boolean
@@ -61,10 +62,13 @@ object MockNetworkHandler : NetworkHandler {
     }
 
     override suspend fun getDirectoryContents(path: String): List<NetworkDirectoryDetails> {
+        print("Getting Directory Contents ${path}\n")
+
         return networkContents[path] ?: emptyList()
     }
 
     override suspend fun openDirectory(directoryName: String): String? {
+        print("Opening Directory ${directoryName}\n")
         if (networkContents.containsKey(directoryName)) {
             return directoryName
         }
@@ -72,6 +76,7 @@ object MockNetworkHandler : NetworkHandler {
     }
 
     override suspend fun openImage(imageName: String): SharedImage? {
+        print("Opening Image ${imageName}\n")
         if (imageName == successImageName) {
             throw Exception("Success") // TODO: This is messy, but SharedImageIs expect
         }

@@ -2,16 +2,17 @@ package com.kevinschildhorn.fotopresenter.data.datasources
 
 import androidx.compose.ui.graphics.ImageBitmap
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
-import com.kevinschildhorn.fotopresenter.ui.shared.SharedCache
+import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
 
-class ImageCacheDataSource {
-    fun getImage(directory: NetworkDirectoryDetails): ImageBitmap? = SharedCache.getImage(directory.cacheId)
+class ImageCacheDataSource(private val cache: CacheInterface) {
+    fun getImage(directory: NetworkDirectoryDetails): ImageBitmap? =
+        cache.getImage(directory.cacheId)
 
     fun saveImage(
         directory: NetworkDirectoryDetails,
         bitmap: ImageBitmap,
     ) {
-        SharedCache.cacheImage(directory.cacheId, bitmap)
+        cache.cacheImage(directory.cacheId, bitmap)
     }
 
     private val NetworkDirectoryDetails.cacheId: String

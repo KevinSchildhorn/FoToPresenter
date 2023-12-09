@@ -1,19 +1,13 @@
 package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
 import com.kevinschildhorn.fotopresenter.MainCoroutineRule
-import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
-import com.kevinschildhorn.fotopresenter.testingModule
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.advanceUntilIdle
-import kotlinx.coroutines.test.runTest
 import org.junit.Rule
-import org.junit.Test
-import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import kotlin.test.AfterTest
-import kotlin.test.assertEquals
 
 /**
 Testing [DirectoryViewModel]

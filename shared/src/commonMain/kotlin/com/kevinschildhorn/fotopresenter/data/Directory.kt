@@ -28,4 +28,12 @@ data class DirectoryContents(
 ) {
     val allDirectories: List<Directory>
         get() = folders + images
+
+    override fun toString(): String {
+        return """
+            DirectoryContents:
+            Folders: ${folders.count()}
+            Images: ${images.count()}
+            """
+    }
 }

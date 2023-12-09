@@ -1,7 +1,7 @@
 import androidx.compose.runtime.Composable
-import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
-import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
-import com.kevinschildhorn.fotopresenter.ui.viewmodel.SlideshowViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
 
 actual fun getPlatformName(): String = "Android"
 

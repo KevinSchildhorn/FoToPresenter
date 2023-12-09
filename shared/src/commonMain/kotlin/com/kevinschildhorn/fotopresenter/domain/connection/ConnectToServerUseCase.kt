@@ -5,7 +5,7 @@ import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 
 /**
-Connect to Server using FTPS
+Connect to Server using The [NetworkHandler]
  **/
 class ConnectToServerUseCase(
     private val client: NetworkHandler,

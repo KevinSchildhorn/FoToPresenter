@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import com.kevinschildhorn.fotopresenter.startKoin
-import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
-import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
-import com.kevinschildhorn.fotopresenter.ui.viewmodel.SlideshowViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinComponent
 

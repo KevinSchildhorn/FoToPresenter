@@ -2,13 +2,13 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import com.kevinschildhorn.fotopresenter.ui.compose.DirectoryScreen
-import com.kevinschildhorn.fotopresenter.ui.compose.LoginScreen
-import com.kevinschildhorn.fotopresenter.ui.compose.Screen
-import com.kevinschildhorn.fotopresenter.ui.compose.SlideshowScreen
-import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
-import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
-import com.kevinschildhorn.fotopresenter.ui.viewmodel.SlideshowViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
+import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreen
+import com.kevinschildhorn.fotopresenter.ui.screens.common.Screen
+import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowScreen
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
 
 @Composable
 fun App(
@@ -33,7 +33,7 @@ fun App(
                         currentScreen.value = Screen.LOGIN
                     },
                     onStartSlideshow = {
-                        slideshowViewModel.setSlideshow()
+                        slideshowViewModel.setSlideshow(it)
                         currentScreen.value = Screen.SLIDESHOW
                     })
 

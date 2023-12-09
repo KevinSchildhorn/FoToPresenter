@@ -36,7 +36,7 @@ class ImageRemoteDataSourceTest {
         runBlocking {
             val networkDirectory =
                 MockNetworkDirectoryDetails(
-                    fullPath = "Photos/Peeng.png",
+                    fullPath = "Photos/Success.png",
                     id = 1,
                 )
             try {
