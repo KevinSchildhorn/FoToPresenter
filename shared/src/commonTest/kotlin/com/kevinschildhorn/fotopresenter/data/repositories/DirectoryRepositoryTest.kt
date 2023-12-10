@@ -42,7 +42,7 @@ class DirectoryRepositoryTest : KoinTest {
     fun `retrieve Directory Contents Success`() =
         runBlocking {
             val result = repository.getDirectoryContents("")
-            assertEquals(1, result.folders.count())
+            assertEquals(2, result.folders.count())
             assertEquals(2, result.images.count())
         }
 

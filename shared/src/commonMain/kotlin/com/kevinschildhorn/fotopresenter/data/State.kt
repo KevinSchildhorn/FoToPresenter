@@ -2,8 +2,8 @@ package com.kevinschildhorn.fotopresenter.data
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.kevinschildhorn.fotopresenter.ui.compose.common.ErrorView
-import com.kevinschildhorn.fotopresenter.ui.compose.common.LoadingOverlay
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.LoadingOverlay
 
 sealed class State<out DATA> {
     data object IDLE : State<Nothing>()

@@ -47,7 +47,7 @@ class ImageRepositoryTest : KoinTest {
                 val result =
                     repository.getImage(
                         MockNetworkDirectoryDetails(
-                            fullPath = "Photos/Peeng.png",
+                            fullPath = "Photos/Success.png",
                             id = 1,
                         ),
                     )

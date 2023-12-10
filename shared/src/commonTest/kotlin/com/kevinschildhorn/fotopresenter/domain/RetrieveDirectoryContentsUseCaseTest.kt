@@ -44,9 +44,9 @@ class RetrieveDirectoryContentsUseCaseTest : KoinTest {
             val result = useCase("")
             assertTrue(result.images.first().details.isAnImage)
             assertTrue(result.folders.first().details.isDirectory)
-            assertEquals(1, result.folders.count())
+            assertEquals(2, result.folders.count())
             assertEquals(2, result.images.count())
-            assertEquals(3, result.allDirectories.count())
+            assertEquals(4, result.allDirectories.count())
         }
 
     @Test

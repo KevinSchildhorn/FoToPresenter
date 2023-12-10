@@ -2,16 +2,19 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import com.kevinschildhorn.fotopresenter.ui.compose.DirectoryScreen
-import com.kevinschildhorn.fotopresenter.ui.compose.LoginScreen
-import com.kevinschildhorn.fotopresenter.ui.compose.Screen
-import com.kevinschildhorn.fotopresenter.ui.viewmodel.DirectoryViewModel
-import com.kevinschildhorn.fotopresenter.ui.viewmodel.LoginViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.common.Screen
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreen
+import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowScreen
+import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
 
 @Composable
 fun App(
     loginViewModel: LoginViewModel,
     directoryViewModel: DirectoryViewModel,
+    slideshowViewModel: SlideshowViewModel,
 ) {
     val currentScreen = remember { mutableStateOf(Screen.LOGIN) }
 
@@ -24,9 +27,21 @@ fun App(
                 }
 
             Screen.DIRECTORY ->
-                DirectoryScreen(directoryViewModel) {
-                    loginViewModel.setLoggedOut()
-                    currentScreen.value = Screen.LOGIN
+                DirectoryScreen(
+                    directoryViewModel,
+                    onLogout = {
+                        loginViewModel.setLoggedOut()
+                        currentScreen.value = Screen.LOGIN
+                    },
+                    onStartSlideshow = {
+                        slideshowViewModel.setSlideshow(it)
+                        currentScreen.value = Screen.SLIDESHOW
+                    },
+                )
+
+            Screen.SLIDESHOW ->
+                SlideshowScreen(slideshowViewModel) {
+                    currentScreen.value = Screen.DIRECTORY
                 }
         }
     }

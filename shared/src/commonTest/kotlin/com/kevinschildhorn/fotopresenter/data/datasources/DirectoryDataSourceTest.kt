@@ -77,14 +77,14 @@ class DirectoryDataSourceTest {
     fun `get Directory Contents Mixed`() =
         runBlocking {
             val directories = dataSource.getFolderDirectories("")
-            assertEquals(1, directories.count())
+            assertEquals(2, directories.count())
         }
 
     @Test
     fun `get Directory Contents Empty`() =
         runBlocking {
             val directories = dataSource.getFolderDirectories("Photos")
-            assertEquals(0, directories.count())
+            assertEquals(1, directories.count())
         }
 
     //endregion

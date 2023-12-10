@@ -3,13 +3,13 @@ package com.kevinschildhorn.fotopresenter.ui.compose
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.kevinschildhorn.fotopresenter.ui.compose.common.ErrorView
-import com.kevinschildhorn.fotopresenter.ui.compose.common.TitleView
-import com.kevinschildhorn.fotopresenter.ui.compose.login.LoginPasswordTextField
-import com.kevinschildhorn.fotopresenter.ui.compose.login.LoginTextField
-import com.kevinschildhorn.fotopresenter.ui.compose.login.LoginScreenForm
-import com.kevinschildhorn.fotopresenter.ui.state.LoginScreenState
-import com.kevinschildhorn.fotopresenter.ui.state.UiState
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.TitleView
+import com.kevinschildhorn.fotopresenter.ui.screens.login.composables.LoginPasswordTextField
+import com.kevinschildhorn.fotopresenter.ui.screens.login.composables.LoginTextField
+import com.kevinschildhorn.fotopresenter.ui.screens.login.composables.LoginScreenForm
+import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreenState
+import com.kevinschildhorn.fotopresenter.ui.UiState
 
 @Preview
 @Composable

@@ -51,4 +51,22 @@ class CredentialsRepositoryTest : KoinTest {
         assertEquals(password, credentials.password)
         assertEquals(shouldAutoConnect, credentials.shouldAutoConnect)
     }
+
+    @Test
+    fun `clear auto-connect`() {
+        repository.saveCredentials(
+            hostname = "google.com",
+            username = "secret",
+            password = "password",
+            sharedFolder = "Public",
+            shouldAutoConnect = true,
+        )
+        var credentials = repository.fetchCredentials()
+        assertEquals(true, credentials.shouldAutoConnect)
+
+        repository.clearAutoConnect()
+        credentials = repository.fetchCredentials()
+
+        assertEquals(false, credentials.shouldAutoConnect)
+    }
 }

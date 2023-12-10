@@ -1,13 +1,12 @@
 package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
-import com.kevinschildhorn.fotopresenter.MainCoroutineRule
 import com.kevinschildhorn.fotopresenter.testingModule
-import com.kevinschildhorn.fotopresenter.ui.state.UiState
+import com.kevinschildhorn.fotopresenter.ui.UiState
+import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.russhwolf.settings.MapSettings
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.Rule
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
@@ -23,10 +22,6 @@ Testing [LoginViewModel]
  **/
 @OptIn(ExperimentalCoroutinesApi::class)
 class LoginViewModelTest : KoinTest {
-    @ExperimentalCoroutinesApi
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
-
     private val viewModel: LoginViewModel by inject()
     private val settings =
         MapSettings(

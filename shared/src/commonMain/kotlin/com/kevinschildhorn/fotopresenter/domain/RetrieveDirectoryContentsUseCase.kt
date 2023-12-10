@@ -9,7 +9,7 @@ import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 /**
-Retrieving Directories from Location
+Retrieving Directory Contents from Path
  **/
 class RetrieveDirectoryContentsUseCase(
     private val directoryRepository: DirectoryRepository,
@@ -17,8 +17,10 @@ class RetrieveDirectoryContentsUseCase(
     private val logger: Logger,
 ) {
     suspend operator fun invoke(path: String): DirectoryContents {
+        logger.i { "Getting directory Contents at path $path" }
         val directoryContents = directoryRepository.getDirectoryContents(path)
         return directoryContents.updateImages {
+            logger.i { "Updating Image File ${it.name}" }
             imageRepository.getImage(it)
         }
     }
