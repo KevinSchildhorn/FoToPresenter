@@ -144,9 +144,11 @@ class DirectoryViewModel(
             _directoryContentsState.update { directoryContents }
 
             logger.i { "Updating State to Success" }
+            val gridState = directoryContents.asDirectoryGridState
+            logger.i { "New Grid State $gridState" }
             _uiState.update {
                 it.copy(
-                    directoryGridState = directoryContents.asDirectoryGridState,
+                    directoryGridState = gridState,
                     state = UiState.SUCCESS,
                 )
             }

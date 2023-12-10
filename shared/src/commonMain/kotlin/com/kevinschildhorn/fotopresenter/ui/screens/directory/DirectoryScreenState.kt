@@ -48,6 +48,14 @@ data class DirectoryGridState(
 ) {
     val allStates: List<DirectoryGridCellState>
         get() = folderStates + imageStates
+
+    override fun toString(): String =
+        """
+            Directory Grid State:
+            Folder States: ${folderStates.count()}
+            Image States: ${imageStates.count()}
+        """
+
 }
 
 data class FolderDirectoryGridCellState(

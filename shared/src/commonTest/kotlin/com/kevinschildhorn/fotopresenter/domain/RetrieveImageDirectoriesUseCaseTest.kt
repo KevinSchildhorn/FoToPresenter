@@ -45,7 +45,7 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
         runBlocking {
             val details = MockNetworkDirectoryDetails("", 1)
             val result = useCase(details)
-            assertEquals(4, result.count())
+            assertEquals(6, result.count())
         }
 
     @Test

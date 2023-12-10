@@ -18,24 +18,40 @@ object MockNetworkHandler : NetworkHandler {
     private val networkContents =
         mapOf(
             "" to
-                listOf<NetworkDirectoryDetails>(
-                    MockNetworkDirectoryDetails(fullPath = "Photos", id = photoDirectoryId),
-                    MockNetworkDirectoryDetails(fullPath = "NewDirectory", id = 1),
-                    MockNetworkDirectoryDetails(fullPath = "Peeng.png", id = 2),
-                    MockNetworkDirectoryDetails(fullPath = "Jaypeg.jpg", id = 3),
-                    MockNetworkDirectoryDetails(fullPath = "textFile.txt", id = 4),
-                ),
+                    listOf<NetworkDirectoryDetails>(
+                        MockNetworkDirectoryDetails(fullPath = "Photos", id = photoDirectoryId),
+                        MockNetworkDirectoryDetails(fullPath = "NewDirectory", id = 1),
+                        MockNetworkDirectoryDetails(fullPath = "Peeng.png", id = 2),
+                        MockNetworkDirectoryDetails(fullPath = "Jaypeg.jpg", id = 3),
+                        MockNetworkDirectoryDetails(fullPath = "textFile.txt", id = 4),
+                    ),
             "Directories" to
-                listOf<NetworkDirectoryDetails>(
-                    MockNetworkDirectoryDetails(fullPath = "Directories/NewDirectory", id = 1),
-                    MockNetworkDirectoryDetails(fullPath = "Directories/NewDirectory2", id = 2),
-                ),
+                    listOf<NetworkDirectoryDetails>(
+                        MockNetworkDirectoryDetails(fullPath = "Directories/NewDirectory", id = 1),
+                        MockNetworkDirectoryDetails(fullPath = "Directories/NewDirectory2", id = 2),
+                    ),
             "Photos" to
-                listOf<NetworkDirectoryDetails>(
-                    MockNetworkDirectoryDetails(fullPath = "Photos/Peeng.png", id = 2),
-                    MockNetworkDirectoryDetails(fullPath = "Photos/Jaypeg.jpg", id = 3),
-                    MockNetworkDirectoryDetails(fullPath = "Photos/textFile.txt", id = 4),
-                ),
+                    listOf<NetworkDirectoryDetails>(
+                        MockNetworkDirectoryDetails(fullPath = "Photos/Peeng2.png", id = 2),
+                        MockNetworkDirectoryDetails(fullPath = "Photos/Jaypeg2.jpg", id = 3),
+                        MockNetworkDirectoryDetails(fullPath = "Photos/textFile2.txt", id = 4),
+                        MockNetworkDirectoryDetails(fullPath = "Photos/SubPhotos", id = 5),
+                    ),
+            "Photos/SubPhotos" to
+                    listOf<NetworkDirectoryDetails>(
+                        MockNetworkDirectoryDetails(
+                            fullPath = "Photos/SubPhotos/Peeng3.png",
+                            id = 2
+                        ),
+                        MockNetworkDirectoryDetails(
+                            fullPath = "Photos/SubPhotos/Jaypeg3.jpg",
+                            id = 3
+                        ),
+                        MockNetworkDirectoryDetails(
+                            fullPath = "Photos/SubPhotos/textFile3.txt",
+                            id = 4
+                        ),
+                    ),
         )
 
     private val successImageName: String = "Photos/Success.png"

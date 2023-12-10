@@ -84,7 +84,7 @@ class DirectoryDataSourceTest {
     fun `get Directory Contents Empty`() =
         runBlocking {
             val directories = dataSource.getFolderDirectories("Photos")
-            assertEquals(0, directories.count())
+            assertEquals(1, directories.count())
         }
 
     //endregion

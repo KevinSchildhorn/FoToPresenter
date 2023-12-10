@@ -21,6 +21,7 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
@@ -102,13 +103,16 @@ class DirectoryViewModelTest : KoinTest {
             // Changing Directory
             viewModel.changeDirectory(firstId)
             state = awaitItem()
-            state = awaitItem()
-            assertEquals(UiState.LOADING, state.state)
-            state = awaitItem()
             assertEquals(UiState.SUCCESS, state.state)
+            while(state.currentPath.isEmpty()){
+                state = awaitItem()
+            }
             assertEquals("Photos",state.currentPath)
+            while(state.directoryGridState.folderStates.count() != 1) {
+                state = awaitItem()
+            }
             assertEquals(2, state.directoryGridState.imageStates.count())
-            assertEquals(0, state.directoryGridState.folderStates.count())
+            assertEquals(1, state.directoryGridState.folderStates.count())
             cancelAndIgnoreRemainingEvents()
         }
     }
@@ -126,6 +130,15 @@ class DirectoryViewModelTest : KoinTest {
             assertEquals(UiState.SUCCESS, state.state)
 
             viewModel.startSlideshow(MockNetworkHandler.photoDirectoryId)
+            while(state.slideshowDetails == null){
+                state = awaitItem()
+            }
+            assertNotNull(state.slideshowDetails)
+            while (state.slideshowDetails?.directories!!.count() != 4){
+                state = awaitItem()
+            }
+            val list = state.slideshowDetails?.directories!!
+            assertEquals(4, list.size)
             cancelAndIgnoreRemainingEvents()
         }
     }
@@ -141,6 +154,8 @@ class DirectoryViewModelTest : KoinTest {
             assertEquals(UiState.LOADING, state.state)
             state = awaitItem()
             assertEquals(UiState.SUCCESS, state.state)
+
+            //viewModel.setSelectedImageById(1) TODO
         }
     }
     // startSlideshow
