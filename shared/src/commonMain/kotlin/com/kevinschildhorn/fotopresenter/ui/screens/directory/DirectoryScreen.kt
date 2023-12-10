@@ -33,10 +33,10 @@ fun DirectoryScreen(
     // State
     uiState.state.asComposable(
         modifier =
-        Modifier.padding(
-            horizontal = Padding.STANDARD.dp,
-            vertical = Padding.SMALL.dp,
-        ),
+            Modifier.padding(
+                horizontal = Padding.STANDARD.dp,
+                vertical = Padding.SMALL.dp,
+            ),
     )
 
     // UI
@@ -46,8 +46,8 @@ fun DirectoryScreen(
     DirectoryGrid(
         uiState.directoryGridState,
         modifier =
-        Modifier
-            .padding(top = Padding.EXTRA_LARGE.dp),
+            Modifier
+                .padding(top = Padding.EXTRA_LARGE.dp),
         onFolderPressed = {
             viewModel.changeDirectory(it)
         },

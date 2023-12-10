@@ -17,8 +17,8 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.FolderDirectoryGridCellState
@@ -93,6 +93,6 @@ fun DirectoryGrid(
         onDismiss = {
             actionSheetVisible = false
             contextMenuPhotoState = null
-        }
+        },
     )
 }

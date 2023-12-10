@@ -5,6 +5,7 @@ import io.github.reactivecircus.cache4k.Cache
 
 interface CacheInterface {
     fun getImage(id: String): ImageBitmap?
+
     fun cacheImage(
         id: String,
         imageBitmap: ImageBitmap,
@@ -27,11 +28,12 @@ object SharedCache : CacheInterface {
 class MockSharedCache : CacheInterface {
     val contents = mutableMapOf<String, ImageBitmap>()
 
-    override fun cacheImage(id: String, imageBitmap: ImageBitmap) {
+    override fun cacheImage(
+        id: String,
+        imageBitmap: ImageBitmap,
+    ) {
         contents[id] = imageBitmap
     }
 
-    override fun getImage(id: String): ImageBitmap? =
-        contents[id]
-
+    override fun getImage(id: String): ImageBitmap? = contents[id]
 }

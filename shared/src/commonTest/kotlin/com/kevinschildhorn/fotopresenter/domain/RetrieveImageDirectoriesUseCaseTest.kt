@@ -23,7 +23,6 @@ Testing [RetrieveImageDirectoriesUseCase]
 class RetrieveImageDirectoriesUseCaseTest : KoinTest {
     private val useCase: RetrieveImageDirectoriesUseCase by inject()
 
-
     @BeforeTest
     fun startTest() =
         runBlocking {

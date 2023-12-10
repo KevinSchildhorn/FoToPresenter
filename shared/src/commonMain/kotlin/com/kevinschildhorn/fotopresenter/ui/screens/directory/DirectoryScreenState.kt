@@ -3,8 +3,6 @@ package com.kevinschildhorn.fotopresenter.ui.screens.directory
 import androidx.compose.ui.graphics.ImageBitmap
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.State
-import com.kevinschildhorn.fotopresenter.extension.getNextIndex
-import com.kevinschildhorn.fotopresenter.extension.getPreviousIndex
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
@@ -32,14 +30,13 @@ data class DirectoryScreenState(
         }
         return this.copy(
             directoryGridState =
-            directoryGridState.copy(
-                imageStates = list,
-            ),
+                directoryGridState.copy(
+                    imageStates = list,
+                ),
         )
     }
 
-    fun getImageIndexFromId(id: Int): Int =
-        directoryGridState.imageStates.indexOfFirst { it.id == id }
+    fun getImageIndexFromId(id: Int): Int = directoryGridState.imageStates.indexOfFirst { it.id == id }
 }
 
 data class DirectoryGridState(
@@ -57,7 +54,6 @@ data class DirectoryGridState(
             Images: ${imageStates.count()}
                 ${imageStates.map { it.toString() }.joinToString(", ")}
             """
-
 }
 
 data class FolderDirectoryGridCellState(
@@ -75,12 +71,10 @@ data class ImageDirectoryGridCellState(
     override val name: String,
     override val id: Int,
 ) : DirectoryGridCellState {
-
     override val actionSheetContexts: List<ActionSheetContext>
         get() = listOf(ActionSheetContext(ActionSheetAction.NONE, 1))
 
     override fun toString(): String = "(I:$name:$id)"
-
 }
 
 interface DirectoryGridCellState {

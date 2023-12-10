@@ -46,5 +46,4 @@ class DisconnectFromServerUseCaseTest : KoinTest {
             useCase()
             assertFalse(MockNetworkHandler.isConnected, "Failed to Disconnect")
         }
-
 }

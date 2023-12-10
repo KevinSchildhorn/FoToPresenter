@@ -22,8 +22,6 @@ import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
 import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedCache
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -55,7 +53,7 @@ val commonModule =
                 baseLogger.withTag("RetrieveDirectoryContentsUseCase"),
             )
         }
-        factory { RetrieveImageUseCase(get(),baseLogger.withTag("RetrieveImagesUseCase")) }
+        factory { RetrieveImageUseCase(get(), baseLogger.withTag("RetrieveImagesUseCase")) }
 
         // UI
         single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }

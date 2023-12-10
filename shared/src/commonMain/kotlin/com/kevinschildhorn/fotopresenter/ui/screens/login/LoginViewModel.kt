@@ -88,7 +88,7 @@ class LoginViewModel(
         }
     }
 
-    fun setLoggedOut()  {
+    fun setLoggedOut() {
         _uiState.update { it.copy(state = UiState.IDLE) }
     }
 

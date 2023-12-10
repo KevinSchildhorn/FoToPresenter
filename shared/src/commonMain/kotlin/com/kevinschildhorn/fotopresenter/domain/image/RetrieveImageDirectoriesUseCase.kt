@@ -13,7 +13,6 @@ Retrieving Image Directories from Path
 class RetrieveImageDirectoriesUseCase(
     private val logger: Logger,
 ) : KoinComponent {
-
     suspend operator fun invoke(
         directoryDetails: NetworkDirectoryDetails,
         recursively: Boolean = true,

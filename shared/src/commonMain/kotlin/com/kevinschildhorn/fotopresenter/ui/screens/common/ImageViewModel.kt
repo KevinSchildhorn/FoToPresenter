@@ -19,11 +19,15 @@ import org.koin.core.component.inject
 interface ImageViewModel {
     var scope: CoroutineScope?
     val imageUiState: StateFlow<ImageScreenState>
+
     fun setImageDirectories(directories: List<ImageDirectory>)
+
     fun showPreviousImage()
+
     fun showNextImage()
 
     fun setSelectedImage(index: Int?)
+
     fun setImageScope(coroutineScope: CoroutineScope) {
         scope = coroutineScope
     }
@@ -31,9 +35,7 @@ interface ImageViewModel {
     fun clearPresentedImage()
 }
 
-class DefaultImageViewModel(
-) : ImageViewModel, KoinComponent {
-
+class DefaultImageViewModel() : ImageViewModel, KoinComponent {
     private val _uiState = MutableStateFlow(ImageScreenState())
     override var scope: CoroutineScope? = null
     override val imageUiState: StateFlow<ImageScreenState> = _uiState.asStateFlow()

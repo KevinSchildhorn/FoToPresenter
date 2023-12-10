@@ -1,6 +1,5 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.slideshow
 
-import androidx.compose.ui.graphics.ImageBitmap
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageScreenState
 

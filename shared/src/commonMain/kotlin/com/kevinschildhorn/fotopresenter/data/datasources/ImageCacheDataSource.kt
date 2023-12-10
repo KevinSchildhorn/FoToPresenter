@@ -5,8 +5,7 @@ import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
 
 class ImageCacheDataSource(private val cache: CacheInterface) {
-    fun getImage(directory: NetworkDirectoryDetails): ImageBitmap? =
-        cache.getImage(directory.cacheId)
+    fun getImage(directory: NetworkDirectoryDetails): ImageBitmap? = cache.getImage(directory.cacheId)
 
     fun saveImage(
         directory: NetworkDirectoryDetails,

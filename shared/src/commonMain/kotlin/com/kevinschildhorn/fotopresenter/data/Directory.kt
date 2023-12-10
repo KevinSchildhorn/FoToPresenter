@@ -16,16 +16,14 @@ interface Directory {
 data class FolderDirectory(
     override val details: NetworkDirectoryDetails,
 ) : Directory {
-    override fun toString(): String =
-        "(F:${details.fullPath}:${details.id})"
+    override fun toString(): String = "(F:${details.fullPath}:${details.id})"
 }
 
 data class ImageDirectory(
     override val details: NetworkDirectoryDetails,
     val image: SharedImage? = null,
 ) : Directory {
-    override fun toString(): String =
-        "(I:${details.fullPath}:${details.id})"
+    override fun toString(): String = "(I:${details.fullPath}:${details.id})"
 }
 
 data class DirectoryContents(

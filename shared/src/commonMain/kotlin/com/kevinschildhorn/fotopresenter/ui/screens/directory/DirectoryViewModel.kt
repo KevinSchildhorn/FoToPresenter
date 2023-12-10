@@ -16,7 +16,6 @@ import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.DefaultImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.shared.ViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,7 +30,6 @@ class DirectoryViewModel(
 ) : ViewModel(),
     ImageViewModel by DefaultImageViewModel(),
     KoinComponent {
-
     private val _uiState = MutableStateFlow(DirectoryScreenState())
     val uiState: StateFlow<DirectoryScreenState> = _uiState.asStateFlow()
 
@@ -103,7 +101,6 @@ class DirectoryViewModel(
         viewModelScope.launch(Dispatchers.Default) {
             val changeDirectoryUseCase: ChangeDirectoryUseCase by inject()
             try {
-
                 logger.i { "Getting New Path" }
                 val newPath = changeDirectoryUseCase(currentPath.addPath(directory.name))
                 logger.i { "New Path got: $newPath" }
@@ -115,9 +112,9 @@ class DirectoryViewModel(
                 _uiState.update {
                     it.copy(
                         state =
-                        UiState.ERROR(
-                            e.message ?: "An Unknown Network Error Occurred",
-                        ),
+                            UiState.ERROR(
+                                e.message ?: "An Unknown Network Error Occurred",
+                            ),
                     )
                 }
             } catch (e: Exception) {
@@ -125,9 +122,9 @@ class DirectoryViewModel(
                 _uiState.update {
                     it.copy(
                         state =
-                        UiState.ERROR(
-                            e.message ?: "Something Went Wrong",
-                        ),
+                            UiState.ERROR(
+                                e.message ?: "Something Went Wrong",
+                            ),
                     )
                 }
             }
@@ -183,13 +180,13 @@ class DirectoryViewModel(
             DirectoryGridState(
                 folderStates = this.folders.map { FolderDirectoryGridCellState(it.name, it.id) },
                 imageStates =
-                this.images.map {
-                    ImageDirectoryGridCellState(
-                        State.IDLE,
-                        it.name,
-                        it.id,
-                    )
-                }.toMutableList(),
+                    this.images.map {
+                        ImageDirectoryGridCellState(
+                            State.IDLE,
+                            it.name,
+                            it.id,
+                        )
+                    }.toMutableList(),
             )
 
     //endregion

@@ -1,8 +1,8 @@
 package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
 import com.kevinschildhorn.fotopresenter.testingModule
-import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.UiState
+import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.russhwolf.settings.MapSettings
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -22,7 +22,6 @@ Testing [LoginViewModel]
  **/
 @OptIn(ExperimentalCoroutinesApi::class)
 class LoginViewModelTest : KoinTest {
-
     private val viewModel: LoginViewModel by inject()
     private val settings =
         MapSettings(

@@ -2,12 +2,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
-import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.common.Screen
-import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowScreen
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
 
 @Composable
@@ -27,7 +27,8 @@ fun App(
                 }
 
             Screen.DIRECTORY ->
-                DirectoryScreen(directoryViewModel,
+                DirectoryScreen(
+                    directoryViewModel,
                     onLogout = {
                         loginViewModel.setLoggedOut()
                         currentScreen.value = Screen.LOGIN
@@ -35,13 +36,13 @@ fun App(
                     onStartSlideshow = {
                         slideshowViewModel.setSlideshow(it)
                         currentScreen.value = Screen.SLIDESHOW
-                    })
+                    },
+                )
 
             Screen.SLIDESHOW ->
                 SlideshowScreen(slideshowViewModel) {
                     currentScreen.value = Screen.DIRECTORY
                 }
-
         }
     }
 }

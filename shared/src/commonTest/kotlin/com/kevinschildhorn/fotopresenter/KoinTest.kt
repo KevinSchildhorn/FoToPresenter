@@ -6,10 +6,6 @@ import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.russhwolf.settings.MapSettings
 import com.russhwolf.settings.Settings
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.TestDispatcher
 import org.koin.dsl.module
 
 private val baseLogger = Logger(LoggerConfig.default)

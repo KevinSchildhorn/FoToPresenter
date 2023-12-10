@@ -52,7 +52,6 @@ class CredentialsRepositoryTest : KoinTest {
         assertEquals(shouldAutoConnect, credentials.shouldAutoConnect)
     }
 
-
     @Test
     fun `clear auto-connect`() {
         repository.saveCredentials(
