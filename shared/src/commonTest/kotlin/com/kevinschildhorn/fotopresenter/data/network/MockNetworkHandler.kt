@@ -21,7 +21,7 @@ object MockNetworkHandler : NetworkHandler {
                     listOf<NetworkDirectoryDetails>(
                         MockNetworkDirectoryDetails(fullPath = "Photos", id = photoDirectoryId),
                         MockNetworkDirectoryDetails(fullPath = "NewDirectory", id = 1),
-                        MockNetworkDirectoryDetails(fullPath = "Peeng.png", id = 2),
+                        MockNetworkDirectoryDetails(fullPath = "Peeng.png", id = 75),
                         MockNetworkDirectoryDetails(fullPath = "Jaypeg.jpg", id = 3),
                         MockNetworkDirectoryDetails(fullPath = "textFile.txt", id = 4),
                     ),

@@ -52,9 +52,11 @@ data class DirectoryGridState(
     override fun toString(): String =
         """
             Directory Grid State:
-            Folder States: ${folderStates.count()}
-            Image States: ${imageStates.count()}
-        """
+            Folders: ${folderStates.count()}
+                ${folderStates.map { it.toString() }.joinToString(", ")}
+            Images: ${imageStates.count()}
+                ${imageStates.map { it.toString() }.joinToString(", ")}
+            """
 
 }
 
@@ -64,6 +66,8 @@ data class FolderDirectoryGridCellState(
 ) : DirectoryGridCellState {
     override val actionSheetContexts: List<ActionSheetContext>
         get() = listOf(ActionSheetContext(ActionSheetAction.START_SLIDESHOW, 1))
+
+    override fun toString(): String = "(F:$name:$id)"
 }
 
 data class ImageDirectoryGridCellState(
@@ -74,6 +78,9 @@ data class ImageDirectoryGridCellState(
 
     override val actionSheetContexts: List<ActionSheetContext>
         get() = listOf(ActionSheetContext(ActionSheetAction.NONE, 1))
+
+    override fun toString(): String = "(I:$name:$id)"
+
 }
 
 interface DirectoryGridCellState {

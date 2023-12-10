@@ -79,10 +79,12 @@ class DirectoryViewModel(
     }
 
     fun setSelectedImageById(imageId: Int?) {
+        logger.i { "Set Image with ID: $imageId" }
         var index: Int? = null
         imageId?.let {
             index = _uiState.value.getImageIndexFromId(it)
         }
+        logger.i { "Set Image with Index: $index" }
         setSelectedImage(index)
     }
 
@@ -144,6 +146,8 @@ class DirectoryViewModel(
             _directoryContentsState.update { directoryContents }
 
             logger.i { "Updating State to Success" }
+            logger.i { "Setting Directories: $directoryContents" }
+            setImageDirectories(directoryContents.images)
             val gridState = directoryContents.asDirectoryGridState
             logger.i { "New Grid State $gridState" }
             _uiState.update {
@@ -158,7 +162,7 @@ class DirectoryViewModel(
     }
 
     private fun updatePhotos() {
-        _directoryContentsState.value.images.forEach { imageDirectory ->
+        imageUiState.value.imageDirectories.forEach { imageDirectory ->
             viewModelScope.launch(Dispatchers.Default) {
                 val retrieveImagesUseCase: RetrieveImageUseCase by inject()
 

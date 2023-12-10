@@ -15,12 +15,18 @@ interface Directory {
 
 data class FolderDirectory(
     override val details: NetworkDirectoryDetails,
-) : Directory
+) : Directory {
+    override fun toString(): String =
+        "(F:${details.fullPath}:${details.id})"
+}
 
 data class ImageDirectory(
     override val details: NetworkDirectoryDetails,
     val image: SharedImage? = null,
-) : Directory
+) : Directory {
+    override fun toString(): String =
+        "(I:${details.fullPath}:${details.id})"
+}
 
 data class DirectoryContents(
     val folders: List<FolderDirectory> = emptyList(),
@@ -33,7 +39,9 @@ data class DirectoryContents(
         return """
             DirectoryContents:
             Folders: ${folders.count()}
+                ${folders.map { it.toString() }.joinToString(", ")}
             Images: ${images.count()}
+                ${images.map { it.toString() }.joinToString(", ")}
             """
     }
 }
