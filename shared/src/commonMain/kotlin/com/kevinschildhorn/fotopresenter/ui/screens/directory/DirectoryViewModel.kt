@@ -16,6 +16,7 @@ import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.DefaultImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.shared.ViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -54,9 +55,11 @@ class DirectoryViewModel(
     }
 
     fun logout() {
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch {
+            logger.i { "Logging Out" }
             val logoutUseCase: DisconnectFromServerUseCase by inject()
             logoutUseCase()
+            logger.d { "Setting loggedIn state to false" }
             _uiState.update { it.copy(loggedIn = false) }
         }
     }
@@ -140,13 +143,14 @@ class DirectoryViewModel(
             logger.i { "Got Directory Contents: ${directoryContents.allDirectories.count()}" }
             _directoryContentsState.update { directoryContents }
 
-            logger.i { "Updating State" }
+            logger.i { "Updating State to Success" }
             _uiState.update {
                 it.copy(
                     directoryGridState = directoryContents.asDirectoryGridState,
                     state = UiState.SUCCESS,
                 )
             }
+            logger.i { "Current State ${uiState.value.state}" }
             updatePhotos()
         }
     }

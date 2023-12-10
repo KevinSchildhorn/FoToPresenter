@@ -51,6 +51,7 @@ kotlin {
                 implementation("com.russhwolf:multiplatform-settings-test:1.0.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
                 implementation("io.insert-koin:koin-test:3.4.0")
+                implementation("app.cash.turbine:turbine:1.0.0")
             }
         }
 

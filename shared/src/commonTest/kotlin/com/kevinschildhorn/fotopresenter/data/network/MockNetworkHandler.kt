@@ -13,11 +13,13 @@ object MockNetworkHandler : NetworkHandler {
             shouldAutoConnect = false,
         )
 
+    val photoDirectoryId = 5
+
     private val networkContents =
         mapOf(
             "" to
                 listOf<NetworkDirectoryDetails>(
-                    MockNetworkDirectoryDetails(fullPath = "Photos", id = 0),
+                    MockNetworkDirectoryDetails(fullPath = "Photos", id = photoDirectoryId),
                     MockNetworkDirectoryDetails(fullPath = "NewDirectory", id = 1),
                     MockNetworkDirectoryDetails(fullPath = "Peeng.png", id = 2),
                     MockNetworkDirectoryDetails(fullPath = "Jaypeg.jpg", id = 3),
