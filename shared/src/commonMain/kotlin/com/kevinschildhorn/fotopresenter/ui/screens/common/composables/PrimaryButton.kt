@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
+\package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
