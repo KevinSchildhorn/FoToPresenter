@@ -16,11 +16,19 @@ class SlideshowViewModel(
 ) : ViewModel(),
     ImageViewModel by DefaultImageViewModel(),
     KoinComponent {
+
     private val _uiState = MutableStateFlow(SlideshowScreenState())
     val uiState: StateFlow<SlideshowScreenState> = _uiState.asStateFlow()
+
+    init {
+        setImageScope(viewModelScope)
+    }
 
     fun setSlideshow(details: ImageSlideshowDetails) {
         _uiState.update { it.copy(slideshowDetails = details) }
         setImageDirectories(details.directories)
+        details.directories.firstOrNull()?.let {
+            setSelectedImage(it.id)
+        }
     }
 }

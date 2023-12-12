@@ -17,6 +17,11 @@ data class FolderDirectory(
     override val details: NetworkDirectoryDetails,
 ) : Directory {
     override fun toString(): String = "(F:${details.fullPath}:${details.id})"
+
+    val isValid: Boolean
+        get() = name != ".." &&
+                name.isNotEmpty() &&
+                name.isNotBlank()
 }
 
 data class ImageDirectory(
