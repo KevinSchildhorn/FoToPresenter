@@ -36,6 +36,7 @@ kotlin {
         publishLibraryVariants("debug", "release")
     }
     jvm("desktop")
+    /*
     listOf(
         iosX64(),
         iosArm64(),
@@ -44,7 +45,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "atomik"
         }
-    }
+    }*/
     jvm("desktop")
 
     jvmToolchain(15)
@@ -77,6 +78,7 @@ kotlin {
                 api("androidx.core:core-ktx:1.12.0")
             }
         }
+        /*
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -85,7 +87,7 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
-        }
+        }*/
 
         val desktopMain by getting {
             dependsOn(jvmMain)

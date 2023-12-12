@@ -1,7 +1,9 @@
 package com.kevinschildhorn.fotopresenter
 
+import app.cash.sqldelight.db.SqlDriver
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
+import com.kevinschildhorn.fotopresenter.ui.shared.DriverFactory
 import com.russhwolf.settings.PreferencesSettings
 import com.russhwolf.settings.Settings
 import org.koin.core.module.Module
@@ -21,4 +23,5 @@ internal actual val platformModule: Module = module {
     single<NetworkHandler> {
         SMBJHandler
     }
+    single<SqlDriver> { DriverFactory().createDriver() }
 }

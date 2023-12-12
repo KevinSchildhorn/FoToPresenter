@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.compose")
     id("org.jlleitschuh.gradle.ktlint")
     id("dev.icerock.mobile.multiplatform-resources")
+    id("app.cash.sqldelight")
 }
 
 kotlin {
@@ -61,6 +62,7 @@ kotlin {
             dependencies {
                 implementation("com.hierynomus:smbj:0.13.0")
                 implementation(compose.uiTooling)
+                implementation("app.cash.sqldelight:sqlite-driver:2.0.1")
             }
         }
 
@@ -72,6 +74,7 @@ kotlin {
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.12.0")
                 implementation("io.github.kevinschildhorn:atomik:0.0.6")
+                implementation("app.cash.sqldelight:android-driver:2.0.1")
             }
         }
         /*
@@ -84,6 +87,7 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             resources.srcDirs("src/commonMain/resources")
+            implementation("app.cash.sqldelight:native-driver:2.0.1")
         }*/
         val desktopMain by getting {
             dependsOn(jvmMain)
@@ -122,4 +126,12 @@ multiplatformResources {
 
 dependencies {
     ktlintRuleset("com.twitter.compose.rules:ktlint:0.0.26")
+}
+
+sqldelight {
+    databases {
+        create("PlaylistDatabase") {
+            packageName.set("com.kevinschildhorn.fotopresenter")
+        }
+    }
 }

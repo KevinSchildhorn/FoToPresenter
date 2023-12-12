@@ -1,0 +1,27 @@
+CREATE TABLE Playlist (
+  id INTEGER PRIMARY KEY NOT NULL,
+  name TEXT UNIQUE NOT NULL
+);
+
+selectAllPlaylists:
+SELECT *
+FROM Playlist;
+
+selectPlaylistByName:
+SELECT *
+FROM Playlist
+WHERE name = ?;
+
+insertPlaylist:
+INSERT INTO Playlist(name)
+VALUES (?);
+
+updatePlaylist:
+UPDATE Playlist
+SET name = ?
+WHERE id = :id;
+
+deletePlaylist:
+DELETE
+FROM Playlist
+WHERE name = ?;

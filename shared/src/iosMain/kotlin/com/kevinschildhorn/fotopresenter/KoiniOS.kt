@@ -30,4 +30,5 @@ internal actual val platformModule: Module = module {
             ),
         )
     }
+    single<SqlDriver> { DriverFactory().createDriver() }
 }

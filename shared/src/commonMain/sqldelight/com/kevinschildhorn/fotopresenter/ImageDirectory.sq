@@ -1,0 +1,25 @@
+CREATE TABLE PlaylistImage (
+  id INTEGER PRIMARY KEY NOT NULL,
+  playlist_id INTEGER NOT NULL,
+  directory_path TEXT NOT NULL,
+  directory_id INTEGER NOT NULL
+);
+
+insertPlaylistImage:
+INSERT INTO PlaylistImage(playlist_id, directory_path, directory_id)
+VALUES (?, ?, ?);
+
+selectPlaylistImage:
+SELECT *
+FROM PlaylistImage
+WHERE playlist_id = ? AND directory_path = ?;
+
+deletePlaylistImage:
+DELETE
+FROM PlaylistImage
+WHERE directory_path = ?;
+
+deletePlaylist:
+DELETE
+FROM PlaylistImage
+WHERE playlist_id = ?;
