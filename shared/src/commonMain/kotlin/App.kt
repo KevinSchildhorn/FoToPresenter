@@ -35,6 +35,7 @@ fun App(
                     },
                     onStartSlideshow = {
                         slideshowViewModel.setSlideshow(it)
+                        directoryViewModel.clearSlideshow()
                         currentScreen.value = Screen.SLIDESHOW
                     },
                 )

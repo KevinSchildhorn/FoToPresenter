@@ -70,32 +70,14 @@ fun ImagePreviewOverlay(
                         .height(44.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Button(
+                PrimaryIconButton(
+                    EvaIcons.Fill.ArrowLeft,
                     onClick = onBack,
-                    colors =
-                        ButtonDefaults.buttonColors(
-                            backgroundColor = FotoColors.primary.composeColor,
-                        ),
-                ) {
-                    Icon(
-                        EvaIcons.Fill.ArrowLeft,
-                        contentDescription = null,
-                        tint = FotoColors.surface.composeColor,
                     )
-                }
-                Button(
+                PrimaryIconButton(
+                    EvaIcons.Fill.ArrowRight,
                     onClick = onForward,
-                    colors =
-                        ButtonDefaults.buttonColors(
-                            backgroundColor = FotoColors.primary.composeColor,
-                        ),
-                ) {
-                    Icon(
-                        EvaIcons.Fill.ArrowRight,
-                        contentDescription = null,
-                        tint = FotoColors.surface.composeColor,
-                    )
-                }
+                )
             }
         }
         /*

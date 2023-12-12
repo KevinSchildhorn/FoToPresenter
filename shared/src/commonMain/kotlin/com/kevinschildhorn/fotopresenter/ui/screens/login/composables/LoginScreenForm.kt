@@ -11,7 +11,7 @@ import com.kevinschildhorn.fotopresenter.extension.required
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.FormColumn
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryButton
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryTextButton
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreenState
 
 @Composable
@@ -68,7 +68,7 @@ fun LoginScreenForm(
                 onCheckedChange = onShouldAutoConnectChange,
                 modifier = Modifier.fillMaxWidth(),
             )
-            PrimaryButton(
+            PrimaryTextButton(
                 title = "Log In",
                 onClick = loginButtonClicked,
                 modifier = Modifier.fillMaxWidth(),

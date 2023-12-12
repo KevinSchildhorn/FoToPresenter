@@ -76,6 +76,10 @@ class DirectoryViewModel(
         }
     }
 
+    fun clearSlideshow(){
+        _uiState.update { it.copy(slideshowDetails = null) }
+    }
+
     fun setSelectedImageById(imageId: Int?) {
         logger.i { "Set Image with ID: $imageId" }
         var index: Int? = null

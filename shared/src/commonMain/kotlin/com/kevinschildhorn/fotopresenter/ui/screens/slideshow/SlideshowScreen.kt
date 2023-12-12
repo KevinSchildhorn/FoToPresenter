@@ -3,6 +3,7 @@ package com.kevinschildhorn.fotopresenter.ui.screens.slideshow
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.LoadingOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.Overlay
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryIconButton
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.ArrowLeft
@@ -33,10 +35,7 @@ fun SlideshowScreen(
     val uiState by viewModel.uiState.collectAsState()
     val imageState by viewModel.imageUiState.collectAsState()
 
-    Column(modifier = Modifier.fillMaxSize().background(Color.Black)) {
-
-
-
+    Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
         imageState.selectedImage?.let { bitmap ->
             Image(
                 bitmap = bitmap,
@@ -46,37 +45,40 @@ fun SlideshowScreen(
         } ?: kotlin.run {
             LoadingOverlay()
         }
+    }
 
-        Overlay(5f, modifier = Modifier.fillMaxSize()){
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceBetween) {
-                Row(
-                    modifier = Modifier.fillMaxWidth().height(44.dp),
-                    horizontalArrangement = Arrangement.End,
-                ) {
-                    Button(onClick = onDismiss) {
-                        Icon(EvaIcons.Fill.Close, contentDescription = null)
+    Overlay(5f, modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth().height(44.dp),
+                horizontalArrangement = Arrangement.End,
+            ) {
+                PrimaryIconButton(
+                    EvaIcons.Fill.Close,
+                    onClick = {
+                        viewModel.stopSlideshow()
+                        onDismiss()
                     }
-                }
-
-                Row(
-                    modifier = Modifier.fillMaxWidth().height(44.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    Button(onClick = {
-                        viewModel.skipBackwards()
-                    }) {
-                        Icon(EvaIcons.Fill.ArrowLeft, contentDescription = null)
-                    }
-                    Button(onClick = {
-                        viewModel.skipForward()
-                    }) {
-                        Icon(EvaIcons.Fill.ArrowRight, contentDescription = null)
-                    }
-                }
+                )
             }
 
+            Row(
+                modifier = Modifier.fillMaxWidth().height(44.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+
+                PrimaryIconButton(EvaIcons.Fill.ArrowLeft,
+                    onClick = {
+                        viewModel.skipBackwards()
+                    })
+                PrimaryIconButton(EvaIcons.Fill.ArrowRight,
+                    onClick = {
+                        viewModel.skipForward()
+                    })
+            }
         }
     }
 }

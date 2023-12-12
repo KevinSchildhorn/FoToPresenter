@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ImagePreviewOverlay
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryButton
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryTextButton
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryGrid
 
 @Composable
@@ -40,7 +40,7 @@ fun DirectoryScreen(
     )
 
     // UI
-    PrimaryButton("Logout") {
+    PrimaryTextButton("Logout") {
         viewModel.logout()
     }
     DirectoryGrid(

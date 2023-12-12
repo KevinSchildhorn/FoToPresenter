@@ -58,6 +58,13 @@ class SlideshowViewModel(
         startImageTimer()
     }
 
+    fun stopSlideshow(){
+        stopImageTimer()
+        clearPresentedImage()
+        setImageDirectories(emptyList())
+        _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails()) }
+    }
+
     private fun startImageTimer(seconds: Long = 5L) {
         val time = seconds * 1000
         timer = fixedRateTimer(period = time, initialDelay = time) {

@@ -7,15 +7,15 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ButtonState
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryButton
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryTextButton
 
 @Preview
 @Composable
 fun PrimaryButtonPreview() {
     Column {
-        PrimaryButton("Enabled", buttonState = ButtonState.ENABLED) {}
-        PrimaryButton("Disabled", buttonState = ButtonState.DISABLED) {}
-        PrimaryButton("Loading", buttonState = ButtonState.LOADING) {}
+        PrimaryTextButton("Enabled", buttonState = ButtonState.ENABLED) {}
+        PrimaryTextButton("Disabled", buttonState = ButtonState.DISABLED) {}
+        PrimaryTextButton("Loading", buttonState = ButtonState.LOADING) {}
     }
 }
 
