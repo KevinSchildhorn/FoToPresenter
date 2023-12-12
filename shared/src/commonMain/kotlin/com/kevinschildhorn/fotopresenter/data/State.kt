@@ -44,4 +44,17 @@ sealed class State<out DATA> {
             else -> {}
         }
     }
+
+    override fun toString(): String =
+        """
+            State:${
+            when (this) {
+                is IDLE -> "Idle"
+                is LOADING -> "Loading"
+                is ERROR -> "Error: ${message}"
+                is SUCCESS -> "Success:${data}"
+            }
+        }
+        """.trimIndent()
+
 }

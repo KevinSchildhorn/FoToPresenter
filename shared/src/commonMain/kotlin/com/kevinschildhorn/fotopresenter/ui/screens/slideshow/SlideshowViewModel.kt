@@ -14,7 +14,7 @@ import org.koin.core.component.KoinComponent
 class SlideshowViewModel(
     private val logger: Logger,
 ) : ViewModel(),
-    ImageViewModel by DefaultImageViewModel(),
+    ImageViewModel by DefaultImageViewModel(logger),
     KoinComponent {
 
     private val _uiState = MutableStateFlow(SlideshowScreenState())
@@ -27,8 +27,6 @@ class SlideshowViewModel(
     fun setSlideshow(details: ImageSlideshowDetails) {
         _uiState.update { it.copy(slideshowDetails = details) }
         setImageDirectories(details.directories)
-        details.directories.firstOrNull()?.let {
-            setSelectedImage(it.id)
-        }
+        setSelectedImage(0)
     }
 }

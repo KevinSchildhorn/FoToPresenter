@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,6 +25,8 @@ fun SlideshowScreen(
     onDismiss: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val imageState by viewModel.imageUiState.collectAsState()
+
     Column(modifier = Modifier.fillMaxSize()) {
         Row(
             modifier = Modifier.fillMaxWidth().height(44.dp),
@@ -33,12 +36,15 @@ fun SlideshowScreen(
                 Icon(EvaIcons.Fill.Close, contentDescription = null)
             }
         }
-        uiState.imageState.selectedImage?.let { bitmap ->
+
+        imageState.selectedImage?.let { bitmap ->
             Image(
                 bitmap = bitmap,
                 contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
             )
+        } ?: kotlin.run {
+            Text("No Image")
         }
     }
 }
