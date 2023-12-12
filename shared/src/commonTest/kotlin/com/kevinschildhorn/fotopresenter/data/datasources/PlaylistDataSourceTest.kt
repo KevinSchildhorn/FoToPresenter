@@ -1,8 +1,10 @@
 package com.kevinschildhorn.fotopresenter.data.datasources
 
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
+import com.kevinschildhorn.fotopresenter.PlaylistDatabase
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectoryDetails
-import com.kevinschildhorn.fotopresenter.shared.createInMemorySqlDriver
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -176,4 +178,9 @@ class PlaylistDataSourceTest {
 
     }
 
+    private fun createInMemorySqlDriver(): SqlDriver {
+        val driver: SqlDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
+        PlaylistDatabase.Schema.create(driver)
+        return driver
+    }
 }
