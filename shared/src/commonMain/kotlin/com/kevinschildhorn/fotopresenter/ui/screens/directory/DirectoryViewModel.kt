@@ -28,7 +28,7 @@ import org.koin.core.component.inject
 class DirectoryViewModel(
     private val logger: Logger,
 ) : ViewModel(),
-    ImageViewModel by DefaultImageViewModel(),
+    ImageViewModel by DefaultImageViewModel(logger),
     KoinComponent {
     private val _uiState = MutableStateFlow(DirectoryScreenState())
     val uiState: StateFlow<DirectoryScreenState> = _uiState.asStateFlow()
@@ -74,6 +74,10 @@ class DirectoryViewModel(
                 _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
             }
         }
+    }
+
+    fun clearSlideshow(){
+        _uiState.update { it.copy(slideshowDetails = null) }
     }
 
     fun setSelectedImageById(imageId: Int?) {

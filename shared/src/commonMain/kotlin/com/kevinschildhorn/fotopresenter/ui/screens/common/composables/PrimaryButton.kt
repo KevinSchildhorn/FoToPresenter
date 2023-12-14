@@ -1,35 +1,35 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.atomic.atoms.textStyle
 import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreenAtoms.primaryButton
+import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreenAtoms
+
 
 @Composable
 fun PrimaryButton(
-    title: String,
     modifier: Modifier = Modifier,
     buttonState: ButtonState = ButtonState.ENABLED,
     onClick: () -> Unit,
+    content: @Composable RowScope.() -> Unit,
 ) {
-    val molecule = primaryButton
+    val molecule = LoginScreenAtoms.primaryButton
     Button(
         onClick = onClick,
         modifier = modifier.height(44.dp),
         enabled = buttonState.enabled,
         colors =
-            ButtonDefaults.buttonColors(
-                backgroundColor = molecule.color.composeColor,
-                disabledBackgroundColor = molecule.disabledColor.composeColor,
-            ),
+        ButtonDefaults.buttonColors(
+            backgroundColor = molecule.color.composeColor,
+            disabledBackgroundColor = molecule.disabledColor.composeColor,
+        ),
     ) {
         if (buttonState.loading) {
             CircularProgressIndicator(
@@ -37,10 +37,7 @@ fun PrimaryButton(
                 color = molecule.textAtom.textColor.composeColor,
             )
         } else {
-            Text(
-                title,
-                style = molecule.textAtom.textStyle,
-            )
+            content()
         }
     }
 }
