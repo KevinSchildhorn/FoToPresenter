@@ -4,9 +4,11 @@ import android.app.Application
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import app.cash.sqldelight.db.SqlDriver
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
+import com.kevinschildhorn.fotopresenter.ui.shared.DriverFactory
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import org.koin.core.KoinApplication
@@ -41,6 +43,7 @@ internal actual val platformModule: Module = module {
     single<NetworkHandler> {
         SMBJHandler
     }
+    single<SqlDriver> { DriverFactory(context = get()).createDriver() }
 }
 
 fun KoinApplication.androidContext(androidContext: Context): KoinApplication {

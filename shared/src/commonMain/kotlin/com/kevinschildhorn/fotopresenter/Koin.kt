@@ -6,9 +6,11 @@ import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageCacheDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageRemoteDataSource
+import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistDataSource
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
+import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCase
@@ -19,6 +21,7 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUs
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
 import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedCache
@@ -38,6 +41,8 @@ val commonModule =
         single { ImageRemoteDataSource(get()) }
         single { ImageRepository(get()) }
         single { ImageCacheDataSource(get()) }
+        single { PlaylistDataSource(get()) }
+        single { PlaylistRepository(get()) }
 
         // Domain
         factory { ConnectToServerUseCase(get(), baseLogger.withTag("ConnectToServerUseCase")) }
@@ -59,6 +64,7 @@ val commonModule =
         single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
         single { DirectoryViewModel(baseLogger.withTag("DirectoryViewModel")) }
         single { SlideshowViewModel(baseLogger.withTag("SlideshowViewModel")) }
+        single { PlaylistViewModel(get(),baseLogger.withTag("PlaylistViewModel")) }
     }
 
 internal expect val platformModule: Module
