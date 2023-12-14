@@ -7,6 +7,8 @@ import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreen
+import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
 
@@ -15,8 +17,9 @@ fun App(
     loginViewModel: LoginViewModel,
     directoryViewModel: DirectoryViewModel,
     slideshowViewModel: SlideshowViewModel,
+    playlistViewModel: PlaylistViewModel,
 ) {
-    val currentScreen = remember { mutableStateOf(Screen.LOGIN) }
+    val currentScreen = remember { mutableStateOf(Screen.PLAYLIST) }
 
     MaterialTheme {
         when (currentScreen.value) {
@@ -44,6 +47,12 @@ fun App(
                 SlideshowScreen(slideshowViewModel) {
                     currentScreen.value = Screen.DIRECTORY
                 }
+
+            Screen.PLAYLIST -> {
+                PlaylistScreen(playlistViewModel) {
+
+                }
+            }
         }
     }
 }

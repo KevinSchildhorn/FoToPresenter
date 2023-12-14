@@ -4,4 +4,5 @@ enum class Screen {
     LOGIN,
     DIRECTORY,
     SLIDESHOW,
+    PLAYLIST,
 }
