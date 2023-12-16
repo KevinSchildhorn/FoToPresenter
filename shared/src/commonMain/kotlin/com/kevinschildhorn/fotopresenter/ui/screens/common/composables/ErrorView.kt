@@ -30,10 +30,6 @@ fun ErrorView(
                 vertical = atom.paddingVertical?.dp ?: 0.dp,
             ).fillMaxWidth(),
     ) {
-        Text(
-            text = message,
-            color = atom.textColor.composeColor,
-            style = atom.textStyle,
-        )
+        AtomikText(message,atom)
     }
 }

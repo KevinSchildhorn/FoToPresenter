@@ -15,6 +15,8 @@ import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.atomik.atomic.atoms.textStyle
 import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AtomikIcon
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AtomikText
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreenAtoms
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline
@@ -34,17 +36,13 @@ fun PlaylistScreenCreateRow(
             modifier = Modifier.fillMaxWidth(),
             onClick = onClick
         ) {
-            Icon(
+            AtomikIcon(
                 EvaIcons.Outline.PlusCircle,
-                tint = atom.textColor.composeColor,
+                atom,
                 contentDescription = "Create",
             )
             Spacer(Modifier.width(Padding.SMALL.dp))
-            Text(
-                text = "Create",
-                color = atom.textColor.composeColor,
-                style = atom.textStyle,
-            )
+            AtomikText("Create", atom)
             Spacer(Modifier.fillMaxWidth())
         }
     }

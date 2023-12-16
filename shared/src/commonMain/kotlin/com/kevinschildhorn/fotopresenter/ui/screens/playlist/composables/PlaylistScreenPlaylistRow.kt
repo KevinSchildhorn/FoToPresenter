@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.atomik.atomic.atoms.textStyle
 import com.kevinschildhorn.atomik.color.base.composeColor
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AtomikIcon
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AtomikText
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreenAtoms
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline
@@ -40,11 +42,7 @@ fun PlaylistScreenPlaylistRow(
             onClick = onClick,
             modifier = Modifier.fillMaxSize(0.7f)
         ) {
-            Text(
-                text = title,
-                color = atom.textColor.composeColor,
-                style = atom.textStyle,
-            )
+            AtomikText(title, atom)
             Spacer(Modifier.fillMaxWidth())
         }
         Row(modifier = Modifier.fillMaxHeight()) {
@@ -52,9 +50,9 @@ fun PlaylistScreenPlaylistRow(
                 modifier = Modifier.width(44.dp),
                 onClick = onEdit
             ) {
-                Icon(
+                AtomikIcon(
                     EvaIcons.Outline.Edit,
-                    tint = atom.textColor.composeColor,
+                    atom,
                     contentDescription = "Edit",
                 )
             }
@@ -62,9 +60,9 @@ fun PlaylistScreenPlaylistRow(
                 modifier = Modifier.width(44.dp),
                 onClick = onDelete,
             ) {
-                Icon(
+                AtomikIcon(
                     EvaIcons.Outline.Trash,
-                    tint = atom.textColor.composeColor,
+                    atom,
                     contentDescription = "Trash"
                 )
             }
