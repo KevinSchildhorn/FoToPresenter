@@ -32,7 +32,9 @@ fun NavigationRailOverlay(
         exit = slideOutHorizontally(),
     ) {
         Row {
-            NavigationRail {
+            NavigationRail(
+                backgroundColor = FotoColors.surface.composeColor
+            ) {
                 NavigationRailItem(
                     label = {
                         Text("Playlists", color = FotoColors.surfaceText.composeColor)
