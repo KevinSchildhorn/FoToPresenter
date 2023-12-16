@@ -21,6 +21,7 @@ import com.kevinschildhorn.atomik.atomic.atoms.textStyle
 import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.Playlist
 import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AtomikText
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreenAtoms
 
 @Composable
@@ -40,9 +41,9 @@ fun PlaylistColumn(
             .background(FotoColors.secondary.composeColor)
     ) {
         Column(Modifier.fillMaxWidth().padding(Padding.MEDIUM.dp)) {
-            Text(
+            AtomikText(
                 "Playlists",
-                style = atom.textStyle
+                atom = atom
             )
             LazyColumn {
                 items(options) {

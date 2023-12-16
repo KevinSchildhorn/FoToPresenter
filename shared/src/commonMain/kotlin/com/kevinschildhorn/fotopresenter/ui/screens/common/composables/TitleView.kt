@@ -14,11 +14,5 @@ fun TitleView(
     modifier: Modifier = Modifier,
 ) {
     val atom = title(typography = FotoTypography.h3)
-
-    Text(
-        text = value,
-        color = atom.textColor.composeColor,
-        style = atom.textStyle,
-        modifier = modifier,
-    )
+    AtomikText(value, atom, modifier)
 }
