@@ -1,55 +1,20 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.common.CommonAtoms
-import java.beans.Visibility
 
 @Composable
 fun ConfirmationDialog(
-    onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
     dialogTitle: String,
     dialogText: String,
+    onDismissRequest: () -> Unit,
+    onConfirmation: () -> Unit,
 ) {
-    AlertDialog(
-        modifier = Modifier.clip(RoundedCornerShape(10.dp)),
-        backgroundColor = FotoColors.secondary.composeColor,
-        title = {
-            AtomikText(text = dialogTitle, atom = CommonAtoms.dialogTitle)
-        },
-        text = {
-            AtomikText(text = dialogText, atom = CommonAtoms.dialogMessage)
-        },
-        onDismissRequest = {
-            onDismissRequest()
-        },
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    onConfirmation()
-                }
-            ) {
-                AtomikText("Confirm", atom = CommonAtoms.dialogButton)
-            }
-        },
-        dismissButton = {
-            TextButton(
-                onClick = {
-                    onDismissRequest()
-                }
-            ) {
-                AtomikText("Dismiss", atom = CommonAtoms.dialogButton)
-            }
-        }
-    )
+    FotoDialog(
+        dialogTitle = dialogTitle,
+        onDismissRequest = onDismissRequest,
+        onConfirmation = onConfirmation,
+    ) {
+        AtomikText(text = dialogText, atom = CommonAtoms.dialogMessage)
+    }
 }

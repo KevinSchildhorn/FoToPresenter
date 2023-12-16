@@ -74,9 +74,9 @@ class PlaylistDataSource(
         }
     }
 
-    fun deletePlaylistByName(name: String): Boolean {
+    fun deletePlaylist(id: Long): Boolean {
         return try {
-            val playlist = database.playlistQueries.selectPlaylistByName(name).executeAsOne()
+            val playlist = database.playlistQueries.selectPlaylistById(id).executeAsOne()
             database.playlistQueries.deletePlaylist(playlist.name)
             database.imageDirectoryQueries.deletePlaylist(playlist.id)
             true

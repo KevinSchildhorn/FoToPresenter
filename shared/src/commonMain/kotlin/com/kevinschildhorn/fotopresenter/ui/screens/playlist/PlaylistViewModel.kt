@@ -26,11 +26,24 @@ class PlaylistViewModel(
         _uiState.update { it.copy(playlists = allPlaylists) }
     }
 
-    fun createPlaylist(name: String){
-        playlistRepository.createPlaylist(name)
+    fun setSelectedPlaylist(id:Long){
+        _uiState.update { it.copy(selectedId = id) }
     }
 
-    fun deletePlaylist(name: String){
-        playlistRepository.deletePlaylistByName(name)
+    fun clearSelectedPlaylist(){
+        _uiState.update { it.copy(selectedId = null) }
+    }
+
+    fun createPlaylist(name: String){
+        playlistRepository.createPlaylist(name)
+        refreshPlaylists()
+    }
+
+    fun deletePlaylist(){
+        _uiState.value.selectedId?.let {
+            playlistRepository.deletePlaylist(it)
+        }
+        refreshPlaylists()
+        clearSelectedPlaylist()
     }
 }
