@@ -37,6 +37,9 @@ data class DirectoryScreenState(
     }
 
     fun getImageIndexFromId(id: Int): Int = directoryGridState.imageStates.indexOfFirst { it.id == id }
+
+    val currentPathList: List<String>
+        get() = currentPath.split("\\").filter { it.isNotEmpty() }
 }
 
 data class DirectoryGridState(

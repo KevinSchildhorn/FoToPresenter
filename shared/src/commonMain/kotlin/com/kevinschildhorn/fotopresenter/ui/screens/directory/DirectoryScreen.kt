@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -11,6 +12,7 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ImagePreviewOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryTextButton
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryGrid
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryNavigationBar
 
 @Composable
 fun DirectoryScreen(
@@ -40,24 +42,33 @@ fun DirectoryScreen(
     )
 
     // UI
-    PrimaryTextButton("Logout") {
-        viewModel.logout()
+    Column {
+        DirectoryNavigationBar(
+            directories = uiState.currentPathList,
+            onHome = {
+                viewModel.navigateToFolder(-1)
+            },
+            onItem = {
+                viewModel.navigateToFolder(it)
+            },
+            modifier = Modifier.padding(Padding.SMALL.dp)
+        )
+        PrimaryTextButton("Logout") {
+            viewModel.logout()
+        }
+        DirectoryGrid(
+            uiState.directoryGridState,
+            onFolderPressed = {
+                viewModel.changeDirectory(it)
+            },
+            onImageDirectoryPressed = {
+                viewModel.setSelectedImageById(it)
+            },
+            onStartSlideshow = {
+                viewModel.startSlideshow(it)
+            },
+        )
     }
-    DirectoryGrid(
-        uiState.directoryGridState,
-        modifier =
-            Modifier
-                .padding(top = Padding.EXTRA_LARGE.dp),
-        onFolderPressed = {
-            viewModel.changeDirectory(it)
-        },
-        onImageDirectoryPressed = {
-            viewModel.setSelectedImageById(it)
-        },
-        onStartSlideshow = {
-            viewModel.startSlideshow(it)
-        },
-    )
     imageUiState.selectedImage?.let {
         ImagePreviewOverlay(
             it,
