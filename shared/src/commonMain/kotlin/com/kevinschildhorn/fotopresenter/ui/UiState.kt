@@ -13,13 +13,4 @@ sealed class UiState {
     data class ERROR(val message: String) : UiState()
 
     data object SUCCESS : UiState()
-
-    @Composable
-    fun asComposable(modifier: Modifier = Modifier) {
-        when (this) {
-            is LOADING -> LoadingOverlay()
-            is ERROR -> ErrorView(message, modifier = modifier)
-            else -> {}
-        }
-    }
 }

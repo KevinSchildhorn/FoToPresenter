@@ -43,7 +43,7 @@ fun DirectoryGridPreview() {
         ),
         onFolderPressed = {},
         onImageDirectoryPressed = {},
-        onStartSlideshow = {},
+        onActionSheet = {},
     )
 }
 
