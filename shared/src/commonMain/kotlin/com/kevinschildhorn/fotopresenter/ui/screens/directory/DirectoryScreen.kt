@@ -1,30 +1,69 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Button
+import androidx.compose.material.Icon
+import androidx.compose.material.NavigationRail
+import androidx.compose.material.NavigationRailItem
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
+import com.kevinschildhorn.fotopresenter.ui.UiState
+import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
+import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ConfirmationDialog
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ImagePreviewOverlay
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.LoadingOverlay
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.Overlay
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.OverlayShadow
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryTextButton
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryNavigationBar
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.NavigationRailOverlay
+import compose.icons.EvaIcons
+import compose.icons.evaicons.Fill
+import compose.icons.evaicons.fill.LogOut
+import compose.icons.evaicons.fill.Menu
+
+enum class DirectoryOverlay {
+    ACTION_SHEET,
+    IMAGE,
+    NAV_RAIL,
+    LOGOUT_CONFIRMATION,
+    NONE,
+}
 
 @Composable
 fun DirectoryScreen(
     viewModel: DirectoryViewModel,
     onLogout: () -> Unit,
     onStartSlideshow: (ImageSlideshowDetails) -> Unit,
+    onShowPlaylists: () -> Unit,
 ) {
     LaunchedEffect(Unit) {
         viewModel.refreshScreen()
     }
     val uiState by viewModel.uiState.collectAsState()
     val imageUiState by viewModel.imageUiState.collectAsState()
+    var overlayVisible by remember { mutableStateOf(DirectoryOverlay.NONE) }
+    var contextMenuPhotoState by rememberSaveable { mutableStateOf<DirectoryGridCellState?>(null) }
 
     // Navigation
     if (!uiState.loggedIn) onLogout()
@@ -32,17 +71,27 @@ fun DirectoryScreen(
         onStartSlideshow(it)
     }
 
-    // State
-    uiState.state.asComposable(
-        modifier =
-            Modifier.padding(
-                horizontal = Padding.STANDARD.dp,
-                vertical = Padding.SMALL.dp,
-            ),
-    )
-
     // UI
     Column {
+        TextButton(
+            modifier = Modifier.size(55.dp),
+            onClick = {
+                overlayVisible = DirectoryOverlay.NAV_RAIL
+            }) {
+            Icon(
+                EvaIcons.Fill.Menu,
+                contentDescription = "Menu",
+                tint = FotoColors.backgroundText.composeColor
+            )
+        }
+        (uiState.state as? UiState.ERROR)?.let {
+            ErrorView(
+                it.message, modifier = Modifier.padding(
+                    horizontal = Padding.STANDARD.dp,
+                    vertical = Padding.SMALL.dp,
+                )
+            )
+        }
         DirectoryNavigationBar(
             directories = uiState.currentPathList,
             onHome = {
@@ -53,9 +102,6 @@ fun DirectoryScreen(
             },
             modifier = Modifier.padding(Padding.SMALL.dp)
         )
-        PrimaryTextButton("Logout") {
-            viewModel.logout()
-        }
         DirectoryGrid(
             uiState.directoryGridState,
             onFolderPressed = {
@@ -63,17 +109,42 @@ fun DirectoryScreen(
             },
             onImageDirectoryPressed = {
                 viewModel.setSelectedImageById(it)
+                overlayVisible = DirectoryOverlay.IMAGE
             },
-            onStartSlideshow = {
-                viewModel.startSlideshow(it)
+            onActionSheet = {
+                contextMenuPhotoState = it
+                overlayVisible = DirectoryOverlay.ACTION_SHEET
             },
         )
     }
+    ActionSheet(
+        visible = overlayVisible == DirectoryOverlay.ACTION_SHEET,
+        offset = 200,
+        values = contextMenuPhotoState?.actionSheetContexts ?: emptyList(),
+        onClick = {
+            when (it.action) {
+                ActionSheetAction.START_SLIDESHOW -> {
+                    viewModel.startSlideshow(contextMenuPhotoState?.id!!)
+                }
+
+                ActionSheetAction.NONE -> {
+                }
+            }
+            overlayVisible = DirectoryOverlay.NONE
+            contextMenuPhotoState = null
+        },
+        onDismiss = {
+            overlayVisible = DirectoryOverlay.NONE
+            contextMenuPhotoState = null
+        },
+    )
     imageUiState.selectedImage?.let {
         ImagePreviewOverlay(
             it,
+            visible = overlayVisible == DirectoryOverlay.IMAGE,
             onDismiss = {
                 viewModel.clearPresentedImage()
+                overlayVisible = DirectoryOverlay.NONE
             },
             onBack = {
                 viewModel.showPreviousImage()
@@ -81,6 +152,33 @@ fun DirectoryScreen(
             onForward = {
                 viewModel.showNextImage()
             },
+        )
+    }
+    if (uiState.state is UiState.LOADING) {
+        LoadingOverlay()
+    }
+
+    NavigationRailOverlay(
+        visible = overlayVisible == DirectoryOverlay.NAV_RAIL,
+        onDismiss = {
+            overlayVisible = DirectoryOverlay.NONE
+        },
+        onLogout = {
+            overlayVisible = DirectoryOverlay.LOGOUT_CONFIRMATION
+        },
+        onPlaylists = onShowPlaylists,
+    )
+    if(overlayVisible == DirectoryOverlay.LOGOUT_CONFIRMATION) {
+        ConfirmationDialog(
+            onDismissRequest = {
+                overlayVisible = DirectoryOverlay.NONE
+            },
+            onConfirmation = {
+                viewModel.logout()
+                overlayVisible = DirectoryOverlay.NONE
+            },
+            "Log Out",
+            "Are you sure you want to logout?"
         )
     }
 }

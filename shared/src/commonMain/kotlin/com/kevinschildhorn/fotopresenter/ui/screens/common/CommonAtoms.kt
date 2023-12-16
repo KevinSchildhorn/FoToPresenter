@@ -17,4 +17,10 @@ object CommonAtoms {
         typography = FotoTypography.body,
         fontFamily = null,
     )
+
+    val dialogButton: SimpleTextAtom = SimpleTextAtom(
+        textColor = FotoColors.primaryText,
+        typography = FotoTypography.button,
+        fontFamily = null,
+    )
 }

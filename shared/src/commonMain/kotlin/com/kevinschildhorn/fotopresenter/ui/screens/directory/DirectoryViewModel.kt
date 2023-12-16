@@ -54,7 +54,7 @@ class DirectoryViewModel(
     }
 
     fun logout() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             logger.i { "Logging Out" }
             val logoutUseCase: DisconnectFromServerUseCase by inject()
             logoutUseCase()

@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.common.CommonAtoms
+import java.beans.Visibility
 
 @Composable
 fun ConfirmationDialog(
@@ -20,10 +21,9 @@ fun ConfirmationDialog(
     dialogTitle: String,
     dialogText: String,
 ) {
-
     AlertDialog(
-        modifier = Modifier.clip(RoundedCornerShape(10.dp))
-            .background(FotoColors.secondary.composeColor),
+        modifier = Modifier.clip(RoundedCornerShape(10.dp)),
+        backgroundColor = FotoColors.secondary.composeColor,
         title = {
             AtomikText(text = dialogTitle, atom = CommonAtoms.dialogTitle)
         },
@@ -39,7 +39,7 @@ fun ConfirmationDialog(
                     onConfirmation()
                 }
             ) {
-                Text("Confirm")
+                AtomikText("Confirm", atom = CommonAtoms.dialogButton)
             }
         },
         dismissButton = {
@@ -48,7 +48,7 @@ fun ConfirmationDialog(
                     onDismissRequest()
                 }
             ) {
-                Text("Dismiss")
+                AtomikText("Dismiss", atom = CommonAtoms.dialogButton)
             }
         }
     )

@@ -41,6 +41,9 @@ fun App(
                         directoryViewModel.clearSlideshow()
                         currentScreen.value = Screen.SLIDESHOW
                     },
+                    onShowPlaylists = {
+                        currentScreen.value = Screen.PLAYLIST
+                    }
                 )
 
             Screen.SLIDESHOW ->

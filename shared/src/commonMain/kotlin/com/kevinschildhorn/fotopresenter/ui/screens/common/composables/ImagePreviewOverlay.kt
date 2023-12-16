@@ -31,22 +31,16 @@ import compose.icons.evaicons.fill.ArrowRight
 @Composable
 fun ImagePreviewOverlay(
     image: ImageBitmap,
+    visible: Boolean,
     onDismiss: () -> Unit,
     onBack: () -> Unit,
     onForward: () -> Unit,
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
 
     Overlay(
         5f,
-        modifier =
-            Modifier
-                .background(FotoColors.shadow.composeColor)
-                .clickable(
-                    interactionSource = interactionSource,
-                    indication = null,
-                    onClick = onDismiss,
-                ),
+        visible = visible,
+        onDismiss = onDismiss,
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -57,23 +51,23 @@ fun ImagePreviewOverlay(
                 bitmap = image,
                 contentDescription = null,
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(.9f)
-                        .padding(Padding.IMAGE.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(.9f)
+                    .padding(Padding.IMAGE.dp),
             )
             Row(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(Padding.STANDARD.dp)
-                        .height(44.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(Padding.STANDARD.dp)
+                    .height(44.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 PrimaryIconButton(
                     EvaIcons.Fill.ArrowLeft,
                     onClick = onBack,
-                    )
+                )
                 PrimaryIconButton(
                     EvaIcons.Fill.ArrowRight,
                     onClick = onForward,

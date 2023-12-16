@@ -47,7 +47,13 @@ fun SlideshowScreen(
         }
     }
 
-    Overlay(5f, modifier = Modifier.fillMaxSize()) {
+    Overlay(
+        5f,
+        visible = true,
+        onDismiss = {
+
+        }
+    ) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween

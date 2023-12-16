@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.OverlayShadow
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.FolderDirectoryGridCellState
@@ -32,10 +33,8 @@ fun DirectoryGrid(
     modifier: Modifier = Modifier,
     onFolderPressed: (Int) -> Unit,
     onImageDirectoryPressed: (Int) -> Unit,
-    onStartSlideshow: (Int) -> Unit,
+    onActionSheet: (DirectoryGridCellState) -> Unit,
 ) {
-    var actionSheetVisible by remember { mutableStateOf(false) }
-    var contextMenuPhotoState by rememberSaveable { mutableStateOf<DirectoryGridCellState?>(null) }
     val haptics = LocalHapticFeedback.current
 
     LazyVerticalGrid(
@@ -56,8 +55,7 @@ fun DirectoryGrid(
                         },
                         onLongClick = {
                             haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                            contextMenuPhotoState = state
-                            actionSheetVisible = true
+                            onActionSheet(state)
                         },
                         onLongClickLabel = "Action Sheet",
                     )
@@ -75,24 +73,4 @@ fun DirectoryGrid(
             }
         }
     }
-    ActionSheet(
-        visible = actionSheetVisible,
-        offset = 200,
-        values = contextMenuPhotoState?.actionSheetContexts ?: emptyList(),
-        onClick = {
-            when (it.action) {
-                ActionSheetAction.START_SLIDESHOW -> {
-                    onStartSlideshow(contextMenuPhotoState?.id!!)
-                }
-                ActionSheetAction.NONE -> {
-                }
-            }
-            actionSheetVisible = false
-            contextMenuPhotoState = null
-        },
-        onDismiss = {
-            actionSheetVisible = false
-            contextMenuPhotoState = null
-        },
-    )
 }

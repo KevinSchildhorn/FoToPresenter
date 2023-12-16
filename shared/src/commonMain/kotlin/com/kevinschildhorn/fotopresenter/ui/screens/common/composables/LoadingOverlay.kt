@@ -15,11 +15,9 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 @Composable
 fun LoadingOverlay() {
     Overlay(
-        z = 3f,
-        modifier =
-            Modifier
-                .fillMaxSize()
-                .background(Color(0x88FFFFFF)),
+        z = 8f,
+        visible = true,
+        onDismiss = {},
     ) {
         CircularProgressIndicator(
             modifier = Modifier.width(75.dp).align(Alignment.Center),
