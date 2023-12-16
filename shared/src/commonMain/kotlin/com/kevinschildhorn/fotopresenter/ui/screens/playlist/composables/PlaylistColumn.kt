@@ -19,16 +19,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.atomik.atomic.atoms.textStyle
 import com.kevinschildhorn.atomik.color.base.composeColor
+import com.kevinschildhorn.fotopresenter.Playlist
 import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreenAtoms
 
 @Composable
 fun PlaylistColumn(
-    options: List<String> = emptyList(),
+    options: List<Playlist> = emptyList(),
     onCreate: () -> Unit,
-    onClick: (String) -> Unit,
-    onEdit: (String) -> Unit,
-    onDelete: (String) -> Unit,
+    onClick: (Long) -> Unit,
+    onEdit: (Long) -> Unit,
+    onDelete: (Long) -> Unit,
 ) {
     val atom = PlaylistScreenAtoms.title
     Column(
@@ -46,15 +47,15 @@ fun PlaylistColumn(
             LazyColumn {
                 items(options) {
                     PlaylistScreenPlaylistRow(
-                        title = it,
+                        title = it.name,
                         onClick = {
-                            onClick(it)
+                            onClick(it.id)
                         },
                         onEdit = {
-                            onEdit(it)
+                            onEdit(it.id)
                         },
                         onDelete = {
-                            onDelete(it)
+                            onDelete(it.id)
                         }
                     )
                     Spacer(
