@@ -12,6 +12,11 @@ SELECT *
 FROM Playlist
 WHERE name = ?;
 
+selectPlaylistById:
+SELECT *
+FROM Playlist
+WHERE id = ?;
+
 insertPlaylist:
 INSERT INTO Playlist(name)
 VALUES (?);

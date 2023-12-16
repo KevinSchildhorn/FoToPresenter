@@ -12,7 +12,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.FotoDialo
 import com.kevinschildhorn.fotopresenter.ui.screens.login.composables.LoginTextField
 
 @Composable
-fun TextConfirmationDialog(
+fun TextEntryDialog(
     onDismissRequest: () -> Unit,
     onConfirmation: (String) -> Unit,
 ) {

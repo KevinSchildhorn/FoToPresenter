@@ -6,6 +6,6 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ScreenState
 
 data class PlaylistScreenState(
     val playlists: List<Playlist> = emptyList(),
-    val selectedId: Long = 0L,
+    val selectedId: Long? = null,
     override val state: UiState = UiState.IDLE,
 ) : ScreenState

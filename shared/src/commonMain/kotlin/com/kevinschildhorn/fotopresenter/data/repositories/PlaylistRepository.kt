@@ -24,6 +24,6 @@ class PlaylistRepository(
     fun getPlaylistImage(playlistId: Long, directoryPath: String): PlaylistImage? =
         playlistDataSource.getPlaylistImage(playlistId, directoryPath)
 
-    fun deletePlaylistByName(name: String): Boolean =
-        playlistDataSource.deletePlaylistByName(name)
+    fun deletePlaylist(id: Long): Boolean =
+        playlistDataSource.deletePlaylist(id)
 }

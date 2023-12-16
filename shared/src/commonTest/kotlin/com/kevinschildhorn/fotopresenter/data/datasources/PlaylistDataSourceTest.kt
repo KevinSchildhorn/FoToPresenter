@@ -150,15 +150,15 @@ class PlaylistDataSourceTest {
         val newPlaylist = dataSource.getPlaylistByName(playlistName)
         assertNotNull(newPlaylist)
 
-        val image = dataSource.getPlaylistImage(playlist?.id ?: 0L, imageDirectory.details.fullPath)
+        val image = dataSource.getPlaylistImage(playlist.id, imageDirectory.details.fullPath)
         assertNotNull(image)
 
-        val result = dataSource.deletePlaylistByName(playlistName)
+        val result = dataSource.deletePlaylist(playlist.id)
         assertTrue(result)
 
         val deletedPlaylist = dataSource.getPlaylistByName(playlistName)
         assertNull(deletedPlaylist)
-        val deletedImage = dataSource.getPlaylistImage(playlist?.id ?: 0L, imageDirectory.details.fullPath)
+        val deletedImage = dataSource.getPlaylistImage(playlist.id, imageDirectory.details.fullPath)
         assertNull(deletedImage)
     }
 
