@@ -19,7 +19,7 @@ fun App(
     slideshowViewModel: SlideshowViewModel,
     playlistViewModel: PlaylistViewModel,
 ) {
-    val currentScreen = remember { mutableStateOf(Screen.PLAYLIST) }
+    val currentScreen = remember { mutableStateOf(Screen.LOGIN) }
 
     MaterialTheme {
         when (currentScreen.value) {

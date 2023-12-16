@@ -10,6 +10,8 @@ import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.Folder
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.FolderDirectoryGridCellState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.ImageDirectoryGridCellState
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryNavigationBar
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryNavigationItem
 
 @Preview
 @Composable
@@ -42,5 +44,23 @@ fun DirectoryGridPreview() {
         onFolderPressed = {},
         onImageDirectoryPressed = {},
         onStartSlideshow = {},
+    )
+}
+
+@Preview
+@Composable
+fun DirectoryNavigationItemPreview(){
+    DirectoryNavigationItem("Photos"){
+
+    }
+}
+
+@Preview
+@Composable
+fun DirectoryNavigationBarPreview(){
+    DirectoryNavigationBar(
+        listOf("Photos1", "Subfolder1","Photos2", "Subfolder2","Photos3", "Subfolder3"),
+        {},
+        {}
     )
 }

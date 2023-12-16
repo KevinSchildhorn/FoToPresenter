@@ -12,6 +12,7 @@ import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.extension.addPath
+import com.kevinschildhorn.fotopresenter.extension.navigateBackToPathAtIndex
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.DefaultImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
@@ -76,7 +77,7 @@ class DirectoryViewModel(
         }
     }
 
-    fun clearSlideshow(){
+    fun clearSlideshow() {
         _uiState.update { it.copy(slideshowDetails = null) }
     }
 
@@ -94,31 +95,37 @@ class DirectoryViewModel(
 
     //region Directory
 
-    fun changeDirectory(id: Int) {
-        _directoryContentsState.value.allDirectories.find { it.id == id }?.let {
-            changeDirectory(it.details)
-        }
+    fun navigateToFolder(folderIndex: Int) {
+        logger.i { "Getting path at index $folderIndex" }
+        val finalPath = currentPath.navigateBackToPathAtIndex(folderIndex)
+        changeDirectoryToPath(finalPath)
     }
 
-    private fun changeDirectory(directory: NetworkDirectoryDetails) {
-        logger.i { "Changing Directory: ${directory.name}" }
+    fun changeDirectory(id: Int) {
+        _directoryContentsState.value.allDirectories.find { it.id == id }?.let {
+            changeDirectoryToPath(currentPath.addPath(it.details.name))
+        }
+    }
+    
+    private fun changeDirectoryToPath(path:String){
+        logger.i { "Changing directory to path $path" }
+
         viewModelScope.launch(Dispatchers.Default) {
             val changeDirectoryUseCase: ChangeDirectoryUseCase by inject()
             try {
                 logger.i { "Getting New Path" }
-                val newPath = changeDirectoryUseCase(currentPath.addPath(directory.name))
+                val newPath = changeDirectoryUseCase(path)
                 logger.i { "New Path got: $newPath" }
                 _uiState.update { it.copy(currentPath = newPath) }
-
                 updateDirectories()
             } catch (e: NetworkHandlerException) {
                 logger.e(e) { "Error Occurred Getting new path" }
                 _uiState.update {
                     it.copy(
                         state =
-                            UiState.ERROR(
-                                e.message ?: "An Unknown Network Error Occurred",
-                            ),
+                        UiState.ERROR(
+                            e.message ?: "An Unknown Network Error Occurred",
+                        ),
                     )
                 }
             } catch (e: Exception) {
@@ -126,9 +133,9 @@ class DirectoryViewModel(
                 _uiState.update {
                     it.copy(
                         state =
-                            UiState.ERROR(
-                                e.message ?: "Something Went Wrong",
-                            ),
+                        UiState.ERROR(
+                            e.message ?: "Something Went Wrong",
+                        ),
                     )
                 }
             }
@@ -184,13 +191,13 @@ class DirectoryViewModel(
             DirectoryGridState(
                 folderStates = this.folders.map { FolderDirectoryGridCellState(it.name, it.id) },
                 imageStates =
-                    this.images.map {
-                        ImageDirectoryGridCellState(
-                            State.IDLE,
-                            it.name,
-                            it.id,
-                        )
-                    }.toMutableList(),
+                this.images.map {
+                    ImageDirectoryGridCellState(
+                        State.IDLE,
+                        it.name,
+                        it.id,
+                    )
+                }.toMutableList(),
             )
 
     //endregion
