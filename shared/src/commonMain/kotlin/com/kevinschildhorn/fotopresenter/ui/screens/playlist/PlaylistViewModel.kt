@@ -25,4 +25,12 @@ class PlaylistViewModel(
         val allPlaylists = playlistRepository.getAllPlaylists()
         _uiState.update { it.copy(playlists = allPlaylists) }
     }
+
+    fun createPlaylist(name: String){
+        playlistRepository.createPlaylist(name)
+    }
+
+    fun deletePlaylist(name: String){
+        playlistRepository.deletePlaylistByName(name)
+    }
 }

@@ -7,6 +7,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ButtonState
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ConfirmationDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryTextButton
 
 @Preview
@@ -31,5 +32,19 @@ fun ActionSheetPreview() {
         ),
         onClick = {},
         onDismiss = {},
+    )
+}
+
+@Preview
+@Composable
+fun ConfirmationDialogPreview(){
+    ConfirmationDialog(
+        {
+
+        },{
+
+        },
+        "Hello",
+        "World"
     )
 }

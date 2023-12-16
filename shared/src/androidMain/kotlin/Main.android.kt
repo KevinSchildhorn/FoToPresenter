@@ -1,6 +1,7 @@
 import androidx.compose.runtime.Composable
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
 
 actual fun getPlatformName(): String = "Android"
@@ -10,4 +11,5 @@ fun MainView(
     loginViewModel: LoginViewModel,
     directoryViewModel: DirectoryViewModel,
     slideshowViewModel: SlideshowViewModel,
-) = App(loginViewModel, directoryViewModel, slideshowViewModel)
+    playlistViewModel: PlaylistViewModel,
+    ) = App(loginViewModel, directoryViewModel, slideshowViewModel, playlistViewModel)
