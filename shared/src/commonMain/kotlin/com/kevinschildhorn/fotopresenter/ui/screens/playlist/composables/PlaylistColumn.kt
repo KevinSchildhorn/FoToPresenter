@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -59,10 +60,7 @@ fun PlaylistColumn(
                             onDelete(it.id)
                         }
                     )
-                    Spacer(
-                        Modifier.fillMaxWidth().height(1.dp)
-                            .background(FotoColors.secondaryText.composeColor)
-                    )
+                    Divider(startIndent = 0.dp, thickness = 1.dp, color = FotoColors.secondaryText.composeColor)
                 }
             }
             PlaylistScreenCreateRow(onClick = onCreate)

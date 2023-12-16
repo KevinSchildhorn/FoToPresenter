@@ -9,6 +9,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionShe
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ButtonState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ConfirmationDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryTextButton
+import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.TextConfirmationDialog
 
 @Preview
 @Composable
@@ -37,14 +38,29 @@ fun ActionSheetPreview() {
 
 @Preview
 @Composable
-fun ConfirmationDialogPreview(){
+fun ConfirmationDialogPreview() {
     ConfirmationDialog(
+        "Hello",
+        "World",
         {
 
-        },{
+        },
+        {
 
         },
-        "Hello",
-        "World"
     )
 }
+
+@Preview
+@Composable
+fun TextConfirmationDialogPreview() {
+    TextConfirmationDialog(
+        {
+
+        },
+        {
+
+        },
+    )
+}
+

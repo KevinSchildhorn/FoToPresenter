@@ -168,8 +168,10 @@ fun DirectoryScreen(
         },
         onPlaylists = onShowPlaylists,
     )
-    if(overlayVisible == DirectoryOverlay.LOGOUT_CONFIRMATION) {
+    if (overlayVisible == DirectoryOverlay.LOGOUT_CONFIRMATION) {
         ConfirmationDialog(
+            "Log Out",
+            "Are you sure you want to logout?",
             onDismissRequest = {
                 overlayVisible = DirectoryOverlay.NONE
             },
@@ -177,8 +179,6 @@ fun DirectoryScreen(
                 viewModel.logout()
                 overlayVisible = DirectoryOverlay.NONE
             },
-            "Log Out",
-            "Are you sure you want to logout?"
         )
     }
 }

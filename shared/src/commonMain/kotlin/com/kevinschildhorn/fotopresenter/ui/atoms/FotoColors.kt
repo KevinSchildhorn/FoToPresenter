@@ -11,7 +11,7 @@ object FotoColors {
     val secondary = AtomikColor(0xFFD383)
     val secondaryText = AtomikColor(0xC1872E)
     val backgroundText = AtomikColor(0x25231F)
-    val surfaceText = AtomikColor(0xFFA500)
+    val surfaceText = AtomikColor(0xC2882E)
     val errorText = AtomikColor(0x9E1F1F)
     val disabled = AtomikColor(0xE0E0E0)
 

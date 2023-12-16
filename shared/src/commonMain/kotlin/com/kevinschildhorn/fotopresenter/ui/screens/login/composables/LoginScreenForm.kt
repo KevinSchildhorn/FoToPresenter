@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.extension.required
+import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.FormColumn
@@ -25,7 +26,7 @@ fun LoginScreenForm(
     loginButtonClicked: () -> Unit,
 ) {
     Column(modifier = Modifier.padding(horizontal = 20.dp)) {
-        (uiState.state as? State.ERROR)?.let {
+        (uiState.state as? UiState.ERROR)?.let {
             ErrorView(
                 "Error Occurred! ${it.message}",
             )

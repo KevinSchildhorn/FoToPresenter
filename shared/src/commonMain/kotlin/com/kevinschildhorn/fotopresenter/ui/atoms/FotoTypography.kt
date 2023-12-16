@@ -12,11 +12,11 @@ object FotoTypography {
     val h1 =
         AtomikTypography(size = 96, weight = AtomikTypographyWeight.NORMAL, font = fontregularMoko)
     val h2 =
-        AtomikTypography(size = 60, weight = AtomikTypographyWeight.NORMAL, font = fontregularMoko)
-    val h3 =
         AtomikTypography(size = 48, weight = AtomikTypographyWeight.NORMAL, font = fontregularMoko)
+    val h3 =
+        AtomikTypography(size = 36, weight = AtomikTypographyWeight.NORMAL, font = fontregularMoko)
     val h4 =
-        AtomikTypography(size = 34, weight = AtomikTypographyWeight.NORMAL, font = fontregularMoko)
+        AtomikTypography(size = 24, weight = AtomikTypographyWeight.NORMAL, font = fontregularMoko)
     val subtitle =
         AtomikTypography(size = 16, weight = AtomikTypographyWeight.NORMAL, font = fontregularMoko)
     val button =

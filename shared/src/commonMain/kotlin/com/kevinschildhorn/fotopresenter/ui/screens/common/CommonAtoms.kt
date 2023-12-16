@@ -13,13 +13,13 @@ object CommonAtoms {
     )
 
     val dialogMessage: SimpleTextAtom = SimpleTextAtom(
-        textColor = FotoColors.secondaryText,
+        textColor = FotoColors.surfaceText,
         typography = FotoTypography.body,
         fontFamily = null,
     )
 
     val dialogButton: SimpleTextAtom = SimpleTextAtom(
-        textColor = FotoColors.primaryText,
+        textColor = FotoColors.surfaceText,
         typography = FotoTypography.button,
         fontFamily = null,
     )
