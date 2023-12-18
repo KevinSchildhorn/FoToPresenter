@@ -46,10 +46,15 @@ open class PlaylistViewModel(
     }
 
     fun addToPlaylist(imageDirectory: ImageDirectory, playlist: PlaylistDetails) {
+        logger.i { "Inserting Playlist Image ${playlist.id} as ${imageDirectory.name}" }
         playlistRepository.insertPlaylistImage(
             playlistId = playlist.id,
             directory = imageDirectory
-        )
+        )?.let {
+            logger.i { "Successfully inserted playlist image" }
+        } ?: run {
+            logger.w { "Failed to insert playlist image" }
+        }
     }
 
     fun deletePlaylist() {

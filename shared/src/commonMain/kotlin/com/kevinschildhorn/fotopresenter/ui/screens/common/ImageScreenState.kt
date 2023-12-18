@@ -7,7 +7,10 @@ data class ImageScreenState(
     val imageDirectories: List<ImageDirectory> = emptyList(),
     val selectedImageIndex: Int? = null,
     val selectedImage: ImageBitmap? = null,
-){
+) {
     val selectedImageDirectory: ImageDirectory?
-        get() = imageDirectories.getOrNull(index)
+        get() =
+            selectedImageIndex?.let {
+                imageDirectories.getOrNull(it)
+            }
 }

@@ -1,6 +1,7 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.kevinschildhorn.fotopresenter.Playlist
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.Overlay
@@ -10,6 +11,7 @@ fun PlaylistOverlay(
     options: List<PlaylistDetails> = emptyList(),
     onCreate: () -> Unit,
     onClick: (Long) -> Unit,
+    onDetails: (Long) -> Unit,
     onEdit: (Long) -> Unit,
     onDelete: (Long) -> Unit,
 ) {
@@ -17,7 +19,14 @@ fun PlaylistOverlay(
         5f,
         visible = true,
         onDismiss = {},
-        ) {
-        PlaylistColumn(options, onCreate, onClick, onEdit, onDelete)
+    ) {
+        PlaylistColumn(
+            options,
+            onCreate = onCreate,
+            onClick = onClick,
+            onDetails = onDetails,
+            onEdit = onEdit,
+            onDelete = onDelete,
+        )
     }
 }

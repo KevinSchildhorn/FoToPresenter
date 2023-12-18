@@ -9,4 +9,11 @@ data class PlaylistScreenState(
     val playlists: List<PlaylistDetails> = emptyList(),
     val selectedId: Long? = null,
     override val state: UiState = UiState.IDLE,
-) : ScreenState
+) : ScreenState {
+
+    val selectedPlaylist: PlaylistDetails?
+        get() =
+            selectedId?.let { id ->
+                playlists.find { it.id == id }
+            }
+}

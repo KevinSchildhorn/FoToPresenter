@@ -14,13 +14,16 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.Confirmat
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.PlaylistOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.TextEntryDialog
+import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.TextListDialog
 
-enum class PlaylistDialog{
+enum class PlaylistDialog {
     NONE,
     CREATE,
     DELETE,
+    DETAILS,
     EDIT
 }
+
 @Composable
 fun PlaylistScreen(
     viewModel: PlaylistViewModel,
@@ -39,6 +42,9 @@ fun PlaylistScreen(
             viewModel.getPlaylist(id)?.let {
                 onPlaylistSelected(it)
             }
+        }, onDetails = {
+            dialogOpen = PlaylistDialog.DETAILS
+            viewModel.setSelectedPlaylist(it)
         }, onDelete = {
             dialogOpen = PlaylistDialog.DELETE
             viewModel.setSelectedPlaylist(it)
@@ -50,27 +56,39 @@ fun PlaylistScreen(
         }
     )
 
-    if (dialogOpen == PlaylistDialog.CREATE) {
-        TextEntryDialog({
-            dialogOpen = PlaylistDialog.NONE
-        }, {
-            viewModel.createPlaylist(it)
-            dialogOpen = PlaylistDialog.NONE
-        })
-    }
-    if (dialogOpen == PlaylistDialog.DELETE) {
-        ConfirmationDialog(
-            "Delete Playlist",
-            "Are you sure you want to delete this playlist?",
-            onDismissRequest = {
+    when(dialogOpen){
+        PlaylistDialog.CREATE -> {
+            TextEntryDialog({
                 dialogOpen = PlaylistDialog.NONE
-                viewModel.clearSelectedPlaylist()
-            },
-            onConfirmation = {
-                viewModel.deletePlaylist()
+            }, {
+                viewModel.createPlaylist(it)
                 dialogOpen = PlaylistDialog.NONE
-                viewModel.clearSelectedPlaylist()
-            },
-        )
+            })
+        }
+        PlaylistDialog.DELETE -> {
+            ConfirmationDialog(
+                "Delete Playlist",
+                "Are you sure you want to delete this playlist?",
+                onDismissRequest = {
+                    dialogOpen = PlaylistDialog.NONE
+                    viewModel.clearSelectedPlaylist()
+                },
+                onConfirmation = {
+                    viewModel.deletePlaylist()
+                    dialogOpen = PlaylistDialog.NONE
+                    viewModel.clearSelectedPlaylist()
+                },
+            )
+        }
+        PlaylistDialog.DETAILS -> {
+            uiState.selectedPlaylist?.let {
+                TextListDialog(it.images.map { it.directory_path }){
+                    dialogOpen = PlaylistDialog.NONE
+                }
+            }
+        }
+        else -> {
+
+        }
     }
 }

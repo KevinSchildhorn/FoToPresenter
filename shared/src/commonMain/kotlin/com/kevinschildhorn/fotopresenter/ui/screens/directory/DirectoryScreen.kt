@@ -135,14 +135,17 @@ fun DirectoryScreen(
                 ActionSheetAction.START_SLIDESHOW -> {
                     viewModel.startSlideshow(contextMenuPhotoState?.id!!)
                     overlayVisible = DirectoryOverlay.NONE
+                    contextMenuPhotoState = null
                 }
+
                 ActionSheetAction.ADD_STATIC_LOCATION ->
                     overlayVisible = DirectoryOverlay.PLAYLIST
+
                 ActionSheetAction.NONE -> {
                     overlayVisible = DirectoryOverlay.NONE
+                    contextMenuPhotoState = null
                 }
             }
-            contextMenuPhotoState = null
         },
         onDismiss = {
             overlayVisible = DirectoryOverlay.NONE
@@ -206,9 +209,11 @@ fun DirectoryScreen(
     //endregion
 
     //region Playlist
-    if(overlayVisible == DirectoryOverlay.PLAYLIST) {
-        PlaylistScreen(viewModel) {
-            viewModel.addSelectedImageToPlaylist(it)
+    if (overlayVisible == DirectoryOverlay.PLAYLIST) {
+        PlaylistScreen(viewModel) { playlist ->
+            viewModel.addToPlaylist(contextMenuPhotoState, playlist)
+            overlayVisible = DirectoryOverlay.NONE
+            contextMenuPhotoState = null
         }
     }
     //endregion

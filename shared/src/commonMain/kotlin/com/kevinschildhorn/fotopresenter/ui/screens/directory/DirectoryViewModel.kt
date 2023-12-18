@@ -3,6 +3,7 @@ package com.kevinschildhorn.fotopresenter.ui.screens.directory
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.Playlist
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
+import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.State
@@ -210,12 +211,15 @@ class DirectoryViewModel(
 
     //region Playlist
 
-    fun addSelectedImageToPlaylist(playlist: PlaylistDetails) {
-        imageUiState.value.selectedImageDirectory?.let{
-            addToPlaylist(it, playlist)
+    fun addToPlaylist(state: DirectoryGridCellState?, playlist: PlaylistDetails) {
+        logger.i { "Inserting Playlist Image ${playlist.id} as ${state}" }
+
+        imageUiState.value.imageDirectories.find { it.id == state?.id }?.let { imageDirectory ->
+            addToPlaylist(imageDirectory, playlist)
+        } ?: run {
+            logger.w { "Could not find image directory" }
         }
     }
-
     //endregion
 
 }
