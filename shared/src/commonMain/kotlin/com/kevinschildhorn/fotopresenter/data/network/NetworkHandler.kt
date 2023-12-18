@@ -10,6 +10,8 @@ interface NetworkHandler {
 
     suspend fun disconnect()
 
+    suspend fun getDirectoryDetails(path: String): NetworkDirectoryDetails?
+
     suspend fun getDirectoryContents(path: String): List<NetworkDirectoryDetails>
 
     suspend fun openDirectory(path: String): String?
@@ -25,4 +27,5 @@ class NetworkHandlerException : Exception {
 enum class NetworkHandlerError(val message: String) {
     NOT_CONNECTED("The Network Handler is not Connected"),
     DIRECTORY_NOT_FOUND("The Directory you selected was not found"),
+    FILE_NOT_FOUND("The File you selected was not found"),
 }

@@ -8,6 +8,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.kevinschildhorn.fotopresenter.Playlist
+import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ConfirmationDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.PlaylistOverlay
@@ -22,9 +24,9 @@ enum class PlaylistDialog{
 @Composable
 fun PlaylistScreen(
     viewModel: PlaylistViewModel,
-    onLoginSuccess: () -> Unit,
+    onPlaylistSelected: (PlaylistDetails) -> Unit,
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.playlistState.collectAsState()
     var dialogOpen by remember { mutableStateOf(PlaylistDialog.NONE) }
 
     LaunchedEffect(Unit) {
@@ -33,8 +35,10 @@ fun PlaylistScreen(
 
     PlaylistOverlay(
         uiState.playlists,
-        onClick = {
-
+        onClick = { id ->
+            viewModel.getPlaylist(id)?.let {
+                onPlaylistSelected(it)
+            }
         }, onDelete = {
             dialogOpen = PlaylistDialog.DELETE
             viewModel.setSelectedPlaylist(it)

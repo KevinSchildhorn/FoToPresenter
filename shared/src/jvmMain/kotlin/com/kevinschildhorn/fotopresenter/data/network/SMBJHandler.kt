@@ -49,6 +49,17 @@ object SMBJHandler : NetworkHandler {
         return true
     }
 
+    override suspend fun getDirectoryDetails(path: String): NetworkDirectoryDetails? {
+        share?.getFileInformation(path)?.let {
+            return DefaultNetworkDirectoryDetails(
+                id = it.internalInformation.indexNumber.toInt(),
+                fullPath = path,
+            )
+        } ?: run {
+            return null
+        }
+    }
+
     override suspend fun getDirectoryContents(path: String): List<NetworkDirectoryDetails> {
         return share?.list(path)?.map {
             SMBJNetworkDirectoryDetails(

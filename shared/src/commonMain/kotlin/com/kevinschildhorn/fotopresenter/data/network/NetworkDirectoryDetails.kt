@@ -23,7 +23,7 @@ interface NetworkDirectoryDetails {
                 fileExtension == "bmp"
 }
 
-class MockNetworkDirectoryDetails(
+class DefaultNetworkDirectoryDetails(
     override val fullPath: String,
     override val id: Int,
 ) : NetworkDirectoryDetails

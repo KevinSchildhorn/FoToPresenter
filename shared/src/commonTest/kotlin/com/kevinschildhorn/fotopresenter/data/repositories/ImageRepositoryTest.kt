@@ -1,6 +1,6 @@
 package com.kevinschildhorn.fotopresenter.data.repositories
 
-import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectoryDetails
+import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerError
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
@@ -46,7 +46,7 @@ class ImageRepositoryTest : KoinTest {
             try {
                 val result =
                     repository.getImage(
-                        MockNetworkDirectoryDetails(
+                        DefaultNetworkDirectoryDetails(
                             fullPath = "Photos/Success.png",
                             id = 1,
                         ),
@@ -61,7 +61,7 @@ class ImageRepositoryTest : KoinTest {
         runBlocking {
             val result =
                 repository.getImage(
-                    MockNetworkDirectoryDetails(
+                    DefaultNetworkDirectoryDetails(
                         fullPath = "Photos/nonExistant.png",
                         id = 1,
                     ),
@@ -76,7 +76,7 @@ class ImageRepositoryTest : KoinTest {
             try {
                 val result =
                     repository.getImage(
-                        MockNetworkDirectoryDetails(
+                        DefaultNetworkDirectoryDetails(
                             fullPath = "Photos/nonExistant.png",
                             id = 1,
                         ),

@@ -84,7 +84,7 @@ class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel
         with(imageUiState.value) {
             selectedImageIndex?.let { index ->
                 logger?.d { "Selected Image Index found. getting Image Directory" }
-                this.imageDirectories.getOrNull(index)?.let {
+                this.selectedImageDirectory?.let {
                     logger?.d { "Image Directory found, showing photo" }
                     showPhoto(it)
                 } ?: run {

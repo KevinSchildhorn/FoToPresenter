@@ -37,6 +37,9 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryTe
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryNavigationBar
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.NavigationRailOverlay
+import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistDialog
+import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreen
+import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.PlaylistOverlay
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.LogOut
@@ -47,6 +50,7 @@ enum class DirectoryOverlay {
     IMAGE,
     NAV_RAIL,
     LOGOUT_CONFIRMATION,
+    PLAYLIST,
     NONE,
 }
 
@@ -71,7 +75,7 @@ fun DirectoryScreen(
         onStartSlideshow(it)
     }
 
-    // UI
+    //region UI
     Column {
         TextButton(
             modifier = Modifier.size(55.dp),
@@ -117,6 +121,11 @@ fun DirectoryScreen(
             },
         )
     }
+    //endregion
+
+    // Overlays
+
+    //region ActionSheet
     ActionSheet(
         visible = overlayVisible == DirectoryOverlay.ACTION_SHEET,
         offset = 200,
@@ -125,12 +134,14 @@ fun DirectoryScreen(
             when (it.action) {
                 ActionSheetAction.START_SLIDESHOW -> {
                     viewModel.startSlideshow(contextMenuPhotoState?.id!!)
+                    overlayVisible = DirectoryOverlay.NONE
                 }
-
+                ActionSheetAction.ADD_STATIC_LOCATION ->
+                    overlayVisible = DirectoryOverlay.PLAYLIST
                 ActionSheetAction.NONE -> {
+                    overlayVisible = DirectoryOverlay.NONE
                 }
             }
-            overlayVisible = DirectoryOverlay.NONE
             contextMenuPhotoState = null
         },
         onDismiss = {
@@ -138,6 +149,9 @@ fun DirectoryScreen(
             contextMenuPhotoState = null
         },
     )
+    //endregion
+
+    //region Selected Image
     imageUiState.selectedImage?.let {
         ImagePreviewOverlay(
             it,
@@ -154,10 +168,15 @@ fun DirectoryScreen(
             },
         )
     }
+    //endregion
+
+    //region Loading
     if (uiState.state is UiState.LOADING) {
         LoadingOverlay()
     }
+    //endregion
 
+    //region NavigationRail
     NavigationRailOverlay(
         visible = overlayVisible == DirectoryOverlay.NAV_RAIL,
         onDismiss = {
@@ -168,6 +187,9 @@ fun DirectoryScreen(
         },
         onPlaylists = onShowPlaylists,
     )
+    //endregion
+
+    //region Logout
     if (overlayVisible == DirectoryOverlay.LOGOUT_CONFIRMATION) {
         ConfirmationDialog(
             "Log Out",
@@ -181,4 +203,13 @@ fun DirectoryScreen(
             },
         )
     }
+    //endregion
+
+    //region Playlist
+    if(overlayVisible == DirectoryOverlay.PLAYLIST) {
+        PlaylistScreen(viewModel) {
+            viewModel.addSelectedImageToPlaylist(it)
+        }
+    }
+    //endregion
 }

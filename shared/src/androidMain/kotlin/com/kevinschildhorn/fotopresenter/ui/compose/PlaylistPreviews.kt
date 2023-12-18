@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.kevinschildhorn.fotopresenter.Playlist
+import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.PlaylistColumn
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.PlaylistOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.PlaylistScreenCreateRow
@@ -36,7 +37,7 @@ fun PlaylistRowsPreview() {
 @Preview
 fun PlaylistColumnPreview() {
     PlaylistColumn(
-        listOf(Playlist(1,"Playlist 1"), Playlist(2, "Playlist 2")),
+        listOf(PlaylistDetails(1,"Playlist 1"), PlaylistDetails(2, "Playlist 2")),
         {},
         {},
         {},
@@ -57,7 +58,7 @@ fun PlaylistOverlayPreview() {
             Text("Toggle")
         }
         PlaylistOverlay(
-            listOf(Playlist(1,"Playlist 1"), Playlist(2, "Playlist 2")),
+            listOf(PlaylistDetails(1,"Playlist 1"), PlaylistDetails(2, "Playlist 2")),
             {},
             {},
             {},

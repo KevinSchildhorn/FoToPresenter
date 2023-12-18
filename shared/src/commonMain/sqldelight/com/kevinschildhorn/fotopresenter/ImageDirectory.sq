@@ -9,6 +9,11 @@ insertPlaylistImage:
 INSERT INTO PlaylistImage(playlist_id, directory_path, directory_id)
 VALUES (?, ?, ?);
 
+selectPlaylistImages:
+SELECT *
+FROM PlaylistImage
+WHERE playlist_id = ?;
+
 selectPlaylistImage:
 SELECT *
 FROM PlaylistImage

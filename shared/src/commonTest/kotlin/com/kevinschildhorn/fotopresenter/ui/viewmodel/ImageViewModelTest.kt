@@ -2,7 +2,7 @@ package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
 import app.cash.turbine.test
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
-import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectoryDetails
+import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.testingModule
 import com.kevinschildhorn.fotopresenter.ui.screens.common.DefaultImageViewModel
@@ -31,12 +31,12 @@ class ImageViewModelTest : KoinTest {
 
     private val directories =
         listOf(
-            ImageDirectory(MockNetworkDirectoryDetails("Peeng.png", 1)),
-            ImageDirectory(MockNetworkDirectoryDetails("Jaypeg.jpg", 2)),
-            ImageDirectory(MockNetworkDirectoryDetails("Photos/Peeng2.png", 3)),
-            ImageDirectory(MockNetworkDirectoryDetails("Photos/Jaypeg2.jpg", 4)),
-            ImageDirectory(MockNetworkDirectoryDetails("Photos/SubPhotos/Peeng3.png", 5)),
-            ImageDirectory(MockNetworkDirectoryDetails("Photos/SubPhotos/Jaypeg3.jpg", 6)),
+            ImageDirectory(DefaultNetworkDirectoryDetails("Peeng.png", 1)),
+            ImageDirectory(DefaultNetworkDirectoryDetails("Jaypeg.jpg", 2)),
+            ImageDirectory(DefaultNetworkDirectoryDetails("Photos/Peeng2.png", 3)),
+            ImageDirectory(DefaultNetworkDirectoryDetails("Photos/Jaypeg2.jpg", 4)),
+            ImageDirectory(DefaultNetworkDirectoryDetails("Photos/SubPhotos/Peeng3.png", 5)),
+            ImageDirectory(DefaultNetworkDirectoryDetails("Photos/SubPhotos/Jaypeg3.jpg", 6)),
         )
 
     @BeforeTest

@@ -30,13 +30,14 @@ data class DirectoryScreenState(
         }
         return this.copy(
             directoryGridState =
-                directoryGridState.copy(
-                    imageStates = list,
-                ),
+            directoryGridState.copy(
+                imageStates = list,
+            ),
         )
     }
 
-    fun getImageIndexFromId(id: Int): Int = directoryGridState.imageStates.indexOfFirst { it.id == id }
+    fun getImageIndexFromId(id: Int): Int =
+        directoryGridState.imageStates.indexOfFirst { it.id == id }
 
     val currentPathList: List<String>
         get() = currentPath.split("\\").filter { it.isNotEmpty() }
@@ -75,7 +76,10 @@ data class ImageDirectoryGridCellState(
     override val id: Int,
 ) : DirectoryGridCellState {
     override val actionSheetContexts: List<ActionSheetContext>
-        get() = listOf(ActionSheetContext(ActionSheetAction.NONE, 1))
+        get() = listOf(
+            ActionSheetContext(ActionSheetAction.NONE, 1),
+            ActionSheetContext(ActionSheetAction.ADD_STATIC_LOCATION, 1)
+        )
 
     override fun toString(): String = "(I:$name:$id)"
 }

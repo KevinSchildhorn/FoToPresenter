@@ -1,6 +1,6 @@
 package com.kevinschildhorn.fotopresenter.data.datasources
 
-import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectoryDetails
+import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerError
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
@@ -35,7 +35,7 @@ class ImageRemoteDataSourceTest {
     fun `get Image Success`() =
         runBlocking {
             val networkDirectory =
-                MockNetworkDirectoryDetails(
+                DefaultNetworkDirectoryDetails(
                     fullPath = "Photos/Success.png",
                     id = 1,
                 )
@@ -50,7 +50,7 @@ class ImageRemoteDataSourceTest {
     fun `get Image Failure`() =
         runBlocking {
             val networkDirectory =
-                MockNetworkDirectoryDetails(
+                DefaultNetworkDirectoryDetails(
                     fullPath = "Photos/nonExistant.png",
                     id = 1,
                 )
@@ -63,7 +63,7 @@ class ImageRemoteDataSourceTest {
         runBlocking {
             networkHandler.disconnect()
             try {
-                val image = dataSource.getImage(MockNetworkDirectoryDetails("", 1))
+                val image = dataSource.getImage(DefaultNetworkDirectoryDetails("", 1))
                 fail("Should have thrown exception")
             } catch (e: NetworkHandlerException) {
                 assertEquals(e.message, NetworkHandlerError.NOT_CONNECTED.message)

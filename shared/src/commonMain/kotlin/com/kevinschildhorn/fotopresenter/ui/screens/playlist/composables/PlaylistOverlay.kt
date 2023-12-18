@@ -2,11 +2,12 @@ package com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables
 
 import androidx.compose.runtime.Composable
 import com.kevinschildhorn.fotopresenter.Playlist
+import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.Overlay
 
 @Composable
 fun PlaylistOverlay(
-    options: List<Playlist> = emptyList(),
+    options: List<PlaylistDetails> = emptyList(),
     onCreate: () -> Unit,
     onClick: (Long) -> Unit,
     onEdit: (Long) -> Unit,
