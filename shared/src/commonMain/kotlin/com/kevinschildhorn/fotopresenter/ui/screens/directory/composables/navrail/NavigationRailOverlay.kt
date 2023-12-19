@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.ui.screens.directory.composables
+package com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail
 
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
