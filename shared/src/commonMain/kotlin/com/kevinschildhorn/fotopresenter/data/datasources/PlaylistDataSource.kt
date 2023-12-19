@@ -5,6 +5,7 @@ import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.Playlist
 import com.kevinschildhorn.fotopresenter.PlaylistDatabase
 import com.kevinschildhorn.fotopresenter.PlaylistImage
+import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import org.koin.core.component.KoinComponent
@@ -58,7 +59,7 @@ class PlaylistDataSource(
         }
     }
 
-    fun insertPlaylistImage(playlistId: Long, directory: ImageDirectory): PlaylistImage? {
+    fun insertPlaylistImage(playlistId: Long, directory: Directory): PlaylistImage? {
         logger?.i { "Inserting Playlist Image ${directory.name}" }
         database.imageDirectoryQueries.insertPlaylistImage(
             playlist_id = playlistId,

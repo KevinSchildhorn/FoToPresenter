@@ -57,7 +57,6 @@ fun DirectoryScreen(
     val uiState by viewModel.uiState.collectAsState()
     val imageUiState by viewModel.imageUiState.collectAsState()
     var overlayVisible by remember { mutableStateOf(DirectoryOverlay.NONE) }
-    var contextMenuPhotoState by rememberSaveable { mutableStateOf<DirectoryGridCellState?>(null) }
 
     // Navigation
     if (!uiState.loggedIn) onLogout()
@@ -99,7 +98,7 @@ fun DirectoryScreen(
                 overlayVisible = DirectoryOverlay.IMAGE
             },
             onActionSheet = {
-                contextMenuPhotoState = it
+                viewModel.setSelectedDirectory(it)
                 overlayVisible = DirectoryOverlay.ACTION_SHEET
             },
         )
@@ -112,27 +111,30 @@ fun DirectoryScreen(
     ActionSheet(
         visible = overlayVisible == DirectoryOverlay.ACTION_SHEET,
         offset = 200,
-        values = contextMenuPhotoState?.actionSheetContexts ?: emptyList(),
+        values = viewModel.actionSheetContexts,
         onClick = {
             when (it.action) {
                 ActionSheetAction.START_SLIDESHOW -> {
-                    viewModel.startSlideshow(contextMenuPhotoState?.id!!)
+                    viewModel.startSlideshow()
                     overlayVisible = DirectoryOverlay.NONE
-                    contextMenuPhotoState = null
+                    viewModel.setSelectedDirectory(null)
                 }
 
                 ActionSheetAction.ADD_STATIC_LOCATION ->
                     overlayVisible = DirectoryOverlay.PLAYLIST
 
+                ActionSheetAction.ADD_DYNAMIC_LOCATION ->
+                    overlayVisible = DirectoryOverlay.PLAYLIST
+
                 ActionSheetAction.NONE -> {
                     overlayVisible = DirectoryOverlay.NONE
-                    contextMenuPhotoState = null
+                    viewModel.setSelectedDirectory(null)
                 }
             }
         },
         onDismiss = {
             overlayVisible = DirectoryOverlay.NONE
-            contextMenuPhotoState = null
+            viewModel.setSelectedDirectory(null)
         },
     )
     //endregion
@@ -193,10 +195,16 @@ fun DirectoryScreen(
 
     //region Playlist
     if (overlayVisible == DirectoryOverlay.PLAYLIST) {
-        PlaylistScreen(viewModel) { playlist ->
-            viewModel.addToPlaylist(contextMenuPhotoState, playlist)
+        PlaylistScreen(
+            viewModel,
+            overlaid = true,
+            onDismiss = {
+                overlayVisible = DirectoryOverlay.NONE
+            }
+        ) { playlist ->
+            viewModel.addSelectedDirectoryToPlaylist(playlist)
             overlayVisible = DirectoryOverlay.NONE
-            contextMenuPhotoState = null
+            viewModel.setSelectedDirectory(null)
         }
     }
     //endregion

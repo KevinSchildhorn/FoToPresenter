@@ -19,4 +19,13 @@ data class PlaylistDetails(
                 )
             }
         )
+
+    override fun toString(): String {
+        return """
+            Playlist Details:
+            id: $id
+            name: $name
+            images: ${images.count()}
+        """
+    }
 }

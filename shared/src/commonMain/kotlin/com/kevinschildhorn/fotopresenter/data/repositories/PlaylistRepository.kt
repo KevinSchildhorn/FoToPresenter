@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter.data.repositories
 
 import com.kevinschildhorn.fotopresenter.Playlist
 import com.kevinschildhorn.fotopresenter.PlaylistImage
+import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistDataSource
@@ -19,7 +20,7 @@ class PlaylistRepository(
     fun getPlaylistByName(name: String): PlaylistDetails? =
         playlistDataSource.getPlaylistByName(name)
 
-    fun insertPlaylistImage(playlistId: Long, directory: ImageDirectory): PlaylistImage? =
+    fun insertPlaylistImage(playlistId: Long, directory: Directory): PlaylistImage? =
         playlistDataSource.insertPlaylistImage(playlistId, directory)
 
     fun getPlaylistImage(playlistId: Long, directoryPath: String): PlaylistImage? =

@@ -27,10 +27,11 @@ fun PlaylistColumn(
     onDetails: (Long) -> Unit,
     onEdit: (Long) -> Unit,
     onDelete: (Long) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val atom = PlaylistScreenAtoms.title
     Column(
-        Modifier
+        modifier
             .fillMaxWidth()
             .padding(Padding.STANDARD.dp)
             .clip(RoundedCornerShape(10.dp))

@@ -60,6 +60,8 @@ fun PlaylistOverlayPreview() {
         }
         PlaylistOverlay(
             listOf(PlaylistDetails(1,"Playlist 1"), PlaylistDetails(2, "Playlist 2")),
+            overlaid = false,
+            {},
             {},
             {},
             {},
