@@ -13,6 +13,7 @@ data class DirectoryScreenState(
     var directoryGridState: DirectoryGridState = DirectoryGridState(emptyList(), mutableListOf()),
     val slideshowDetails: ImageSlideshowDetails? = null,
     val loggedIn: Boolean = true,
+    val selectedDirectory: DirectoryGridCellState? = null,
     override val state: UiState = UiState.IDLE,
 ) : ScreenState {
     fun copyImageState(
@@ -65,7 +66,10 @@ data class FolderDirectoryGridCellState(
     override val id: Int,
 ) : DirectoryGridCellState {
     override val actionSheetContexts: List<ActionSheetContext>
-        get() = listOf(ActionSheetContext(ActionSheetAction.START_SLIDESHOW, 1))
+        get() = listOf(
+            ActionSheetContext(ActionSheetAction.START_SLIDESHOW, 1),
+            ActionSheetContext(ActionSheetAction.ADD_DYNAMIC_LOCATION, 2),
+        )
 
     override fun toString(): String = "(F:$name:$id)"
 }
@@ -77,7 +81,6 @@ data class ImageDirectoryGridCellState(
 ) : DirectoryGridCellState {
     override val actionSheetContexts: List<ActionSheetContext>
         get() = listOf(
-            ActionSheetContext(ActionSheetAction.NONE, 1),
             ActionSheetContext(ActionSheetAction.ADD_STATIC_LOCATION, 1)
         )
 

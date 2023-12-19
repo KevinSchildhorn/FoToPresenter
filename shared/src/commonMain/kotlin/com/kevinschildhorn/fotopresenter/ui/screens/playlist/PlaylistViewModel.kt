@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter.ui.screens.playlist
 
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.Playlist
+import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
@@ -45,11 +46,11 @@ open class PlaylistViewModel(
         refreshPlaylists()
     }
 
-    fun addToPlaylist(imageDirectory: ImageDirectory, playlist: PlaylistDetails) {
-        logger.i { "Inserting Playlist Image ${playlist.id} as ${imageDirectory.name}" }
+    fun addToPlaylist(directory: Directory, playlist: PlaylistDetails) {
+        logger.i { "Inserting Playlist Image ${playlist.id} as ${directory.name}" }
         playlistRepository.insertPlaylistImage(
             playlistId = playlist.id,
-            directory = imageDirectory
+            directory = directory
         )?.let {
             logger.i { "Successfully inserted playlist image" }
         } ?: run {

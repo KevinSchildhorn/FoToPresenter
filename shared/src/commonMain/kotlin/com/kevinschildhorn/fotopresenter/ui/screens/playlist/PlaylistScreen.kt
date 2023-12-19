@@ -27,6 +27,7 @@ enum class PlaylistDialog {
 @Composable
 fun PlaylistScreen(
     viewModel: PlaylistViewModel,
+    onDismiss: (() -> Unit)? = null,
     onPlaylistSelected: (PlaylistDetails) -> Unit,
 ) {
     val uiState by viewModel.playlistState.collectAsState()
@@ -53,6 +54,10 @@ fun PlaylistScreen(
             viewModel.setSelectedPlaylist(it)
         }, onCreate = {
             dialogOpen = PlaylistDialog.CREATE
+        }, onDismiss = {
+            if (onDismiss != null) {
+                onDismiss()
+            }
         }
     )
 

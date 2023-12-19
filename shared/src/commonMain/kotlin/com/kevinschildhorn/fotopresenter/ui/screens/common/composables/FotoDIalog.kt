@@ -66,7 +66,7 @@ fun FotoDialog(
                         },
                         modifier = Modifier.padding(Padding.SMALL.dp)
                     ) {
-                        AtomikText("Cancel", atom = CommonAtoms.dialogButton)
+                        AtomikText("Dismiss", atom = CommonAtoms.dialogButton)
                     }
                     onConfirmation?.let {
                         PrimaryTextButton("Confirm") {

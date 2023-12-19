@@ -14,11 +14,12 @@ fun PlaylistOverlay(
     onDetails: (Long) -> Unit,
     onEdit: (Long) -> Unit,
     onDelete: (Long) -> Unit,
+    onDismiss: () -> Unit,
 ) {
     Overlay(
         5f,
         visible = true,
-        onDismiss = {},
+        onDismiss = onDismiss,
     ) {
         PlaylistColumn(
             options,

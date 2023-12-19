@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.Playlist
+import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
@@ -18,6 +19,7 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.extension.addPath
 import com.kevinschildhorn.fotopresenter.extension.navigateBackToPathAtIndex
 import com.kevinschildhorn.fotopresenter.ui.UiState
+import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
 import com.kevinschildhorn.fotopresenter.ui.screens.common.DefaultImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
@@ -45,6 +47,9 @@ class DirectoryViewModel(
 
     private val currentPath: String
         get() = uiState.value.currentPath
+
+    val actionSheetContexts: List<ActionSheetContext>
+        get() = uiState.value.selectedDirectory?.actionSheetContexts ?: emptyList()
 
     init {
         setImageScope(viewModelScope)
@@ -74,13 +79,18 @@ class DirectoryViewModel(
 
     //region Image
 
-    fun startSlideshow(directoryId: Int) {
-        _directoryContentsState.value.folders.find { it.id == directoryId }?.let {
-            viewModelScope.launch(Dispatchers.Default) {
-                val retrieveImagesUseCase: RetrieveImageDirectoriesUseCase by inject()
-                val images = retrieveImagesUseCase(it.details)
-                _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
+    fun startSlideshow() {
+        logger.i { "Starting Slideshow" }
+        uiState.value.selectedDirectory?.id?.let { id ->
+            _directoryContentsState.value.folders.find { it.id == id }?.let {
+                viewModelScope.launch(Dispatchers.Default) {
+                    val retrieveImagesUseCase: RetrieveImageDirectoriesUseCase by inject()
+                    val images = retrieveImagesUseCase(it.details)
+                    _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
+                }
             }
+        } ?: run {
+            logger.w { "No Directory Selected!" }
         }
     }
 
@@ -96,6 +106,10 @@ class DirectoryViewModel(
         }
         logger.i { "Set Image with Index: $index" }
         setSelectedImage(index)
+    }
+
+    fun setSelectedDirectory(directory: DirectoryGridCellState?) {
+        _uiState.update { it.copy(selectedDirectory = directory) }
     }
 
     //endregion
@@ -211,13 +225,24 @@ class DirectoryViewModel(
 
     //region Playlist
 
-    fun addToPlaylist(state: DirectoryGridCellState?, playlist: PlaylistDetails) {
-        logger.i { "Inserting Playlist Image ${playlist.id} as ${state}" }
+    fun addSelectedDirectoryToPlaylist(playlist: PlaylistDetails) {
+        uiState.value.selectedDirectory?.let { selectedDirectory ->
+            with(_directoryContentsState.value) {
+                logger.i { "Inserting Playlist Image ${playlist.id} as ${uiState.value.selectedDirectory}" }
 
-        imageUiState.value.imageDirectories.find { it.id == state?.id }?.let { imageDirectory ->
-            addToPlaylist(imageDirectory, playlist)
+                val states: List<Directory> =
+                    if (selectedDirectory.isImageGridCell) this.images
+                    else this.folders
+
+                states.find { it.id == selectedDirectory.id }
+                    ?.let { directory ->
+                        addToPlaylist(directory, playlist)
+                    } ?: run {
+                    logger.w { "Could not find image directory" }
+                }
+            }
         } ?: run {
-            logger.w { "Could not find image directory" }
+            logger.w { "Selected Directory Not found" }
         }
     }
     //endregion
