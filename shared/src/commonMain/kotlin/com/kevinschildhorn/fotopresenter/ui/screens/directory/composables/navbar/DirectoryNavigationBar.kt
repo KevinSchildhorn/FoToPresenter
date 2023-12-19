@@ -1,7 +1,6 @@
-package com.kevinschildhorn.fotopresenter.ui.screens.directory.composables
+package com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items

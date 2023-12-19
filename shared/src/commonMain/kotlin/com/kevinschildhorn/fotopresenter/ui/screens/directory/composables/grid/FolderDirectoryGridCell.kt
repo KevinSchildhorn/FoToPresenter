@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.ui.screens.directory.composables
+package com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight

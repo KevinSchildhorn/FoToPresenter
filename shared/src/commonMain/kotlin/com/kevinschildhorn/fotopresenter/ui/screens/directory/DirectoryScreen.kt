@@ -1,14 +1,9 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
-import androidx.compose.material.NavigationRail
-import androidx.compose.material.NavigationRailItem
-import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,18 +26,13 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.Confirmat
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ImagePreviewOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.LoadingOverlay
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.Overlay
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.OverlayShadow
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryTextButton
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryGrid
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryNavigationBar
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.NavigationRailOverlay
-import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistDialog
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationBar
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.NavigationRailMenuButton
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.NavigationRailOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreen
-import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.PlaylistOverlay
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
-import compose.icons.evaicons.fill.LogOut
 import compose.icons.evaicons.fill.Menu
 
 enum class DirectoryOverlay {
@@ -77,20 +67,13 @@ fun DirectoryScreen(
 
     //region UI
     Column {
-        TextButton(
-            modifier = Modifier.size(55.dp),
-            onClick = {
-                overlayVisible = DirectoryOverlay.NAV_RAIL
-            }) {
-            Icon(
-                EvaIcons.Fill.Menu,
-                contentDescription = "Menu",
-                tint = FotoColors.backgroundText.composeColor
-            )
+        NavigationRailMenuButton {
+            overlayVisible = DirectoryOverlay.NAV_RAIL
         }
         (uiState.state as? UiState.ERROR)?.let {
             ErrorView(
-                it.message, modifier = Modifier.padding(
+                it.message,
+                modifier = Modifier.padding(
                     horizontal = Padding.STANDARD.dp,
                     vertical = Padding.SMALL.dp,
                 )
