@@ -4,14 +4,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.kevinschildhorn.fotopresenter.data.State
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryGridCell
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryGrid
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.FolderDirectoryGridCell
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGridCell
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.FolderDirectoryGridCell
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.FolderDirectoryGridCellState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.ImageDirectoryGridCellState
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryNavigationBar
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.DirectoryNavigationItem
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationBar
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationItem
 
 @Preview
 @Composable
