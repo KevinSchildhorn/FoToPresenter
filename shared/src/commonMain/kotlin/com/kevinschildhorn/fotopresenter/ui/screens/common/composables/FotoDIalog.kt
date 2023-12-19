@@ -30,7 +30,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.CommonAtoms
 fun FotoDialog(
     dialogTitle: String,
     onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
+    onConfirmation: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Dialog(onDismissRequest = { onDismissRequest() }) {
@@ -68,8 +68,10 @@ fun FotoDialog(
                     ) {
                         AtomikText("Cancel", atom = CommonAtoms.dialogButton)
                     }
-                    PrimaryTextButton("Confirm") {
-                        onConfirmation()
+                    onConfirmation?.let {
+                        PrimaryTextButton("Confirm") {
+                            it()
+                        }
                     }
                 }
             }

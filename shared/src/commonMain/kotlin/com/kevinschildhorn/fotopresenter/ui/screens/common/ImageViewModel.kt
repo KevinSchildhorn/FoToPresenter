@@ -70,6 +70,7 @@ class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel
     }
 
     override fun setSelectedImage(index: Int?) {
+        logger?.i { "Setting selected image to $index" }
         _uiState.update { it.copy(selectedImageIndex = index) }
         updateSelectedImage()
     }
@@ -80,16 +81,12 @@ class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel
 
     private fun updateSelectedImage() {
         logger?.i { "Updating Selected Index" }
-
         with(imageUiState.value) {
-            selectedImageIndex?.let { index ->
-                logger?.d { "Selected Image Index found. getting Image Directory" }
-                this.imageDirectories.getOrNull(index)?.let {
-                    logger?.d { "Image Directory found, showing photo" }
-                    showPhoto(it)
-                } ?: run {
-                    logger?.w { "Image Directory NOT found for index: $index in count ${imageDirectories.count()}" }
-                }
+            selectedImageDirectory?.let {
+                logger?.d { "Image Directory found, showing photo" }
+                showPhoto(it)
+            } ?: run {
+                logger?.w { "Image Directory NOT found" }
             }
         }
     }

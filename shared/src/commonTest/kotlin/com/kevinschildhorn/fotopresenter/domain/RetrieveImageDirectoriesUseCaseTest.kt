@@ -1,6 +1,6 @@
 package com.kevinschildhorn.fotopresenter.domain
 
-import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectoryDetails
+import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerError
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
@@ -42,7 +42,7 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
     @Test
     fun `receive directory content success`() =
         runBlocking {
-            val details = MockNetworkDirectoryDetails("", 1)
+            val details = DefaultNetworkDirectoryDetails("", 1)
             val result = useCase(details)
             assertEquals(6, result.count())
         }
@@ -50,7 +50,7 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
     @Test
     fun `receive directory content only directories`() =
         runBlocking {
-            val details = MockNetworkDirectoryDetails("Directories", 1)
+            val details = DefaultNetworkDirectoryDetails("Directories", 1)
             val result = useCase(details)
             assertEquals(0, result.count())
         }
@@ -58,7 +58,7 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
     @Test
     fun `receive directory content failure`() =
         runBlocking {
-            val details = MockNetworkDirectoryDetails("nonExistant", 1)
+            val details = DefaultNetworkDirectoryDetails("nonExistant", 1)
             val result = useCase(details)
             assertEquals(0, result.count())
         }
@@ -68,7 +68,7 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
         runBlocking {
             MockNetworkHandler.disconnect()
             try {
-                val details = MockNetworkDirectoryDetails("Photos", 1)
+                val details = DefaultNetworkDirectoryDetails("Photos", 1)
                 val result = useCase(details)
                 fail("Should've thrown")
             } catch (e: NetworkHandlerException) {

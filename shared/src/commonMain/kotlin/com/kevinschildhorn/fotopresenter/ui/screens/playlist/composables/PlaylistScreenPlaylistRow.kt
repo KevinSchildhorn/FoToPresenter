@@ -23,12 +23,14 @@ import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreenAtoms
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline
 import compose.icons.evaicons.outline.Edit
+import compose.icons.evaicons.outline.Info
 import compose.icons.evaicons.outline.Trash
 
 @Composable
 fun PlaylistScreenPlaylistRow(
     title: String,
     onClick: () -> Unit,
+    onDetails: () -> Unit,
     onEdit: () -> Unit,
     onDelete: () -> Unit,
 ) {
@@ -46,6 +48,16 @@ fun PlaylistScreenPlaylistRow(
             Spacer(Modifier.fillMaxWidth())
         }
         Row(modifier = Modifier.fillMaxHeight()) {
+            TextButton(
+                modifier = Modifier.width(44.dp),
+                onClick = onDetails
+            ) {
+                AtomikIcon(
+                    EvaIcons.Outline.Info,
+                    atom,
+                    contentDescription = "Details",
+                )
+            }
             TextButton(
                 modifier = Modifier.width(44.dp),
                 onClick = onEdit

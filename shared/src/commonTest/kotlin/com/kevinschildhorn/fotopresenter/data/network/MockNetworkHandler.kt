@@ -19,35 +19,35 @@ object MockNetworkHandler : NetworkHandler {
         mapOf(
             "" to
                 listOf<NetworkDirectoryDetails>(
-                    MockNetworkDirectoryDetails(fullPath = "Photos", id = photoDirectoryId),
-                    MockNetworkDirectoryDetails(fullPath = "NewDirectory", id = 1),
-                    MockNetworkDirectoryDetails(fullPath = "Peeng.png", id = 75),
-                    MockNetworkDirectoryDetails(fullPath = "Jaypeg.jpg", id = 3),
-                    MockNetworkDirectoryDetails(fullPath = "textFile.txt", id = 4),
+                    DefaultNetworkDirectoryDetails(fullPath = "Photos", id = photoDirectoryId),
+                    DefaultNetworkDirectoryDetails(fullPath = "NewDirectory", id = 1),
+                    DefaultNetworkDirectoryDetails(fullPath = "Peeng.png", id = 75),
+                    DefaultNetworkDirectoryDetails(fullPath = "Jaypeg.jpg", id = 3),
+                    DefaultNetworkDirectoryDetails(fullPath = "textFile.txt", id = 4),
                 ),
             "Directories" to
                 listOf<NetworkDirectoryDetails>(
-                    MockNetworkDirectoryDetails(fullPath = "Directories/NewDirectory", id = 1),
-                    MockNetworkDirectoryDetails(fullPath = "Directories/NewDirectory2", id = 2),
+                    DefaultNetworkDirectoryDetails(fullPath = "Directories/NewDirectory", id = 1),
+                    DefaultNetworkDirectoryDetails(fullPath = "Directories/NewDirectory2", id = 2),
                 ),
             "Photos" to
                 listOf<NetworkDirectoryDetails>(
-                    MockNetworkDirectoryDetails(fullPath = "Photos/Peeng2.png", id = 2),
-                    MockNetworkDirectoryDetails(fullPath = "Photos/Jaypeg2.jpg", id = 3),
-                    MockNetworkDirectoryDetails(fullPath = "Photos/textFile2.txt", id = 4),
-                    MockNetworkDirectoryDetails(fullPath = "Photos/SubPhotos", id = 5),
+                    DefaultNetworkDirectoryDetails(fullPath = "Photos/Peeng2.png", id = 2),
+                    DefaultNetworkDirectoryDetails(fullPath = "Photos/Jaypeg2.jpg", id = 3),
+                    DefaultNetworkDirectoryDetails(fullPath = "Photos/textFile2.txt", id = 4),
+                    DefaultNetworkDirectoryDetails(fullPath = "Photos/SubPhotos", id = 5),
                 ),
             "Photos/SubPhotos" to
                 listOf<NetworkDirectoryDetails>(
-                    MockNetworkDirectoryDetails(
+                    DefaultNetworkDirectoryDetails(
                         fullPath = "Photos/SubPhotos/Peeng3.png",
                         id = 2,
                     ),
-                    MockNetworkDirectoryDetails(
+                    DefaultNetworkDirectoryDetails(
                         fullPath = "Photos/SubPhotos/Jaypeg3.jpg",
                         id = 3,
                     ),
-                    MockNetworkDirectoryDetails(
+                    DefaultNetworkDirectoryDetails(
                         fullPath = "Photos/SubPhotos/textFile3.txt",
                         id = 4,
                     ),

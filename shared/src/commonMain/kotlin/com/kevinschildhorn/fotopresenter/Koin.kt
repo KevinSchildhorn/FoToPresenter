@@ -41,7 +41,7 @@ val commonModule =
         single { ImageRemoteDataSource(get()) }
         single { ImageRepository(get()) }
         single { ImageCacheDataSource(get()) }
-        single { PlaylistDataSource(get()) }
+        single { PlaylistDataSource(get(), baseLogger.withTag("PlaylistDataSource")) }
         single { PlaylistRepository(get()) }
 
         // Domain
@@ -62,7 +62,7 @@ val commonModule =
 
         // UI
         single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
-        single { DirectoryViewModel(baseLogger.withTag("DirectoryViewModel")) }
+        single { DirectoryViewModel(get(),baseLogger.withTag("DirectoryViewModel")) }
         single { SlideshowViewModel(baseLogger.withTag("SlideshowViewModel")) }
         single { PlaylistViewModel(get(),baseLogger.withTag("PlaylistViewModel")) }
     }
