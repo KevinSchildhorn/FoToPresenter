@@ -15,7 +15,7 @@ import org.koin.core.component.KoinComponent
 
 open class PlaylistViewModel(
     private val playlistRepository: PlaylistRepository,
-    private val logger: Logger,
+    val logger: Logger,
 ) : ViewModel(), KoinComponent {
 
     private val _uiState = MutableStateFlow(PlaylistScreenState())

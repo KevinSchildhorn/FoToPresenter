@@ -197,6 +197,7 @@ fun DirectoryScreen(
     if (overlayVisible == DirectoryOverlay.PLAYLIST) {
         PlaylistScreen(
             viewModel,
+            overlaid = true,
             onDismiss = {
                 overlayVisible = DirectoryOverlay.NONE
             }

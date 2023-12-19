@@ -27,6 +27,7 @@ enum class PlaylistDialog {
 @Composable
 fun PlaylistScreen(
     viewModel: PlaylistViewModel,
+    overlaid: Boolean,
     onDismiss: (() -> Unit)? = null,
     onPlaylistSelected: (PlaylistDetails) -> Unit,
 ) {
@@ -39,6 +40,7 @@ fun PlaylistScreen(
 
     PlaylistOverlay(
         uiState.playlists,
+        overlaid = overlaid,
         onClick = { id ->
             viewModel.getPlaylist(id)?.let {
                 onPlaylistSelected(it)
@@ -61,7 +63,7 @@ fun PlaylistScreen(
         }
     )
 
-    when(dialogOpen){
+    when (dialogOpen) {
         PlaylistDialog.CREATE -> {
             TextEntryDialog({
                 dialogOpen = PlaylistDialog.NONE
@@ -70,6 +72,7 @@ fun PlaylistScreen(
                 dialogOpen = PlaylistDialog.NONE
             })
         }
+
         PlaylistDialog.DELETE -> {
             ConfirmationDialog(
                 "Delete Playlist",
@@ -85,13 +88,15 @@ fun PlaylistScreen(
                 },
             )
         }
+
         PlaylistDialog.DETAILS -> {
             uiState.selectedPlaylist?.let {
-                TextListDialog(it.images.map { it.directory_path }){
+                TextListDialog(it.images.map { it.directory_path }) {
                     dialogOpen = PlaylistDialog.NONE
                 }
             }
         }
+
         else -> {
 
         }
