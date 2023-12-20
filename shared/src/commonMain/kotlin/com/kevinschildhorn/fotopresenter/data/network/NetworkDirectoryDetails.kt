@@ -1,5 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
+import com.kevinschildhorn.fotopresenter.data.supportedImageTypes
+
 interface NetworkDirectoryDetails {
     val fullPath: String
     val id: Int
@@ -16,11 +18,7 @@ interface NetworkDirectoryDetails {
         get() = this.fileExtension.isNullOrEmpty()
 
     val isAnImage: Boolean
-        get() =
-            fileExtension == "png" ||
-                fileExtension == "jpg" ||
-                fileExtension == "jpeg" ||
-                fileExtension == "bmp"
+        get() = supportedImageTypes.contains(fileExtension)
 }
 
 class DefaultNetworkDirectoryDetails(

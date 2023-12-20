@@ -53,9 +53,8 @@ fun App(
 
             Screen.PLAYLIST -> {
                 PlaylistScreen(playlistViewModel, overlaid = false) {
-                    playlistViewModel.logger.i { "Starting playlist" }
-                    playlistViewModel.logger.i { "$it" }
-
+                    slideshowViewModel.setSlideshowFromPlaylist(it)
+                    currentScreen.value = Screen.PLAYLIST
                 }
             }
         }

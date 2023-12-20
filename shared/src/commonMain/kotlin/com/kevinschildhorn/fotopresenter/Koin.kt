@@ -19,6 +19,7 @@ import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCas
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
@@ -49,8 +50,15 @@ val commonModule =
         factory { ChangeDirectoryUseCase(get(), baseLogger.withTag("ChangeDirectoryUseCase")) }
         factory { AutoConnectUseCase(get(), get(), baseLogger.withTag("AutoConnectUseCase")) }
         factory { SaveCredentialsUseCase(get(), baseLogger.withTag("SaveCredentialsUseCase")) }
-        factory { DisconnectFromServerUseCase(get(), get(), baseLogger.withTag("LogoutUseCase")) }
-        factory { RetrieveImageDirectoriesUseCase(baseLogger.withTag("LogoutUseCase")) }
+        factory {
+            DisconnectFromServerUseCase(
+                get(),
+                get(),
+                baseLogger.withTag("DisconnectFromServerUseCase")
+            )
+        }
+        factory { RetrieveImageDirectoriesUseCase(baseLogger.withTag("RetrieveImageDirectoriesUseCase")) }
+        factory { RetrieveSlideshowFromPlaylistUseCase(baseLogger.withTag("RetrieveSlideshowFromPlaylistUseCase")) }
         factory {
             RetrieveDirectoryContentsUseCase(
                 get(),
@@ -62,9 +70,9 @@ val commonModule =
 
         // UI
         single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
-        single { DirectoryViewModel(get(),baseLogger.withTag("DirectoryViewModel")) }
+        single { DirectoryViewModel(get(), baseLogger.withTag("DirectoryViewModel")) }
         single { SlideshowViewModel(baseLogger.withTag("SlideshowViewModel")) }
-        single { PlaylistViewModel(get(),baseLogger.withTag("PlaylistViewModel")) }
+        single { PlaylistViewModel(get(), baseLogger.withTag("PlaylistViewModel")) }
     }
 
 internal expect val platformModule: Module

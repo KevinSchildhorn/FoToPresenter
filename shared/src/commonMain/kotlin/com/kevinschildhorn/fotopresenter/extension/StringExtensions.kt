@@ -1,5 +1,7 @@
 package com.kevinschildhorn.fotopresenter.extension
 
+import com.kevinschildhorn.fotopresenter.data.supportedImageTypes
+
 fun String.required(required: Boolean = true) = if (required) "$this*" else this
 
 fun String.addPath(directoryName: String): String =
@@ -22,5 +24,13 @@ fun String.navigateBackToPathAtIndex(index: Int): String =
             .split("\\")
             .joinToString("\\", limit = index + 1, truncated = "")
             .dropLast(1)
+    }
+
+val String.isImagePath: Boolean
+    get() {
+        if (!this.contains(".")) return false
+
+        val extension = this.split(".").last()
+        return supportedImageTypes.contains(extension)
     }
 

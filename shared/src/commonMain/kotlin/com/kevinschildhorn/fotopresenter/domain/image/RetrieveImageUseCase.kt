@@ -26,7 +26,7 @@ class RetrieveImageUseCase(
         }
 
         logger.i { "Getting Image Bitmap from File ${directory.name}" }
-        val imageBitmap: ImageBitmap? = directory.image?.getImageBitmap(400)
+        val imageBitmap: ImageBitmap? = directory.image?.getImageBitmap(50) // TODO
         callback(
             imageBitmap?.let {
                 State.SUCCESS(it)

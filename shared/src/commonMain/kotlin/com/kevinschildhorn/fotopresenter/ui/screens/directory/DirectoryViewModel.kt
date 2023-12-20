@@ -35,7 +35,7 @@ import org.koin.core.component.inject
 
 class DirectoryViewModel(
     private val playlistRepository: PlaylistRepository,
-    logger: Logger,
+    private val logger: Logger,
 ) : PlaylistViewModel(playlistRepository, logger),
     ImageViewModel by DefaultImageViewModel(logger),
     KoinComponent {
