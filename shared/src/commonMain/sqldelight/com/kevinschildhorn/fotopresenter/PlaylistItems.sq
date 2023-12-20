@@ -1,4 +1,4 @@
-CREATE TABLE PlaylistImage (
+CREATE TABLE PlaylistItems (
   id INTEGER PRIMARY KEY NOT NULL,
   playlist_id INTEGER NOT NULL,
   directory_path TEXT NOT NULL,
@@ -6,25 +6,25 @@ CREATE TABLE PlaylistImage (
 );
 
 insertPlaylistImage:
-INSERT INTO PlaylistImage(playlist_id, directory_path, directory_id)
+INSERT INTO PlaylistItems(playlist_id, directory_path, directory_id)
 VALUES (?, ?, ?);
 
 selectPlaylistImages:
 SELECT *
-FROM PlaylistImage
+FROM PlaylistItems
 WHERE playlist_id = ?;
 
 selectPlaylistImage:
 SELECT *
-FROM PlaylistImage
+FROM PlaylistItems
 WHERE playlist_id = ? AND directory_path = ?;
 
 deletePlaylistImage:
 DELETE
-FROM PlaylistImage
+FROM PlaylistItems
 WHERE directory_path = ?;
 
 deletePlaylist:
 DELETE
-FROM PlaylistImage
+FROM PlaylistItems
 WHERE playlist_id = ?;

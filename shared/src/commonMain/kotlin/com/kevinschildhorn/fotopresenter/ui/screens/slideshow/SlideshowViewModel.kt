@@ -2,6 +2,8 @@ package com.kevinschildhorn.fotopresenter.ui.screens.slideshow
 
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
+import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
+import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
 import com.kevinschildhorn.fotopresenter.ui.screens.common.DefaultImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.shared.ViewModel
@@ -15,6 +17,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 import kotlin.coroutines.EmptyCoroutineContext
@@ -34,12 +37,21 @@ class SlideshowViewModel(
         setImageScope(viewModelScope)
     }
 
+    fun setSlideshowFromPlaylist(playlistDetails: PlaylistDetails) {
+        logger.i { "Starting playlist $playlistDetails" }
+        val useCase: RetrieveSlideshowFromPlaylistUseCase by inject()
+        viewModelScope.launch(Dispatchers.Default) {
+            val slideshow = useCase(playlistDetails)
+            setSlideshow(slideshow)
+        }
+    }
+
     fun setSlideshow(details: ImageSlideshowDetails) {
         _uiState.update { it.copy(slideshowDetails = details) }
         setImageDirectories(details.directories)
         setSelectedImage(0)
         viewModelScope.launch(Dispatchers.Default) {
-            while(imageUiState.value.selectedImage == null) {
+            while (imageUiState.value.selectedImage == null) {
                 delay(250)
             }
             startImageTimer()
@@ -58,7 +70,7 @@ class SlideshowViewModel(
         startImageTimer()
     }
 
-    fun stopSlideshow(){
+    fun stopSlideshow() {
         stopImageTimer()
         clearPresentedImage()
         setImageDirectories(emptyList())

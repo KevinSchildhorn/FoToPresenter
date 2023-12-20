@@ -4,7 +4,7 @@ import app.cash.sqldelight.db.SqlDriver
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.Playlist
 import com.kevinschildhorn.fotopresenter.PlaylistDatabase
-import com.kevinschildhorn.fotopresenter.PlaylistImage
+import com.kevinschildhorn.fotopresenter.PlaylistItems
 import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
@@ -37,7 +37,7 @@ class PlaylistDataSource(
         return try {
             database.playlistQueries.selectAllPlaylists().executeAsList().map {
                 val images =
-                    database.imageDirectoryQueries.selectPlaylistImages(it.id).executeAsList()
+                    database.playlistItemsQueries.selectPlaylistImages(it.id).executeAsList()
                 PlaylistDetails(it.id,it.name, images)
             }
         } catch (e: Exception) {
@@ -51,7 +51,7 @@ class PlaylistDataSource(
             val playList: Playlist =
                 database.playlistQueries.selectPlaylistByName(name).executeAsOne()
             val images =
-                database.imageDirectoryQueries.selectPlaylistImages(playList.id).executeAsList()
+                database.playlistItemsQueries.selectPlaylistImages(playList.id).executeAsList()
             logger?.i { "Retrieved Playlist!" }
             PlaylistDetails(playList.id, playList.name, images)
         } catch (e: Exception) {
@@ -59,9 +59,9 @@ class PlaylistDataSource(
         }
     }
 
-    fun insertPlaylistImage(playlistId: Long, directory: Directory): PlaylistImage? {
+    fun insertPlaylistImage(playlistId: Long, directory: Directory): PlaylistItems? {
         logger?.i { "Inserting Playlist Image ${directory.name}" }
-        database.imageDirectoryQueries.insertPlaylistImage(
+        database.playlistItemsQueries.insertPlaylistImage(
             playlist_id = playlistId,
             directory_path = directory.details.fullPath,
             directory_id = directory.id.toLong(),
@@ -69,11 +69,11 @@ class PlaylistDataSource(
         return getPlaylistImage(playlistId, directory.details.fullPath)
     }
 
-    fun getPlaylistImage(playlistId: Long, directoryPath: String): PlaylistImage? {
+    fun getPlaylistImage(playlistId: Long, directoryPath: String): PlaylistItems? {
         return try {
             logger?.i { "Selecting Playlist Image $playlistId" }
-            val image: PlaylistImage =
-                database.imageDirectoryQueries.selectPlaylistImage(playlistId, directoryPath)
+            val image: PlaylistItems =
+                database.playlistItemsQueries.selectPlaylistImage(playlistId, directoryPath)
                     .executeAsOne()
             logger?.i { "Selecting Playlist Image" }
             image
@@ -86,7 +86,7 @@ class PlaylistDataSource(
         return try {
             val playlist = database.playlistQueries.selectPlaylistById(id).executeAsOne()
             database.playlistQueries.deletePlaylist(playlist.name)
-            database.imageDirectoryQueries.deletePlaylist(playlist.id)
+            database.playlistItemsQueries.deletePlaylist(playlist.id)
             true
         } catch (e: Exception) {
             false
