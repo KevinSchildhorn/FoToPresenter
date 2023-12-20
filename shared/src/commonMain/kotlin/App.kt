@@ -54,7 +54,7 @@ fun App(
             Screen.PLAYLIST -> {
                 PlaylistScreen(playlistViewModel, overlaid = false) {
                     slideshowViewModel.setSlideshowFromPlaylist(it)
-                    currentScreen.value = Screen.PLAYLIST
+                    currentScreen.value = Screen.SLIDESHOW
                 }
             }
         }
