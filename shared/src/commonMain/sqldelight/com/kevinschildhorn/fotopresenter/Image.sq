@@ -1,0 +1,20 @@
+CREATE TABLE Image (
+  id INTEGER PRIMARY KEY NOT NULL,
+  path TEXT UNIQUE NOT NULL,
+  image BLOB NOT NULL
+);
+
+
+selectImageByName:
+SELECT *
+FROM Image
+WHERE path = ?;
+
+insertImage:
+INSERT OR REPLACE INTO Image(path, image)
+VALUES (?, ?);
+
+deleteImage:
+DELETE
+FROM Image
+WHERE path = ?;

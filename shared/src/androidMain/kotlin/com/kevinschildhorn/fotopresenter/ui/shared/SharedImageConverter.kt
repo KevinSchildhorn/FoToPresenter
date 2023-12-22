@@ -5,7 +5,8 @@ import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
-import java.nio.ByteBuffer
+import java.io.ByteArrayOutputStream
+
 
 actual object SharedImageConverter {
     actual fun convertBytes(byteArray: ByteArray): ImageBitmap {
@@ -14,16 +15,20 @@ actual object SharedImageConverter {
     }
 
     actual fun convertImage(imageBitmap: ImageBitmap): ByteArray {
-        return imageBitmap.asAndroidBitmap().convertToByteArray()
+        val bitmap = imageBitmap.asAndroidBitmap()
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val byteArray = stream.toByteArray()
+        return byteArray
     }
 
     private fun Bitmap.convertToByteArray(): ByteArray {
-        val size = this.byteCount
-        val buffer = ByteBuffer.allocate(size)
-        val bytes = ByteArray(size)
-        this.copyPixelsToBuffer(buffer)
-        buffer.rewind()
-        buffer.get(bytes)
-        return bytes
+        val stream = ByteArrayOutputStream()
+        this.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val byteArray = stream.toByteArray()
+        if (this != null && !this.isRecycled()) {
+            this.recycle();
+        }
+        return byteArray
     }
 }

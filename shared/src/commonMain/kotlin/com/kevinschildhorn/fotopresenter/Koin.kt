@@ -41,7 +41,7 @@ val commonModule =
         single { DirectoryRepository(get()) }
         single { ImageRemoteDataSource(get()) }
         single { ImageRepository(get()) }
-        single { ImageCacheDataSource(get()) }
+        single { ImageCacheDataSource(get(), get(), baseLogger.withTag("ImageCacheDataSource")) }
         single { PlaylistDataSource(get(), baseLogger.withTag("PlaylistDataSource")) }
         single { PlaylistRepository(get()) }
 
