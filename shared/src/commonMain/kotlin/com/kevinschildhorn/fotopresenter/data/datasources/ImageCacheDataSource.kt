@@ -3,7 +3,6 @@ package com.kevinschildhorn.fotopresenter.data.datasources
 import androidx.compose.ui.graphics.ImageBitmap
 import app.cash.sqldelight.db.SqlDriver
 import co.touchlab.kermit.Logger
-import com.kevinschildhorn.fotopresenter.DiscCache
 import com.kevinschildhorn.fotopresenter.PlaylistDatabase
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
@@ -27,7 +26,6 @@ class ImageCacheDataSource(
 
             null
         }
-        //return DiscCache.getFile(directory.cacheId)
         //return cache.getImage(directory.cacheId)
     }
 
@@ -42,7 +40,6 @@ class ImageCacheDataSource(
         )
         logger.i { "Image Saved" }
 
-        //cache.cacheImage(directory.cacheId, bitmap)
         //DiscCache.storeFile(directory.cacheId, bitmap)
     }
 

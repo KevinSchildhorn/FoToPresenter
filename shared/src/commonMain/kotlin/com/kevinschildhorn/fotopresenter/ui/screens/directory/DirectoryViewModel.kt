@@ -25,6 +25,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.shared.ViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -44,6 +45,8 @@ class DirectoryViewModel(
     val uiState: StateFlow<DirectoryScreenState> = _uiState.asStateFlow()
 
     private val _directoryContentsState = MutableStateFlow(DirectoryContents())
+
+    private val jobs: List<Job> = emptyList()
 
     private val currentPath: String
         get() = uiState.value.currentPath

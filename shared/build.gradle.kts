@@ -60,7 +60,7 @@ kotlin {
             dependsOn(commonMain)
             resources.srcDir("src/commonMain/resources")
             dependencies {
-                implementation("com.hierynomus:smbj:0.13.0")
+                implementation("com.hierynomus:smbj:0.11.5")
                 implementation(compose.uiTooling)
                 implementation("app.cash.sqldelight:sqlite-driver:2.0.1")
             }
