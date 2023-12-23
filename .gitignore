@@ -37,3 +37,5 @@ ios/FotoPresenter.xcworkspace/xcuserdata/kevinschildhorn.xcuserdatad/UserInterfa
 ios/FotoPresenter.xcworkspace/xcuserdata/kevinschildhorn.xcuserdatad/UserInterfaceState.xcuserstate
 common/src/commonMain/kotlin/me/kevinschildhorn/common/network/ftps/TestingLoginInfo.kt
 androidApp/build/kotlin/compileDebugKotlinAndroid/cacheable/caches-jvm/lookups/lookups.tab_i.len
+
+desktopApp/build

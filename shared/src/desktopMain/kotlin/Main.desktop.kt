@@ -1,11 +1,15 @@
+import androidx.compose.runtime.Composable
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
+
 actual fun getPlatformName(): String = "Desktop"
-/*
-private val viewModel: LoginViewModel by inject()
 
-@Composable fun MainView() = App(viewModel)
-
-@Preview
 @Composable
-fun AppPreview() {
-    App(viewModel)
-}*/
+fun MainView(
+    loginViewModel: LoginViewModel,
+    directoryViewModel: DirectoryViewModel,
+    slideshowViewModel: SlideshowViewModel,
+    playlistViewModel: PlaylistViewModel,
+) = App(loginViewModel, directoryViewModel, slideshowViewModel, playlistViewModel)

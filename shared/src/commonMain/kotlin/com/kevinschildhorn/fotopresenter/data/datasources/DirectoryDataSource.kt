@@ -21,8 +21,8 @@ class DirectoryDataSource(
         if (!networkHandler.isConnected) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
 
         logger.i { "Does the directory exist?" }
-        val exists = networkHandler.folderExists(directoryName)
-        logger.i { "Does the directory exist? $exists" }
+        //val exists = networkHandler.folderExists(directoryName)
+        //logger.i { "Does the directory exist? $exists" }
 
         logger.i { "Opening the directory..." }
         networkHandler.openDirectory(directoryName)?.let { return it }
