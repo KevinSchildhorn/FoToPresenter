@@ -1,9 +1,11 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
 import com.kevinschildhorn.fotopresenter.data.supportedImageTypes
+import kotlinx.datetime.Clock
 
 interface NetworkDirectoryDetails {
     val fullPath: String
+    val dateMillis:Long
     val id: Int
 
     val fileName: String
@@ -24,4 +26,5 @@ interface NetworkDirectoryDetails {
 class DefaultNetworkDirectoryDetails(
     override val fullPath: String,
     override val id: Int,
+    override val dateMillis: Long = Clock.System.now().toEpochMilliseconds()
 ) : NetworkDirectoryDetails

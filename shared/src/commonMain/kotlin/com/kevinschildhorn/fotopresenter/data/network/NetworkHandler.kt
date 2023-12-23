@@ -17,6 +17,8 @@ interface NetworkHandler {
     suspend fun openDirectory(path: String): String?
 
     suspend fun openImage(path: String): SharedImage?
+
+    suspend fun folderExists(path: String): Boolean?
 }
 
 class NetworkHandlerException : Exception {

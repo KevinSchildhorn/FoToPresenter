@@ -9,6 +9,7 @@ import com.kevinschildhorn.fotopresenter.extension.getNextIndex
 import com.kevinschildhorn.fotopresenter.extension.getPreviousIndex
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,12 +35,14 @@ interface ImageViewModel {
     }
 
     fun clearPresentedImage()
+    fun cancelImageJobs()
 }
 
 class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel, KoinComponent {
     private val _uiState = MutableStateFlow(ImageScreenState())
     override var scope: CoroutineScope? = null
     override val imageUiState: StateFlow<ImageScreenState> = _uiState.asStateFlow()
+    private val jobs: MutableList<Job> = mutableListOf<Job>()
 
     override fun setImageDirectories(directories: List<ImageDirectory>) {
         _uiState.update { it.copy(imageDirectories = directories) }
@@ -79,6 +82,13 @@ class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel
         _uiState.update { it.copy(selectedImage = null, selectedImageIndex = null) }
     }
 
+    override fun cancelImageJobs() {
+        jobs.forEach {
+            it.cancel()
+        }
+        jobs.clear()
+    }
+
     private fun updateSelectedImage() {
         logger?.i { "Updating Selected Index" }
         with(imageUiState.value) {
@@ -102,6 +112,8 @@ class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel
                     _uiState.update { it.copy(selectedImage = imageBitmap) }
                 }
             }
+        }?.let {
+            jobs.add(it)
         }
     }
 }

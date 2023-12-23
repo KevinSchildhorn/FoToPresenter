@@ -3,6 +3,7 @@ package com.kevinschildhorn.fotopresenter.ui.screens.directory
 import androidx.compose.ui.graphics.ImageBitmap
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.State
+import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
@@ -14,6 +15,9 @@ data class DirectoryScreenState(
     val slideshowDetails: ImageSlideshowDetails? = null,
     val loggedIn: Boolean = true,
     val selectedDirectory: DirectoryGridCellState? = null,
+    val currentImageCount: Int = 0,
+    val totalImageCount: Int = 0,
+    val sortingType: SortingType = SortingType.NAME_ASC,
     override val state: UiState = UiState.IDLE,
 ) : ScreenState {
     fun copyImageState(
@@ -42,6 +46,13 @@ data class DirectoryScreenState(
 
     val currentPathList: List<String>
         get() = currentPath.split("\\").filter { it.isNotEmpty() }
+
+    val imageCountString: String
+        get() =
+            if (totalImageCount != 0 && currentImageCount != totalImageCount)
+                "$currentImageCount of $totalImageCount downloaded"
+            else ""
+
 }
 
 data class DirectoryGridState(

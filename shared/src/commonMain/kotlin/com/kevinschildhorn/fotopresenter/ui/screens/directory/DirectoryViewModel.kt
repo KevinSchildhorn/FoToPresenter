@@ -1,14 +1,11 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
 import co.touchlab.kermit.Logger
-import com.kevinschildhorn.fotopresenter.Playlist
 import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
-import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.State
-import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
@@ -18,12 +15,12 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUs
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.extension.addPath
 import com.kevinschildhorn.fotopresenter.extension.navigateBackToPathAtIndex
+import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
 import com.kevinschildhorn.fotopresenter.ui.screens.common.DefaultImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
-import com.kevinschildhorn.fotopresenter.ui.shared.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -46,7 +43,8 @@ class DirectoryViewModel(
 
     private val _directoryContentsState = MutableStateFlow(DirectoryContents())
 
-    private val jobs: List<Job> = emptyList()
+    private val downloadedImageSet: MutableSet<Int> = mutableSetOf()
+    private val jobs: MutableList<Job> = mutableListOf<Job>()
 
     private val currentPath: String
         get() = uiState.value.currentPath
@@ -69,6 +67,7 @@ class DirectoryViewModel(
     }
 
     fun logout() {
+        cancelJobs()
         viewModelScope.launch(Dispatchers.Default) {
             logger.i { "Logging Out" }
             val logoutUseCase: DisconnectFromServerUseCase by inject()
@@ -84,13 +83,15 @@ class DirectoryViewModel(
 
     fun startSlideshow() {
         logger.i { "Starting Slideshow" }
+        cancelJobs()
         uiState.value.selectedDirectory?.id?.let { id ->
             _directoryContentsState.value.folders.find { it.id == id }?.let {
-                viewModelScope.launch(Dispatchers.Default) {
+                val job = viewModelScope.launch(Dispatchers.Default) {
                     val retrieveImagesUseCase: RetrieveImageDirectoriesUseCase by inject()
                     val images = retrieveImagesUseCase(it.details)
                     _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
                 }
+                jobs.add(job)
             }
         } ?: run {
             logger.w { "No Directory Selected!" }
@@ -134,6 +135,7 @@ class DirectoryViewModel(
     private fun changeDirectoryToPath(path: String) {
         logger.i { "Changing directory to path $path" }
 
+        cancelJobs()
         viewModelScope.launch(Dispatchers.Default) {
             val changeDirectoryUseCase: ChangeDirectoryUseCase by inject()
             try {
@@ -169,7 +171,7 @@ class DirectoryViewModel(
     private fun updateDirectories() {
         logger.i { "Updating Directories" }
         _uiState.update { it.copy(state = UiState.LOADING) }
-        viewModelScope.launch(Dispatchers.Default) {
+        val job = viewModelScope.launch(Dispatchers.Default) {
             val retrieveDirectoryUseCase: RetrieveDirectoryContentsUseCase by inject()
 
             logger.i { "Getting Directory Contents" }
@@ -177,25 +179,22 @@ class DirectoryViewModel(
             logger.i { "Got Directory Contents: ${directoryContents.allDirectories.count()}" }
             _directoryContentsState.update { directoryContents }
 
-            logger.i { "Updating State to Success" }
-            logger.i { "Setting Directories: $directoryContents" }
-            setImageDirectories(directoryContents.images)
-            val gridState = directoryContents.asDirectoryGridState
-            logger.i { "New Grid State $gridState" }
-            _uiState.update {
-                it.copy(
-                    directoryGridState = gridState,
-                    state = UiState.SUCCESS,
-                )
-            }
+            updateGrid()
             logger.i { "Current State ${uiState.value.state}" }
             updatePhotos()
         }
+        jobs.add(job)
     }
 
     private fun updatePhotos() {
-        imageUiState.value.imageDirectories.forEach { imageDirectory ->
-            viewModelScope.launch(Dispatchers.Default) {
+        val count = imageUiState.value.imageDirectories.count()
+        downloadedImageSet.clear()
+
+        _uiState.update { it.copy(totalImageCount = count, currentImageCount = 0) }
+
+        logger.i { "Updating Photos" }
+        imageUiState.value.imageDirectories.forEachIndexed { index, imageDirectory ->
+            val job = viewModelScope.launch(Dispatchers.Default) {
                 val retrieveImagesUseCase: RetrieveImageUseCase by inject()
 
                 retrieveImagesUseCase(imageDirectory) { newState ->
@@ -204,9 +203,28 @@ class DirectoryViewModel(
                             imageDirectory.id,
                             state = newState,
                         )
+                        downloadedImageSet.add(index)
+                        it.copy(
+                            currentImageCount = downloadedImageSet.size
+                        )
                     }
                 }
             }
+            jobs.add(job)
+        }
+    }
+
+    private fun updateGrid() = with(_directoryContentsState.value) {
+        logger.i { "Updating State to Success" }
+        logger.i { "Setting Directories: $this" }
+        setImageDirectories(this.images)
+        val gridState = this.asDirectoryGridState
+        logger.i { "New Grid State $gridState" }
+        _uiState.update {
+            it.copy(
+                directoryGridState = gridState,
+                state = UiState.SUCCESS,
+            )
         }
     }
 
@@ -250,4 +268,19 @@ class DirectoryViewModel(
     }
     //endregion
 
+    fun setFilterType(sortingType: SortingType) {
+        _directoryContentsState.update {
+            it.sorted(sortingType)
+        }
+        updateGrid()
+    }
+
+    private fun cancelJobs() {
+        logger.i { "Cancelling Jobs!" }
+        cancelImageJobs()
+        jobs.forEach {
+            it.cancel()
+        }
+        jobs.clear()
+    }
 }

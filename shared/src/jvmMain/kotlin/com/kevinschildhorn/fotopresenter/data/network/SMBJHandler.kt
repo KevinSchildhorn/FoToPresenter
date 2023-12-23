@@ -82,17 +82,25 @@ object SMBJHandler : NetworkHandler {
     }
 
     override suspend fun openImage(path: String): SharedImage? {
-        share?.openFile(
-            path,
-            accessMask,
-            attributes,
-            shareAccesses,
-            createDisposition,
-            createOptions,
-        )?.let {
-            return SharedImage(it)
+        try {
+            share?.openFile(
+                path,
+                accessMask,
+                attributes,
+                shareAccesses,
+                createDisposition,
+                createOptions,
+            )?.let {
+                return SharedImage(it)
+            }
+        } catch (e: Exception) {
+            return null
         }
         return null
+    }
+
+    override suspend fun folderExists(path: String): Boolean? {
+        return share?.folderExists(path)
     }
 
     override suspend fun disconnect() {

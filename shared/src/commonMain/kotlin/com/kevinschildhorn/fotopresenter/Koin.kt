@@ -37,7 +37,7 @@ val commonModule =
         single<CacheInterface> { SharedCache }
         single { CredentialsDataSource(get()) }
         single { CredentialsRepository(get()) }
-        single { DirectoryDataSource(get()) }
+        single { DirectoryDataSource(get(), baseLogger.withTag("DirectoryDataSource")) }
         single { DirectoryRepository(get()) }
         single { ImageRemoteDataSource(get()) }
         single { ImageRepository(get()) }

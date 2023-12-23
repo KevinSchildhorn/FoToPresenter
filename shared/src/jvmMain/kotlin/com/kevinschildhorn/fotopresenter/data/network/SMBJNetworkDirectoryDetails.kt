@@ -7,4 +7,7 @@ class SMBJNetworkDirectoryDetails(
     override val fullPath: String,
 ) : NetworkDirectoryDetails {
     override val id: Int = information.fileId.toInt()
+
+    override val dateMillis: Long = information.changeTime.toEpochMillis()
+
 }

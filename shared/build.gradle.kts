@@ -41,7 +41,7 @@ kotlin {
                 implementation("co.touchlab:kermit:1.2.2")
                 implementation("co.touchlab:kermit-koin:1.2.2")
                 implementation("com.russhwolf:multiplatform-settings:1.0.0")
-
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
                 api("dev.icerock.moko:resources:0.23.0")
                 api("dev.icerock.moko:resources-compose:0.23.0") // for compose multiplatform
             }
