@@ -31,7 +31,6 @@ class SlideshowViewModel(
     private val _uiState = MutableStateFlow(SlideshowScreenState())
     val uiState: StateFlow<SlideshowScreenState> = _uiState.asStateFlow()
     private var timer: Timer? = null
-    var firstImageTimer: Job? = null
 
     init {
         setImageScope(viewModelScope)
