@@ -49,7 +49,7 @@ data class DirectoryScreenState(
 
     val imageCountString: String
         get() =
-            if (totalImageCount != 0 && currentImageCount != totalImageCount)
+            if (totalImageCount != 0 && currentImageCount < totalImageCount)
                 "$currentImageCount of $totalImageCount downloaded"
             else ""
 

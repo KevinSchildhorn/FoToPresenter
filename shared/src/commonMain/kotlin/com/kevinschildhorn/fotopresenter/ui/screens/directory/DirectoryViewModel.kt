@@ -122,6 +122,7 @@ class DirectoryViewModel(
 
     fun navigateToFolder(folderIndex: Int) {
         logger.i { "Getting path at index $folderIndex" }
+        cancelJobs()
         val finalPath = currentPath.navigateBackToPathAtIndex(folderIndex)
         changeDirectoryToPath(finalPath)
     }
@@ -198,13 +199,13 @@ class DirectoryViewModel(
                 val retrieveImagesUseCase: RetrieveImageUseCase by inject()
 
                 retrieveImagesUseCase(imageDirectory) { newState ->
+
+                    downloadedImageSet.add(index)
                     _uiState.update {
                         it.copyImageState(
                             imageDirectory.id,
                             state = newState,
-                        )
-                        downloadedImageSet.add(index)
-                        it.copy(
+                        ).copy(
                             currentImageCount = downloadedImageSet.size
                         )
                     }
@@ -269,6 +270,7 @@ class DirectoryViewModel(
     //endregion
 
     fun setFilterType(sortingType: SortingType) {
+        logger.i { "Setting Filter Type" }
         _directoryContentsState.update {
             it.sorted(sortingType)
         }
