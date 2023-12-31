@@ -7,6 +7,7 @@ import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageCacheDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageRemoteDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistDataSource
+import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
@@ -15,6 +16,7 @@ import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCase
+import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
@@ -23,6 +25,7 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlayl
 import com.kevinschildhorn.fotopresenter.ui.shared.DriverFactory
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedCache
 import com.russhwolf.settings.PreferencesSettings
+import org.koin.core.component.inject
 import java.util.prefs.Preferences
 
 actual object UseCaseFactory {
@@ -30,59 +33,68 @@ actual object UseCaseFactory {
     val baseLogger = Logger(LoggerConfig.default)
     private val preferences: Preferences = Preferences.userRoot()
     private val settings = PreferencesSettings(preferences)
-
+    private val networkHandler: NetworkHandler = SMBJHandler
     private val directoryDataSource = DirectoryDataSource(
-        SMBJHandler,
+        networkHandler,
         baseLogger.withTag("DirectoryDataSource")
     )
     private val credentialDataSource = CredentialsDataSource(settings)
     val credentialsRepository = CredentialsRepository(credentialDataSource)
     private val directoryRepository = DirectoryRepository(directoryDataSource)
-    private val imageRepository = ImageRepository(ImageRemoteDataSource(SMBJHandler))
-    private val playlistDataSource = PlaylistDataSource(DriverFactory().createDriver(), com.kevinschildhorn.fotopresenter.baseLogger)
+    private val imageRepository = ImageRepository(ImageRemoteDataSource(networkHandler))
+    private val playlistDataSource = PlaylistDataSource(
+        DriverFactory().createDriver(),
+        com.kevinschildhorn.fotopresenter.baseLogger
+    )
     val playlistRepository = PlaylistRepository(playlistDataSource)
 
 
-    val connectToServerUseCase: ConnectToServerUseCase
+    actual val connectToServerUseCase: ConnectToServerUseCase
         get() = ConnectToServerUseCase(
-            client = SMBJHandler,
+            client = networkHandler,
             logger = baseLogger.withTag("ConnectToServerUseCase")
         )
-    val changeDirectoryUseCase: ChangeDirectoryUseCase
+    actual val changeDirectoryUseCase: ChangeDirectoryUseCase
         get() = ChangeDirectoryUseCase(
             dataSource = DirectoryDataSource(
-                SMBJHandler,
+                networkHandler,
                 baseLogger.withTag("DirectoryDataSource")
             ),
             logger = baseLogger.withTag("ChangeDirectoryUseCase")
         )
-    val autoConnectUseCase: AutoConnectUseCase
+    actual val autoConnectUseCase: AutoConnectUseCase
         get() = AutoConnectUseCase(
-            client = SMBJHandler,
+            client = networkHandler,
             repository = credentialsRepository,
             logger = baseLogger.withTag("AutoConnectUseCase")
         )
-    val saveCredentialsUseCase: SaveCredentialsUseCase
+    actual val saveCredentialsUseCase: SaveCredentialsUseCase
         get() = SaveCredentialsUseCase(
             repository = credentialsRepository,
             logger = baseLogger.withTag("SaveCredentialsUseCase")
         )
-    val retrieveImageDirectoriesUseCase: RetrieveImageDirectoriesUseCase
+    actual val disconnectFromServerUseCase: DisconnectFromServerUseCase
+        get() = DisconnectFromServerUseCase(
+            credentialsRepository,
+            networkHandler,
+            baseLogger.withTag("DisconnectFromServerUseCase")
+        )
+    actual val retrieveImageDirectoriesUseCase: RetrieveImageDirectoriesUseCase
         get() = RetrieveImageDirectoriesUseCase(
             logger = baseLogger.withTag("RetrieveImageDirectoriesUseCase")
         )
-    val retrieveSlideshowFromPlaylistUseCase: RetrieveSlideshowFromPlaylistUseCase
+    actual val retrieveSlideshowFromPlaylistUseCase: RetrieveSlideshowFromPlaylistUseCase
         get() = RetrieveSlideshowFromPlaylistUseCase(
             logger = baseLogger.withTag("RetrieveSlideshowFromPlaylistUseCase"),
             retrieveDirectoryUseCase = this.retrieveImageDirectoriesUseCase,
         )
-    val retrieveDirectoryContentsUseCase: RetrieveDirectoryContentsUseCase
+    actual val retrieveDirectoryContentsUseCase: RetrieveDirectoryContentsUseCase
         get() = RetrieveDirectoryContentsUseCase(
             directoryRepository = directoryRepository,
             imageRepository = imageRepository,
             logger = baseLogger.withTag("RetrieveDirectoryContentsUseCase")
         )
-    val retrieveImageUseCase: RetrieveImageUseCase
+    actual val retrieveImageUseCase: RetrieveImageUseCase
         get() = RetrieveImageUseCase(
             imageCacheDataSource = ImageCacheDataSource(
                 cache = SharedCache,

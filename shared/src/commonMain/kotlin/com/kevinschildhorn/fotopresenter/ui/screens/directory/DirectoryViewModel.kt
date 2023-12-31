@@ -6,13 +6,9 @@ import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.State
+import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
-import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
-import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
-import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
-import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
-import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.extension.addPath
 import com.kevinschildhorn.fotopresenter.extension.navigateBackToPathAtIndex
 import com.kevinschildhorn.fotopresenter.ui.SortingType
@@ -29,7 +25,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 class DirectoryViewModel(
     private val playlistRepository: PlaylistRepository,
@@ -70,7 +65,7 @@ class DirectoryViewModel(
         cancelJobs()
         viewModelScope.launch(Dispatchers.Default) {
             logger.i { "Logging Out" }
-            val logoutUseCase: DisconnectFromServerUseCase by inject()
+            val logoutUseCase = UseCaseFactory.disconnectFromServerUseCase
             logoutUseCase()
             logger.d { "Setting loggedIn state to false" }
             _uiState.update { it.copy(loggedIn = false) }
@@ -87,7 +82,7 @@ class DirectoryViewModel(
         uiState.value.selectedDirectory?.id?.let { id ->
             _directoryContentsState.value.folders.find { it.id == id }?.let {
                 val job = viewModelScope.launch(Dispatchers.Default) {
-                    val retrieveImagesUseCase: RetrieveImageDirectoriesUseCase by inject()
+                    val retrieveImagesUseCase = UseCaseFactory.retrieveImageDirectoriesUseCase
                     val images = retrieveImagesUseCase(it.details)
                     _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
                 }
@@ -138,7 +133,7 @@ class DirectoryViewModel(
 
         cancelJobs()
         viewModelScope.launch(Dispatchers.Default) {
-            val changeDirectoryUseCase: ChangeDirectoryUseCase by inject()
+            val changeDirectoryUseCase = UseCaseFactory.changeDirectoryUseCase
             try {
                 logger.i { "Getting New Path" }
                 val newPath = changeDirectoryUseCase(path)
@@ -173,7 +168,7 @@ class DirectoryViewModel(
         logger.i { "Updating Directories" }
         _uiState.update { it.copy(state = UiState.LOADING) }
         val job = viewModelScope.launch(Dispatchers.Default) {
-            val retrieveDirectoryUseCase: RetrieveDirectoryContentsUseCase by inject()
+            val retrieveDirectoryUseCase = UseCaseFactory.retrieveDirectoryContentsUseCase
 
             logger.i { "Getting Directory Contents" }
             val directoryContents = retrieveDirectoryUseCase(currentPath)
@@ -196,7 +191,7 @@ class DirectoryViewModel(
         logger.i { "Updating Photos" }
         imageUiState.value.imageDirectories.forEachIndexed { index, imageDirectory ->
             val job = viewModelScope.launch(Dispatchers.Default) {
-                val retrieveImagesUseCase: RetrieveImageUseCase by inject()
+                val retrieveImagesUseCase = UseCaseFactory.retrieveImageUseCase
 
                 retrieveImagesUseCase(imageDirectory) { newState ->
 

@@ -1,10 +1,8 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.login
 
 import co.touchlab.kermit.Logger
+import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
-import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
-import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCase
-import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.shared.ViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +12,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 class LoginViewModel(
     private val logger: Logger,
@@ -64,7 +61,7 @@ class LoginViewModel(
 
         _uiState.update { it.copy(state = UiState.LOADING) }
 
-        val connectToServer: ConnectToServerUseCase by inject()
+        val connectToServer = UseCaseFactory.connectToServerUseCase
         viewModelScope.launch(Dispatchers.Default) {
             logger.i { "Connecting To Server With Credentials" }
 
@@ -82,7 +79,7 @@ class LoginViewModel(
                 _uiState.update { it.copy(state = UiState.SUCCESS) }
                 logger.i { "Saving Credentials" }
                 logger.i { "State is ${uiState.value}" }
-                val saveCredentials: SaveCredentialsUseCase by inject()
+                val saveCredentials = UseCaseFactory.saveCredentialsUseCase
                 saveCredentials(_uiState.value.asLoginCredentials)
             }
         }
@@ -95,7 +92,7 @@ class LoginViewModel(
     private fun attemptAutoLogin() {
         logger.i { "Attempting To Auto Login" }
         viewModelScope.launch(Dispatchers.Default) {
-            val autoConnectUseCase: AutoConnectUseCase by inject()
+            val autoConnectUseCase = UseCaseFactory.autoConnectUseCase
             if (autoConnectUseCase()) {
                 _uiState.update { it.copy(state = UiState.SUCCESS) }
             }

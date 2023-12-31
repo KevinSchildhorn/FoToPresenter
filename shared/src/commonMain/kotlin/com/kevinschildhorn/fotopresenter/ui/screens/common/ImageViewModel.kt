@@ -4,7 +4,6 @@ import androidx.compose.ui.graphics.ImageBitmap
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.State
-import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.extension.getNextIndex
 import com.kevinschildhorn.fotopresenter.extension.getPreviousIndex
 import kotlinx.coroutines.CoroutineScope
@@ -16,7 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
+import com.kevinschildhorn.fotopresenter.UseCaseFactory
 
 interface ImageViewModel {
     var scope: CoroutineScope?
@@ -104,7 +103,7 @@ class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel
     private fun showPhoto(imageDirectory: ImageDirectory) {
         logger?.i { "Showing Photo" }
         scope?.launch(Dispatchers.Default) {
-            val retrieveImagesUseCase: RetrieveImageUseCase by inject()
+            val retrieveImagesUseCase = UseCaseFactory.retrieveImageUseCase
             logger?.d { "Retrieving Image" }
             retrieveImagesUseCase(imageDirectory) { newState: State<ImageBitmap> ->
                 logger?.d { "Image State Updated $newState" }

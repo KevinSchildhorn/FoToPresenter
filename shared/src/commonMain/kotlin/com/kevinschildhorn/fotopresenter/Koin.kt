@@ -59,7 +59,12 @@ val commonModule =
             )
         }
         factory { RetrieveImageDirectoriesUseCase(baseLogger.withTag("RetrieveImageDirectoriesUseCase")) }
-        factory { RetrieveSlideshowFromPlaylistUseCase(baseLogger.withTag("RetrieveSlideshowFromPlaylistUseCase")) }
+        factory {
+            RetrieveSlideshowFromPlaylistUseCase(
+                baseLogger.withTag("RetrieveSlideshowFromPlaylistUseCase"),
+                get()
+            )
+        }
         factory {
             RetrieveDirectoryContentsUseCase(
                 get(),
