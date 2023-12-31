@@ -18,7 +18,10 @@ object KoinPurse {
 }
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(
+        title = "FotoPresenter",
+        onCloseRequest = ::exitApplication
+    ) {
         MainView(
             KoinPurse.loginViewModel,
             KoinPurse.directoryViewModel,
