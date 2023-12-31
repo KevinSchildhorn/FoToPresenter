@@ -29,9 +29,10 @@ import com.kevinschildhorn.fotopresenter.ui.shared.SharedCache
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
+val baseLogger = Logger(LoggerConfig.default)
+
 val commonModule =
     module {
-        val baseLogger = Logger(LoggerConfig.default)
 
         // Data
         single<CacheInterface> { SharedCache }

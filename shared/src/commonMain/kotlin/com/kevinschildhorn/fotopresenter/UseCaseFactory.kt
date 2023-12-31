@@ -1,0 +1,21 @@
+package com.kevinschildhorn.fotopresenter
+
+import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
+import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
+import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCase
+import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
+import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
+
+expect object UseCaseFactory {
+    val connectToServerUseCase: ConnectToServerUseCase
+    val changeDirectoryUseCase: ChangeDirectoryUseCase
+    val autoConnectUseCase: AutoConnectUseCase
+    val saveCredentialsUseCase: SaveCredentialsUseCase
+    val retrieveImageDirectoriesUseCase: RetrieveImageDirectoriesUseCase
+    val retrieveSlideshowFromPlaylistUseCase: RetrieveSlideshowFromPlaylistUseCase
+    val retrieveDirectoryContentsUseCase: RetrieveDirectoryContentsUseCase
+    val retrieveImageUseCase: RetrieveImageUseCase
+}
