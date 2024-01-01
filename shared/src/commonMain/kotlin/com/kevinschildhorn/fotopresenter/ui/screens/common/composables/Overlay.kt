@@ -24,6 +24,7 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 fun Overlay(
     z: Float,
     visible: Boolean,
+    shadow:Boolean = true,
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
     enter: EnterTransition = fadeIn(),
@@ -32,7 +33,7 @@ fun Overlay(
 ) {
     OverlayShadow(
         z - 1,
-        visible,
+        visible && shadow,
         onDismiss = onDismiss
     )
     AnimatedVisibility(
