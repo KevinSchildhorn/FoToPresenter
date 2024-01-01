@@ -8,7 +8,7 @@ import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
 
 class PlaylistFileDataSource(
-    private val logger: Logger,
+    private val logger: Logger?,
     private val networkHandler: NetworkHandler,
 ) : KoinComponent {
 
@@ -17,6 +17,7 @@ class PlaylistFileDataSource(
             try {
                 Json.decodeFromString<PlaylistDetails>(it)
             } catch (e: Exception) {
+                logger?.e(e) { "Error importing Playlist" }
                 null
             }
         }
@@ -26,6 +27,7 @@ class PlaylistFileDataSource(
             networkHandler.deletePlaylist(playlist.name)
             true
         } catch (e: Exception) {
+            logger?.e(e) { "Error Deleting Playlist" }
             false
         }
 
@@ -34,7 +36,7 @@ class PlaylistFileDataSource(
             val jsonString = Json.encodeToString(playlist)
             networkHandler.savePlaylist(playlist.name, jsonString)
         } catch (e: Exception) {
-            logger.e(e) { "Error Exporting Playlists" }
+            logger?.e(e) { "Error Exporting Playlists" }
             return false
         }
         return true

@@ -15,7 +15,7 @@ import kotlin.test.fail
 /**
 Testing [PlaylistSQLDataSource]
  **/
-class PlaylistDataSourceTest {
+class PlaylistSQLDataSourceTest {
 
     private val imageDirectory = ImageDirectory(
         DefaultNetworkDirectoryDetails(
@@ -107,6 +107,23 @@ class PlaylistDataSourceTest {
     fun `Select Playlist by Name Failure`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val selectedPlaylist = dataSource.getPlaylistByName("NonExistant")
+        assertNull(selectedPlaylist)
+    }
+
+    @Test
+    fun `Get Playlist by Id Success`() {
+        val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
+        val playlistName = "Playlist1"
+        val playlist = dataSource.createPlaylist(playlistName)
+        val selectedPlaylist = dataSource.getPlaylistById(playlist?.id ?: -1)
+        assertEquals(playlist?.name, selectedPlaylist?.name)
+        assertEquals(playlist?.id, selectedPlaylist?.id)
+    }
+
+    @Test
+    fun `Select Playlist by Id Failure`() {
+        val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
+        val selectedPlaylist = dataSource.getPlaylistById(-1)
         assertNull(selectedPlaylist)
     }
 

@@ -15,7 +15,28 @@ object MockNetworkHandler : NetworkHandler {
 
     val photoDirectoryId = 5
 
-    private val playlists = mutableMapOf<String, String>()
+    private val playlists = mutableMapOf(
+        "Existing" to """
+        {
+            "id" : 1,
+            "name" : "Existing",
+            "items": [
+                {
+                    "id" : 1,
+                    "playlistId" : 1,
+                    "directoryPath" : "Photos/SubPhotos/Peeng3.png",
+                    "directoryId" : 2
+                },
+                {
+                    "id" : 2,
+                    "playlistId" : 1,
+                    "directoryPath" : "Photos/Jaypeg2.jpg",
+                    "directoryId" : 3
+                }
+            ]
+        }
+        """.trimIndent()
+    )
     private var metadata: String? = null
     private val networkContents =
         mapOf(
