@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), KoinComponent {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         startKoin(this)
-
+        
         setContent {
             MainView(loginViewModel, directoryViewModel, slideshowViewModel, playlistViewModel)
         }

@@ -5,6 +5,8 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint")
     id("dev.icerock.mobile.multiplatform-resources")
     id("app.cash.sqldelight")
+    id("com.google.firebase.crashlytics")
+
     kotlin("plugin.serialization")
 }
 
@@ -34,9 +36,7 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 implementation("br.com.devsrsouza.compose.icons:eva-icons:1.1.0")
-
                 implementation("io.github.reactivecircus.cache4k:cache4k:0.12.0")
-
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
                 implementation("io.insert-koin:koin-core:3.4.0")
                 implementation("androidx.security:security-crypto:1.1.0-alpha06")

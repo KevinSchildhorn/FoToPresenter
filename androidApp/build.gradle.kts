@@ -2,6 +2,8 @@ plugins {
     kotlin("multiplatform")
     id("com.android.application")
     id("org.jetbrains.compose")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 kotlin {
@@ -11,6 +13,7 @@ kotlin {
             dependencies {
                 implementation(project(":shared"))
                 implementation("io.insert-koin:koin-android:3.4.0")
+                implementation("com.google.firebase:firebase-crashlytics:18.6.0")
             }
         }
     }
