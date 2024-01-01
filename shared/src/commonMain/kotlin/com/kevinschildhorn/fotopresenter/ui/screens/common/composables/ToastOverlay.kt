@@ -35,7 +35,7 @@ fun ToastOverlay(
     onClose: () -> Unit,
 ) {
     LaunchedEffect(key1 = visible) {
-        delay(2000)
+        delay(5000)
         onClose()
     }
 
@@ -56,7 +56,7 @@ fun ToastOverlay(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(Modifier)
-                Column {
+                Column(modifier = Modifier.padding(horizontal = Padding.STANDARD.dp)) {
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(25.dp))
