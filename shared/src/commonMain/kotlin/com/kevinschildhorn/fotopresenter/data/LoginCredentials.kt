@@ -19,11 +19,13 @@ data class LoginCredentials(
 
     override fun toString(): String {
         return """
-        hostname: $hostname
-        username: $username
-        password: $password
-        sharedFolder: $sharedFolder
-        shouldAutoConnect: $shouldAutoConnect
+        LoginCredentials(
+            hostname: $hostname
+            username: $username
+            password: $password
+            sharedFolder: $sharedFolder
+            shouldAutoConnect: $shouldAutoConnect
+        )
         """.trimIndent()
     }
 }
