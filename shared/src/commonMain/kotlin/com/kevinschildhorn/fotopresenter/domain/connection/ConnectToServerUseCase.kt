@@ -13,7 +13,7 @@ class ConnectToServerUseCase(
 ) {
     suspend operator fun invoke(credentials: LoginCredentials): Boolean =
         try {
-            logger.i { "Connecting to Client" }
+            logger.i { "Connecting to Client ${credentials.hostname}" }
             client.connect(credentials)
         } catch (e: Exception) {
             logger.e(e) { "Something went wrong" }

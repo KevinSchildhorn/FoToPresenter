@@ -55,6 +55,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
                 implementation("io.insert-koin:koin-test:3.4.0")
                 implementation("app.cash.turbine:turbine:1.0.0")
+                implementation("app.cash.sqldelight:sqlite-driver:2.0.1")
             }
         }
 

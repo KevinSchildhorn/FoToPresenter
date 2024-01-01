@@ -73,12 +73,12 @@ class LoginViewModelTest : KoinTest {
             startKoin {
                 modules(testingModule(settings = settings))
                 with(viewModel.uiState.value) {
-                    assertEquals(hostname, "defaultHostname")
-                    assertEquals(username, "defaultUsername")
-                    assertEquals(password, "defaultPassword")
-                    assertEquals(sharedFolder, "")
-                    assertEquals(shouldAutoConnect, false)
-                    assertEquals(state, UiState.IDLE)
+                    assertEquals("defaultHostname", hostname)
+                    assertEquals("defaultUsername", username)
+                    assertEquals("defaultPassword", password)
+                    assertEquals("", sharedFolder)
+                    assertEquals( false, shouldAutoConnect)
+                    assertEquals(UiState.IDLE, state)
                 }
             }
         }

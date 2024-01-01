@@ -5,6 +5,7 @@ import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.testingModule
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.FolderDirectoryGridCellState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -133,7 +134,12 @@ class DirectoryViewModelTest : KoinTest {
                 state = awaitItem()
                 assertEquals(UiState.SUCCESS, state.state)
 
-                viewModel.startSlideshow(MockNetworkHandler.photoDirectoryId)
+                val directory = FolderDirectoryGridCellState(
+                    name = "",
+                    id = MockNetworkHandler.photoDirectoryId,
+                )
+                viewModel.setSelectedDirectory(directory)
+                viewModel.startSlideshow()
                 while (state.slideshowDetails == null) {
                     state = awaitItem()
                 }
@@ -159,6 +165,7 @@ class DirectoryViewModelTest : KoinTest {
                 assertEquals(UiState.LOADING, state.state)
                 state = awaitItem()
                 assertEquals(UiState.SUCCESS, state.state)
+                cancelAndIgnoreRemainingEvents()
             }
             viewModel.imageUiState.test {
                 viewModel.setSelectedImageById(75)
@@ -167,6 +174,7 @@ class DirectoryViewModelTest : KoinTest {
                     state = awaitItem()
                 }
                 assertEquals(0, state.selectedImageIndex)
+                cancelAndIgnoreRemainingEvents()
             }
         }
 }

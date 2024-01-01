@@ -12,19 +12,19 @@ Fetches Directory info from a NAS
  **/
 class DirectoryDataSource(
     private val networkHandler: NetworkHandler,
-    private val logger: Logger,
+    private val logger: Logger?,
 ) {
     @Throws(NetworkHandlerException::class, CancellationException::class)
     suspend fun changeDirectory(directoryName: String): String {
-        logger.i { "Changing directory to $directoryName" }
-        logger.i { "Is network Connected? ${networkHandler.isConnected}" }
+        logger?.i { "Changing directory to $directoryName" }
+        logger?.i { "Is network Connected? ${networkHandler.isConnected}" }
         if (!networkHandler.isConnected) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
 
-        logger.i { "Does the directory exist?" }
+        logger?.i { "Does the directory exist?" }
         //val exists = networkHandler.folderExists(directoryName)
-        //logger.i { "Does the directory exist? $exists" }
+        //logger?.i { "Does the directory exist? $exists" }
 
-        logger.i { "Opening the directory..." }
+        logger?.i { "Opening the directory..." }
         networkHandler.openDirectory(directoryName)?.let { return it }
         throw NetworkHandlerException(NetworkHandlerError.DIRECTORY_NOT_FOUND)
     }

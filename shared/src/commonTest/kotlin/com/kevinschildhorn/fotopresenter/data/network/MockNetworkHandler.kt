@@ -15,43 +15,51 @@ object MockNetworkHandler : NetworkHandler {
 
     val photoDirectoryId = 5
 
+    private val playlists = mutableMapOf<String, String>()
+    private var metadata: String? = null
     private val networkContents =
         mapOf(
             "" to
-                listOf<NetworkDirectoryDetails>(
-                    DefaultNetworkDirectoryDetails(fullPath = "Photos", id = photoDirectoryId),
-                    DefaultNetworkDirectoryDetails(fullPath = "NewDirectory", id = 1),
-                    DefaultNetworkDirectoryDetails(fullPath = "Peeng.png", id = 75),
-                    DefaultNetworkDirectoryDetails(fullPath = "Jaypeg.jpg", id = 3),
-                    DefaultNetworkDirectoryDetails(fullPath = "textFile.txt", id = 4),
-                ),
+                    listOf<NetworkDirectoryDetails>(
+                        DefaultNetworkDirectoryDetails(fullPath = "Photos", id = photoDirectoryId),
+                        DefaultNetworkDirectoryDetails(fullPath = "NewDirectory", id = 1),
+                        DefaultNetworkDirectoryDetails(fullPath = "Peeng.png", id = 75),
+                        DefaultNetworkDirectoryDetails(fullPath = "Jaypeg.jpg", id = 3),
+                        DefaultNetworkDirectoryDetails(fullPath = "textFile.txt", id = 4),
+                    ),
             "Directories" to
-                listOf<NetworkDirectoryDetails>(
-                    DefaultNetworkDirectoryDetails(fullPath = "Directories/NewDirectory", id = 1),
-                    DefaultNetworkDirectoryDetails(fullPath = "Directories/NewDirectory2", id = 2),
-                ),
+                    listOf<NetworkDirectoryDetails>(
+                        DefaultNetworkDirectoryDetails(
+                            fullPath = "Directories/NewDirectory",
+                            id = 1
+                        ),
+                        DefaultNetworkDirectoryDetails(
+                            fullPath = "Directories/NewDirectory2",
+                            id = 2
+                        ),
+                    ),
             "Photos" to
-                listOf<NetworkDirectoryDetails>(
-                    DefaultNetworkDirectoryDetails(fullPath = "Photos/Peeng2.png", id = 2),
-                    DefaultNetworkDirectoryDetails(fullPath = "Photos/Jaypeg2.jpg", id = 3),
-                    DefaultNetworkDirectoryDetails(fullPath = "Photos/textFile2.txt", id = 4),
-                    DefaultNetworkDirectoryDetails(fullPath = "Photos/SubPhotos", id = 5),
-                ),
+                    listOf<NetworkDirectoryDetails>(
+                        DefaultNetworkDirectoryDetails(fullPath = "Photos/Peeng2.png", id = 2),
+                        DefaultNetworkDirectoryDetails(fullPath = "Photos/Jaypeg2.jpg", id = 3),
+                        DefaultNetworkDirectoryDetails(fullPath = "Photos/textFile2.txt", id = 4),
+                        DefaultNetworkDirectoryDetails(fullPath = "Photos/SubPhotos", id = 5),
+                    ),
             "Photos/SubPhotos" to
-                listOf<NetworkDirectoryDetails>(
-                    DefaultNetworkDirectoryDetails(
-                        fullPath = "Photos/SubPhotos/Peeng3.png",
-                        id = 2,
+                    listOf<NetworkDirectoryDetails>(
+                        DefaultNetworkDirectoryDetails(
+                            fullPath = "Photos/SubPhotos/Peeng3.png",
+                            id = 2,
+                        ),
+                        DefaultNetworkDirectoryDetails(
+                            fullPath = "Photos/SubPhotos/Jaypeg3.jpg",
+                            id = 3,
+                        ),
+                        DefaultNetworkDirectoryDetails(
+                            fullPath = "Photos/SubPhotos/textFile3.txt",
+                            id = 4,
+                        ),
                     ),
-                    DefaultNetworkDirectoryDetails(
-                        fullPath = "Photos/SubPhotos/Jaypeg3.jpg",
-                        id = 3,
-                    ),
-                    DefaultNetworkDirectoryDetails(
-                        fullPath = "Photos/SubPhotos/textFile3.txt",
-                        id = 4,
-                    ),
-                ),
         )
 
     private val successImageName: String = "Photos/Success.png"
@@ -72,11 +80,28 @@ object MockNetworkHandler : NetworkHandler {
         }
         connected = credentials == successLoginCredentials
         print("Is Connected $connected\n")
+        if(!connected) {
+            print("Success Credentials: $successLoginCredentials\n")
+            print("Actual Credentials $credentials\n")
+        }
+
+        credentials.toString()
         return connected
     }
 
     override suspend fun disconnect() {
         connected = false
+    }
+
+    override suspend fun getDirectoryDetails(path: String): NetworkDirectoryDetails? {
+        networkContents.values.forEach { details ->
+            details.find { detail ->
+                detail.fullPath == path
+            }?.let {
+                return it
+            }
+        }
+        return null
     }
 
     override suspend fun getDirectoryContents(path: String): List<NetworkDirectoryDetails> {
@@ -99,5 +124,27 @@ object MockNetworkHandler : NetworkHandler {
             throw Exception("Success") // TODO: This is messy, but SharedImageIs expect
         }
         return null
+    }
+
+    override suspend fun folderExists(path: String): Boolean? =
+        if (path == "") null
+        else networkContents.keys.contains(path)
+
+    override suspend fun savePlaylist(playlistName: String, json: String): Boolean {
+        playlists[playlistName] = json
+        return true
+    }
+
+    override suspend fun getPlaylists(): List<String> = playlists.values.toList()
+
+    override suspend fun setMetadata(json: String): Boolean {
+        metadata = json
+        return true
+    }
+
+    override suspend fun getMetadata(): String? = metadata
+
+    override suspend fun deletePlaylist(playlistName: String) {
+        playlists.remove(playlistName)
     }
 }

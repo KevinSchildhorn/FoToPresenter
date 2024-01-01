@@ -82,6 +82,7 @@ class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel
     }
 
     override fun cancelImageJobs() {
+        logger?.d { "Cancelling Image Jobs" }
         jobs.forEach {
             it.cancel()
         }

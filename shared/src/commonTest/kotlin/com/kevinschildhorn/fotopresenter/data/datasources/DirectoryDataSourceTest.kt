@@ -15,7 +15,7 @@ Testing [DirectoryDataSource]
  **/
 class DirectoryDataSourceTest {
     private val networkHandler: MockNetworkHandler = MockNetworkHandler
-    private val dataSource = DirectoryDataSource(networkHandler)
+    private val dataSource = DirectoryDataSource(networkHandler, null)
 
     @BeforeTest
     fun startTest() =
