@@ -6,7 +6,8 @@ import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageCacheDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageRemoteDataSource
-import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistDataSource
+import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistFileDataSource
+import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistSQLDataSource
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
@@ -43,8 +44,9 @@ val commonModule =
         single { ImageRemoteDataSource(get()) }
         single { ImageRepository(get()) }
         single { ImageCacheDataSource(get(), get(), baseLogger.withTag("ImageCacheDataSource")) }
-        single { PlaylistDataSource(get(), baseLogger.withTag("PlaylistDataSource")) }
-        single { PlaylistRepository(get()) }
+        single { PlaylistFileDataSource(baseLogger.withTag("PlaylistDataSource"), get()) }
+        single { PlaylistSQLDataSource(get(), baseLogger.withTag("PlaylistDataSource")) }
+        single { PlaylistRepository(get(), get()) }
 
         // Domain
         factory { ConnectToServerUseCase(get(), baseLogger.withTag("ConnectToServerUseCase")) }

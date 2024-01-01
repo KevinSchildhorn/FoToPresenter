@@ -6,7 +6,8 @@ import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageCacheDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageRemoteDataSource
-import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistDataSource
+import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistFileDataSource
+import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistSQLDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
@@ -25,7 +26,6 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlayl
 import com.kevinschildhorn.fotopresenter.ui.shared.DriverFactory
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedCache
 import com.russhwolf.settings.PreferencesSettings
-import org.koin.core.component.inject
 import java.util.prefs.Preferences
 
 actual object UseCaseFactory {
@@ -38,16 +38,21 @@ actual object UseCaseFactory {
         networkHandler,
         baseLogger.withTag("DirectoryDataSource")
     )
+    private val sqlDriver = DriverFactory().createDriver()
     private val credentialDataSource = CredentialsDataSource(settings)
     val credentialsRepository = CredentialsRepository(credentialDataSource)
     private val directoryRepository = DirectoryRepository(directoryDataSource)
     private val imageRepository = ImageRepository(ImageRemoteDataSource(networkHandler))
-    private val playlistDataSource = PlaylistDataSource(
-        DriverFactory().createDriver(),
+    private val playlistSQLDataSource = PlaylistSQLDataSource(
+        sqlDriver,
         com.kevinschildhorn.fotopresenter.baseLogger
     )
-    val playlistRepository = PlaylistRepository(playlistDataSource)
-
+    private val playlistFileDataSource =
+        PlaylistFileDataSource(
+            baseLogger.withTag("playlistFileDataSource"),
+            networkHandler,
+        )
+    val playlistRepository = PlaylistRepository(playlistSQLDataSource, playlistFileDataSource)
 
     actual val connectToServerUseCase: ConnectToServerUseCase
         get() = ConnectToServerUseCase(
@@ -98,7 +103,7 @@ actual object UseCaseFactory {
         get() = RetrieveImageUseCase(
             imageCacheDataSource = ImageCacheDataSource(
                 cache = SharedCache,
-                driver = DriverFactory().createDriver(),
+                driver = sqlDriver,
                 logger = baseLogger.withTag("ImageCacheDataSource")
             ),
             logger = baseLogger.withTag("RetrieveImageUseCase")

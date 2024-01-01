@@ -7,10 +7,12 @@ import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.ui.shared.ViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 
 open class PlaylistViewModel(
@@ -26,8 +28,10 @@ open class PlaylistViewModel(
     }
 
     fun refreshPlaylists() {
-        val allPlaylists = playlistRepository.getAllPlaylists()
-        _uiState.update { it.copy(playlists = allPlaylists) }
+        viewModelScope.launch(Dispatchers.Default) {
+            val allPlaylists = playlistRepository.getAllPlaylists()
+            _uiState.update { it.copy(playlists = allPlaylists) }
+        }
     }
 
     fun setSelectedPlaylist(id: Long) {
@@ -42,27 +46,33 @@ open class PlaylistViewModel(
     }
 
     fun createPlaylist(name: String) {
-        playlistRepository.createPlaylist(name)
-        refreshPlaylists()
+        viewModelScope.launch(Dispatchers.Default) {
+            playlistRepository.createPlaylist(name)
+            refreshPlaylists()
+        }
     }
 
     fun addToPlaylist(directory: Directory, playlist: PlaylistDetails) {
         logger.i { "Inserting Playlist Image ${playlist.id} as ${directory.name}" }
-        playlistRepository.insertPlaylistImage(
-            playlistId = playlist.id,
-            directory = directory
-        )?.let {
-            logger.i { "Successfully inserted playlist image" }
-        } ?: run {
-            logger.w { "Failed to insert playlist image" }
+        viewModelScope.launch(Dispatchers.Default) {
+            playlistRepository.insertPlaylistImage(
+                playlistId = playlist.id,
+                directory = directory
+            )?.let {
+                logger.i { "Successfully inserted playlist image" }
+            } ?: run {
+                logger.w { "Failed to insert playlist image" }
+            }
         }
     }
 
     fun deletePlaylist() {
-        _uiState.value.selectedId?.let {
-            playlistRepository.deletePlaylist(it)
+        viewModelScope.launch(Dispatchers.Default) {
+            _uiState.value.selectedId?.let {
+                playlistRepository.deletePlaylist(it)
+            }
+            refreshPlaylists()
+            clearSelectedPlaylist()
         }
-        refreshPlaylists()
-        clearSelectedPlaylist()
     }
 }
