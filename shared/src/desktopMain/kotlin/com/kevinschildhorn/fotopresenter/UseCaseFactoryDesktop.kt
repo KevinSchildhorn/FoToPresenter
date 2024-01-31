@@ -5,6 +5,7 @@ import co.touchlab.kermit.LoggerConfig
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageCacheDataSource
+import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageRemoteDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistFileDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistSQLDataSource
@@ -23,6 +24,7 @@ import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 import com.kevinschildhorn.fotopresenter.ui.shared.DriverFactory
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedCache
 import com.russhwolf.settings.PreferencesSettings
@@ -41,7 +43,11 @@ actual object UseCaseFactory {
     private val sqlDriver = DriverFactory().createDriver()
     private val credentialDataSource = CredentialsDataSource(settings)
     val credentialsRepository = CredentialsRepository(credentialDataSource)
-    private val directoryRepository = DirectoryRepository(directoryDataSource)
+    private val imageMetadataDataSource = ImageMetadataDataSource(
+        networkHandler = networkHandler,
+        logger = baseLogger.withTag("imageMetadataDataSource")
+    )
+    private val directoryRepository = DirectoryRepository(directoryDataSource, imageMetadataDataSource)
     private val imageRepository = ImageRepository(ImageRemoteDataSource(networkHandler))
     private val playlistSQLDataSource = PlaylistSQLDataSource(
         sqlDriver,
@@ -108,4 +114,6 @@ actual object UseCaseFactory {
             ),
             logger = baseLogger.withTag("RetrieveImageUseCase")
         )
+    actual val saveMetadataForPathUseCase: SaveMetadataForPathUseCase
+        get() = SaveMetadataForPathUseCase(dataSource = imageMetadataDataSource)
 }

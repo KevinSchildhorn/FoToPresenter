@@ -27,6 +27,7 @@ data class FolderDirectory(
 
 data class ImageDirectory(
     override val details: NetworkDirectoryDetails,
+    val metaData: MetadataFileDetails?,
     val image: SharedImage? = null,
 ) : Directory {
     override fun toString(): String = "(I:${details.fullPath}:${details.id})"

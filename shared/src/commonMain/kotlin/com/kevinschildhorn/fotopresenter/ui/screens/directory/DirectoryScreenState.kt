@@ -92,7 +92,8 @@ data class ImageDirectoryGridCellState(
 ) : DirectoryGridCellState {
     override val actionSheetContexts: List<ActionSheetContext>
         get() = listOf(
-            ActionSheetContext(ActionSheetAction.ADD_STATIC_LOCATION, 1)
+            ActionSheetContext(ActionSheetAction.ADD_STATIC_LOCATION, 1),
+            ActionSheetContext(ActionSheetAction.ADD_METADATA, 2),
         )
 
     override fun toString(): String = "(I:$name:$id)"

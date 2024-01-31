@@ -39,6 +39,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.DirectoryTitleBarButton
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.NavigationRailOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreen
+import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.TextEntryDialog
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.Funnel
@@ -51,6 +52,7 @@ enum class DirectoryOverlay {
     LOGOUT_CONFIRMATION,
     PLAYLIST,
     FILTER,
+    METADATA,
     NONE,
 }
 
@@ -157,6 +159,9 @@ fun DirectoryScreen(
                 ActionSheetAction.ADD_STATIC_LOCATION ->
                     overlayVisible = DirectoryOverlay.PLAYLIST
 
+                ActionSheetAction.ADD_METADATA ->
+                    overlayVisible = DirectoryOverlay.METADATA
+
                 ActionSheetAction.ADD_DYNAMIC_LOCATION ->
                     overlayVisible = DirectoryOverlay.PLAYLIST
 
@@ -254,4 +259,17 @@ fun DirectoryScreen(
         }
     }
     //endregion
+
+    if (overlayVisible == DirectoryOverlay.METADATA) {
+        TextEntryDialog(
+            title = "Add Keywords",
+            initialValue = viewModel.selectedMetadata?.tagsString ?: "",
+            {
+                overlayVisible = DirectoryOverlay.NONE
+            }, {
+                viewModel.saveMetadata(it)
+                viewModel.setSelectedDirectory(null)
+                overlayVisible = DirectoryOverlay.NONE
+            })
+    }
 }

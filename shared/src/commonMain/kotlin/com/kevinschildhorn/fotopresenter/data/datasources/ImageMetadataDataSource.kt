@@ -19,7 +19,7 @@ class ImageMetadataDataSource(
         networkHandler.getMetadata()?.let {
             return Json.decodeFromString<MetadataDetails>(it)
         }
-        return MetadataDetails(emptyList())
+        return MetadataDetails(mutableListOf())
     }
 
     suspend fun exportMetadata(metadata: MetadataDetails): Boolean {
@@ -33,7 +33,7 @@ class ImageMetadataDataSource(
         return true
     }
 
-    suspend fun readMetadataFromFile(filePath:String, bytes: ByteArray): MetadataFileDetails? {
+    suspend fun readMetadataFromFile(filePath: String): MetadataFileDetails? {
         networkHandler.openImage(filePath)?.let { sharedImage ->
             val metadata = Kim.readMetadata(sharedImage.byteArray)
             println(metadata)
@@ -49,7 +49,7 @@ class ImageMetadataDataSource(
 
             return MetadataFileDetails(
                 filePath = filePath,
-                tags = keywords
+                tags = keywords.toSet()
             )
         }
         return null

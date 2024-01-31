@@ -7,8 +7,12 @@ import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.UseCaseFactory
+import com.kevinschildhorn.fotopresenter.data.FolderDirectory
+import com.kevinschildhorn.fotopresenter.data.ImageDirectory
+import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
+import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 import com.kevinschildhorn.fotopresenter.extension.addPath
 import com.kevinschildhorn.fotopresenter.extension.navigateBackToPathAtIndex
 import com.kevinschildhorn.fotopresenter.ui.SortingType
@@ -47,6 +51,10 @@ class DirectoryViewModel(
     val actionSheetContexts: List<ActionSheetContext>
         get() = uiState.value.selectedDirectory?.actionSheetContexts ?: emptyList()
 
+
+    val selectedMetadata: MetadataFileDetails?
+        get() = findSelectedImageDirectory()?.metaData
+
     init {
         setImageScope(viewModelScope)
     }
@@ -80,18 +88,15 @@ class DirectoryViewModel(
         logger.i { "Starting Slideshow" }
         cancelJobs()
         logger.d { "Checking for Selected Directory" }
-        uiState.value.selectedDirectory?.id?.let { id ->
-            logger.d { "Finding Folder" }
-            _directoryContentsState.value.folders.find { it.id == id }?.let {
-                logger.d { "Folder found, starting to retrieve images" }
-                val job = viewModelScope.launch(Dispatchers.Default) {
-                    val retrieveImagesUseCase = UseCaseFactory.retrieveImageDirectoriesUseCase
-                    val images = retrieveImagesUseCase(it.details)
-                    logger.v { "Retrieved images, copying them to state" }
-                    _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
-                }
-                jobs.add(job)
+        findSelectedFolderDirectory()?.let {
+            logger.d { "Folder found, starting to retrieve images" }
+            val job = viewModelScope.launch(Dispatchers.Default) {
+                val retrieveImagesUseCase = UseCaseFactory.retrieveImageDirectoriesUseCase
+                val images = retrieveImagesUseCase(it.details)
+                logger.v { "Retrieved images, copying them to state" }
+                _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
             }
+            jobs.add(job)
         } ?: run {
             logger.w { "No Directory Selected!" }
         }
@@ -268,6 +273,16 @@ class DirectoryViewModel(
     }
     //endregion
 
+    fun saveMetadata(metadata: String) {
+        findSelectedImageDirectory()?.details?.fullPath?.let {
+            val job = viewModelScope.launch {
+                val saveMetadataForPathUseCase = UseCaseFactory.saveMetadataForPathUseCase
+                saveMetadataForPathUseCase(it, metadata)
+            }
+            jobs.add(job)
+        }
+    }
+
     fun setFilterType(sortingType: SortingType) {
         logger.i { "Setting Filter Type" }
         _directoryContentsState.update {
@@ -286,4 +301,16 @@ class DirectoryViewModel(
         logger.v { "Finished Cancelling Jobs!" }
 
     }
+
+    private fun findSelectedFolderDirectory(): FolderDirectory? =
+        uiState.value.selectedDirectory?.id?.let { id ->
+            logger.d { "Finding Selected Directory" }
+            return _directoryContentsState.value.folders.find { it.id == id }
+        }
+
+    private fun findSelectedImageDirectory(): ImageDirectory? =
+        uiState.value.selectedDirectory?.id?.let { id ->
+            logger.d { "Finding Selected Directory" }
+            return _directoryContentsState.value.images.find { it.id == id }
+        }
 }

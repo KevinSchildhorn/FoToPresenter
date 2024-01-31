@@ -42,7 +42,7 @@ val commonModule =
         single { CredentialsDataSource(get()) }
         single { CredentialsRepository(get()) }
         single { DirectoryDataSource(get(), baseLogger.withTag("DirectoryDataSource")) }
-        single { DirectoryRepository(get()) }
+        single { DirectoryRepository(get(), get()) }
         single { ImageRemoteDataSource(get()) }
         single { ImageRepository(get()) }
         single { ImageCacheDataSource(get(), get(), baseLogger.withTag("ImageCacheDataSource")) }
