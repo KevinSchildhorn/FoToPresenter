@@ -5,6 +5,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint")
     id("dev.icerock.mobile.multiplatform-resources")
     id("app.cash.sqldelight")
+    kotlin("plugin.serialization")
 }
 
 kotlin {
@@ -36,6 +37,7 @@ kotlin {
 
                 implementation("io.github.reactivecircus.cache4k:cache4k:0.12.0")
 
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
                 implementation("io.insert-koin:koin-core:3.4.0")
                 implementation("androidx.security:security-crypto:1.1.0-alpha06")
                 implementation("co.touchlab:kermit:1.2.2")
@@ -53,6 +55,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
                 implementation("io.insert-koin:koin-test:3.4.0")
                 implementation("app.cash.turbine:turbine:1.0.0")
+                implementation("app.cash.sqldelight:sqlite-driver:2.0.1")
             }
         }
 

@@ -79,11 +79,15 @@ class DirectoryViewModel(
     fun startSlideshow() {
         logger.i { "Starting Slideshow" }
         cancelJobs()
+        logger.d { "Checking for Selected Directory" }
         uiState.value.selectedDirectory?.id?.let { id ->
+            logger.d { "Finding Folder" }
             _directoryContentsState.value.folders.find { it.id == id }?.let {
+                logger.d { "Folder found, starting to retrieve images" }
                 val job = viewModelScope.launch(Dispatchers.Default) {
                     val retrieveImagesUseCase = UseCaseFactory.retrieveImageDirectoriesUseCase
                     val images = retrieveImagesUseCase(it.details)
+                    logger.v { "Retrieved images, copying them to state" }
                     _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
                 }
                 jobs.add(job)
@@ -273,11 +277,13 @@ class DirectoryViewModel(
     }
 
     private fun cancelJobs() {
-        logger.i { "Cancelling Jobs!" }
+        logger.d { "Cancelling Jobs!" }
         cancelImageJobs()
         jobs.forEach {
             it.cancel()
         }
         jobs.clear()
+        logger.v { "Finished Cancelling Jobs!" }
+
     }
 }

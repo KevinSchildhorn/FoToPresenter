@@ -22,10 +22,10 @@ class RetrieveSlideshowFromPlaylistUseCase(
         logger.i { "Starting to get details from playlist ${playlistDetails.name}" }
         val directories: List<ImageDirectory> = playlistDetails.items.map { item ->
             val directoryDetails = DefaultNetworkDirectoryDetails(
-                id = item.directory_id.toInt(),
-                fullPath = item.directory_path
+                id = item.directoryId.toInt(),
+                fullPath = item.directoryPath
             )
-            if (item.directory_path.isImagePath) {
+            if (item.directoryPath.isImagePath) {
                 listOf(ImageDirectory(directoryDetails))
             } else {
                 retrieveDirectoryUseCase(

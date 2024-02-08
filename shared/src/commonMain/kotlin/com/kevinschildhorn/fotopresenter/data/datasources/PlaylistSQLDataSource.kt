@@ -8,9 +8,10 @@ import com.kevinschildhorn.fotopresenter.PlaylistItems
 import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
+import com.kevinschildhorn.fotopresenter.data.PlaylistItem
 import org.koin.core.component.KoinComponent
 
-class PlaylistDataSource(
+class PlaylistSQLDataSource(
     driver: SqlDriver,
     private val logger: Logger? = null,
 ) : KoinComponent {
@@ -35,10 +36,10 @@ class PlaylistDataSource(
 
     fun getAllPlaylists(): List<PlaylistDetails> {
         return try {
-            database.playlistQueries.selectAllPlaylists().executeAsList().map {
+            database.playlistQueries.selectAllPlaylists().executeAsList().map { playlist ->
                 val images =
-                    database.playlistItemsQueries.selectPlaylistImages(it.id).executeAsList()
-                PlaylistDetails(it.id,it.name, images)
+                    database.playlistItemsQueries.selectPlaylistImages(playlist.id).executeAsList()
+                PlaylistDetails(playlist.id, playlist.name, images.map { PlaylistItem(it) })
             }
         } catch (e: Exception) {
             emptyList()
@@ -53,13 +54,27 @@ class PlaylistDataSource(
             val images =
                 database.playlistItemsQueries.selectPlaylistImages(playList.id).executeAsList()
             logger?.i { "Retrieved Playlist!" }
-            PlaylistDetails(playList.id, playList.name, images)
+            PlaylistDetails(playList.id, playList.name, images.map { PlaylistItem(it) })
         } catch (e: Exception) {
             null
         }
     }
 
-    fun insertPlaylistImage(playlistId: Long, directory: Directory): PlaylistItems? {
+    fun getPlaylistById(id: Long): PlaylistDetails? {
+        return try {
+            logger?.i { "Selecting playlist by id $id" }
+            val playList: Playlist =
+                database.playlistQueries.selectPlaylistById(id).executeAsOne()
+            val images =
+                database.playlistItemsQueries.selectPlaylistImages(playList.id).executeAsList()
+            logger?.i { "Retrieved Playlist!" }
+            PlaylistDetails(playList.id, playList.name, images.map { PlaylistItem(it) })
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    fun insertPlaylistImage(playlistId: Long, directory: Directory): PlaylistItem? {
         logger?.i { "Inserting Playlist Image ${directory.name}" }
         database.playlistItemsQueries.insertPlaylistImage(
             playlist_id = playlistId,
@@ -69,14 +84,14 @@ class PlaylistDataSource(
         return getPlaylistImage(playlistId, directory.details.fullPath)
     }
 
-    fun getPlaylistImage(playlistId: Long, directoryPath: String): PlaylistItems? {
+    fun getPlaylistImage(playlistId: Long, directoryPath: String): PlaylistItem? {
         return try {
             logger?.i { "Selecting Playlist Image $playlistId" }
             val image: PlaylistItems =
                 database.playlistItemsQueries.selectPlaylistImage(playlistId, directoryPath)
                     .executeAsOne()
             logger?.i { "Selecting Playlist Image" }
-            image
+            PlaylistItem(image)
         } catch (e: Exception) {
             null
         }

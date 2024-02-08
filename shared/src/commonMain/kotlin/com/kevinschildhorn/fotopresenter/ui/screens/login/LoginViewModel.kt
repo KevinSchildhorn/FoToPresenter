@@ -24,10 +24,10 @@ class LoginViewModel(
         val credentials = credentialsRepository.fetchCredentials()
         _uiState.update {
             it.copy(
-                hostname = "192.168.1.190",//credentials.hostname,
-                username = "kevin",//credentials.username,
-                password = "9E^54qFq^z",//credentials.password,
-                sharedFolder = "Photos",//credentials.sharedFolder,
+                hostname = credentials.hostname,
+                username = credentials.username,
+                password = credentials.password,
+                sharedFolder = credentials.sharedFolder,
                 shouldAutoConnect = credentials.shouldAutoConnect,
             )
         }
@@ -71,7 +71,7 @@ class LoginViewModel(
                 )
 
             if (!result) {
-                logger.w { "Error Occurred" }
+                logger.w { "Error Occurred Connecting to Server" }
                 _uiState.update { it.copy(state = UiState.ERROR("")) }
                 return@launch
             } else {

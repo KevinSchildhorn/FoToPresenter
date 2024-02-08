@@ -1,14 +1,14 @@
 package com.kevinschildhorn.fotopresenter.data
 
 import com.kevinschildhorn.fotopresenter.PlaylistItems
-import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
-import com.kevinschildhorn.fotopresenter.extension.isImagePath
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PlaylistDetails(
     val id: Long,
     val name: String,
-    val items: List<PlaylistItems> = emptyList(),
-){
+    val items: List<PlaylistItem> = emptyList(),
+) {
     override fun toString(): String {
         return """
             Playlist Details:
@@ -17,4 +17,19 @@ data class PlaylistDetails(
             images: ${items.count()}
         """
     }
+}
+
+@Serializable
+data class PlaylistItem(
+    val id: Long,
+    val playlistId: Long,
+    val directoryPath: String,
+    val directoryId: Long,
+) {
+    constructor(item: PlaylistItems) : this(
+        id = item.id,
+        playlistId = item.playlist_id,
+        directoryPath = item.directory_path,
+        directoryId = item.directory_id
+    )
 }

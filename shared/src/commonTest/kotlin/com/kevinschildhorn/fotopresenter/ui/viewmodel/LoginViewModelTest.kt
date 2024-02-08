@@ -1,10 +1,12 @@
 package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
+import app.cash.turbine.test
 import com.kevinschildhorn.fotopresenter.testingModule
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.russhwolf.settings.MapSettings
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
@@ -73,12 +75,12 @@ class LoginViewModelTest : KoinTest {
             startKoin {
                 modules(testingModule(settings = settings))
                 with(viewModel.uiState.value) {
-                    assertEquals(hostname, "defaultHostname")
-                    assertEquals(username, "defaultUsername")
-                    assertEquals(password, "defaultPassword")
-                    assertEquals(sharedFolder, "")
-                    assertEquals(shouldAutoConnect, false)
-                    assertEquals(state, UiState.IDLE)
+                    assertEquals("defaultHostname", hostname)
+                    assertEquals("defaultUsername", username)
+                    assertEquals("defaultPassword", password)
+                    assertEquals("", sharedFolder)
+                    assertEquals(false, shouldAutoConnect)
+                    assertEquals(UiState.IDLE, state)
                 }
             }
         }
@@ -147,16 +149,16 @@ class LoginViewModelTest : KoinTest {
             viewModel.updateShouldAutoConnect(true)
             viewModel.login()
 
-            with(viewModel.uiState.value) {
-                assertEquals(UiState.LOADING, state)
-            }
-
-            advanceUntilIdle()
-            with(viewModel.uiState.value) {
-                print(this.state)
-                // assertTrue(state is UiState.ERROR) TODO
+            viewModel.uiState.test {
+                var state = awaitItem()
+                while (state.state == UiState.LOADING || state.state == UiState.IDLE) {
+                    state = awaitItem()
+                }
+                assertTrue(state.state is UiState.ERROR)
+                cancelAndIgnoreRemainingEvents()
             }
         }
+
 
     @Test
     fun `Login Success`() =
@@ -171,13 +173,13 @@ class LoginViewModelTest : KoinTest {
             viewModel.updateShouldAutoConnect(false)
             viewModel.login()
 
-            with(viewModel.uiState.value) {
-                assertEquals(UiState.LOADING, state)
-            }
-
-            advanceUntilIdle()
-            with(viewModel.uiState.value) {
-                // assertEquals(UiState.SUCCESS, state) TODO
+            viewModel.uiState.test {
+                var state = awaitItem()
+                while (state.state == UiState.LOADING || state.state == UiState.IDLE) {
+                    state = awaitItem()
+                }
+                assertEquals(UiState.SUCCESS, state.state)
+                cancelAndIgnoreRemainingEvents()
             }
         }
 

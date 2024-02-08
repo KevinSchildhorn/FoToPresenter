@@ -10,15 +10,22 @@ import com.hierynomus.smbj.auth.AuthenticationContext
 import com.hierynomus.smbj.connection.Connection
 import com.hierynomus.smbj.session.Session
 import com.hierynomus.smbj.share.DiskShare
+import com.hierynomus.smbj.share.File
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.extension.addPath
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import java.io.OutputStream
+import java.util.*
+
 
 object SMBJHandler : NetworkHandler {
     private val client = SMBClient()
     private var connection: Connection? = null
     private var session: Session? = null
     private var share: DiskShare? = null
+    private val metaDataName: String = "FotoMetaData.json"
 
     private val accessMask: Set<AccessMask> =
         setOf(
@@ -88,23 +95,10 @@ object SMBJHandler : NetworkHandler {
         return result?.path
     }
 
-    override suspend fun openImage(path: String): SharedImage? {
-        try {
-            share?.openFile(
-                path,
-                accessMask,
-                attributes,
-                shareAccesses,
-                createDisposition,
-                createOptions,
-            )?.let {
-                return SharedImage(it)
-            }
-        } catch (e: Exception) {
-            return null
-        }
-        return null
-    }
+    override suspend fun openImage(path: String): SharedImage? =
+        getFile(path)?.let {
+            SharedImage(it)
+        } ?: run { null }
 
     override suspend fun folderExists(path: String): Boolean? {
         return share?.folderExists(path)
@@ -117,5 +111,71 @@ object SMBJHandler : NetworkHandler {
         share = null
         session = null
         connection = null
+    }
+
+    override suspend fun savePlaylist(playlistName: String, json: String): Boolean =
+        writeFile(fileName = "$playlistName.json", contents = json)
+
+    override suspend fun getPlaylists(): List<String> =
+        getDirectoryContents("")
+            .filter { it.fileExtension == "json" }
+            .filter { !it.fileName.contains(metaDataName) }
+            .mapNotNull { getFile(it.fullPath) }
+            .map { it.inputStream.readAllBytes().decodeToString() }
+
+    override suspend fun setMetadata(json: String): Boolean =
+        writeFile(fileName = metaDataName, contents = json)
+
+    override suspend fun getMetadata(): String? = getFile(metaDataName)?.let {
+        it.inputStream.readAllBytes().decodeToString()
+    }
+
+    override suspend fun deletePlaylist(playlistName: String) {
+        share?.rm("$playlistName.json")
+    }
+
+
+    private fun getFile(
+        path: String,
+    ): File? =
+        try {
+            share?.openFile(
+                path,
+                accessMask,
+                attributes,
+                shareAccesses,
+                createDisposition,
+                createOptions,
+            )
+        } catch (e: Exception) {
+            null
+        }
+
+
+    private fun writeFile(fileName: String, contents: String): Boolean {
+        val fileAttributes: MutableSet<FileAttributes> = HashSet()
+        fileAttributes.add(FileAttributes.FILE_ATTRIBUTE_NORMAL)
+        val createOptions: MutableSet<SMB2CreateOptions> = HashSet()
+        createOptions.add(SMB2CreateOptions.FILE_RANDOM_ACCESS)
+
+        try {
+            val file = share?.openFile(
+                fileName,
+                setOf(AccessMask.GENERIC_ALL),
+                fileAttributes,
+                SMB2ShareAccess.ALL,
+                SMB2CreateDisposition.FILE_OVERWRITE,
+                createOptions
+            )
+            file?.let {
+                val oStream: OutputStream = it.outputStream
+                oStream.write(contents.toByteArray())
+                oStream.flush()
+                oStream.close()
+                return true
+            }
+        } catch (_: Exception) {
+        }
+        return false
     }
 }
