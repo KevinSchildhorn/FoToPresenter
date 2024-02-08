@@ -39,3 +39,4 @@ common/src/commonMain/kotlin/me/kevinschildhorn/common/network/ftps/TestingLogin
 androidApp/build/kotlin/compileDebugKotlinAndroid/cacheable/caches-jvm/lookups/lookups.tab_i.len
 
 desktopApp/build
+androidApp/google-services.json
