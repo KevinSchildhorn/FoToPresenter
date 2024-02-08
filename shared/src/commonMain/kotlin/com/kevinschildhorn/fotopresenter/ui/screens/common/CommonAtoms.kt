@@ -23,4 +23,10 @@ object CommonAtoms {
         typography = FotoTypography.button,
         fontFamily = null,
     )
+
+    val toastOverlay: SimpleTextAtom = SimpleTextAtom(
+        textColor = FotoColors.primaryText,
+        typography = FotoTypography.body,
+        fontFamily = null,
+    )
 }
