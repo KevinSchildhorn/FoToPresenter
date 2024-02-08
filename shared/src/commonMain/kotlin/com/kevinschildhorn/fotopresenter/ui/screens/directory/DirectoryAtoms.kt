@@ -19,6 +19,11 @@ import compose.icons.evaicons.fill.Folder
 object DirectoryAtoms {
     val emptyDirectory = EmptyPhotoMolecule()
 
+    val ImageTicker = SimpleTextAtom(
+        textColor = FotoColors.backgroundText,
+        typography = FotoTypography.caption,
+        fontFamily = null,
+    )
     val navigationItem =
         TextButtonMolecule(
             color = FotoColors.secondary,

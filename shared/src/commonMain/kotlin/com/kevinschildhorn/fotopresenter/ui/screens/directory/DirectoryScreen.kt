@@ -1,20 +1,26 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
-import androidx.compose.material.TextButton
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.LinearProgressIndicator
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.kevinschildhorn.atomik.atomic.atoms.textStyle
 import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.ui.UiState
@@ -24,15 +30,18 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ConfirmationDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.FilterDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ImagePreviewOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.LoadingOverlay
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryAtoms.ImageTicker
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationBar
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.NavigationRailMenuButton
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.DirectoryTitleBarButton
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.NavigationRailOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreen
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
+import compose.icons.evaicons.fill.Funnel
 import compose.icons.evaicons.fill.Menu
 
 enum class DirectoryOverlay {
@@ -41,6 +50,7 @@ enum class DirectoryOverlay {
     NAV_RAIL,
     LOGOUT_CONFIRMATION,
     PLAYLIST,
+    FILTER,
     NONE,
 }
 
@@ -66,9 +76,15 @@ fun DirectoryScreen(
 
     //region UI
     Column {
-        NavigationRailMenuButton {
-            overlayVisible = DirectoryOverlay.NAV_RAIL
+        Row(horizontalArrangement = Arrangement.SpaceBetween) {
+            DirectoryTitleBarButton(EvaIcons.Fill.Menu) {
+                overlayVisible = DirectoryOverlay.NAV_RAIL
+            }
+            DirectoryTitleBarButton(EvaIcons.Fill.Funnel) {
+                overlayVisible = DirectoryOverlay.FILTER
+            }
         }
+
         (uiState.state as? UiState.ERROR)?.let {
             ErrorView(
                 it.message,
@@ -88,6 +104,24 @@ fun DirectoryScreen(
             },
             modifier = Modifier.padding(Padding.SMALL.dp)
         )
+        if (uiState.imageCountString.isNotEmpty()) {
+            Text(
+                uiState.imageCountString,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                style = ImageTicker.textStyle,
+                color = ImageTicker.textColor.composeColor
+            )
+            LinearProgressIndicator(
+                progress = uiState.currentImageCount.toFloat() / uiState.totalImageCount.toFloat(),
+                modifier = Modifier.fillMaxWidth()
+                    .height(25.dp)
+                    .padding(horizontal = Padding.EXTRA_LARGE.dp, vertical = Padding.SMALL.dp)
+                    .clip(RoundedCornerShape(5.dp)),
+                color = FotoColors.primary.composeColor,
+            )
+
+        }
         DirectoryGrid(
             uiState.directoryGridState,
             onFolderPressed = {
@@ -192,6 +226,18 @@ fun DirectoryScreen(
         )
     }
     //endregion
+
+    if (overlayVisible == DirectoryOverlay.FILTER) {
+        FilterDialog(
+            "Filter Images by",
+            onDismissRequest = {
+                overlayVisible = DirectoryOverlay.NONE
+            },
+            onConfirmation = {
+                viewModel.setFilterType(it)
+            }
+        )
+    }
 
     //region Playlist
     if (overlayVisible == DirectoryOverlay.PLAYLIST) {

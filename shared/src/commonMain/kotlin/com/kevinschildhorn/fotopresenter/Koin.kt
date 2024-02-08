@@ -29,19 +29,20 @@ import com.kevinschildhorn.fotopresenter.ui.shared.SharedCache
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
+val baseLogger = Logger(LoggerConfig.default)
+
 val commonModule =
     module {
-        val baseLogger = Logger(LoggerConfig.default)
 
         // Data
         single<CacheInterface> { SharedCache }
         single { CredentialsDataSource(get()) }
         single { CredentialsRepository(get()) }
-        single { DirectoryDataSource(get()) }
+        single { DirectoryDataSource(get(), baseLogger.withTag("DirectoryDataSource")) }
         single { DirectoryRepository(get()) }
         single { ImageRemoteDataSource(get()) }
         single { ImageRepository(get()) }
-        single { ImageCacheDataSource(get()) }
+        single { ImageCacheDataSource(get(), get(), baseLogger.withTag("ImageCacheDataSource")) }
         single { PlaylistDataSource(get(), baseLogger.withTag("PlaylistDataSource")) }
         single { PlaylistRepository(get()) }
 
@@ -58,7 +59,12 @@ val commonModule =
             )
         }
         factory { RetrieveImageDirectoriesUseCase(baseLogger.withTag("RetrieveImageDirectoriesUseCase")) }
-        factory { RetrieveSlideshowFromPlaylistUseCase(baseLogger.withTag("RetrieveSlideshowFromPlaylistUseCase")) }
+        factory {
+            RetrieveSlideshowFromPlaylistUseCase(
+                baseLogger.withTag("RetrieveSlideshowFromPlaylistUseCase"),
+                get()
+            )
+        }
         factory {
             RetrieveDirectoryContentsUseCase(
                 get(),

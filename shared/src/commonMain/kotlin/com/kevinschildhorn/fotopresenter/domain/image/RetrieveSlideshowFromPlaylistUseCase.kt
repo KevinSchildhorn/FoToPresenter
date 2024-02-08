@@ -14,13 +14,12 @@ Retrieving Slideshow Details From Playlist Details
  **/
 class RetrieveSlideshowFromPlaylistUseCase(
     private val logger: Logger,
+    private val retrieveDirectoryUseCase: RetrieveImageDirectoriesUseCase,
 ) : KoinComponent {
     suspend operator fun invoke(
         playlistDetails: PlaylistDetails,
     ): ImageSlideshowDetails {
         logger.i { "Starting to get details from playlist ${playlistDetails.name}" }
-        val retrieveDirectoryUseCase: RetrieveImageDirectoriesUseCase by inject()
-
         val directories: List<ImageDirectory> = playlistDetails.items.map { item ->
             val directoryDetails = DefaultNetworkDirectoryDetails(
                 id = item.directory_id.toInt(),

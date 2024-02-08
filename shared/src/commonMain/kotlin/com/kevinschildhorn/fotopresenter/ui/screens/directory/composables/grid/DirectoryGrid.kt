@@ -9,6 +9,9 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.isSecondaryPressed
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -37,6 +40,16 @@ fun DirectoryGrid(
             val directoryItemModifier =
                 Modifier
                     .padding(5.dp)
+                    .pointerInput(Unit) {
+                        awaitPointerEventScope {
+                            val event = awaitPointerEvent()
+                            if (event.type == PointerEventType.Press &&
+                                event.buttons.isSecondaryPressed) {
+                                event.changes.forEach { e -> e.consume() }
+                                onActionSheet(state)
+                            }
+                        }
+                    }
                     .combinedClickable(
                         onClick = {
                             (state as? ImageDirectoryGridCellState)?.let { imageContent ->

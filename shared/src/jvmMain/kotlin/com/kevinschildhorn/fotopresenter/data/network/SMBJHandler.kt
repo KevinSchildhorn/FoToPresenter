@@ -20,7 +20,14 @@ object SMBJHandler : NetworkHandler {
     private var session: Session? = null
     private var share: DiskShare? = null
 
-    private val accessMask: Set<AccessMask> = setOf(AccessMask.FILE_READ_DATA)
+    private val accessMask: Set<AccessMask> =
+        setOf(
+            AccessMask.FILE_READ_DATA,
+            AccessMask.FILE_LIST_DIRECTORY,
+            AccessMask.FILE_TRAVERSE,
+            AccessMask.FILE_READ_ATTRIBUTES,
+            AccessMask.GENERIC_READ,
+        )
     private val attributes: Set<FileAttributes> = setOf(FileAttributes.FILE_ATTRIBUTE_NORMAL)
     private val shareAccesses: Set<SMB2ShareAccess> = setOf(SMB2ShareAccess.FILE_SHARE_READ)
     private val createDisposition: SMB2CreateDisposition = SMB2CreateDisposition.FILE_OPEN
@@ -82,17 +89,25 @@ object SMBJHandler : NetworkHandler {
     }
 
     override suspend fun openImage(path: String): SharedImage? {
-        share?.openFile(
-            path,
-            accessMask,
-            attributes,
-            shareAccesses,
-            createDisposition,
-            createOptions,
-        )?.let {
-            return SharedImage(it)
+        try {
+            share?.openFile(
+                path,
+                accessMask,
+                attributes,
+                shareAccesses,
+                createDisposition,
+                createOptions,
+            )?.let {
+                return SharedImage(it)
+            }
+        } catch (e: Exception) {
+            return null
         }
         return null
+    }
+
+    override suspend fun folderExists(path: String): Boolean? {
+        return share?.folderExists(path)
     }
 
     override suspend fun disconnect() {

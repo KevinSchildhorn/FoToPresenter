@@ -3,13 +3,10 @@ package com.kevinschildhorn.fotopresenter.ui.screens.slideshow
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
-import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
 import com.kevinschildhorn.fotopresenter.ui.screens.common.DefaultImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.shared.ViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,10 +14,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
-import kotlin.coroutines.EmptyCoroutineContext
+import com.kevinschildhorn.fotopresenter.UseCaseFactory
 
 class SlideshowViewModel(
     private val logger: Logger,
@@ -31,7 +27,6 @@ class SlideshowViewModel(
     private val _uiState = MutableStateFlow(SlideshowScreenState())
     val uiState: StateFlow<SlideshowScreenState> = _uiState.asStateFlow()
     private var timer: Timer? = null
-    var firstImageTimer: Job? = null
 
     init {
         setImageScope(viewModelScope)
@@ -39,7 +34,7 @@ class SlideshowViewModel(
 
     fun setSlideshowFromPlaylist(playlistDetails: PlaylistDetails) {
         logger.i { "Starting playlist $playlistDetails" }
-        val useCase: RetrieveSlideshowFromPlaylistUseCase by inject()
+        val useCase = UseCaseFactory.retrieveSlideshowFromPlaylistUseCase
         viewModelScope.launch(Dispatchers.Default) {
             val slideshow = useCase(playlistDetails)
             setSlideshow(slideshow)

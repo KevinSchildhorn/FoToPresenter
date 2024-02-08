@@ -1,6 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data
 
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
+import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 interface Directory {
@@ -38,6 +39,13 @@ data class DirectoryContents(
     val allDirectories: List<Directory>
         get() = folders + images
 
+    fun sorted(sortingType: SortingType): DirectoryContents {
+        return DirectoryContents(
+            folders = folders.sorted(sortingType) as List<FolderDirectory>,
+            images = images.sorted(sortingType) as List<ImageDirectory>,
+        )
+    }
+
     override fun toString(): String {
         return """
             DirectoryContents:
@@ -48,3 +56,11 @@ data class DirectoryContents(
             """
     }
 }
+
+fun List<Directory>.sorted(sortingType: SortingType): List<Directory> =
+    when (sortingType) {
+        SortingType.NAME_ASC -> this.sortedBy { it.name }
+        SortingType.NAME_DESC -> this.sortedByDescending { it.name }
+        SortingType.TIME_ASC -> this.sortedBy { it.details.dateMillis }
+        SortingType.TIME_DESC -> this.sortedByDescending { it.details.dateMillis }
+    }

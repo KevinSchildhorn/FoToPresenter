@@ -41,7 +41,7 @@ kotlin {
                 implementation("co.touchlab:kermit:1.2.2")
                 implementation("co.touchlab:kermit-koin:1.2.2")
                 implementation("com.russhwolf:multiplatform-settings:1.0.0")
-
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
                 api("dev.icerock.moko:resources:0.23.0")
                 api("dev.icerock.moko:resources-compose:0.23.0") // for compose multiplatform
             }
@@ -60,7 +60,7 @@ kotlin {
             dependsOn(commonMain)
             resources.srcDir("src/commonMain/resources")
             dependencies {
-                implementation("com.hierynomus:smbj:0.13.0")
+                implementation("com.hierynomus:smbj:0.11.5")
                 implementation(compose.uiTooling)
                 implementation("app.cash.sqldelight:sqlite-driver:2.0.1")
             }

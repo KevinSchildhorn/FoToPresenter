@@ -13,24 +13,57 @@ class RetrieveImageUseCase(
     private val imageCacheDataSource: ImageCacheDataSource,
     private val logger: Logger,
 ) {
+
+    private val IMAGE_SIZE_SMALL = 64
+    private val IMAGE_SIZE_MEDIUM = 256
+    private val IMAGE_SIZE_LARGE = 512
+    private val IMAGE_SIZE_EXTRA_LARGE = 1024
+
     suspend operator fun invoke(
         directory: ImageDirectory,
         callback: suspend (State<ImageBitmap>) -> Unit,
     ) {
-        logger.i { "Starting to get Image ${directory.name}" }
+        val imageName = "\"${directory.details.fullPath}\""
+        logger.i { "Starting to get Image $imageName" }
         callback(State.LOADING)
 
+        var workingWidth: Int = 0
+        var updatedImage: Boolean = false
+
         imageCacheDataSource.getImage(directory.details)?.let {
-            logger.i { "Image found in cache, using that" }
+            logger.i { "$imageName found in cache, using that" }
             callback(State.SUCCESS(it))
+            workingWidth = it.width
         }
+        logger.i { "Getting Image Bitmap from File $imageName" }
+        if (workingWidth <= IMAGE_SIZE_SMALL) {
+            logger.i { "Getting Small Bitmap for $imageName" }
 
-        logger.i { "Getting Image Bitmap from File ${directory.name}" }
-        val smallImageBitmap = downloadAndStoreImage(directory, 64)
-        callback(smallImageBitmap.asState)
-
-        val largeImageBitmap = downloadAndStoreImage(directory, 256)
-        callback(largeImageBitmap.asState)
+            val smallImageBitmap = downloadAndStoreImage(directory, IMAGE_SIZE_SMALL)
+            callback(smallImageBitmap.asState)
+            workingWidth = IMAGE_SIZE_SMALL
+            updatedImage = true
+        }
+        if (workingWidth <= IMAGE_SIZE_MEDIUM) {
+            logger.i { "Getting Medium Image" }
+            val mediumImageBitmap = downloadAndStoreImage(directory, IMAGE_SIZE_MEDIUM)
+            callback(mediumImageBitmap.asState)
+            workingWidth = IMAGE_SIZE_MEDIUM
+            updatedImage = true
+        }
+        if (workingWidth <= IMAGE_SIZE_LARGE) {
+            logger.i { "Getting Large Image" }
+            val mediumImageBitmap = downloadAndStoreImage(directory, IMAGE_SIZE_LARGE)
+            callback(mediumImageBitmap.asState)
+            workingWidth = IMAGE_SIZE_LARGE
+            updatedImage = true
+        }
+        if (workingWidth <= IMAGE_SIZE_EXTRA_LARGE || !updatedImage) {
+            logger.i { "Getting Extra Large Image" }
+            val mediumImageBitmap = downloadAndStoreImage(directory, IMAGE_SIZE_EXTRA_LARGE)
+            callback(mediumImageBitmap.asState)
+            workingWidth = IMAGE_SIZE_EXTRA_LARGE
+        }
     }
 
     private fun downloadAndStoreImage(
