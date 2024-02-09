@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
+import co.touchlab.kermit.Logger
 import com.hierynomus.msdtyp.AccessMask
 import com.hierynomus.msfscc.FileAttributes
 import com.hierynomus.mssmb2.SMB2CreateDisposition
@@ -25,7 +26,8 @@ object SMBJHandler : NetworkHandler {
     private var connection: Connection? = null
     private var session: Session? = null
     private var share: DiskShare? = null
-    private val metaDataName: String = "FotoMetaData.json"
+    private const val metaDataName: String = "FotoMetaData.json"
+    private val logger = Logger.withTag("SMBJHandler")
 
     private val accessMask: Set<AccessMask> =
         setOf(
@@ -52,11 +54,13 @@ object SMBJHandler : NetworkHandler {
                 val session: Session? = connection?.authenticate(context)
                 share = session?.connectShare(credentials.sharedFolder) as? DiskShare
                 if (share == null) {
+                    logger.e { "Failed To Connect, shared was null" }
                     disconnect()
                     return false
                 }
             }
         } catch (e: Exception) {
+            logger.e(e) { "Failed To Connect" }
             disconnect()
             return false
         }
