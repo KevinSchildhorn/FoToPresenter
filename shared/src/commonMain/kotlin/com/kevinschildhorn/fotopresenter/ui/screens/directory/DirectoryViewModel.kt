@@ -209,8 +209,9 @@ class DirectoryViewModel(
                         )
                     }
                 }
-            }
-            jobs.add(job)
+            }.awaitAll()
+
+            // TODO: STORE LARGEST IMAGES IN CHUNKS
         }
     }
 
