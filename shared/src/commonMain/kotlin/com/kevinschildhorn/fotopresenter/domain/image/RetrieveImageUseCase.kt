@@ -20,11 +20,11 @@ class RetrieveImageUseCase(
     ): ImageBitmap? {
         val imageName = "\"${directory.details.fullPath}\""
         logger.i { "Starting to get Image $imageName" }
-/*
+
         imageCacheDataSource.getImage(directory.details)?.let {
             logger.i { "$imageName found in cache, using that" }
             return it
-        }*/
+        }
 
         logger.i { "Getting Image Bitmap from File ${directory.name}" }
         val imageBitmap: ImageBitmap? = directory.image?.getImageBitmap(imageSize)

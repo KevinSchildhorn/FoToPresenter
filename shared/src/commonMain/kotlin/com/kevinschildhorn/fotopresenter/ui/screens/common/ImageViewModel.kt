@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import com.kevinschildhorn.fotopresenter.UseCaseFactory
+import kotlinx.coroutines.cancelChildren
 
 interface ImageViewModel {
     var scope: CoroutineScope?
@@ -41,7 +42,6 @@ class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel
     private val _uiState = MutableStateFlow(ImageScreenState())
     override var scope: CoroutineScope? = null
     override val imageUiState: StateFlow<ImageScreenState> = _uiState.asStateFlow()
-    private val jobs: MutableList<Job> = mutableListOf<Job>()
 
     override fun setImageDirectories(directories: List<ImageDirectory>) {
         _uiState.update { it.copy(imageDirectories = directories) }
@@ -83,10 +83,7 @@ class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel
 
     override fun cancelImageJobs() {
         logger?.d { "Cancelling Image Jobs" }
-        jobs.forEach {
-            it.cancel()
-        }
-        jobs.clear()
+        scope?.coroutineContext?.cancelChildren()
     }
 
     private fun updateSelectedImage() {
@@ -106,14 +103,9 @@ class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel
         scope?.launch(Dispatchers.Default) {
             val retrieveImagesUseCase = UseCaseFactory.retrieveImageUseCase
             logger?.d { "Retrieving Image" }
-            retrieveImagesUseCase(imageDirectory) { newState: State<ImageBitmap> ->
-                logger?.d { "Image State Updated $newState" }
-                newState.value?.let { imageBitmap ->
-                    _uiState.update { it.copy(selectedImage = imageBitmap) }
-                }
-            }
-        }?.let {
-            jobs.add(it)
+
+            val imageBitmap = retrieveImagesUseCase(imageDirectory, imageSize = 1024)
+            _uiState.update { it.copy(selectedImage = imageBitmap) }
         }
     }
 }

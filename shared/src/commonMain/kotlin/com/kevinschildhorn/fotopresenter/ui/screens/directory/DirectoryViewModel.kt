@@ -21,6 +21,8 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -201,8 +203,8 @@ class DirectoryViewModel(
             logger.i { "Updating Photos" }
             val retrieveImagesUseCase: RetrieveImageUseCase = UseCaseFactory.retrieveImageUseCase
             val imageDirectories: List<ImageDirectory> = imageUiState.value.imageDirectories
-            imageDirectories.forEachIndexed { index, imageDirectory ->
-                launch {
+            imageDirectories.mapIndexed{ index, imageDirectory ->
+                async {
                     retrieveImagesUseCase(
                         imageDirectory,
                         imageSize = 512, // TODO: Change
@@ -226,7 +228,9 @@ class DirectoryViewModel(
                         }
                     }
                 }
-            }
+            }.awaitAll()
+
+            // TODO: STORE LARGEST IMAGES
         }
     }
 
