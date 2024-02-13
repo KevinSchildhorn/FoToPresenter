@@ -65,6 +65,7 @@ fun DirectoryScreen(
         viewModel.refreshScreen()
     }
     val uiState by viewModel.uiState.collectAsState()
+    val directoryContentsState by viewModel.directoryContentsState.collectAsState()
     val imageUiState by viewModel.imageUiState.collectAsState()
     var overlayVisible by remember { mutableStateOf(DirectoryOverlay.NONE) }
 
@@ -124,6 +125,7 @@ fun DirectoryScreen(
         }
         DirectoryGrid(
             uiState.directoryGridState,
+            directoryContentsState.images,
             onFolderPressed = {
                 viewModel.changeDirectory(it)
             },

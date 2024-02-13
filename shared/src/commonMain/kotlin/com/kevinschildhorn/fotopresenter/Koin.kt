@@ -18,6 +18,7 @@ import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCas
 import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageAsyncUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
@@ -77,7 +78,7 @@ val commonModule =
             )
         }
         factory { RetrieveImageUseCase(get(), baseLogger.withTag("RetrieveImagesUseCase")) }
-
+        factory { RetrieveImageAsyncUseCase(get(), baseLogger.withTag("RetrieveImageAsyncUseCase")) }
         // UI
         single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
         single { DirectoryViewModel(get(), baseLogger.withTag("DirectoryViewModel")) }

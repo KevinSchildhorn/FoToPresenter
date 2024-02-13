@@ -24,10 +24,15 @@ class LoginViewModel(
         val credentials = credentialsRepository.fetchCredentials()
         _uiState.update {
             it.copy(
+                hostname = "192.168.1.127",//credentials.hostname,
+                username = "kevin",//credentials.username,
+                password = "t5X@ZyplRNTs4Mu",// "t5X@ZyplRNTs4Mu", //,//credentials.password,
+                sharedFolder = "Public",//credentials.sharedFolder,
+                /*
                 hostname = credentials.hostname,
                 username = credentials.username,
                 password = credentials.password,
-                sharedFolder = credentials.sharedFolder,
+                sharedFolder = credentials.sharedFolder,*/
                 shouldAutoConnect = credentials.shouldAutoConnect,
             )
         }

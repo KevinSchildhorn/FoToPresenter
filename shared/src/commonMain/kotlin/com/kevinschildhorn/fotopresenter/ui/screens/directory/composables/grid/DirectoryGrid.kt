@@ -15,15 +15,18 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.FolderDirectoryGridCellState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.ImageDirectoryGridCellState
+import java.util.UUID
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DirectoryGrid(
     directoryContent: DirectoryGridState,
+    images: List<ImageDirectory>,
     gridSize: Int = 5,
     modifier: Modifier = Modifier,
     onFolderPressed: (Int) -> Unit,
@@ -36,6 +39,7 @@ fun DirectoryGrid(
         columns = GridCells.Fixed(gridSize),
         modifier = modifier.zIndex(0f),
     ) {
+
         items(directoryContent.allStates, { it.id }) { state ->
             val directoryItemModifier =
                 Modifier
@@ -70,10 +74,18 @@ fun DirectoryGrid(
                     modifier = directoryItemModifier,
                 )
             }
+            /*
             (state as? ImageDirectoryGridCellState)?.let { imageContent ->
                 ImageDirectoryGridCell(
                     imageContent,
                     modifier = directoryItemModifier,
+                )
+            }*/
+        }
+        items(images) { state ->
+            (state as? ImageDirectory)?.let {
+                ImageDirectoryAsyncGridCell(
+                    it
                 )
             }
         }

@@ -50,6 +50,7 @@ object SMBJHandler : NetworkHandler {
         try {
             with(credentials) {
                 connection = client.connect(hostname)
+                connection
                 val context = AuthenticationContext(username, password.toCharArray(), null)
                 val session: Session? = connection?.authenticate(context)
                 share = session?.connectShare(credentials.sharedFolder) as? DiskShare

@@ -47,6 +47,7 @@ class DirectoryViewModel(
     val uiState: StateFlow<DirectoryScreenState> = _uiState.asStateFlow()
 
     private val _directoryContentsState = MutableStateFlow(DirectoryContents())
+    val directoryContentsState: StateFlow<DirectoryContents> = _directoryContentsState.asStateFlow()
 
     // Indexes of all Downloaded images
     private val downloadedImageSet: MutableSet<Int> = mutableSetOf()

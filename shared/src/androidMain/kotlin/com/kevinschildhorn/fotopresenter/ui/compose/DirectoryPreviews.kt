@@ -41,6 +41,7 @@ fun DirectoryGridPreview() {
                 ImageDirectoryGridCellState(State.IDLE,"Hello", 1)
             )
         ),
+        images = emptyList(),
         onFolderPressed = {},
         onImageDirectoryPressed = {},
         onActionSheet = {},

@@ -20,6 +20,7 @@ import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCas
 import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageAsyncUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
@@ -107,5 +108,14 @@ actual object UseCaseFactory {
                 logger = baseLogger.withTag("ImageCacheDataSource")
             ),
             logger = baseLogger.withTag("RetrieveImageUseCase")
+        )
+    actual val retrieveImageAsyncUseCase: RetrieveImageAsyncUseCase
+        get() = RetrieveImageAsyncUseCase(
+            imageCacheDataSource = ImageCacheDataSource(
+                cache = SharedCache,
+                driver = sqlDriver,
+                logger = baseLogger.withTag("ImageCacheDataSource")
+            ),
+            logger = baseLogger.withTag("RetrieveImageAsyncUseCase")
         )
 }

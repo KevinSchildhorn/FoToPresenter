@@ -6,6 +6,7 @@ import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCas
 import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageAsyncUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
@@ -20,4 +21,5 @@ expect object UseCaseFactory {
     val retrieveSlideshowFromPlaylistUseCase: RetrieveSlideshowFromPlaylistUseCase
     val retrieveDirectoryContentsUseCase: RetrieveDirectoryContentsUseCase
     val retrieveImageUseCase: RetrieveImageUseCase
+    val retrieveImageAsyncUseCase: RetrieveImageAsyncUseCase
 }

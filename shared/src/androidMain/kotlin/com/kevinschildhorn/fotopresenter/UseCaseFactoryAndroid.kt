@@ -6,6 +6,7 @@ import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCas
 import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageAsyncUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
@@ -57,6 +58,12 @@ actual object UseCaseFactory : KoinComponent {
     actual val retrieveImageUseCase: RetrieveImageUseCase
         get() {
             val useCase: RetrieveImageUseCase by inject()
+            return useCase
+        }
+
+    actual val retrieveImageAsyncUseCase: RetrieveImageAsyncUseCase
+        get() {
+            val useCase: RetrieveImageAsyncUseCase by inject()
             return useCase
         }
 }
