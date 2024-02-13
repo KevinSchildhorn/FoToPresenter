@@ -7,12 +7,18 @@ import androidx.compose.ui.graphics.asImageBitmap
 import com.hierynomus.smbj.share.File
 
 actual fun getBitmapFromFile(file: File, size: Int): ImageBitmap? {
+
     val options = BitmapFactory.Options()
-    options.inSampleSize = 2
-    BitmapFactory.decodeStream(file.inputStream, null, options)?.let {
-        val dimensions = getScaledDimensions(it.width, it.height, size)
-        return Bitmap.createScaledBitmap(it, dimensions.first, dimensions.second, false)
-            .asImageBitmap()
-    }
-    return null
+    options.inJustDecodeBounds = true
+    BitmapFactory.decodeStream(file.inputStream, null, options)
+
+    val height: Int = options.outHeight
+    val width: Int = options.outWidth
+    val dimensions = getScaledDimensions(width, height, size)
+    val heightRatio: Int = Math.round(height.toFloat() / dimensions.second.toFloat())
+    val widthRatio: Int = Math.round(width.toFloat() / dimensions.first.toFloat())
+    options.inSampleSize = if (heightRatio < widthRatio) heightRatio else widthRatio
+
+    options.inJustDecodeBounds = false
+    return BitmapFactory.decodeStream(file.inputStream, null, options)?.asImageBitmap()
 }

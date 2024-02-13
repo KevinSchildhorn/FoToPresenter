@@ -1,8 +1,10 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
 import co.touchlab.kermit.Logger
+import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
+import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.State
@@ -13,6 +15,9 @@ import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
+import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
+import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
+import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.extension.addPath
 import com.kevinschildhorn.fotopresenter.extension.navigateBackToPathAtIndex
 import com.kevinschildhorn.fotopresenter.ui.SortingType
@@ -21,13 +26,18 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
 import com.kevinschildhorn.fotopresenter.ui.screens.common.DefaultImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
+import kotlinx.datetime.Clock
 import org.koin.core.component.KoinComponent
 
 class DirectoryViewModel(
@@ -37,13 +47,16 @@ class DirectoryViewModel(
     ImageViewModel by DefaultImageViewModel(logger),
     KoinComponent {
 
+    private val slideshowScope: CoroutineScope = viewModelScope + Dispatchers.IO
+    private val imageScope: CoroutineScope = viewModelScope + Dispatchers.IO
+
     private val _uiState = MutableStateFlow(DirectoryScreenState())
     val uiState: StateFlow<DirectoryScreenState> = _uiState.asStateFlow()
 
     private val _directoryContentsState = MutableStateFlow(DirectoryContents())
 
+    // Indexes of all Downloaded images
     private val downloadedImageSet: MutableSet<Int> = mutableSetOf()
-    private val jobs: MutableList<Job> = mutableListOf<Job>()
 
     private val currentPath: String
         get() = uiState.value.currentPath
@@ -56,7 +69,7 @@ class DirectoryViewModel(
         get() = findSelectedImageDirectory()?.metaData
 
     init {
-        setImageScope(viewModelScope)
+        setImageScope(viewModelScope + Dispatchers.Default)
     }
 
     fun refreshScreen() {
@@ -88,13 +101,16 @@ class DirectoryViewModel(
         logger.i { "Starting Slideshow" }
         cancelJobs()
         logger.d { "Checking for Selected Directory" }
-        findSelectedFolderDirectory()?.let {
-            logger.d { "Folder found, starting to retrieve images" }
-            val job = viewModelScope.launch(Dispatchers.Default) {
-                val retrieveImagesUseCase = UseCaseFactory.retrieveImageDirectoriesUseCase
-                val images = retrieveImagesUseCase(it.details)
-                logger.v { "Retrieved images, copying them to state" }
-                _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
+        uiState.value.selectedDirectory?.id?.let { id ->
+            logger.d { "Finding Folder" }
+            _directoryContentsState.value.folders.find { it.id == id }?.let {
+                logger.d { "Folder found, starting to retrieve images" }
+                slideshowScope.launch {
+                    val retrieveImagesUseCase = UseCaseFactory.retrieveImageDirectoriesUseCase
+                    val images = retrieveImagesUseCase(it.details)
+                    logger.v { "Retrieved images, copying them to state" }
+                    _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
+                }
             }
             jobs.add(job)
         } ?: run {
@@ -141,7 +157,7 @@ class DirectoryViewModel(
         logger.i { "Changing directory to path $path" }
 
         cancelJobs()
-        viewModelScope.launch(Dispatchers.Default) {
+        slideshowScope.launch(Dispatchers.Default) {
             val changeDirectoryUseCase = UseCaseFactory.changeDirectoryUseCase
             try {
                 logger.i { "Getting New Path" }
@@ -176,7 +192,7 @@ class DirectoryViewModel(
     private fun updateDirectories() {
         logger.i { "Updating Directories" }
         _uiState.update { it.copy(state = UiState.LOADING) }
-        val job = viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(Dispatchers.Default) {
             val retrieveDirectoryUseCase = UseCaseFactory.retrieveDirectoryContentsUseCase
 
             logger.i { "Getting Directory Contents" }
@@ -188,34 +204,45 @@ class DirectoryViewModel(
             logger.i { "Current State ${uiState.value.state}" }
             updatePhotos()
         }
-        jobs.add(job)
     }
 
     private fun updatePhotos() {
         val count = imageUiState.value.imageDirectories.count()
         downloadedImageSet.clear()
-
         _uiState.update { it.copy(totalImageCount = count, currentImageCount = 0) }
+        imageScope.launch {
+            val startTime = Clock.System.now().toEpochMilliseconds()
+            logger.i { "Updating Photos" }
+            val retrieveImagesUseCase: RetrieveImageUseCase = UseCaseFactory.retrieveImageUseCase
+            val imageDirectories: List<ImageDirectory> = imageUiState.value.imageDirectories
+            imageDirectories.mapIndexed{ index, imageDirectory ->
+                async {
+                    retrieveImagesUseCase(
+                        imageDirectory,
+                        imageSize = 512, // TODO: Change
+                    )?.let { newImage ->
+                        logger.i { "Downloaded Image at index $index" }
+                        downloadedImageSet.add(index)
 
-        logger.i { "Updating Photos" }
-        imageUiState.value.imageDirectories.forEachIndexed { index, imageDirectory ->
-            val job = viewModelScope.launch(Dispatchers.Default) {
-                val retrieveImagesUseCase = UseCaseFactory.retrieveImageUseCase
+                        _uiState.update {
+                            it.copyImageState(
+                                imageDirectory.id,
+                                state = State.SUCCESS(newImage),
+                            ).copy(
+                                currentImageCount = downloadedImageSet.size
+                            )
+                        }
 
-                retrieveImagesUseCase(imageDirectory) { newState ->
-
-                    downloadedImageSet.add(index)
-                    _uiState.update {
-                        it.copyImageState(
-                            imageDirectory.id,
-                            state = newState,
-                        ).copy(
-                            currentImageCount = downloadedImageSet.size
-                        )
+                        if (_uiState.value.currentImageCount == _uiState.value.totalImageCount) {
+                            val endTime = Clock.System.now().toEpochMilliseconds()
+                            val difference: Float = (endTime.toFloat() - startTime.toFloat()) / 1000
+                            logger.i { "Downloading all images took $difference seconds" }
+                        }
                     }
                 }
-            }
-            jobs.add(job)
+            }.awaitAll()
+
+            // TODO: STORE LARGEST IMAGES IN CHUNKS
         }
     }
 
@@ -294,10 +321,8 @@ class DirectoryViewModel(
     private fun cancelJobs() {
         logger.d { "Cancelling Jobs!" }
         cancelImageJobs()
-        jobs.forEach {
-            it.cancel()
-        }
-        jobs.clear()
+        slideshowScope.coroutineContext.cancelChildren()
+        imageScope.coroutineContext.cancelChildren()
         logger.v { "Finished Cancelling Jobs!" }
 
     }
