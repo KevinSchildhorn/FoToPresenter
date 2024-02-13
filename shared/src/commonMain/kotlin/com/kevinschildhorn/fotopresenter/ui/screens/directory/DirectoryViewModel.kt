@@ -4,17 +4,12 @@ import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
-import com.kevinschildhorn.fotopresenter.data.ImageDirectory
-import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
-import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
-import com.kevinschildhorn.fotopresenter.data.State
-import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.FolderDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
+import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
-import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
-import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
-import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
+import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
+import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
@@ -31,6 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -112,7 +108,6 @@ class DirectoryViewModel(
                     _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
                 }
             }
-            jobs.add(job)
         } ?: run {
             logger.w { "No Directory Selected!" }
         }
@@ -215,7 +210,7 @@ class DirectoryViewModel(
             logger.i { "Updating Photos" }
             val retrieveImagesUseCase: RetrieveImageUseCase = UseCaseFactory.retrieveImageUseCase
             val imageDirectories: List<ImageDirectory> = imageUiState.value.imageDirectories
-            imageDirectories.mapIndexed{ index, imageDirectory ->
+            imageDirectories.mapIndexed { index, imageDirectory ->
                 async {
                     retrieveImagesUseCase(
                         imageDirectory,
@@ -302,11 +297,10 @@ class DirectoryViewModel(
 
     fun saveMetadata(metadata: String) {
         findSelectedImageDirectory()?.details?.fullPath?.let {
-            val job = viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.Default) {
                 val saveMetadataForPathUseCase = UseCaseFactory.saveMetadataForPathUseCase
-                saveMetadataForPathUseCase(it, metadata)
+                if (saveMetadataForPathUseCase(it, metadata)) updateDirectories()
             }
-            jobs.add(job)
         }
     }
 

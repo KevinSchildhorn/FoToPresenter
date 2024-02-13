@@ -14,18 +14,15 @@ class SaveMetadataForPathUseCase(
         tags: String,
     ): Boolean {
         val tagList: List<String> = tags.split(",").map { it.trim() }
-
         val metaData = dataSource.importMetaData()
 
-        var fileMetadata: MetadataFileDetails =
-            metaData.files.find { it.filePath == path } ?: MetadataFileDetails(
-                filePath = path,
-                tags = tagList.toSet(),
-            )
-        val newTags = fileMetadata.tags.toMutableSet()
-        newTags.addAll(tagList.toSet())
-        fileMetadata = fileMetadata.copy(tags = newTags)
-        metaData.files.add(fileMetadata)
+        val fileMetadata = MetadataFileDetails(
+            filePath = path,
+            tags = tagList.toSet(),
+        )
+
+        metaData.files.removeIf { it.filePath == path }
+        if (fileMetadata.tags.isNotEmpty()) metaData.files.add(fileMetadata)
 
         return dataSource.exportMetadata(metaData)
     }

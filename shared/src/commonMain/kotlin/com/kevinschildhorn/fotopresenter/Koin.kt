@@ -5,6 +5,7 @@ import co.touchlab.kermit.LoggerConfig
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageCacheDataSource
+import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageRemoteDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistFileDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistSQLDataSource
@@ -21,6 +22,7 @@ import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
@@ -49,6 +51,7 @@ val commonModule =
         single { PlaylistFileDataSource(baseLogger.withTag("PlaylistDataSource"), get()) }
         single { PlaylistSQLDataSource(get(), baseLogger.withTag("PlaylistDataSource")) }
         single { PlaylistRepository(get(), get()) }
+        factory { ImageMetadataDataSource(baseLogger.withTag("ImageMetadataDataSource"), get()) }
 
         // Domain
         factory { ConnectToServerUseCase(get(), baseLogger.withTag("ConnectToServerUseCase")) }
@@ -77,7 +80,7 @@ val commonModule =
             )
         }
         factory { RetrieveImageUseCase(get(), baseLogger.withTag("RetrieveImagesUseCase")) }
-
+        factory { SaveMetadataForPathUseCase(get()) }
         // UI
         single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
         single { DirectoryViewModel(get(), baseLogger.withTag("DirectoryViewModel")) }

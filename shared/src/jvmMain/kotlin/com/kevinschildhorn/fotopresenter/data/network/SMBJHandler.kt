@@ -19,6 +19,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.OutputStream
 import java.util.*
+import kotlin.math.log
 
 
 object SMBJHandler : NetworkHandler {
@@ -48,6 +49,7 @@ object SMBJHandler : NetworkHandler {
 
     override suspend fun connect(credentials: LoginCredentials): Boolean {
         try {
+            logger.i { "Connecting" }
             with(credentials) {
                 connection = client.connect(hostname)
                 val context = AuthenticationContext(username, password.toCharArray(), null)
@@ -68,6 +70,7 @@ object SMBJHandler : NetworkHandler {
     }
 
     override suspend fun getDirectoryDetails(path: String): NetworkDirectoryDetails? {
+        logger.i { "Getting Directory Details for $path" }
         share?.getFileInformation(path)?.let {
             return DefaultNetworkDirectoryDetails(
                 id = it.internalInformation.indexNumber.toInt(),
@@ -79,6 +82,7 @@ object SMBJHandler : NetworkHandler {
     }
 
     override suspend fun getDirectoryContents(path: String): List<NetworkDirectoryDetails> {
+        logger.i { "Getting Directory Contents for $path" }
         return share?.list(path)?.map {
             SMBJNetworkDirectoryDetails(
                 it,
@@ -88,6 +92,7 @@ object SMBJHandler : NetworkHandler {
     }
 
     override suspend fun openDirectory(path: String): String? {
+        logger.i { "Opening Directory $path" }
         val result = share?.openDirectory(
             path,
             accessMask,
@@ -101,7 +106,9 @@ object SMBJHandler : NetworkHandler {
 
     override suspend fun openImage(path: String): SharedImage? =
         getFile(path)?.let {
-            SharedImage(it)
+            val sharedImage = SharedImage(it)
+            it.close()
+            sharedImage
         } ?: run { null }
 
     override suspend fun folderExists(path: String): Boolean? {
@@ -125,13 +132,22 @@ object SMBJHandler : NetworkHandler {
             .filter { it.fileExtension == "json" }
             .filter { !it.fileName.contains(metaDataName) }
             .mapNotNull { getFile(it.fullPath) }
-            .map { it.inputStream.readAllBytes().decodeToString() }
+            .map {
+                val str = it.inputStream.readAllBytes().decodeToString()
+                it.close()
+                str
+            }
 
-    override suspend fun setMetadata(json: String): Boolean =
-        writeFile(fileName = metaDataName, contents = json)
+    override suspend fun setMetadata(json: String): Boolean {
+        logger.i { "Setting Metadata" }
+        return writeFile(fileName = metaDataName, contents = json)
+    }
 
     override suspend fun getMetadata(): String? = getFile(metaDataName)?.let {
-        it.inputStream.readAllBytes().decodeToString()
+        logger.i { "Importing Metadata" }
+        val str = it.inputStream.readAllBytes().decodeToString()
+        it.close()
+        str
     }
 
     override suspend fun deletePlaylist(playlistName: String) {
@@ -143,6 +159,7 @@ object SMBJHandler : NetworkHandler {
         path: String,
     ): File? =
         try {
+            logger.v { "Getting File at path $path" }
             share?.openFile(
                 path,
                 accessMask,
@@ -152,33 +169,41 @@ object SMBJHandler : NetworkHandler {
                 createOptions,
             )
         } catch (e: Exception) {
+            logger.e(e) { "Error Getting File" }
             null
         }
 
 
-    private fun writeFile(fileName: String, contents: String): Boolean {
+    private suspend fun writeFile(fileName: String, contents: String): Boolean {
+        logger.i { "Writing File" }
         val fileAttributes: MutableSet<FileAttributes> = HashSet()
         fileAttributes.add(FileAttributes.FILE_ATTRIBUTE_NORMAL)
         val createOptions: MutableSet<SMB2CreateOptions> = HashSet()
         createOptions.add(SMB2CreateOptions.FILE_RANDOM_ACCESS)
 
         try {
+
+            logger.i { "Trying to open a file $fileName" }
             val file = share?.openFile(
                 fileName,
                 setOf(AccessMask.GENERIC_ALL),
                 fileAttributes,
                 SMB2ShareAccess.ALL,
-                SMB2CreateDisposition.FILE_OVERWRITE,
+                SMB2CreateDisposition.FILE_OVERWRITE_IF,
                 createOptions
             )
             file?.let {
+                logger.i { "Got the file, writing contents" }
                 val oStream: OutputStream = it.outputStream
                 oStream.write(contents.toByteArray())
                 oStream.flush()
                 oStream.close()
+                logger.i { "Got the file, writing contents" }
+                it.close()
                 return true
             }
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            logger.e(e) { "Failed to save to file" }
         }
         return false
     }

@@ -16,13 +16,18 @@ class ImageMetadataDataSource(
 ) {
 
     suspend fun importMetaData(): MetadataDetails {
+        logger?.i { "Importing Metadata" }
         networkHandler.getMetadata()?.let {
+            logger?.i { "Found Metadata" }
             return Json.decodeFromString<MetadataDetails>(it)
         }
+
+        logger?.i { "No Metadata Found" }
         return MetadataDetails(mutableListOf())
     }
 
     suspend fun exportMetadata(metadata: MetadataDetails): Boolean {
+        logger?.i { "Exporting Metadata" }
         try {
             val jsonString = Json.encodeToString(metadata)
             networkHandler.setMetadata(jsonString)
@@ -30,6 +35,8 @@ class ImageMetadataDataSource(
             logger?.e(e) { "Error Exporting Metadata" }
             return false
         }
+
+        logger?.i { "Successfully Exported Metadata" }
         return true
     }
 
