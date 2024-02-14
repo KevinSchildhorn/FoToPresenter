@@ -31,12 +31,12 @@ class ImageViewModelTest : KoinTest {
 
     private val directories =
         listOf(
-            ImageDirectory(DefaultNetworkDirectoryDetails("Peeng.png", 1)),
-            ImageDirectory(DefaultNetworkDirectoryDetails("Jaypeg.jpg", 2)),
-            ImageDirectory(DefaultNetworkDirectoryDetails("Photos/Peeng2.png", 3)),
-            ImageDirectory(DefaultNetworkDirectoryDetails("Photos/Jaypeg2.jpg", 4)),
-            ImageDirectory(DefaultNetworkDirectoryDetails("Photos/SubPhotos/Peeng3.png", 5)),
-            ImageDirectory(DefaultNetworkDirectoryDetails("Photos/SubPhotos/Jaypeg3.jpg", 6)),
+            ImageDirectory(DefaultNetworkDirectoryDetails("Peeng.png", 1), null),
+            ImageDirectory(DefaultNetworkDirectoryDetails("Jaypeg.jpg", 2), null),
+            ImageDirectory(DefaultNetworkDirectoryDetails("Photos/Peeng2.png", 3), null),
+            ImageDirectory(DefaultNetworkDirectoryDetails("Photos/Jaypeg2.jpg", 4), null),
+            ImageDirectory(DefaultNetworkDirectoryDetails("Photos/SubPhotos/Peeng3.png", 5), null),
+            ImageDirectory(DefaultNetworkDirectoryDetails("Photos/SubPhotos/Jaypeg3.jpg", 6), null),
         )
 
     @BeforeTest

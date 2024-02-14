@@ -9,6 +9,7 @@ import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 
 expect object UseCaseFactory {
     val connectToServerUseCase: ConnectToServerUseCase
@@ -20,4 +21,5 @@ expect object UseCaseFactory {
     val retrieveSlideshowFromPlaylistUseCase: RetrieveSlideshowFromPlaylistUseCase
     val retrieveDirectoryContentsUseCase: RetrieveDirectoryContentsUseCase
     val retrieveImageUseCase: RetrieveImageUseCase
+    val saveMetadataForPathUseCase: SaveMetadataForPathUseCase
 }

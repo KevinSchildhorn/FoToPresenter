@@ -4,8 +4,10 @@ import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
+import com.kevinschildhorn.fotopresenter.data.FolderDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
+import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
@@ -24,6 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -56,6 +59,10 @@ class DirectoryViewModel(
 
     val actionSheetContexts: List<ActionSheetContext>
         get() = uiState.value.selectedDirectory?.actionSheetContexts ?: emptyList()
+
+
+    val selectedMetadata: MetadataFileDetails?
+        get() = findSelectedImageDirectory()?.metaData
 
     init {
         setImageScope(viewModelScope + Dispatchers.Default)
@@ -203,7 +210,7 @@ class DirectoryViewModel(
             logger.i { "Updating Photos" }
             val retrieveImagesUseCase: RetrieveImageUseCase = UseCaseFactory.retrieveImageUseCase
             val imageDirectories: List<ImageDirectory> = imageUiState.value.imageDirectories
-            imageDirectories.mapIndexed{ index, imageDirectory ->
+            imageDirectories.mapIndexed { index, imageDirectory ->
                 async {
                     retrieveImagesUseCase(
                         imageDirectory,
@@ -230,7 +237,7 @@ class DirectoryViewModel(
                 }
             }.awaitAll()
 
-            // TODO: STORE LARGEST IMAGES
+            // TODO: STORE LARGEST IMAGES IN CHUNKS
         }
     }
 
@@ -288,6 +295,15 @@ class DirectoryViewModel(
     }
     //endregion
 
+    fun saveMetadata(metadata: String) {
+        findSelectedImageDirectory()?.details?.fullPath?.let {
+            viewModelScope.launch(Dispatchers.Default) {
+                val saveMetadataForPathUseCase = UseCaseFactory.saveMetadataForPathUseCase
+                if (saveMetadataForPathUseCase(it, metadata)) updateDirectories()
+            }
+        }
+    }
+
     fun setFilterType(sortingType: SortingType) {
         logger.i { "Setting Filter Type" }
         _directoryContentsState.update {
@@ -304,4 +320,16 @@ class DirectoryViewModel(
         logger.v { "Finished Cancelling Jobs!" }
 
     }
+
+    private fun findSelectedFolderDirectory(): FolderDirectory? =
+        uiState.value.selectedDirectory?.id?.let { id ->
+            logger.d { "Finding Selected Directory" }
+            return _directoryContentsState.value.folders.find { it.id == id }
+        }
+
+    private fun findSelectedImageDirectory(): ImageDirectory? =
+        uiState.value.selectedDirectory?.id?.let { id ->
+            logger.d { "Finding Selected Directory" }
+            return _directoryContentsState.value.images.find { it.id == id }
+        }
 }

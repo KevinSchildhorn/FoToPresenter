@@ -18,24 +18,28 @@ Testing [PlaylistSQLDataSource]
 class PlaylistSQLDataSourceTest {
 
     private val imageDirectory = ImageDirectory(
-        DefaultNetworkDirectoryDetails(
+        details = DefaultNetworkDirectoryDetails(
             fullPath = "Image1.png",
             id = 1,
-        )
+        ),
+        metaData = null,
+
     )
     private val imageDirectoryList: List<ImageDirectory> = listOf(
         imageDirectory,
         ImageDirectory(
-            DefaultNetworkDirectoryDetails(
+            details = DefaultNetworkDirectoryDetails(
                 fullPath = "Photos/Image2.png",
                 id = 2,
-            )
+            ),
+            metaData = null,
         ),
         ImageDirectory(
-            DefaultNetworkDirectoryDetails(
+            details = DefaultNetworkDirectoryDetails(
                 fullPath = "Image3.png",
                 id = 3,
-            )
+            ),
+            metaData = null,
         ),
     )
 

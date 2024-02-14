@@ -26,7 +26,12 @@ class RetrieveSlideshowFromPlaylistUseCase(
                 fullPath = item.directoryPath
             )
             if (item.directoryPath.isImagePath) {
-                listOf(ImageDirectory(directoryDetails))
+                listOf(
+                    ImageDirectory(
+                        directoryDetails,
+                        null
+                    )
+                )
             } else {
                 retrieveDirectoryUseCase(
                     directoryDetails = directoryDetails,
