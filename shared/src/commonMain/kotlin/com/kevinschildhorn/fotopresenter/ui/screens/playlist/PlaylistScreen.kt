@@ -65,12 +65,15 @@ fun PlaylistScreen(
 
     when (dialogOpen) {
         PlaylistDialog.CREATE -> {
-            TextEntryDialog({
-                dialogOpen = PlaylistDialog.NONE
-            }, {
-                viewModel.createPlaylist(it)
-                dialogOpen = PlaylistDialog.NONE
-            })
+            TextEntryDialog(
+                title = "Create Playlist",
+                initialValue = "",
+                {
+                    dialogOpen = PlaylistDialog.NONE
+                }, {
+                    viewModel.createPlaylist(it)
+                    dialogOpen = PlaylistDialog.NONE
+                })
         }
 
         PlaylistDialog.DELETE -> {

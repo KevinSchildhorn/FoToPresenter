@@ -10,6 +10,7 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageAsyncUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 
 expect object UseCaseFactory {
     val connectToServerUseCase: ConnectToServerUseCase
@@ -22,4 +23,5 @@ expect object UseCaseFactory {
     val retrieveDirectoryContentsUseCase: RetrieveDirectoryContentsUseCase
     val retrieveImageUseCase: RetrieveImageUseCase
     val retrieveImageAsyncUseCase: RetrieveImageAsyncUseCase
+    val saveMetadataForPathUseCase: SaveMetadataForPathUseCase
 }

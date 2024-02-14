@@ -30,6 +30,10 @@ private suspend fun DirectoryContents.updateImages(block: suspend (NetworkDirect
     this.copy(
         images =
             images.map {
-                ImageDirectory(it.details, image = block(it.details))
+                ImageDirectory(
+                    it.details,
+                    it.metaData,
+                    image = block(it.details)
+                )
             },
     )

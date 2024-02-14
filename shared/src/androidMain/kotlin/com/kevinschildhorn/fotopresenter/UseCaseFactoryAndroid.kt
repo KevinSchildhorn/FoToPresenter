@@ -10,6 +10,7 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageAsyncUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
+import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -64,6 +65,9 @@ actual object UseCaseFactory : KoinComponent {
     actual val retrieveImageAsyncUseCase: RetrieveImageAsyncUseCase
         get() {
             val useCase: RetrieveImageAsyncUseCase by inject()
+    actual val saveMetadataForPathUseCase: SaveMetadataForPathUseCase
+        get() {
+            val useCase: SaveMetadataForPathUseCase by inject()
             return useCase
         }
 }

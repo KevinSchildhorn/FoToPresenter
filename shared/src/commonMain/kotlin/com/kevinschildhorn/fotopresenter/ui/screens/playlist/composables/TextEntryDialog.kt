@@ -13,13 +13,15 @@ import com.kevinschildhorn.fotopresenter.ui.screens.login.composables.LoginTextF
 
 @Composable
 fun TextEntryDialog(
+    title:String,
+    initialValue: String,
     onDismissRequest: () -> Unit,
     onConfirmation: (String) -> Unit,
 ) {
-    var enteredValue:String by remember { mutableStateOf("") }
+    var enteredValue:String by remember { mutableStateOf(initialValue) }
 
     FotoDialog(
-        dialogTitle = "Playlist Name",
+        dialogTitle = title,//"Playlist Name",
         onDismissRequest = onDismissRequest,
         onConfirmation = {
             onConfirmation(enteredValue)

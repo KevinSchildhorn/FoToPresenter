@@ -56,6 +56,8 @@ fun ConfirmationDialogPreview() {
 @Composable
 fun TextConfirmationDialogPreview() {
     TextEntryDialog(
+        title = "",
+        initialValue = "",
         {
 
         },
