@@ -46,7 +46,7 @@ class ImageMetadataDataSourceTest {
 
         val newMetadataFileDetails = MetadataFileDetails(
             "MyPath.png",
-            listOf("Tag1", "Wallpaper")
+            setOf("Tag1", "Wallpaper"),
         )
         val mutableFiles = metadata.files.toMutableList()
         mutableFiles.add(newMetadataFileDetails)
