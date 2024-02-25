@@ -12,6 +12,11 @@ import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
 
+
+object Features {
+    const val supportsMetadata: Boolean = false
+}
+
 @Composable
 fun App(
     loginViewModel: LoginViewModel,

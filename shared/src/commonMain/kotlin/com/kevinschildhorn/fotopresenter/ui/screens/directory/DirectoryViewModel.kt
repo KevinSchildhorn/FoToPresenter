@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
+import Features
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.Directory
@@ -206,7 +207,7 @@ class DirectoryViewModel(
         downloadedImageSet.clear()
         _uiState.update { it.copy(totalImageCount = count, currentImageCount = 0) }
         imageScope.launch {
-            val startTime = Clock.System.now().toEpochMilliseconds()
+            //val startTime = Clock.System.now().toEpochMilliseconds()
             logger.i { "Updating Photos" }
             val retrieveImagesUseCase: RetrieveImageUseCase = UseCaseFactory.retrieveImageUseCase
             val imageDirectories: List<ImageDirectory> = imageUiState.value.imageDirectories
@@ -227,12 +228,12 @@ class DirectoryViewModel(
                                 currentImageCount = downloadedImageSet.size
                             )
                         }
-
+/*
                         if (_uiState.value.currentImageCount == _uiState.value.totalImageCount) {
                             val endTime = Clock.System.now().toEpochMilliseconds()
                             val difference: Float = (endTime.toFloat() - startTime.toFloat()) / 1000
                             logger.i { "Downloading all images took $difference seconds" }
-                        }
+                        }*/
                     }
                 }
             }.awaitAll()
@@ -296,10 +297,12 @@ class DirectoryViewModel(
     //endregion
 
     fun saveMetadata(metadata: String) {
-        findSelectedImageDirectory()?.details?.fullPath?.let {
-            viewModelScope.launch(Dispatchers.Default) {
-                val saveMetadataForPathUseCase = UseCaseFactory.saveMetadataForPathUseCase
-                if (saveMetadataForPathUseCase(it, metadata)) updateDirectories()
+        if(Features.supportsMetadata) {
+            findSelectedImageDirectory()?.details?.fullPath?.let {
+                viewModelScope.launch(Dispatchers.Default) {
+                    val saveMetadataForPathUseCase = UseCaseFactory.saveMetadataForPathUseCase
+                    if (saveMetadataForPathUseCase(it, metadata)) updateDirectories()
+                }
             }
         }
     }

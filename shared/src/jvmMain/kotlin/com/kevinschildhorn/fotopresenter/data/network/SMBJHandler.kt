@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
+import Features
 import co.touchlab.kermit.Logger
 import com.hierynomus.msdtyp.AccessMask
 import com.hierynomus.msfscc.FileAttributes
@@ -140,15 +141,18 @@ object SMBJHandler : NetworkHandler {
 
     override suspend fun setMetadata(json: String): Boolean {
         logger.i { "Setting Metadata" }
-        return writeFile(fileName = metaDataName, contents = json)
+        return if (Features.supportsMetadata)
+            writeFile(fileName = metaDataName, contents = json)
+        else false
     }
 
-    override suspend fun getMetadata(): String? = getFile(metaDataName)?.let {
-        logger.i { "Importing Metadata" }
-        val str = it.inputStream.readAllBytes().decodeToString()
-        it.close()
-        str
-    }
+    override suspend fun getMetadata(): String? =
+        if (Features.supportsMetadata) getFile(metaDataName)?.let {
+            logger.i { "Importing Metadata" }
+            val str = it.inputStream.readAllBytes().decodeToString()
+            it.close()
+            str
+        } else null
 
     override suspend fun deletePlaylist(playlistName: String) {
         share?.rm("$playlistName.json")

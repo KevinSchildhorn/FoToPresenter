@@ -26,11 +26,13 @@ class RetrieveImageUseCase(
             return it
         }
 
-        logger.i { "Getting Image Bitmap from File ${directory.name}" }
+        logger.i { "Getting Image Bitmap from File ${directory.name} image exists: ${directory.image != null}" }
         val imageBitmap: ImageBitmap? = directory.image?.getImageBitmap(imageSize)
         imageBitmap?.let {
             logger.i { "Caching new Image ${directory.name}" }
             imageCacheDataSource.saveImage(directory.details, it)
+        } ?: run {
+            logger.i { "Didn't find Bitmap Image from file ${directory.name}" }
         }
         return imageBitmap
     }

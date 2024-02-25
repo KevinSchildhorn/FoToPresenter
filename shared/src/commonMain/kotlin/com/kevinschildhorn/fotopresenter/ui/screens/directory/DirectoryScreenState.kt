@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
+import Features
 import androidx.compose.ui.graphics.ImageBitmap
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.State
@@ -91,9 +92,12 @@ data class ImageDirectoryGridCellState(
     override val id: Int,
 ) : DirectoryGridCellState {
     override val actionSheetContexts: List<ActionSheetContext>
-        get() = listOf(
+        get() = listOfNotNull(
             ActionSheetContext(ActionSheetAction.ADD_STATIC_LOCATION, 1),
-            ActionSheetContext(ActionSheetAction.ADD_METADATA, 2),
+            if (Features.supportsMetadata) ActionSheetContext(
+                ActionSheetAction.ADD_METADATA,
+                2
+            ) else null,
         )
 
     override fun toString(): String = "(I:$name:$id)"

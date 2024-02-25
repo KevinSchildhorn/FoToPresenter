@@ -1,9 +1,10 @@
 package com.kevinschildhorn.fotopresenter.data.datasources
 
+import Features
 import co.touchlab.kermit.Logger
-import com.ashampoo.kim.Kim
-import com.ashampoo.kim.common.convertToPhotoMetadata
-import com.ashampoo.kim.format.tiff.constants.ExifTag
+//import com.ashampoo.kim.Kim
+//import com.ashampoo.kim.common.convertToPhotoMetadata
+//import com.ashampoo.kim.format.tiff.constants.ExifTag
 import com.kevinschildhorn.fotopresenter.data.MetadataDetails
 import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
@@ -16,31 +17,40 @@ class ImageMetadataDataSource(
 ) {
 
     suspend fun importMetaData(): MetadataDetails {
-        logger?.i { "Importing Metadata" }
-        networkHandler.getMetadata()?.let {
-            logger?.i { "Found Metadata" }
-            return Json.decodeFromString<MetadataDetails>(it)
-        }
+        if(Features.supportsMetadata) {
+            logger?.i { "Importing Metadata" }
+            networkHandler.getMetadata()?.let {
+                logger?.i { "Found Metadata" }
+                return Json.decodeFromString<MetadataDetails>(it)
+            }
 
-        logger?.i { "No Metadata Found" }
-        return MetadataDetails(mutableListOf())
+            logger?.i { "No Metadata Found" }
+        }
+        return MetadataDetails(metadataFileDetails())
     }
 
-    suspend fun exportMetadata(metadata: MetadataDetails): Boolean {
-        logger?.i { "Exporting Metadata" }
-        try {
-            val jsonString = Json.encodeToString(metadata)
-            networkHandler.setMetadata(jsonString)
-        } catch (e: Exception) {
-            logger?.e(e) { "Error Exporting Metadata" }
-            return false
-        }
+    private fun metadataFileDetails(): MutableList<MetadataFileDetails> =
+        mutableListOf()
 
-        logger?.i { "Successfully Exported Metadata" }
+    suspend fun exportMetadata(metadata: MetadataDetails): Boolean {
+        if(Features.supportsMetadata) {
+            logger?.i { "Exporting Metadata" }
+            try {
+                val jsonString = Json.encodeToString(metadata)
+                networkHandler.setMetadata(jsonString)
+            } catch (e: Exception) {
+                logger?.e(e) { "Error Exporting Metadata" }
+                return false
+            }
+
+            logger?.i { "Successfully Exported Metadata" }
+            return true
+        }
         return true
     }
 
     suspend fun readMetadataFromFile(filePath: String): MetadataFileDetails? {
+        /*
         networkHandler.openImage(filePath)?.let { sharedImage ->
             val metadata = Kim.readMetadata(sharedImage.byteArray)
             println(metadata)
@@ -58,7 +68,7 @@ class ImageMetadataDataSource(
                 filePath = filePath,
                 tags = keywords.toSet()
             )
-        }
+        }*/
         return null
     }
 }
