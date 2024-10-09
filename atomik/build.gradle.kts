@@ -1,8 +1,8 @@
 plugins {
     kotlin("multiplatform")
-    id("com.android.library")
-    id("org.jetbrains.compose")
-    id("org.jlleitschuh.gradle.ktlint")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ktlint)
 }
 /*
 // Exclude compose from iOS
@@ -51,13 +51,14 @@ kotlin {
     jvmToolchain(15)
     sourceSets {
         val commonMain by getting {
+
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation("co.touchlab:kermit:1.2.2")
-                implementation(compose.runtime)
+                implementation("co.touchlab:kermit:2.0.4")
+                /*implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
-                implementation(compose.ui)
+                implementation(compose.ui)*/
                 api("dev.icerock.moko:resources:0.23.0")
                 api("dev.icerock.moko:resources-compose:0.23.0") // for compose multiplatform
             }
@@ -73,9 +74,10 @@ kotlin {
 
         val androidMain by getting {
             dependsOn(jvmMain)
+            languageSettings.optIn("kotlin.ExperimentalMultiplatform")
             dependencies {
-                api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.12.0")
+                api("androidx.appcompat:appcompat:1.7.0")
+                api("androidx.core:core-ktx:1.13.1")
             }
         }
         /*
@@ -91,6 +93,7 @@ kotlin {
 
         val desktopMain by getting {
             dependsOn(jvmMain)
+            languageSettings.optIn("kotlin.ExperimentalMultiplatform")
         }
     }
 }
@@ -98,7 +101,7 @@ kotlin {
 android {
     namespace = "com.kevinschildhorn.atomik"
 
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = (findProperty("android.minSdk") as String).toInt()

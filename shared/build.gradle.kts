@@ -1,13 +1,12 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    id("org.jetbrains.compose")
-    id("org.jlleitschuh.gradle.ktlint")
-    id("dev.icerock.mobile.multiplatform-resources")
-    id("app.cash.sqldelight")
-    id("com.google.firebase.crashlytics")
-
-    kotlin("plugin.serialization")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.sqldelight)
+    //alias(libs.plugins.crashlytics)
+    alias(libs.plugins.resources)
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -29,21 +28,22 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(kotlin("stdlib-common"))
                 implementation(project(":atomik"))
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material)
-                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
+                //implementation(compose.runtime)
+                //implementation(compose.foundation)
+                //implementation(compose.material)
+                //@OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                //implementation(compose.components.resources)
                 implementation("br.com.devsrsouza.compose.icons:eva-icons:1.1.0")
                 implementation("io.github.reactivecircus.cache4k:cache4k:0.12.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
-                implementation("io.insert-koin:koin-core:3.4.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.2")
+                implementation("io.insert-koin:koin-core:3.5.3")
                 implementation("androidx.security:security-crypto:1.1.0-alpha06")
-                implementation("co.touchlab:kermit:1.2.2")
+                implementation("co.touchlab:kermit:2.0.4")
                 implementation("co.touchlab:kermit-koin:1.2.2")
-                implementation("com.russhwolf:multiplatform-settings:1.0.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+                implementation("com.russhwolf:multiplatform-settings:1.1.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
                 implementation("com.ashampoo:kim:0.8.3")
                 api("dev.icerock.moko:resources:0.23.0")
                 api("dev.icerock.moko:resources-compose:0.23.0") // for compose multiplatform
@@ -65,7 +65,7 @@ kotlin {
             resources.srcDir("src/commonMain/resources")
             dependencies {
                 implementation("com.hierynomus:smbj:0.11.5")
-                implementation(compose.uiTooling)
+                //implementation(compose.uiTooling)
                 implementation("app.cash.sqldelight:sqlite-driver:2.0.1")
             }
         }
@@ -74,9 +74,9 @@ kotlin {
             dependsOn(jvmMain)
             resources.srcDirs("src/commonMain/resources")
             dependencies {
-                api("androidx.activity:activity-compose:1.8.1")
-                api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.12.0")
+                api("androidx.activity:activity-compose:2.0.10")
+                api("androidx.appcompat:appcompat:1.7.0")
+                api("androidx.core:core-ktx:1.13.1")
                 implementation("io.github.kevinschildhorn:atomik:0.0.6")
                 implementation("app.cash.sqldelight:android-driver:2.0.1")
             }
@@ -97,8 +97,8 @@ kotlin {
             dependsOn(jvmMain)
             dependencies {
                 resources.srcDirs("src/commonMain/resources")
-                implementation(compose.preview)
-                implementation(compose.desktop.common)
+                //implementation(compose.preview)
+                //implementation(compose.desktop.common)
             }
         }
     }
@@ -125,7 +125,7 @@ android {
 }
 
 multiplatformResources {
-    multiplatformResourcesPackage = "com.kevinschildhorn.fotopresenter" // required
+    //multiplatformResourcesPackage = "com.kevinschildhorn.fotopresenter" // required
 }
 
 dependencies {

@@ -33,7 +33,7 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 
-val baseLogger = Logger(LoggerConfig.default)
+val baseLogger = Logger.withTag("")
 
 
 val commonModule =

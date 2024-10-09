@@ -12,6 +12,7 @@ import com.kevinschildhorn.fotopresenter.ui.shared.DriverFactory
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import org.koin.core.KoinApplication
+import org.koin.core.annotation.KoinInternalApi
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import org.koin.core.module.Module
@@ -46,6 +47,7 @@ internal actual val platformModule: Module = module {
     single<SqlDriver> { DriverFactory(context = get()).createDriver() }
 }
 
+@OptIn(KoinInternalApi::class)
 fun KoinApplication.androidContext(androidContext: Context): KoinApplication {
     if (koin.logger.isAt(Level.INFO)) {
         koin.logger.info("[init] declare Android Context")

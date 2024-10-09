@@ -1,8 +1,7 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.kotlin.compose)
 }
 
 kotlin {
@@ -10,17 +9,17 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
-                implementation(compose.desktop.currentOs)
-                implementation("io.insert-koin:koin-core:3.4.0")
-                implementation("co.touchlab:kermit:1.2.2")
-                implementation("com.russhwolf:multiplatform-settings:1.0.0")
+                //implementation(compose.desktop.currentOs)
+                implementation("io.insert-koin:koin-core:3.5.3")
+                implementation("co.touchlab:kermit:2.0.4")
+                implementation("com.russhwolf:multiplatform-settings:1.1.1")
 
                 implementation(project(":shared"))
             }
         }
     }
 }
-
+/*
 compose.desktop {
     application {
         mainClass = "MainKt"
@@ -31,4 +30,4 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
-}
+}*/
