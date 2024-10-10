@@ -1,6 +1,9 @@
 @file:OptIn(ExperimentalKotlinGradlePluginApi::class)
 
 import org.gradle.kotlin.dsl.add
+import org.gradle.kotlin.dsl.get
+import org.gradle.kotlin.dsl.implementation
+import org.gradle.kotlin.dsl.java
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
@@ -29,12 +32,6 @@ android {
     namespace = "com.kevinschildhorn.atomik"
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlinOptions {
-        jvmTarget = "15"
-    }
-}
-
 kotlin {
     explicitApi()
     applyDefaultHierarchyTemplate()
@@ -54,7 +51,7 @@ kotlin {
     }*/
     jvm("desktop")
 
-    jvmToolchain(15)
+    jvmToolchain(libs.versions.java.get().toInt())
     sourceSets {
         val commonMain by getting {
 
@@ -65,8 +62,8 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.ui)
-                api(libs.resources)
-                api(libs.resources.compose) // for compose multiplatform
+                implementation(compose.components.resources)
+                api(libs.bundles.moko.resources)
             }
         }
         val commonTest by getting {
@@ -111,15 +108,15 @@ kotlin {
 android {
     namespace = "com.kevinschildhorn.atomik"
 
-    compileSdk = 34
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = (findProperty("android.minSdk") as String).toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_15
-        targetCompatibility = JavaVersion.VERSION_15
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     sourceSets {

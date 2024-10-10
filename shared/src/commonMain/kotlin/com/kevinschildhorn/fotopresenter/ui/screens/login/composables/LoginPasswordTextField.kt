@@ -15,7 +15,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import com.kevinschildhorn.atomik.atomic.atoms.shape
-import com.kevinschildhorn.atomik.atomic.atoms.textStyle
+import com.kevinschildhorn.atomik.atomic.atoms.compose.textStyle
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreenAtoms
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill

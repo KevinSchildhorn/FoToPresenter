@@ -8,15 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.atomic.atoms.textStyle
-import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AtomikIcon
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AtomikText
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreenAtoms

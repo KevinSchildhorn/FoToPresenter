@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.atomic.atoms.textStyle
+import com.kevinschildhorn.atomik.atomic.atoms.compose.textStyle
 import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryAtoms

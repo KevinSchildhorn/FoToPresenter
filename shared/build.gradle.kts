@@ -1,5 +1,6 @@
 @file:OptIn(ExperimentalKotlinGradlePluginApi::class)
 
+import org.gradle.kotlin.dsl.get
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import kotlin.collections.plusAssign
 
@@ -54,8 +55,7 @@ kotlin {
                 implementation(libs.multiplatform.settings)
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.kim)
-                api(libs.resources)
-                api(libs.resources.compose) // for compose multiplatform
+                api(libs.bundles.moko.resources)
             }
         }
         val commonTest by getting {
@@ -118,7 +118,7 @@ kotlin {
 }
 
 android {
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
+    compileSdk = libs.versions.compileSdk.get().toInt()
     namespace = "com.kevinschildhorn.common"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -126,20 +126,19 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        minSdk = (findProperty("android.minSdk") as String).toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(libs.versions.java.get().toInt())
     }
 }
 
 multiplatformResources {
-    resourcesPackage.set("com.kevinschildhorn.fotopresenter") // required
-    resourcesClassName.set("SharedRes")
+    multiplatformResourcesPackage = "com.kevinschildhorn.fotopresenter" // required
 }
 
 dependencies {

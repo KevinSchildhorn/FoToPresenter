@@ -4,7 +4,7 @@ package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.kevinschildhorn.atomik.atomic.atoms.textStyle
+import com.kevinschildhorn.atomik.atomic.atoms.compose.textStyle
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreenAtoms
 
 @Composable

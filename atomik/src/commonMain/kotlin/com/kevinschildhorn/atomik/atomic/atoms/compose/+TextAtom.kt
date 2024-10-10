@@ -1,6 +1,6 @@
 @file:Suppress("ktlint:standard:filename")
 
-package com.kevinschildhorn.atomik.atomic.atoms
+package com.kevinschildhorn.atomik.atomic.atoms.compose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle

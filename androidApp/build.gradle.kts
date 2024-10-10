@@ -1,3 +1,6 @@
+import org.gradle.kotlin.dsl.get
+import org.gradle.kotlin.dsl.java
+
 plugins {
     id("com.android.application")
     kotlin("multiplatform")
@@ -21,15 +24,15 @@ kotlin {
 }
 
 android {
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
+    compileSdk = libs.versions.compileSdk.get().toInt()
     namespace = "com.kevinschildhorn"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
     defaultConfig {
         applicationId = "com.kevinschildhorn.fotopresenter"
-        minSdk = (findProperty("android.minSdk") as String).toInt()
-        targetSdk = (findProperty("android.targetSdk") as String).toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
     }
@@ -38,6 +41,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(libs.versions.java.get().toInt())
     }
 }
