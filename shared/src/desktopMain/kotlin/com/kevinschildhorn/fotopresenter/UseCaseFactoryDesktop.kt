@@ -32,7 +32,6 @@ import java.util.prefs.Preferences
 
 actual object UseCaseFactory {
 
-    val baseLogger = Logger(LoggerConfig.default)
     private val preferences: Preferences = Preferences.userRoot()
     private val settings = PreferencesSettings(preferences)
     private val networkHandler: NetworkHandler = SMBJHandler

@@ -17,8 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.zIndex
-import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import com.kevinschildhorn.fotopresenter.ui.atoms.shadow
 
 @Composable
 fun Overlay(
@@ -67,7 +67,7 @@ fun OverlayShadow(
             modifier = modifier
                 .zIndex(z)
                 .fillMaxSize()
-                .background(FotoColors.shadow.composeColor)
+                .background(shadow)
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null,

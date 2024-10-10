@@ -10,7 +10,7 @@ import com.russhwolf.settings.MapSettings
 import com.russhwolf.settings.Settings
 import org.koin.dsl.module
 
-private val baseLogger = Logger(LoggerConfig.default)
+private val baseLogger = Logger.withTag("Test")
 
 fun testingModule(settings: MapSettings = MapSettings()) =
     module {

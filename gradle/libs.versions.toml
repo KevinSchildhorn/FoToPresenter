@@ -1,0 +1,76 @@
+[versions]
+activity-compose = "1.9.2"
+agp = "8.5.2"
+appcompat = "1.7.0"
+atomik = "0.0.6"
+cache4k = "0.12.0"
+core-ktx = "1.13.1"
+eva-icons = "1.1.0"
+firebase-crashlytics = "19.2.0"
+kermit = "2.0.4"
+kermit-koin = "1.2.2"
+kim = "0.8.3"
+koin-core = "3.5.3"
+koin-test = "3.4.0"
+kotlin = "2.0.10"
+crashlytics = "3.0.2"
+google-services = "4.4.2"
+kotlinx-datetime = "0.6.0"
+kotlinx-serialization-json = "1.7.3"
+ktlint = "0.0.26"
+ktlint-plugin = "12.1.1"
+multiplatform-settings = "1.1.1"
+multiplatform-settings-test = "1.0.0"
+resources-version = "0.23.0"
+security-crypto = "1.1.0-alpha06"
+smbj = "0.11.5"
+sqldelight = "2.0.2"
+resources = "0.23.0"
+compose = "1.6.11"
+sqlite-driver = "2.0.1"
+turbine = "1.0.0"
+
+## SDK Versions
+minSdk = "26"
+targetSdk = "34"
+compileSdk = "34"
+java = "21"
+
+[libraries]
+activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
+android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlite-driver" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+atomik = { module = "io.github.kevinschildhorn:atomik", version.ref = "atomik" }
+cache4k = { module = "io.github.reactivecircus.cache4k:cache4k", version.ref = "cache4k" }
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
+eva-icons = { module = "br.com.devsrsouza.compose.icons:eva-icons", version.ref = "eva-icons" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics", version.ref = "firebase-crashlytics" }
+kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+kermit-koin = { module = "co.touchlab:kermit-koin", version.ref = "kermit-koin" }
+kim = { module = "com.ashampoo:kim", version.ref = "kim" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-core" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-core" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin-test" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-serialization-json" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+ktlint = { module = "com.twitter.compose.rules:ktlint", version.ref = "ktlint" }
+multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatform-settings" }
+multiplatform-settings-test = { module = "com.russhwolf:multiplatform-settings-test", version.ref = "multiplatform-settings-test" }
+security-crypto = { module = "androidx.security:security-crypto", version.ref = "security-crypto" }
+smbj = { module = "com.hierynomus:smbj", version.ref = "smbj" }
+sqlite-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlite-driver" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services"  }
+crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics"  }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-plugin" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

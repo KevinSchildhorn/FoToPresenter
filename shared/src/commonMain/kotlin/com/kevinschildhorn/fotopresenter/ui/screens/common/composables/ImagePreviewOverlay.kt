@@ -20,8 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
@@ -78,7 +76,7 @@ fun ImagePreviewOverlay(
         }.onLoading {
             CircularProgressIndicator(
                 modifier = Modifier.width(75.dp).align(Alignment.Center),
-                color = FotoColors.primary.composeColor,
+                color = FotoColors.primary,
             )
         }.onError {
             Text("Error")

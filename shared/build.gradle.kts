@@ -1,13 +1,17 @@
-plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    id("org.jetbrains.compose")
-    id("org.jlleitschuh.gradle.ktlint")
-    id("dev.icerock.mobile.multiplatform-resources")
-    id("app.cash.sqldelight")
-    id("com.google.firebase.crashlytics")
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
 
-    kotlin("plugin.serialization")
+import org.gradle.kotlin.dsl.get
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
+plugins {
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.sqldelight)
+    //alias(libs.plugins.crashlytics)
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -27,36 +31,37 @@ kotlin {
     }*/
 
     sourceSets {
+        all {
+            languageSettings.optIn("kotlin.RequiresOptIn")
+        }
         val commonMain by getting {
             dependencies {
-                implementation(project(":atomik"))
+                implementation(kotlin("stdlib-common"))
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-                implementation("br.com.devsrsouza.compose.icons:eva-icons:1.1.0")
-                implementation("io.github.reactivecircus.cache4k:cache4k:0.12.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
-                implementation("io.insert-koin:koin-core:3.4.0")
-                implementation("androidx.security:security-crypto:1.1.0-alpha06")
-                implementation("co.touchlab:kermit:1.2.2")
-                implementation("co.touchlab:kermit-koin:1.2.2")
-                implementation("com.russhwolf:multiplatform-settings:1.0.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
-                implementation("com.ashampoo:kim:0.8.3")
-                api("dev.icerock.moko:resources:0.23.0")
-                api("dev.icerock.moko:resources-compose:0.23.0") // for compose multiplatform
+                implementation(libs.eva.icons)
+                implementation(libs.cache4k)
+                implementation(libs.kotlinx.serialization.json)
+                implementation(libs.koin.core)
+                implementation(libs.security.crypto)
+                implementation(libs.kermit)
+                implementation(libs.kermit.koin)
+                implementation(libs.multiplatform.settings)
+                implementation(libs.kotlinx.datetime)
+                implementation(libs.kim)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("com.russhwolf:multiplatform-settings-test:1.0.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-                implementation("io.insert-koin:koin-test:3.4.0")
-                implementation("app.cash.turbine:turbine:1.0.0")
-                implementation("app.cash.sqldelight:sqlite-driver:2.0.1")
+                implementation(libs.multiplatform.settings.test)
+                implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.koin.test)
+                implementation(libs.turbine)
+                implementation(libs.sqlite.driver)
             }
         }
 
@@ -64,9 +69,9 @@ kotlin {
             dependsOn(commonMain)
             resources.srcDir("src/commonMain/resources")
             dependencies {
-                implementation("com.hierynomus:smbj:0.11.5")
+                implementation(libs.smbj)
                 implementation(compose.uiTooling)
-                implementation("app.cash.sqldelight:sqlite-driver:2.0.1")
+                implementation(libs.sqlite.driver)
             }
         }
 
@@ -74,11 +79,11 @@ kotlin {
             dependsOn(jvmMain)
             resources.srcDirs("src/commonMain/resources")
             dependencies {
-                api("androidx.activity:activity-compose:1.8.1")
-                api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.12.0")
-                implementation("io.github.kevinschildhorn:atomik:0.0.6")
-                implementation("app.cash.sqldelight:android-driver:2.0.1")
+                api(libs.activity.compose)
+                api(libs.appcompat)
+                api(libs.core.ktx)
+                implementation(libs.atomik)
+                implementation(libs.android.driver)
             }
         }
         /*
@@ -102,10 +107,14 @@ kotlin {
             }
         }
     }
+
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
 }
 
 android {
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
+    compileSdk = libs.versions.compileSdk.get().toInt()
     namespace = "com.kevinschildhorn.common"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -113,23 +122,19 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        minSdk = (findProperty("android.minSdk") as String).toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(libs.versions.java.get().toInt())
     }
-}
-
-multiplatformResources {
-    multiplatformResourcesPackage = "com.kevinschildhorn.fotopresenter" // required
 }
 
 dependencies {
-    ktlintRuleset("com.twitter.compose.rules:ktlint:0.0.26")
+    ktlintRuleset(libs.ktlint)
 }
 
 sqldelight {
