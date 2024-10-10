@@ -26,7 +26,7 @@ actual object SharedImageConverter {
         val stream = ByteArrayOutputStream()
         this.compress(Bitmap.CompressFormat.PNG, 100, stream)
         val byteArray = stream.toByteArray()
-        if (this != null && !this.isRecycled()) {
+        if (!this.isRecycled) {
             this.recycle();
         }
         return byteArray

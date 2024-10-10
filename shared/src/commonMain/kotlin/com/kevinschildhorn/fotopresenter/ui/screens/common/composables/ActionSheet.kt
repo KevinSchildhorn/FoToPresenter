@@ -21,14 +21,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
 
 @Composable
@@ -66,7 +64,7 @@ fun ActionSheet(
                     .fillMaxWidth()
                     .padding(10.dp)
                     .weight(1f, false)
-                    .background(FotoColors.secondary.composeColor),
+                    .background(fotoColors.secondary),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 LazyColumn {
@@ -83,7 +81,7 @@ fun ActionSheet(
                         ) {
                             Text(
                                 it.action.title,
-                                color = FotoColors.secondaryText.composeColor,
+                                color = fotoColors.onSecondary,
                                 textAlign = TextAlign.Start,
                                 modifier = Modifier.fillMaxWidth(),
                             )

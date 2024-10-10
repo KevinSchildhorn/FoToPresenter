@@ -1,7 +1,9 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     kotlin("multiplatform")
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrains.compose)
 }
 
 kotlin {
@@ -9,7 +11,7 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
-                //implementation(compose.desktop.currentOs)
+                implementation(compose.desktop.currentOs)
                 implementation(libs.koin.core)
                 implementation(libs.kermit)
                 implementation(libs.multiplatform.settings)
@@ -19,7 +21,7 @@ kotlin {
         }
     }
 }
-/*
+
 compose.desktop {
     application {
         mainClass = "MainKt"
@@ -30,4 +32,4 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
-}*/
+}

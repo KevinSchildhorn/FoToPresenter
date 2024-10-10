@@ -12,12 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AtomikText
-import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreenAtoms
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.DialogButtonText
 
 @Composable
 fun PlaylistColumn(
@@ -29,19 +27,15 @@ fun PlaylistColumn(
     onDelete: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val atom = PlaylistScreenAtoms.title
     Column(
         modifier
             .fillMaxWidth()
             .padding(Padding.STANDARD.dp)
             .clip(RoundedCornerShape(10.dp))
-            .background(FotoColors.secondary.composeColor)
+            .background(fotoColors.secondary)
     ) {
         Column(Modifier.fillMaxWidth().padding(Padding.MEDIUM.dp)) {
-            AtomikText(
-                "Playlists",
-                atom = atom
-            )
+            DialogButtonText("Playlists")
             LazyColumn {
                 items(options) {
                     PlaylistScreenPlaylistRow(
@@ -62,7 +56,7 @@ fun PlaylistColumn(
                     Divider(
                         startIndent = 0.dp,
                         thickness = 1.dp,
-                        color = FotoColors.secondaryText.composeColor
+                        color = fotoColors.onSecondary
                     )
                 }
             }

@@ -1,19 +1,33 @@
 package com.kevinschildhorn.fotopresenter.ui.atoms
 
-import com.kevinschildhorn.atomik.color.base.AtomikColor
+import androidx.compose.foundation.shape.CornerBasedShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Colors
+import androidx.compose.material.Shapes
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
-object FotoColors {
-    val primary = AtomikColor(0xFFA500)
-    val background = AtomikColor(0xFFFFFF)
-    val surface = AtomikColor(0xFFFFFF)
-    val error = AtomikColor(0xFF0000)
-    val primaryText = AtomikColor(0x402900)
-    val secondary = AtomikColor(0xFFD383)
-    val secondaryText = AtomikColor(0xC1872E)
-    val backgroundText = AtomikColor(0x25231F)
-    val surfaceText = AtomikColor(0xC2882E)
-    val errorText = AtomikColor(0x9E1F1F)
-    val disabled = AtomikColor(0xE0E0E0)
+val fotoColors = Colors(
+    primary = Color(0xFFFFA500),
+    primaryVariant = Color(0xFFFFA500),
+    secondary = Color(0xFFFFD383),
+    secondaryVariant = Color(0xFFFFD383),
+    background = Color(0xFFFFFFFF),
+    surface = Color(0xFFFFFFFF),
+    error = Color(0xFFFF0000),
+    onPrimary = Color(0xFF402900),
+    onSecondary = Color(0xFFC1872E),
+    onBackground = Color(0xFF25231F),
+    onSurface = Color(0xFFC2882E),
+    onError = Color(0xFF9E1F1F),
+    isLight = true
+)
 
-    val shadow = AtomikColor(r = 0, g = 0, b = 0, a = 0.25f)
-}
+val disabled = Color(0xE0E0E0)
+val shadow = Color(red = 0f, green = 0f, blue = 0f, alpha = 0.25f)
+
+val fotoShapes = Shapes(
+    small = RoundedCornerShape(5.dp),
+    medium = RoundedCornerShape(10.dp),
+    large = RoundedCornerShape(20.dp),
+)

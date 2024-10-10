@@ -22,7 +22,7 @@ class SaveCredentialsUseCaseTest : KoinTest {
 
     @BeforeTest
     fun startTest() {
-        val baseLogger = Logger(LoggerConfig.default)
+        val baseLogger = Logger.withTag("Test")
 
         startKoin {
             modules(testingModule())

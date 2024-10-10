@@ -2,12 +2,14 @@ package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.RadioButton
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import com.kevinschildhorn.fotopresenter.ui.SortingType
-import com.kevinschildhorn.fotopresenter.ui.screens.common.CommonAtoms.dialogButton
+import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 
 @Composable
 fun FilterDialog(
@@ -29,28 +31,44 @@ fun FilterDialog(
                 selected = selectedOption.value == SortingType.NAME_ASC,
                 onClick = { selectedOption.value = SortingType.NAME_ASC }
             )
-            AtomikText("File Name A-Z",dialogButton)
+            Text(
+                text = "File Name A-Z",
+                style = FotoTypography().button,
+                color = fotoColors.onSurface
+            )
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             RadioButton(
                 selected = selectedOption.value == SortingType.NAME_DESC,
                 onClick = { selectedOption.value = SortingType.NAME_DESC }
             )
-            AtomikText("File Name Z-A",dialogButton)
+            Text(
+                text = "File Name Z-A",
+                style = FotoTypography().button,
+                color = fotoColors.onSurface
+            )
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             RadioButton(
                 selected = selectedOption.value == SortingType.TIME_ASC,
                 onClick = { selectedOption.value = SortingType.TIME_ASC }
             )
-            AtomikText("Time Created Ascending",dialogButton)
+            Text(
+                text = "Time Created Ascending",
+                style = FotoTypography().button,
+                color = fotoColors.onSurface
+            )
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             RadioButton(
                 selected = selectedOption.value == SortingType.TIME_DESC,
                 onClick = { selectedOption.value = SortingType.TIME_DESC }
             )
-            AtomikText("Time Created Descending",dialogButton)
+            Text(
+                text = "Time Created Descending",
+                style = FotoTypography().button,
+                color = fotoColors.onSurface
+            )
         }
     }
 }
