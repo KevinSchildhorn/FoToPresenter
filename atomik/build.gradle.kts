@@ -1,7 +1,13 @@
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+
+import org.gradle.kotlin.dsl.add
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 plugins {
     kotlin("multiplatform")
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.ktlint)
 }
 /*
@@ -54,13 +60,13 @@ kotlin {
 
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation("co.touchlab:kermit:2.0.4")
-                /*implementation(compose.runtime)
+                implementation(libs.kermit)
+                implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
-                implementation(compose.ui)*/
-                api("dev.icerock.moko:resources:0.23.0")
-                api("dev.icerock.moko:resources-compose:0.23.0") // for compose multiplatform
+                implementation(compose.ui)
+                api(libs.resources)
+                api(libs.resources.compose) // for compose multiplatform
             }
         }
         val commonTest by getting {
@@ -76,8 +82,8 @@ kotlin {
             dependsOn(jvmMain)
             languageSettings.optIn("kotlin.ExperimentalMultiplatform")
             dependencies {
-                api("androidx.appcompat:appcompat:1.7.0")
-                api("androidx.core:core-ktx:1.13.1")
+                api(libs.appcompat)
+                api(libs.core.ktx)
             }
         }
         /*
@@ -95,6 +101,10 @@ kotlin {
             dependsOn(jvmMain)
             languageSettings.optIn("kotlin.ExperimentalMultiplatform")
         }
+    }
+
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 }
 

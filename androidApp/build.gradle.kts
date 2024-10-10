@@ -3,7 +3,8 @@ plugins {
     kotlin("multiplatform")
     alias(libs.plugins.google.services)
     alias(libs.plugins.crashlytics)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrains.compose)
 }
 
 kotlin {
@@ -12,8 +13,8 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(project(":shared"))
-                implementation("io.insert-koin:koin-android:3.5.3")
-                implementation("com.google.firebase:firebase-crashlytics:19.2.0")
+                implementation(libs.koin.android)
+                implementation(libs.firebase.crashlytics)
             }
         }
     }
