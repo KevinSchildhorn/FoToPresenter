@@ -20,12 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.atomic.atoms.compose.textStyle
-import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.ui.UiState
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
+import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ConfirmationDialog
@@ -33,7 +32,6 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.FilterDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ImagePreviewOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.LoadingOverlay
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryAtoms.ImageTicker
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationBar
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.DirectoryTitleBarButton
@@ -111,8 +109,8 @@ fun DirectoryScreen(
                 uiState.imageCountString,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                style = ImageTicker.textStyle,
-                color = ImageTicker.textColor.composeColor
+                style = FotoTypography().caption,
+                color = fotoColors.onBackground,
             )
             LinearProgressIndicator(
                 progress = uiState.currentImageCount.toFloat() / uiState.totalImageCount.toFloat(),
@@ -120,7 +118,7 @@ fun DirectoryScreen(
                     .height(25.dp)
                     .padding(horizontal = Padding.EXTRA_LARGE.dp, vertical = Padding.SMALL.dp)
                     .clip(RoundedCornerShape(5.dp)),
-                color = FotoColors.primary.composeColor,
+                color = fotoColors.primary,
             )
 
         }

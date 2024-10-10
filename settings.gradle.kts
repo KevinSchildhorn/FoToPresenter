@@ -19,4 +19,3 @@ rootProject.name = "FotoPresenter"
 include(":androidApp")
 include(":shared")
 include(":desktopApp")
-include(":atomik")

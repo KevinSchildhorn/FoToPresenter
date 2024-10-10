@@ -31,7 +31,7 @@ sqlite-driver = "2.0.1"
 turbine = "1.0.0"
 
 ## SDK Versions
-minSdk = "23"
+minSdk = "26"
 targetSdk = "34"
 compileSdk = "34"
 java = "21"
@@ -57,8 +57,6 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 ktlint = { module = "com.twitter.compose.rules:ktlint", version.ref = "ktlint" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatform-settings" }
 multiplatform-settings-test = { module = "com.russhwolf:multiplatform-settings-test", version.ref = "multiplatform-settings-test" }
-moko-resource = { module = "dev.icerock.moko:resources", version.ref = "resources-version" }
-moko-resource-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "resources-version" }
 security-crypto = { module = "androidx.security:security-crypto", version.ref = "security-crypto" }
 smbj = { module = "com.hierynomus:smbj", version.ref = "smbj" }
 sqlite-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlite-driver" }
@@ -75,8 +73,4 @@ google-services = { id = "com.google.gms.google-services", version.ref = "google
 crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics"  }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-plugin" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
-resources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "resources"}
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-
-[bundles]
-moko-resources = ["moko-resource", "moko-resource-compose"]

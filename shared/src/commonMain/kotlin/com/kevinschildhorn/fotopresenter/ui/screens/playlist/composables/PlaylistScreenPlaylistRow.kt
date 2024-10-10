@@ -8,14 +8,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.Icon
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AtomikIcon
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AtomikText
-import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreenAtoms
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.DialogButtonText
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline
 import compose.icons.evaicons.outline.Edit
@@ -30,7 +30,6 @@ fun PlaylistScreenPlaylistRow(
     onEdit: () -> Unit,
     onDelete: () -> Unit,
 ) {
-    val atom = PlaylistScreenAtoms.rowTitle
     Row(
         modifier = Modifier.fillMaxWidth().height(55.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -40,7 +39,7 @@ fun PlaylistScreenPlaylistRow(
             onClick = onClick,
             modifier = Modifier.fillMaxSize(0.7f)
         ) {
-            AtomikText(title, atom)
+            DialogButtonText(title)
             Spacer(Modifier.fillMaxWidth())
         }
         Row(modifier = Modifier.fillMaxHeight()) {
@@ -48,9 +47,9 @@ fun PlaylistScreenPlaylistRow(
                 modifier = Modifier.width(44.dp),
                 onClick = onDetails
             ) {
-                AtomikIcon(
+                Icon(
                     EvaIcons.Outline.Info,
-                    atom,
+                    tint = fotoColors.onSecondary,
                     contentDescription = "Details",
                 )
             }
@@ -58,9 +57,9 @@ fun PlaylistScreenPlaylistRow(
                 modifier = Modifier.width(44.dp),
                 onClick = onEdit
             ) {
-                AtomikIcon(
+                Icon(
                     EvaIcons.Outline.Edit,
-                    atom,
+                    tint = fotoColors.onSecondary,
                     contentDescription = "Edit",
                 )
             }
@@ -68,9 +67,9 @@ fun PlaylistScreenPlaylistRow(
                 modifier = Modifier.width(44.dp),
                 onClick = onDelete,
             ) {
-                AtomikIcon(
+                Icon(
                     EvaIcons.Outline.Trash,
-                    atom,
+                    tint = fotoColors.onSecondary,
                     contentDescription = "Trash"
                 )
             }

@@ -2,7 +2,6 @@
 
 import org.gradle.kotlin.dsl.get
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import kotlin.collections.plusAssign
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -12,7 +11,6 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
     //alias(libs.plugins.crashlytics)
-    alias(libs.plugins.resources)
     alias(libs.plugins.serialization)
 }
 
@@ -39,7 +37,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation(project(":atomik"))
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
@@ -55,7 +52,6 @@ kotlin {
                 implementation(libs.multiplatform.settings)
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.kim)
-                api(libs.bundles.moko.resources)
             }
         }
         val commonTest by getting {
@@ -129,16 +125,12 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlin {
         jvmToolchain(libs.versions.java.get().toInt())
     }
-}
-
-multiplatformResources {
-    multiplatformResourcesPackage = "com.kevinschildhorn.fotopresenter" // required
 }
 
 dependencies {

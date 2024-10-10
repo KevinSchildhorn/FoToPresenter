@@ -1,7 +1,6 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 
 import androidx.compose.runtime.Composable
-import com.kevinschildhorn.fotopresenter.ui.screens.common.CommonAtoms
 
 @Composable
 fun ConfirmationDialog(
@@ -15,6 +14,6 @@ fun ConfirmationDialog(
         onDismissRequest = onDismissRequest,
         onConfirmation = onConfirmation,
     ) {
-        AtomikText(text = dialogText, atom = CommonAtoms.dialogMessage)
+        DialogButtonText(dialogText)
     }
 }

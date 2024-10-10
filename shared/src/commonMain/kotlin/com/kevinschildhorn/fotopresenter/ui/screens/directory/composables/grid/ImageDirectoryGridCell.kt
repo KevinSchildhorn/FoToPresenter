@@ -12,8 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.ImageDirectoryGridCellState
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
@@ -30,7 +29,7 @@ fun ImageDirectoryGridCell(
                 bitmap = it,
                 contentDescription = imageContent.name,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize().background(FotoColors.surface.composeColor),
+                modifier = Modifier.fillMaxSize().background(fotoColors.surface),
             )
         }.onError {
             Column(
@@ -52,7 +51,7 @@ fun ImageDirectoryGridCell(
         }.onLoading {
             CircularProgressIndicator(
                 modifier = Modifier.width(33.dp).align(Alignment.Center),
-                color = FotoColors.primary.composeColor,
+                color = fotoColors.primary,
             )
         }
     }

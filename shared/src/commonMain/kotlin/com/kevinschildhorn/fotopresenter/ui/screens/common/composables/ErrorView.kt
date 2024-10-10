@@ -7,27 +7,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreenAtoms.errorView
 
 @Composable
 fun ErrorView(
     message: String,
     modifier: Modifier = Modifier,
 ) {
-    val atom = errorView
-
     var configuredModifier: Modifier = modifier
-    atom.backgroundColor?.let {
-        configuredModifier = configuredModifier.background(color = it.composeColor)
-    }
     Box(
         modifier =
             configuredModifier.padding(
-                horizontal = atom.paddingHorizontal?.dp ?: 0.dp,
-                vertical = atom.paddingVertical?.dp ?: 0.dp,
+                horizontal = 16.dp,
+                vertical = 16.dp,
             ).fillMaxWidth(),
     ) {
-        AtomikText(message,atom)
+        DialogButtonText(message)
     }
 }
