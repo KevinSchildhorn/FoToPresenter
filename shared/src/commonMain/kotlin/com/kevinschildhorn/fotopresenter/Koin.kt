@@ -2,7 +2,6 @@ package com.kevinschildhorn.fotopresenter
 
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
-import com.kevinschildhorn.fotopresenter.data.DirectoryEtc
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageCacheDataSource
@@ -25,7 +24,6 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelTwo
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
@@ -47,8 +45,6 @@ val commonModule =
         single { CredentialsRepository(get()) }
         single { DirectoryDataSource(get(), baseLogger.withTag("DirectoryDataSource")) }
         single { DirectoryRepository(get(), get()) }
-        single { DirectoryEtc(get(), get(), baseLogger.withTag("DirectoryEtc")) }
-
         single { ImageRemoteDataSource(get()) }
         single { ImageRepository(get()) }
         single { ImageCacheDataSource(get(), get(), baseLogger.withTag("ImageCacheDataSource")) }
@@ -87,8 +83,7 @@ val commonModule =
         factory { SaveMetadataForPathUseCase(get()) }
         // UI
         single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
-        single { DirectoryViewModel(get(), baseLogger.withTag("DirectoryViewModel"), get(), get()) }
-        single { DirectoryViewModelTwo(get(), baseLogger.withTag("DirectoryViewModel"), get(), get())}
+        single { DirectoryViewModel(get(), baseLogger.withTag("DirectoryViewModel")) }
         single { SlideshowViewModel(baseLogger.withTag("SlideshowViewModel")) }
         single { PlaylistViewModel(get(), baseLogger.withTag("PlaylistViewModel")) }
     }

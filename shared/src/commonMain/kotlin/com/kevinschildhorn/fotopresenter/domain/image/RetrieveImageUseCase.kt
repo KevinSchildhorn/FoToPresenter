@@ -14,7 +14,7 @@ class RetrieveImageUseCase(
     private val logger: Logger,
 ) {
 
-    operator fun invoke(
+    suspend operator fun invoke(
         directory: ImageDirectory,
         imageSize: Int,
     ): ImageBitmap? {

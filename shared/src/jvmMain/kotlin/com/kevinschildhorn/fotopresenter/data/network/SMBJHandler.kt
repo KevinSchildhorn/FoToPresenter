@@ -63,7 +63,6 @@ object SMBJHandler : NetworkHandler {
             }
         } catch (e: Exception) {
             logger.e(e) { "Failed To Connect" }
-            logger.e(e.localizedMessage)
             disconnect()
             return false
         }
@@ -108,7 +107,7 @@ object SMBJHandler : NetworkHandler {
     override suspend fun openImage(path: String): SharedImage? =
         getFile(path)?.let {
             val sharedImage = SharedImage(it)
-            //it.close() TODO
+            it.close()
             sharedImage
         } ?: run { null }
 

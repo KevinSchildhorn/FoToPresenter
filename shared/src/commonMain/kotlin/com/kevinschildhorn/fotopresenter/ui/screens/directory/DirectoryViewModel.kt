@@ -4,14 +4,13 @@ import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
-import com.kevinschildhorn.fotopresenter.data.DirectoryEtc
 import com.kevinschildhorn.fotopresenter.data.FolderDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
+import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
-import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.extension.addPath
@@ -27,10 +26,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
@@ -40,8 +39,6 @@ import org.koin.core.component.KoinComponent
 class DirectoryViewModel(
     private val playlistRepository: PlaylistRepository,
     private val logger: Logger,
-    private val directoryRepository: DirectoryRepository,
-    private val directoryEtc:DirectoryEtc,
 ) : PlaylistViewModel(playlistRepository, logger),
     ImageViewModel by DefaultImageViewModel(logger),
     KoinComponent {
@@ -52,7 +49,7 @@ class DirectoryViewModel(
     private val _uiState = MutableStateFlow(DirectoryScreenState())
     val uiState: StateFlow<DirectoryScreenState> = _uiState.asStateFlow()
 
-    private val _directoryContentsState = directoryEtc.directoryFlow
+    private val _directoryContentsState = MutableStateFlow(DirectoryContents())
 
     // Indexes of all Downloaded images
     private val downloadedImageSet: MutableSet<Int> = mutableSetOf()
@@ -78,7 +75,7 @@ class DirectoryViewModel(
     //region Connection
 
     fun setLoggedIn() {
-        //_uiState.update { it.copy(loggedIn = true) }
+        _uiState.update { it.copy(loggedIn = true) }
     }
 
     fun logout() {
@@ -88,7 +85,7 @@ class DirectoryViewModel(
             val logoutUseCase = UseCaseFactory.disconnectFromServerUseCase
             logoutUseCase()
             logger.d { "Setting loggedIn state to false" }
-            //_uiState.update { it.copy(loggedIn = false) }
+            _uiState.update { it.copy(loggedIn = false) }
         }
     }
 
@@ -102,15 +99,13 @@ class DirectoryViewModel(
         logger.d { "Checking for Selected Directory" }
         uiState.value.selectedDirectory?.id?.let { id ->
             logger.d { "Finding Folder" }
-            viewModelScope.launch {
-                _directoryContentsState.last().folders.find { it.id == id }?.let {
-                    logger.d { "Folder found, starting to retrieve images" }
-                    slideshowScope.launch {
-                        val retrieveImagesUseCase = UseCaseFactory.retrieveImageDirectoriesUseCase
-                        val images = retrieveImagesUseCase(it.details)
-                        logger.v { "Retrieved images, copying them to state" }
-                        //_uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
-                    }
+            _directoryContentsState.value.folders.find { it.id == id }?.let {
+                logger.d { "Folder found, starting to retrieve images" }
+                slideshowScope.launch {
+                    val retrieveImagesUseCase = UseCaseFactory.retrieveImageDirectoriesUseCase
+                    val images = retrieveImagesUseCase(it.details)
+                    logger.v { "Retrieved images, copying them to state" }
+                    _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
                 }
             }
         } ?: run {
@@ -119,7 +114,7 @@ class DirectoryViewModel(
     }
 
     fun clearSlideshow() {
-        //_uiState.update { it.copy(slideshowDetails = null) }
+        _uiState.update { it.copy(slideshowDetails = null) }
     }
 
     fun setSelectedImageById(imageId: Int?) {
@@ -148,10 +143,8 @@ class DirectoryViewModel(
     }
 
     fun changeDirectory(id: Int) {
-        viewModelScope.launch {
-            _directoryContentsState.last().allDirectories.find { it.id == id }?.let {
-                changeDirectoryToPath(currentPath.addPath(it.details.name))
-            }
+        _directoryContentsState.value.allDirectories.find { it.id == id }?.let {
+            changeDirectoryToPath(currentPath.addPath(it.details.name))
         }
     }
 
@@ -195,23 +188,14 @@ class DirectoryViewModel(
         logger.i { "Updating Directories" }
         _uiState.update { it.copy(state = UiState.LOADING) }
         viewModelScope.launch(Dispatchers.Default) {
-
-            // Use Pagination
-            // Get first ten images
-            //val retrieveDirectoryUseCase = UseCaseFactory.retrieveDirectoryContentsUseCase
-            viewModelScope.launch(Dispatchers.IO) {
-
-                val directoryContents = directoryRepository.getDirectoryContents(currentPath)
-                //directoryEtc.todo(currentPath)
-            }
-
+            val retrieveDirectoryUseCase = UseCaseFactory.retrieveDirectoryContentsUseCase
 
             logger.i { "Getting Directory Contents" }
-            //val directoryContents = retrieveDirectoryUseCase(currentPath)
-            //logger.i { "Got Directory Contents: ${directoryContents.allDirectories.count()}" }
-            //_directoryContentsState.update { directoryContents }
+            val directoryContents = retrieveDirectoryUseCase(currentPath)
+            logger.i { "Got Directory Contents: ${directoryContents.allDirectories.count()}" }
+            _directoryContentsState.update { directoryContents }
 
-            //updateGrid()
+            updateGrid()
             logger.i { "Current State ${uiState.value.state}" }
             updatePhotos()
         }
@@ -256,7 +240,7 @@ class DirectoryViewModel(
             // TODO: STORE LARGEST IMAGES IN CHUNKS
         }
     }
-/*
+
     private fun updateGrid() = with(_directoryContentsState.value) {
         logger.i { "Updating State to Success" }
         logger.i { "Setting Directories: $this" }
@@ -269,7 +253,7 @@ class DirectoryViewModel(
                 state = UiState.SUCCESS,
             )
         }
-    }*/
+    }
 
     private val DirectoryContents.asDirectoryGridState: DirectoryGridState
         get() =
@@ -290,7 +274,6 @@ class DirectoryViewModel(
     //region Playlist
 
     fun addSelectedDirectoryToPlaylist(playlist: PlaylistDetails) {
-        /*
         uiState.value.selectedDirectory?.let { selectedDirectory ->
             with(_directoryContentsState.value) {
                 logger.i { "Inserting Playlist Image ${playlist.id} as ${uiState.value.selectedDirectory}" }
@@ -308,7 +291,7 @@ class DirectoryViewModel(
             }
         } ?: run {
             logger.w { "Selected Directory Not found" }
-        }*/
+        }
     }
     //endregion
 
@@ -323,11 +306,10 @@ class DirectoryViewModel(
 
     fun setFilterType(sortingType: SortingType) {
         logger.i { "Setting Filter Type" }
-        /*
         _directoryContentsState.update {
             it.sorted(sortingType)
-        }*/
-        //updateGrid()
+        }
+        updateGrid()
     }
 
     private fun cancelJobs() {
@@ -342,12 +324,12 @@ class DirectoryViewModel(
     private fun findSelectedFolderDirectory(): FolderDirectory? =
         uiState.value.selectedDirectory?.id?.let { id ->
             logger.d { "Finding Selected Directory" }
-            return null// _directoryContentsState.value.folders.find { it.id == id }
+            return _directoryContentsState.value.folders.find { it.id == id }
         }
 
     private fun findSelectedImageDirectory(): ImageDirectory? =
         uiState.value.selectedDirectory?.id?.let { id ->
             logger.d { "Finding Selected Directory" }
-            return null//_directoryContentsState.value.images.find { it.id == id }
+            return _directoryContentsState.value.images.find { it.id == id }
         }
 }

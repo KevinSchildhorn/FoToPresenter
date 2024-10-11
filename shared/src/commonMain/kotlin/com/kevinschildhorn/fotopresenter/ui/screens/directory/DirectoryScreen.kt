@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.fotopresenter.baseLogger
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
@@ -57,24 +56,23 @@ enum class DirectoryOverlay {
 
 @Composable
 fun DirectoryScreen(
-    viewModel: DirectoryViewModelTwo,
+    viewModel: DirectoryViewModel,
     onLogout: () -> Unit,
     onStartSlideshow: (ImageSlideshowDetails) -> Unit,
     onShowPlaylists: () -> Unit,
 ) {
     LaunchedEffect(Unit) {
-        baseLogger.i { "Launched Effect" }
         viewModel.refreshScreen()
     }
-    val uiState by viewModel.uiState.collectAsState(DirectoryScreenStateTwo())
-    //val imageUiState by viewModel.imageUiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
+    val imageUiState by viewModel.imageUiState.collectAsState()
     var overlayVisible by remember { mutableStateOf(DirectoryOverlay.NONE) }
 
     // Navigation
-    //if (!uiState.loggedIn) onLogout()
-    //uiState.slideshowDetails?.let {
-    //    onStartSlideshow(it)
-    //}
+    if (!uiState.loggedIn) onLogout()
+    uiState.slideshowDetails?.let {
+        onStartSlideshow(it)
+    }
 
     //region UI
     Column {
@@ -99,14 +97,13 @@ fun DirectoryScreen(
         DirectoryNavigationBar(
             directories = uiState.currentPathList,
             onHome = {
-                //viewModel.navigateToFolder(-1)
+                viewModel.navigateToFolder(-1)
             },
             onItem = {
-                //viewModel.navigateToFolder(it)
+                viewModel.navigateToFolder(it)
             },
             modifier = Modifier.padding(Padding.SMALL.dp)
         )
-        /*
         if (uiState.imageCountString.isNotEmpty()) {
             Text(
                 uiState.imageCountString,
@@ -124,18 +121,18 @@ fun DirectoryScreen(
                 color = fotoColors.primary,
             )
 
-        }*/
+        }
         DirectoryGrid(
             uiState.directoryGridState,
             onFolderPressed = {
-                //viewModel.changeDirectory(it)
+                viewModel.changeDirectory(it)
             },
             onImageDirectoryPressed = {
-                //viewModel.setSelectedImageById(it)
+                viewModel.setSelectedImageById(it)
                 overlayVisible = DirectoryOverlay.IMAGE
             },
             onActionSheet = {
-                //viewModel.setSelectedDirectory(it)
+                viewModel.setSelectedDirectory(it)
                 overlayVisible = DirectoryOverlay.ACTION_SHEET
             },
         )
@@ -145,7 +142,6 @@ fun DirectoryScreen(
     // Overlays
 
     //region ActionSheet
-    /*
     ActionSheet(
         visible = overlayVisible == DirectoryOverlay.ACTION_SHEET,
         offset = 200,
@@ -177,9 +173,9 @@ fun DirectoryScreen(
             overlayVisible = DirectoryOverlay.NONE
             viewModel.setSelectedDirectory(null)
         },
-    )*/
+    )
     //endregion
-/*
+
     //region Selected Image
     imageUiState.selectedImage?.let {
         ImagePreviewOverlay(
@@ -196,7 +192,7 @@ fun DirectoryScreen(
                 viewModel.showNextImage()
             },
         )
-    }*/
+    }
     //endregion
 
     //region Loading
@@ -227,7 +223,7 @@ fun DirectoryScreen(
                 overlayVisible = DirectoryOverlay.NONE
             },
             onConfirmation = {
-                //viewModel.logout()
+                viewModel.logout()
                 overlayVisible = DirectoryOverlay.NONE
             },
         )
@@ -241,13 +237,12 @@ fun DirectoryScreen(
                 overlayVisible = DirectoryOverlay.NONE
             },
             onConfirmation = {
-                //viewModel.setFilterType(it)
+                viewModel.setFilterType(it)
             }
         )
     }
 
     //region Playlist
-    /*
     if (overlayVisible == DirectoryOverlay.PLAYLIST) {
         PlaylistScreen(
             viewModel,
@@ -274,5 +269,5 @@ fun DirectoryScreen(
                 viewModel.setSelectedDirectory(null)
                 overlayVisible = DirectoryOverlay.NONE
             })
-    }*/
+    }
 }

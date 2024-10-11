@@ -14,7 +14,6 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.fotoShapes
 import com.kevinschildhorn.fotopresenter.ui.screens.common.Screen
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelTwo
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreen
@@ -26,7 +25,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
 @Composable
 fun App(
     loginViewModel: LoginViewModel,
-    directoryViewModel: DirectoryViewModelTwo,
+    directoryViewModel: DirectoryViewModel,
     slideshowViewModel: SlideshowViewModel,
     playlistViewModel: PlaylistViewModel,
     navController: NavHostController = rememberNavController()
@@ -57,7 +56,7 @@ fun App(
                         },
                         onStartSlideshow = {
                             slideshowViewModel.setSlideshow(it)
-                            //directoryViewModel.clearSlideshow()
+                            directoryViewModel.clearSlideshow()
                             navController.navigate(Screen.SLIDESHOW.name)
                         },
                         onShowPlaylists = {
