@@ -1,4 +1,5 @@
 import org.gradle.kotlin.dsl.get
+import org.gradle.kotlin.dsl.implementation
 import org.gradle.kotlin.dsl.java
 
 plugins {
@@ -18,6 +19,7 @@ kotlin {
                 implementation(project(":shared"))
                 implementation(libs.koin.android)
                 implementation(libs.firebase.crashlytics)
+                implementation(libs.coil)
             }
         }
     }

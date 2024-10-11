@@ -53,6 +53,8 @@ kotlin {
                 implementation(libs.multiplatform.settings)
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.kim)
+                implementation(libs.coil)
+
             }
         }
         val commonTest by getting {

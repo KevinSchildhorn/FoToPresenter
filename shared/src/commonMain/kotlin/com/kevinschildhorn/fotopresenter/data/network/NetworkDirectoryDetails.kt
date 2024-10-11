@@ -28,3 +28,9 @@ class DefaultNetworkDirectoryDetails(
     override val id: Int,
     override val dateMillis: Long = Clock.System.now().toEpochMilliseconds()
 ) : NetworkDirectoryDetails
+
+class MockNetworkDirectoryDetails(
+    override val fullPath: String = "",
+    override val id: Int = 0,
+    override val dateMillis: Long = Clock.System.now().toEpochMilliseconds()
+) : NetworkDirectoryDetails

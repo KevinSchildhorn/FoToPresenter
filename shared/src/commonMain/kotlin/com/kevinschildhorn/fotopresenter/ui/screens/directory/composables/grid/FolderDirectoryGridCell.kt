@@ -6,21 +6,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.FolderDirectoryGridCellState
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.Folder
 
 @Composable
 fun FolderDirectoryGridCell(
-    folderState: FolderDirectoryGridCellState,
+    folderState: DirectoryGridCellState,
     modifier: Modifier = Modifier,
 ) {
     DirectoryGridCell(modifier) {

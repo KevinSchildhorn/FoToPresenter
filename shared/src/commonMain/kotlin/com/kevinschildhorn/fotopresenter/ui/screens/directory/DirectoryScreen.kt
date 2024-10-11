@@ -68,11 +68,6 @@ fun DirectoryScreen(
     val imageUiState by viewModel.imageUiState.collectAsState()
     var overlayVisible by remember { mutableStateOf(DirectoryOverlay.NONE) }
 
-    // Navigation
-    uiState.slideshowDetails?.let {
-        onStartSlideshow(it)
-    }
-
     //region UI
     Column {
         Row(horizontalArrangement = Arrangement.SpaceBetween) {
@@ -103,24 +98,6 @@ fun DirectoryScreen(
             },
             modifier = Modifier.padding(Padding.SMALL.dp)
         )
-        if (uiState.imageCountString.isNotEmpty()) {
-            Text(
-                uiState.imageCountString,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                style = FotoTypography().caption,
-                color = fotoColors.onBackground,
-            )
-            LinearProgressIndicator(
-                progress = uiState.currentImageCount.toFloat() / uiState.totalImageCount.toFloat(),
-                modifier = Modifier.fillMaxWidth()
-                    .height(25.dp)
-                    .padding(horizontal = Padding.EXTRA_LARGE.dp, vertical = Padding.SMALL.dp)
-                    .clip(RoundedCornerShape(5.dp)),
-                color = fotoColors.primary,
-            )
-
-        }
         DirectoryGrid(
             uiState.directoryGridState,
             onFolderPressed = {
@@ -149,6 +126,7 @@ fun DirectoryScreen(
             when (it.action) {
                 ActionSheetAction.START_SLIDESHOW -> {
                     viewModel.startSlideshow()
+                    onStartSlideshow(uiState.slideshowDetails!!)
                     overlayVisible = DirectoryOverlay.NONE
                     viewModel.setSelectedDirectory(null)
                 }
@@ -223,6 +201,7 @@ fun DirectoryScreen(
             },
             onConfirmation = {
                 viewModel.logout()
+                onLogout()
                 overlayVisible = DirectoryOverlay.NONE
             },
         )

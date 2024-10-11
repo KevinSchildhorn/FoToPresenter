@@ -1,8 +1,7 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
-import androidx.compose.ui.graphics.ImageBitmap
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
-import com.kevinschildhorn.fotopresenter.data.State
+import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
@@ -14,49 +13,20 @@ data class DirectoryScreenState(
     var directoryGridState: DirectoryGridState = DirectoryGridState(emptyList(), mutableListOf()),
     val slideshowDetails: ImageSlideshowDetails? = null,
     val selectedDirectory: DirectoryGridCellState? = null,
-    val currentImageCount: Int = 0,
-    val totalImageCount: Int = 0,
     val sortingType: SortingType = SortingType.NAME_ASC,
     override val state: UiState = UiState.IDLE,
 ) : ScreenState {
-    fun copyImageState(
-        id: Int,
-        state: State<ImageBitmap>,
-    ): DirectoryScreenState {
-        val list = directoryGridState.imageStates.toMutableList()
-        val index = list.indexOfFirst { it.id == id }
-        if (index != -1) {
-            val element = list[index]
-            list[index] =
-                element.copy(
-                    imageState = state,
-                )
-        }
-        return this.copy(
-            directoryGridState =
-            directoryGridState.copy(
-                imageStates = list,
-            ),
-        )
-    }
 
     fun getImageIndexFromId(id: Int): Int =
         directoryGridState.imageStates.indexOfFirst { it.id == id }
 
     val currentPathList: List<String>
         get() = currentPath.split("\\").filter { it.isNotEmpty() }
-
-    val imageCountString: String
-        get() =
-            if (totalImageCount != 0 && currentImageCount < totalImageCount)
-                "$currentImageCount of $totalImageCount downloaded"
-            else ""
-
 }
 
 data class DirectoryGridState(
-    val folderStates: List<FolderDirectoryGridCellState>,
-    val imageStates: List<ImageDirectoryGridCellState>,
+    val folderStates: List<DirectoryGridCellState.Folder>,
+    val imageStates: List<DirectoryGridCellState.Image>,
 ) {
     val allStates: List<DirectoryGridCellState>
         get() = folderStates + imageStates
@@ -71,41 +41,24 @@ data class DirectoryGridState(
             """
 }
 
-data class FolderDirectoryGridCellState(
-    override val name: String,
-    override val id: Int,
-) : DirectoryGridCellState {
-    override val actionSheetContexts: List<ActionSheetContext>
-        get() = listOf(
+sealed class DirectoryGridCellState(
+    val name: String,
+    val id: Int,
+    val actionSheetContexts: List<ActionSheetContext>
+
+) {
+    class Folder(name: String, id: Int) : DirectoryGridCellState(
+        name, id, listOf(
             ActionSheetContext(ActionSheetAction.START_SLIDESHOW, 1),
             ActionSheetContext(ActionSheetAction.ADD_DYNAMIC_LOCATION, 2),
         )
+    )
 
-    override fun toString(): String = "(F:$name:$id)"
-}
-
-data class ImageDirectoryGridCellState(
-    val imageState: State<ImageBitmap>,
-    override val name: String,
-    override val id: Int,
-) : DirectoryGridCellState {
-    override val actionSheetContexts: List<ActionSheetContext>
-        get() = listOf(
+    class Image(val directoryDetails: NetworkDirectoryDetails, name: String, id: Int) : DirectoryGridCellState(
+        name, id, listOf(
             ActionSheetContext(ActionSheetAction.ADD_STATIC_LOCATION, 1),
             ActionSheetContext(ActionSheetAction.ADD_METADATA, 2),
         )
-
+    )
     override fun toString(): String = "(I:$name:$id)"
-}
-
-interface DirectoryGridCellState {
-    val name: String
-    val id: Int
-    val actionSheetContexts: List<ActionSheetContext>
-
-    val isFolderGridCell: Boolean
-        get() = (this is FolderDirectoryGridCellState)
-
-    val isImageGridCell: Boolean
-        get() = (this is ImageDirectoryGridCellState)
 }
