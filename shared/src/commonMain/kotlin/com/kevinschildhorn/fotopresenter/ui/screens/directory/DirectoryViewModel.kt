@@ -6,13 +6,11 @@ import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.FolderDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
-import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
-import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.extension.addPath
 import com.kevinschildhorn.fotopresenter.extension.navigateBackToPathAtIndex
 import com.kevinschildhorn.fotopresenter.ui.SortingType
@@ -23,10 +21,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -37,7 +32,7 @@ import kotlinx.datetime.Clock
 import org.koin.core.component.KoinComponent
 
 class DirectoryViewModel(
-    private val playlistRepository: PlaylistRepository,
+    playlistRepository: PlaylistRepository,
     private val logger: Logger,
 ) : PlaylistViewModel(playlistRepository, logger),
     ImageViewModel by DefaultImageViewModel(logger),
@@ -59,7 +54,6 @@ class DirectoryViewModel(
 
     val actionSheetContexts: List<ActionSheetContext>
         get() = uiState.value.selectedDirectory?.actionSheetContexts ?: emptyList()
-
 
     val selectedMetadata: MetadataFileDetails?
         get() = findSelectedImageDirectory()?.metaData
@@ -114,7 +108,7 @@ class DirectoryViewModel(
     }
 
     fun clearSlideshow() {
-       // _uiState.update { it.copy(slideshowDetails = null) }
+        // _uiState.update { it.copy(slideshowDetails = null) }
     }
 
     fun setSelectedImageById(imageId: Int?) {
