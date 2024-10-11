@@ -12,6 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
+import coil3.compose.LocalPlatformContext
+import coil3.request.ImageRequest
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.ImageDirectoryGridCellState
 import compose.icons.EvaIcons
@@ -23,10 +26,11 @@ fun ImageDirectoryGridCell(
     imageContent: ImageDirectoryGridCellState,
     modifier: Modifier = Modifier,
 ) {
+
     DirectoryGridCell(modifier) {
         imageContent.imageState.onSuccess {
-            Image(
-                bitmap = it,
+            AsyncImage(
+                model = it,
                 contentDescription = imageContent.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize().background(fotoColors.surface),

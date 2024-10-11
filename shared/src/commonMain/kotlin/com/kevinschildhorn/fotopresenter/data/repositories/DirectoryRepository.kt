@@ -18,7 +18,7 @@ class DirectoryRepository(
         val imageDirectories: List<NetworkDirectoryDetails> =
             directoryDataSource.getImageDirectories(path)
 
-        val metaData = metadataDataSource.importMetaData()
+        //val metaData = metadataDataSource.importMetaData()
 
 
         return DirectoryContents(
@@ -26,7 +26,7 @@ class DirectoryRepository(
             images = imageDirectories.map { networkDetails ->
                 ImageDirectory(
                     networkDetails,
-                    metaData = metaData.files.find { networkDetails.fullPath == it.filePath }
+                    metaData = null,// metaData.files.find { networkDetails.fullPath == it.filePath }
                 )
             },
         )

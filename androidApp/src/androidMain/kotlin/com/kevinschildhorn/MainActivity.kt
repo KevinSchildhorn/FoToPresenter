@@ -4,6 +4,9 @@ import MainView
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import coil3.ImageLoader
+import coil3.compose.setSingletonImageLoaderFactory
+import com.kevinschildhorn.fotopresenter.SMBJFetcher
 import com.kevinschildhorn.fotopresenter.startKoin
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
@@ -22,8 +25,16 @@ class MainActivity : AppCompatActivity(), KoinComponent {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         startKoin(this)
-        
+
         setContent {
+            setSingletonImageLoaderFactory { context ->
+                ImageLoader.Builder(context)
+                    .components {
+                        add(SMBJFetcher.Factory())
+                    }
+                    .build()
+            }
+
             MainView(loginViewModel, directoryViewModel, slideshowViewModel, playlistViewModel)
         }
     }

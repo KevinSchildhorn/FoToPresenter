@@ -75,7 +75,7 @@ class DirectoryViewModel(
     //region Connection
 
     fun setLoggedIn() {
-        _uiState.update { it.copy(loggedIn = true) }
+        //_uiState.update { it.copy(loggedIn = true) }
     }
 
     fun logout() {
@@ -85,7 +85,7 @@ class DirectoryViewModel(
             val logoutUseCase = UseCaseFactory.disconnectFromServerUseCase
             logoutUseCase()
             logger.d { "Setting loggedIn state to false" }
-            _uiState.update { it.copy(loggedIn = false) }
+            //_uiState.update { it.copy(loggedIn = false) }
         }
     }
 
@@ -105,7 +105,7 @@ class DirectoryViewModel(
                     val retrieveImagesUseCase = UseCaseFactory.retrieveImageDirectoriesUseCase
                     val images = retrieveImagesUseCase(it.details)
                     logger.v { "Retrieved images, copying them to state" }
-                    _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
+                    //_uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
                 }
             }
         } ?: run {
@@ -114,7 +114,7 @@ class DirectoryViewModel(
     }
 
     fun clearSlideshow() {
-        _uiState.update { it.copy(slideshowDetails = null) }
+       // _uiState.update { it.copy(slideshowDetails = null) }
     }
 
     fun setSelectedImageById(imageId: Int?) {
@@ -208,35 +208,17 @@ class DirectoryViewModel(
         imageScope.launch {
             val startTime = Clock.System.now().toEpochMilliseconds()
             logger.i { "Updating Photos" }
-            val retrieveImagesUseCase: RetrieveImageUseCase = UseCaseFactory.retrieveImageUseCase
             val imageDirectories: List<ImageDirectory> = imageUiState.value.imageDirectories
             imageDirectories.mapIndexed { index, imageDirectory ->
-                async {
-                    retrieveImagesUseCase(
-                        imageDirectory,
-                        imageSize = 512, // TODO: Change
-                    )?.let { newImage ->
-                        logger.i { "Downloaded Image at index $index" }
-                        downloadedImageSet.add(index)
-
-                        _uiState.update {
-                            it.copyImageState(
-                                imageDirectory.id,
-                                state = State.SUCCESS(newImage),
-                            ).copy(
-                                currentImageCount = downloadedImageSet.size
-                            )
-                        }
-
-                        if (_uiState.value.currentImageCount == _uiState.value.totalImageCount) {
-                            val endTime = Clock.System.now().toEpochMilliseconds()
-                            val difference: Float = (endTime.toFloat() - startTime.toFloat()) / 1000
-                            logger.i { "Downloading all images took $difference seconds" }
-                        }
-                    }
+                _uiState.update {
+                    it.copyImageState(
+                        imageDirectory.id,
+                        state = State.SUCCESS(PhotoData(imageDirectory.details.fullPath)),
+                    ).copy(
+                        currentImageCount = downloadedImageSet.size
+                    )
                 }
-            }.awaitAll()
-
+            }
             // TODO: STORE LARGEST IMAGES IN CHUNKS
         }
     }
