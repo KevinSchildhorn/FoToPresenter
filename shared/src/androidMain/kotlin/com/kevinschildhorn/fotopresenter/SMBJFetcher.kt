@@ -13,15 +13,17 @@ import coil3.request.Options
 import com.hierynomus.smbj.share.File
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageCacheDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
-import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
+import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.ui.shared.DriverFactory
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedCache
 import com.kevinschildhorn.fotopresenter.ui.shared.getScaledDimensions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
 
 class SMBJFetcher(
     private val directoryDetails: NetworkDirectoryDetails,
+    private val networkHandler: NetworkHandler,
     context: Context,
 ) : Fetcher {
 
@@ -34,8 +36,8 @@ class SMBJFetcher(
     override suspend fun fetch(): FetchResult? {
         return withContext(Dispatchers.IO) {
             imageCacheDataSource.getImage(directoryDetails)
-            if (SMBJHandler.isConnected) {
-                val image = SMBJHandler.openImage(path = directoryDetails.fullPath)
+            if (networkHandler.isConnected) {
+                val image = networkHandler.openImage(path = directoryDetails.fullPath)
                 val file = image?.file
                 if (file != null) {
                     val bitmap = getBitmapFromFile(file, 64)
@@ -67,19 +69,19 @@ class SMBJFetcher(
         val height: Int = options.outHeight
         val width: Int = options.outWidth
         val dimensions = getScaledDimensions(width, height, size)
-        val heightRatio: Int = Math.round(height.toFloat() / dimensions.second.toFloat())
-        val widthRatio: Int = Math.round(width.toFloat() / dimensions.first.toFloat())
+        val heightRatio: Int = (height.toFloat() / dimensions.second.toFloat()).roundToInt()
+        val widthRatio: Int = (width.toFloat() / dimensions.first.toFloat()).roundToInt()
         options.inSampleSize = if (heightRatio < widthRatio) heightRatio else widthRatio
 
         options.inJustDecodeBounds = false
         return BitmapFactory.decodeStream(file.inputStream, null, options)
     }
 
-    class Factory() : Fetcher.Factory<NetworkDirectoryDetails> {
+    class Factory(private val networkHandler: NetworkHandler) : Fetcher.Factory<NetworkDirectoryDetails> {
         override fun create(
             data: NetworkDirectoryDetails,
             options: Options,
             imageLoader: ImageLoader
-        ): Fetcher? = SMBJFetcher(data, options.context)
+        ): Fetcher? = SMBJFetcher(data, networkHandler, options.context)
     }
 }
