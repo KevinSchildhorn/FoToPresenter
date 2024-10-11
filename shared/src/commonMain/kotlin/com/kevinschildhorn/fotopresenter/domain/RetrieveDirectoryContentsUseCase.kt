@@ -18,22 +18,6 @@ class RetrieveDirectoryContentsUseCase(
 ) {
     suspend operator fun invoke(path: String): DirectoryContents {
         logger.i { "Getting directory Contents at path $path" }
-        val directoryContents = directoryRepository.getDirectoryContents(path)
-        return directoryContents.updateImages {
-            logger.i { "Updating Image File ${it.name}" }
-            imageRepository.getImage(it)
-        }
+        return directoryRepository.getDirectoryContents(path)
     }
 }
-
-private suspend fun DirectoryContents.updateImages(block: suspend (NetworkDirectoryDetails) -> SharedImage?): DirectoryContents =
-    this.copy(
-        images =
-            images.map {
-                ImageDirectory(
-                    it.details,
-                    it.metaData,
-                    image = block(it.details)
-                )
-            },
-    )

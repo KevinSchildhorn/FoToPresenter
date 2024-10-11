@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import coil3.ImageLoader
@@ -10,23 +11,34 @@ import coil3.fetch.Fetcher
 import coil3.fetch.ImageFetchResult
 import coil3.request.Options
 import com.hierynomus.smbj.share.File
+import com.kevinschildhorn.fotopresenter.data.datasources.ImageCacheDataSource
+import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.PhotoData
+import com.kevinschildhorn.fotopresenter.ui.shared.DriverFactory
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedCache
 import com.kevinschildhorn.fotopresenter.ui.shared.getScaledDimensions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class SMBJFetcher(
-    private val photoData: PhotoData,
+    private val directoryDetails: NetworkDirectoryDetails,
+    context: Context,
 ) : Fetcher {
+
+    val imageCacheDataSource = ImageCacheDataSource(
+        cache = SharedCache,
+        driver = DriverFactory(context).createDriver(),
+        logger = baseLogger.withTag("ImageCacheDataSource")
+    )
 
     override suspend fun fetch(): FetchResult? {
         return withContext(Dispatchers.IO) {
+            imageCacheDataSource.getImage(directoryDetails)
             if (SMBJHandler.isConnected) {
-                val image = SMBJHandler.openImage(path = photoData.path)
+                val image = SMBJHandler.openImage(path = directoryDetails.fullPath)
                 val file = image?.file
-                if(file != null) {
-                    val bitmap = getBitmapFromFile(file, 256)
+                if (file != null) {
+                    val bitmap = getBitmapFromFile(file, 64)
                     if (bitmap != null) {
                         file.close()
                         ImageFetchResult(
@@ -63,11 +75,11 @@ class SMBJFetcher(
         return BitmapFactory.decodeStream(file.inputStream, null, options)
     }
 
-    class Factory() : Fetcher.Factory<PhotoData> {
+    class Factory() : Fetcher.Factory<NetworkDirectoryDetails> {
         override fun create(
-            data: PhotoData,
+            data: NetworkDirectoryDetails,
             options: Options,
             imageLoader: ImageLoader
-        ): Fetcher? = SMBJFetcher(data)
+        ): Fetcher? = SMBJFetcher(data, options.context)
     }
 }

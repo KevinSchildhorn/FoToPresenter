@@ -8,7 +8,6 @@ import com.kevinschildhorn.fotopresenter.data.FolderDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
-import com.kevinschildhorn.fotopresenter.data.State
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.extension.addPath
@@ -28,7 +27,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
-import kotlinx.datetime.Clock
 import org.koin.core.component.KoinComponent
 
 class DirectoryViewModel(
@@ -41,13 +39,9 @@ class DirectoryViewModel(
     private val slideshowScope: CoroutineScope = viewModelScope + Dispatchers.IO
     private val imageScope: CoroutineScope = viewModelScope + Dispatchers.IO
 
+    private val _directoryContentsState = MutableStateFlow(DirectoryContents())
     private val _uiState = MutableStateFlow(DirectoryScreenState())
     val uiState: StateFlow<DirectoryScreenState> = _uiState.asStateFlow()
-
-    private val _directoryContentsState = MutableStateFlow(DirectoryContents())
-
-    // Indexes of all Downloaded images
-    private val downloadedImageSet: MutableSet<Int> = mutableSetOf()
 
     private val currentPath: String
         get() = uiState.value.currentPath
@@ -102,7 +96,7 @@ class DirectoryViewModel(
     }
 
     fun clearSlideshow() {
-        // _uiState.update { it.copy(slideshowDetails = null) }
+        _uiState.update { it.copy(slideshowDetails = null) }
     }
 
     fun setSelectedImageById(imageId: Int?) {
@@ -140,7 +134,7 @@ class DirectoryViewModel(
         logger.i { "Changing directory to path $path" }
 
         cancelJobs()
-        slideshowScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(Dispatchers.Default) {
             val changeDirectoryUseCase = UseCaseFactory.changeDirectoryUseCase
             try {
                 logger.i { "Getting New Path" }
@@ -152,21 +146,13 @@ class DirectoryViewModel(
                 logger.e(e) { "Error Occurred Getting new path" }
                 _uiState.update {
                     it.copy(
-                        state =
-                        UiState.ERROR(
-                            e.message ?: "An Unknown Network Error Occurred",
-                        ),
+                        state = UiState.ERROR(e.message ?: "An Unknown Network Error Occurred"),
                     )
                 }
             } catch (e: Exception) {
                 logger.e(e) { "Something went wrong" }
                 _uiState.update {
-                    it.copy(
-                        state =
-                        UiState.ERROR(
-                            e.message ?: "Something Went Wrong",
-                        ),
-                    )
+                    it.copy(state = UiState.ERROR(e.message ?: "Something Went Wrong"))
                 }
             }
         }
@@ -185,29 +171,6 @@ class DirectoryViewModel(
 
             updateGrid()
             logger.i { "Current State ${uiState.value.state}" }
-            updatePhotos()
-        }
-    }
-
-    private fun updatePhotos() {
-        val count = imageUiState.value.imageDirectories.count()
-        downloadedImageSet.clear()
-        _uiState.update { it.copy(totalImageCount = count, currentImageCount = 0) }
-        imageScope.launch {
-            val startTime = Clock.System.now().toEpochMilliseconds()
-            logger.i { "Updating Photos" }
-            val imageDirectories: List<ImageDirectory> = imageUiState.value.imageDirectories
-            imageDirectories.mapIndexed { index, imageDirectory ->
-                _uiState.update {
-                    it.copyImageState(
-                        imageDirectory.id,
-                        state = State.SUCCESS(PhotoData(imageDirectory.details.fullPath)),
-                    ).copy(
-                        currentImageCount = downloadedImageSet.size
-                    )
-                }
-            }
-            // TODO: STORE LARGEST IMAGES IN CHUNKS
         }
     }
 
@@ -228,11 +191,15 @@ class DirectoryViewModel(
     private val DirectoryContents.asDirectoryGridState: DirectoryGridState
         get() =
             DirectoryGridState(
-                folderStates = this.folders.map { FolderDirectoryGridCellState(it.name, it.id) },
-                imageStates =
-                this.images.map {
-                    ImageDirectoryGridCellState(
-                        State.IDLE,
+                folderStates = folders.map {
+                    DirectoryGridCellState.Folder(
+                        it.name,
+                        it.id
+                    )
+                },
+                imageStates = images.map {
+                    DirectoryGridCellState.Image(
+                        it.details,
                         it.name,
                         it.id,
                     )
@@ -249,7 +216,7 @@ class DirectoryViewModel(
                 logger.i { "Inserting Playlist Image ${playlist.id} as ${uiState.value.selectedDirectory}" }
 
                 val states: List<Directory> =
-                    if (selectedDirectory.isImageGridCell) this.images
+                    if (selectedDirectory is DirectoryGridCellState.Image) this.images
                     else this.folders
 
                 states.find { it.id == selectedDirectory.id }
@@ -288,7 +255,6 @@ class DirectoryViewModel(
         slideshowScope.coroutineContext.cancelChildren()
         imageScope.coroutineContext.cancelChildren()
         logger.v { "Finished Cancelling Jobs!" }
-
     }
 
     private fun findSelectedFolderDirectory(): FolderDirectory? =

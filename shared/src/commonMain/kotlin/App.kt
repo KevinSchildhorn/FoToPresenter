@@ -35,7 +35,6 @@ fun App(
         typography = FotoTypography(),
         shapes = fotoShapes,
     ) {
-
         Scaffold { innerPadding ->
             NavHost(
                 navController = navController,

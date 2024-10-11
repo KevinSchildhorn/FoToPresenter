@@ -3,13 +3,14 @@ package com.kevinschildhorn.fotopresenter.ui.compose
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.kevinschildhorn.fotopresenter.data.State
+import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
+import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectoryDetails
+import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGridCell
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.FolderDirectoryGridCell
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridState
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.FolderDirectoryGridCellState
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.ImageDirectoryGridCellState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationBar
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationItem
 
@@ -25,7 +26,7 @@ fun BaseDirectoryPreview() {
 @Composable
 fun FolderDirectoryEmptyPreview() {
     Column {
-        FolderDirectoryGridCell(FolderDirectoryGridCellState("Hello",0))
+        FolderDirectoryGridCell(DirectoryGridCellState.Folder("Hello",0))
     }
 }
 
@@ -35,10 +36,10 @@ fun DirectoryGridPreview() {
     DirectoryGrid(
         directoryContent = DirectoryGridState(
             folderStates = listOf(
-                FolderDirectoryGridCellState("Hello",0),
+                DirectoryGridCellState.Folder("Hello",0),
             ),
             imageStates = mutableListOf(
-                ImageDirectoryGridCellState(State.IDLE,"Hello", 1)
+                DirectoryGridCellState.Image(MockNetworkDirectoryDetails(),"Hello", 1)
             )
         ),
         onFolderPressed = {},
