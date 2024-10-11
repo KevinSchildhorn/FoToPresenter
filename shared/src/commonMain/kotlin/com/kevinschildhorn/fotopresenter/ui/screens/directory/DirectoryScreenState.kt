@@ -25,8 +25,8 @@ data class DirectoryScreenState(
 }
 
 data class DirectoryGridState(
-    val folderStates: List<DirectoryGridCellState>,
-    val imageStates: List<DirectoryGridCellState>,
+    val folderStates: List<DirectoryGridCellState.Folder>,
+    val imageStates: List<DirectoryGridCellState.Image>,
 ) {
     val allStates: List<DirectoryGridCellState>
         get() = folderStates + imageStates
