@@ -1,7 +1,16 @@
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoShapes
 import com.kevinschildhorn.fotopresenter.ui.screens.common.Screen
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
@@ -12,49 +21,59 @@ import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
 
+// The ViewModels need to be passed in here because koin doesn't support Koin
 @Composable
 fun App(
     loginViewModel: LoginViewModel,
     directoryViewModel: DirectoryViewModel,
     slideshowViewModel: SlideshowViewModel,
     playlistViewModel: PlaylistViewModel,
+    navController: NavHostController = rememberNavController()
 ) {
-    val currentScreen = remember { mutableStateOf(Screen.LOGIN) }
+    MaterialTheme(
+        colors = fotoColors,
+        typography = FotoTypography(),
+        shapes = fotoShapes,
+    ) {
 
-    MaterialTheme {
-        when (currentScreen.value) {
-            Screen.LOGIN ->
-                LoginScreen(loginViewModel) {
-                    directoryViewModel.setLoggedIn()
-                    currentScreen.value = Screen.DIRECTORY
-                }
-
-            Screen.DIRECTORY ->
-                DirectoryScreen(
-                    directoryViewModel,
-                    onLogout = {
-                        loginViewModel.setLoggedOut()
-                        currentScreen.value = Screen.LOGIN
-                    },
-                    onStartSlideshow = {
-                        slideshowViewModel.setSlideshow(it)
-                        directoryViewModel.clearSlideshow()
-                        currentScreen.value = Screen.SLIDESHOW
-                    },
-                    onShowPlaylists = {
-                        currentScreen.value = Screen.PLAYLIST
+        Scaffold { innerPadding ->
+            NavHost(
+                navController = navController,
+                startDestination = Screen.LOGIN.name,
+                modifier = Modifier.fillMaxSize().padding(innerPadding)
+            ) {
+                composable(route = Screen.LOGIN.name) {
+                    LoginScreen(loginViewModel) {
+                        navController.navigate(Screen.DIRECTORY.name)
                     }
-                )
-
-            Screen.SLIDESHOW ->
-                SlideshowScreen(slideshowViewModel) {
-                    currentScreen.value = Screen.DIRECTORY
                 }
-
-            Screen.PLAYLIST -> {
-                PlaylistScreen(playlistViewModel, overlaid = false) {
-                    slideshowViewModel.setSlideshowFromPlaylist(it)
-                    currentScreen.value = Screen.SLIDESHOW
+                composable(route = Screen.DIRECTORY.name) {
+                    DirectoryScreen(
+                        directoryViewModel,
+                        onLogout = {
+                            loginViewModel.setLoggedOut()
+                            navController.navigate(Screen.LOGIN.name)
+                        },
+                        onStartSlideshow = {
+                            slideshowViewModel.setSlideshow(it)
+                            directoryViewModel.clearSlideshow()
+                            navController.navigate(Screen.SLIDESHOW.name)
+                        },
+                        onShowPlaylists = {
+                            navController.navigate(Screen.PLAYLIST.name)
+                        }
+                    )
+                }
+                composable(route = Screen.SLIDESHOW.name) {
+                    SlideshowScreen(slideshowViewModel) {
+                        navController.navigate(Screen.DIRECTORY.name)
+                    }
+                }
+                composable(route = Screen.PLAYLIST.name) {
+                    PlaylistScreen(playlistViewModel, overlaid = false) {
+                        slideshowViewModel.setSlideshowFromPlaylist(it)
+                        navController.navigate(Screen.SLIDESHOW.name)
+                    }
                 }
             }
         }

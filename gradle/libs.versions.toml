@@ -21,6 +21,7 @@ ktlint = "0.0.26"
 ktlint-plugin = "12.1.1"
 multiplatform-settings = "1.1.1"
 multiplatform-settings-test = "1.0.0"
+navigationCompose = "2.7.0-alpha07"
 resources-version = "0.23.0"
 security-crypto = "1.1.0-alpha06"
 smbj = "0.11.5"
@@ -57,6 +58,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 ktlint = { module = "com.twitter.compose.rules:ktlint", version.ref = "ktlint" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatform-settings" }
 multiplatform-settings-test = { module = "com.russhwolf:multiplatform-settings-test", version.ref = "multiplatform-settings-test" }
+navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 security-crypto = { module = "androidx.security:security-crypto", version.ref = "security-crypto" }
 smbj = { module = "com.hierynomus:smbj", version.ref = "smbj" }
 sqlite-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlite-driver" }
