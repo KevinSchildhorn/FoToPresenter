@@ -69,7 +69,6 @@ fun DirectoryScreen(
     var overlayVisible by remember { mutableStateOf(DirectoryOverlay.NONE) }
 
     // Navigation
-    if (!uiState.loggedIn) onLogout()
     uiState.slideshowDetails?.let {
         onStartSlideshow(it)
     }
