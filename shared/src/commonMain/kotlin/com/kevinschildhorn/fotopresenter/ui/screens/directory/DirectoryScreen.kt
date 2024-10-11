@@ -58,7 +58,6 @@ enum class DirectoryOverlay {
 fun DirectoryScreen(
     viewModel: DirectoryViewModel,
     onLogout: () -> Unit,
-    onStartSlideshow: (ImageSlideshowDetails) -> Unit,
     onShowPlaylists: () -> Unit,
 ) {
     LaunchedEffect(Unit) {
@@ -67,12 +66,6 @@ fun DirectoryScreen(
     val uiState by viewModel.uiState.collectAsState()
     val imageUiState by viewModel.imageUiState.collectAsState()
     var overlayVisible by remember { mutableStateOf(DirectoryOverlay.NONE) }
-
-    // Navigation
-    //if (!uiState.loggedIn) onLogout()
-    //uiState.slideshowDetails?.let {
-    //    onStartSlideshow(it)
-    //}
 
     //region UI
     Column {

@@ -13,7 +13,6 @@ data class DirectoryScreenState(
     val currentPath: String = "",
     var directoryGridState: DirectoryGridState = DirectoryGridState(emptyList(), mutableListOf()),
     val slideshowDetails: ImageSlideshowDetails? = null,
-    val loggedIn: Boolean = true,
     val selectedDirectory: DirectoryGridCellState? = null,
     val currentImageCount: Int = 0,
     val totalImageCount: Int = 0,

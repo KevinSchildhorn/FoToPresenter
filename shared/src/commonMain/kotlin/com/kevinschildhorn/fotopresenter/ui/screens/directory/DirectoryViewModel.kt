@@ -68,18 +68,12 @@ class DirectoryViewModel(
 
     //region Connection
 
-    fun setLoggedIn() {
-        //_uiState.update { it.copy(loggedIn = true) }
-    }
-
     fun logout() {
         cancelJobs()
         viewModelScope.launch(Dispatchers.Default) {
             logger.i { "Logging Out" }
             val logoutUseCase = UseCaseFactory.disconnectFromServerUseCase
             logoutUseCase()
-            logger.d { "Setting loggedIn state to false" }
-            //_uiState.update { it.copy(loggedIn = false) }
         }
     }
 

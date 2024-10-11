@@ -54,7 +54,6 @@ class DirectoryViewModelTest : KoinTest {
     fun `Refresh Screen`() =
         runTest(testDispatcher) {
             val viewModel: DirectoryViewModel by inject()
-            assertTrue(viewModel.uiState.value.loggedIn)
 
             viewModel.uiState.test {
                 viewModel.refreshScreen()
@@ -68,7 +67,6 @@ class DirectoryViewModelTest : KoinTest {
                 state = awaitItem()
                 assertEquals(UiState.SUCCESS, state.state)
                 assertEquals("", state.currentPath)
-                assertTrue(state.loggedIn)
                 assertEquals(2, state.directoryGridState.imageStates.count())
                 assertEquals(2, state.directoryGridState.folderStates.count())
                 cancelAndIgnoreRemainingEvents()
@@ -79,12 +77,10 @@ class DirectoryViewModelTest : KoinTest {
     fun logout() =
         runTest(testDispatcher) {
             val viewModel: DirectoryViewModel by inject()
-            assertTrue(viewModel.uiState.value.loggedIn)
             viewModel.uiState.test {
                 var state = awaitItem()
                 viewModel.logout()
                 state = awaitItem()
-                assertFalse(state.loggedIn)
                 cancelAndIgnoreRemainingEvents()
             }
         }
