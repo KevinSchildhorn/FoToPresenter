@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter
 
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
+import com.kevinschildhorn.fotopresenter.data.DirectoryEtc
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageCacheDataSource
@@ -46,12 +47,15 @@ actual object UseCaseFactory {
         networkHandler = networkHandler,
         logger = baseLogger.withTag("imageMetadataDataSource")
     )
-    private val directoryRepository = DirectoryRepository(directoryDataSource, imageMetadataDataSource)
+    val directoryRepository = DirectoryRepository(directoryDataSource, imageMetadataDataSource)
+
     private val imageRepository = ImageRepository(ImageRemoteDataSource(networkHandler))
     private val playlistSQLDataSource = PlaylistSQLDataSource(
         sqlDriver,
         com.kevinschildhorn.fotopresenter.baseLogger
     )
+    val directoryEtc = DirectoryEtc(imageRepository, directoryRepository, baseLogger)
+
     private val playlistFileDataSource =
         PlaylistFileDataSource(
             baseLogger.withTag("playlistFileDataSource"),

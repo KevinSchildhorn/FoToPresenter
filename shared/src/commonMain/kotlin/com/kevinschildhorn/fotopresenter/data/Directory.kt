@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.data
 
+import androidx.compose.ui.graphics.ImageBitmap
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
@@ -29,6 +30,7 @@ data class ImageDirectory(
     override val details: NetworkDirectoryDetails,
     val metaData: MetadataFileDetails?,
     val image: SharedImage? = null,
+    val imageBitmap: ImageBitmap? = null,
 ) : Directory {
     override fun toString(): String = "(I:${details.fullPath}:${details.id})"
 }

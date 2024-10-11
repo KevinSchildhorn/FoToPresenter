@@ -12,21 +12,22 @@ class DirectoryRepository(
     private val directoryDataSource: DirectoryDataSource,
     private val metadataDataSource: ImageMetadataDataSource,
 ) {
+    // Retrieves [NetworkDirectoryDetails] for folders and directories. Contains no bitmap data
     suspend fun getDirectoryContents(path: String): DirectoryContents {
         val folderDirectories: List<NetworkDirectoryDetails> =
             directoryDataSource.getFolderDirectories(path)
         val imageDirectories: List<NetworkDirectoryDetails> =
             directoryDataSource.getImageDirectories(path)
 
-        val metaData = metadataDataSource.importMetaData()
-
+        //val metaData = metadataDataSource.importMetaData()
 
         return DirectoryContents(
             folders = folderDirectories.map { FolderDirectory(it) },
             images = imageDirectories.map { networkDetails ->
                 ImageDirectory(
                     networkDetails,
-                    metaData = metaData.files.find { networkDetails.fullPath == it.filePath }
+                    metaData = null, //metaData.files.find { networkDetails.fullPath == it.filePath }
+                    image = null,
                 )
             },
         )
