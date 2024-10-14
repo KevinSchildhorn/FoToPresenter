@@ -1,19 +1,15 @@
 package com.kevinschildhorn.fotopresenter
 
-import co.touchlab.kermit.Logger
-import co.touchlab.kermit.LoggerConfig
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
-import com.kevinschildhorn.fotopresenter.data.datasources.ImageCacheDataSource
+import com.kevinschildhorn.fotopresenter.data.datasources.image.CachedImageDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
-import com.kevinschildhorn.fotopresenter.data.datasources.ImageRemoteDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistFileDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistSQLDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
-import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
@@ -26,7 +22,7 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 import com.kevinschildhorn.fotopresenter.ui.shared.DriverFactory
-import com.kevinschildhorn.fotopresenter.ui.shared.SharedCache
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedInMemoryCache
 import com.russhwolf.settings.PreferencesSettings
 import java.util.prefs.Preferences
 
@@ -47,7 +43,6 @@ actual object UseCaseFactory {
         logger = baseLogger.withTag("imageMetadataDataSource")
     )
     private val directoryRepository = DirectoryRepository(directoryDataSource, imageMetadataDataSource)
-    private val imageRepository = ImageRepository(ImageRemoteDataSource(networkHandler))
     private val playlistSQLDataSource = PlaylistSQLDataSource(
         sqlDriver,
         com.kevinschildhorn.fotopresenter.baseLogger
@@ -101,13 +96,12 @@ actual object UseCaseFactory {
     actual val retrieveDirectoryContentsUseCase: RetrieveDirectoryContentsUseCase
         get() = RetrieveDirectoryContentsUseCase(
             directoryRepository = directoryRepository,
-            imageRepository = imageRepository,
             logger = baseLogger.withTag("RetrieveDirectoryContentsUseCase")
         )
     actual val retrieveImageUseCase: RetrieveImageUseCase
         get() = RetrieveImageUseCase(
-            imageCacheDataSource = ImageCacheDataSource(
-                cache = SharedCache,
+            cachedImageDataSource = CachedImageDataSource(
+                cache = SharedInMemoryCache,
                 driver = sqlDriver,
                 logger = baseLogger.withTag("ImageCacheDataSource")
             ),

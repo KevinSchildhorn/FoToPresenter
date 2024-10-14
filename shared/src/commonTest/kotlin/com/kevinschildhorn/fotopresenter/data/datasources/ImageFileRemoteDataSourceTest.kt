@@ -1,56 +1,46 @@
-package com.kevinschildhorn.fotopresenter.data.repositories
+package com.kevinschildhorn.fotopresenter.data.datasources
 
 import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerError
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
-import com.kevinschildhorn.fotopresenter.testingModule
+import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
-import org.koin.core.context.startKoin
-import org.koin.core.context.stopKoin
-import org.koin.test.KoinTest
-import org.koin.test.inject
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.fail
 
 /**
-Testing [ImageRepository]
+Testing [ImageFileRemoteDataSource]
  **/
-class ImageRepositoryTest : KoinTest {
+class ImageFileRemoteDataSourceTest {
     private val networkHandler: MockNetworkHandler = MockNetworkHandler
-    private val repository: ImageRepository by inject()
+    private val dataSource = ImageFileRemoteDataSource(networkHandler)
 
     @BeforeTest
     fun startTest() =
         runBlocking {
-            startKoin {
-                modules(testingModule())
-            }
             networkHandler.connectSuccessfully()
         }
 
     @AfterTest
     fun tearDown() =
         runBlocking {
-            stopKoin()
             networkHandler.disconnect()
         }
 
     @Test
     fun `get Image Success`() =
         runBlocking {
+            val networkDirectory =
+                DefaultNetworkDirectoryDetails(
+                    fullPath = "Photos/Success.png",
+                    id = 1,
+                )
             try {
-                val result =
-                    repository.getImage(
-                        DefaultNetworkDirectoryDetails(
-                            fullPath = "Photos/Success.png",
-                            id = 1,
-                        ),
-                    )
+                val image = dataSource.getImage(networkDirectory)
             } catch (e: Exception) {
                 assertEquals("Success", e.message)
             }
@@ -59,14 +49,13 @@ class ImageRepositoryTest : KoinTest {
     @Test
     fun `get Image Failure`() =
         runBlocking {
-            val result =
-                repository.getImage(
-                    DefaultNetworkDirectoryDetails(
-                        fullPath = "Photos/nonExistant.png",
-                        id = 1,
-                    ),
+            val networkDirectory =
+                DefaultNetworkDirectoryDetails(
+                    fullPath = "Photos/nonExistant.png",
+                    id = 1,
                 )
-            assertNull(result)
+            val image = dataSource.getImage(networkDirectory)
+            assertNull(image)
         }
 
     @Test
@@ -74,14 +63,8 @@ class ImageRepositoryTest : KoinTest {
         runBlocking {
             networkHandler.disconnect()
             try {
-                val result =
-                    repository.getImage(
-                        DefaultNetworkDirectoryDetails(
-                            fullPath = "Photos/nonExistant.png",
-                            id = 1,
-                        ),
-                    )
-                fail("Should Throw Exception")
+                val image = dataSource.getImage(DefaultNetworkDirectoryDetails("", 1))
+                fail("Should have thrown exception")
             } catch (e: NetworkHandlerException) {
                 assertEquals(e.message, NetworkHandlerError.NOT_CONNECTED.message)
             }

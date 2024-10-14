@@ -105,8 +105,10 @@ object SMBJHandler : NetworkHandler {
     }
 
     override suspend fun openImage(path: String): SharedImage? =
-        getFile(path)?.let {
-            val sharedImage = SharedImage(it)
+        getFile(path)?.let { file ->
+            val byteArray = file.inputStream.readAllBytes()
+            file.close()
+            val sharedImage = SharedImage(byteArray)
             sharedImage
         } ?: run { null }
 

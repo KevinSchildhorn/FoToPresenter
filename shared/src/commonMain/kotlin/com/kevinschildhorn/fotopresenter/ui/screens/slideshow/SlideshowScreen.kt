@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.LoadingOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.Overlay
 import compose.icons.EvaIcons
@@ -59,10 +60,10 @@ fun SlideshowScreen(
     }
 
     Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
-        imageState.selectedImage?.let { bitmap ->
+        imageState.selectedImage?.let { sharedImage ->
             Crossfade(imageState.selectedImageIndex, animationSpec = tween(500)){
-                Image(
-                    bitmap = bitmap,
+                AsyncImage(
+                    model = sharedImage,
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize(),
                 )
