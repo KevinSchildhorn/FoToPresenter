@@ -1,11 +1,10 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 
-
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.kevinschildhorn.atomik.atomic.atoms.textStyle
-import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreenAtoms
+import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 
 @Composable
 fun PrimaryTextButton(
@@ -14,12 +13,11 @@ fun PrimaryTextButton(
     buttonState: ButtonState = ButtonState.ENABLED,
     onClick: () -> Unit,
 ) {
-    val molecule = LoginScreenAtoms.primaryButton
-
     PrimaryButton(modifier = modifier, buttonState = buttonState, onClick = onClick) {
         Text(
             title,
-            style = molecule.textAtom.textStyle,
+            style = FotoTypography().button,
+            color = fotoColors.onPrimary,
         )
     }
 }

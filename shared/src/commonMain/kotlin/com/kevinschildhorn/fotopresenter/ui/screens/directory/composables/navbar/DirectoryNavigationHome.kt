@@ -6,35 +6,33 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AtomikIcon
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AtomikText
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryAtoms
+import com.kevinschildhorn.fotopresenter.ui.atoms.disabled
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.Home
 
 @Composable
 fun DirectoryNavigationHome(onClick: () -> Unit) {
-    val molecule = DirectoryAtoms.navigationItem
     Button(
         onClick = onClick,
-        modifier = Modifier.height(44.dp).width(44.dp).clip(RoundedCornerShape(molecule.radius.dp)),
+        modifier = Modifier.height(44.dp).width(44.dp).clip(RoundedCornerShape(10.dp)),
         colors =
-        ButtonDefaults.buttonColors(
-            backgroundColor = molecule.color.composeColor,
-            disabledBackgroundColor = molecule.disabledColor.composeColor,
-        ),
+            ButtonDefaults.buttonColors(
+                backgroundColor = fotoColors.secondary,
+                disabledBackgroundColor = disabled,
+            ),
     ) {
-        AtomikIcon(
-            EvaIcons.Fill.Home,
-            atom = molecule.textAtom,
+        Icon(
+            imageVector = EvaIcons.Fill.Home,
+            tint = fotoColors.onSecondary,
             contentDescription = "Home",
-            modifier = Modifier.size(44.dp)
+            modifier = Modifier.size(44.dp),
         )
     }
 }

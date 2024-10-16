@@ -17,8 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridState
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.FolderDirectoryGridCellState
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.ImageDirectoryGridCellState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -44,7 +42,8 @@ fun DirectoryGrid(
                         awaitPointerEventScope {
                             val event = awaitPointerEvent()
                             if (event.type == PointerEventType.Press &&
-                                event.buttons.isSecondaryPressed) {
+                                event.buttons.isSecondaryPressed
+                            ) {
                                 event.changes.forEach { e -> e.consume() }
                                 onActionSheet(state)
                             }
@@ -52,10 +51,9 @@ fun DirectoryGrid(
                     }
                     .combinedClickable(
                         onClick = {
-                            (state as? ImageDirectoryGridCellState)?.let { imageContent ->
-                                onImageDirectoryPressed(imageContent.id)
-                            } ?: run {
-                                onFolderPressed(state.id)
+                            when (state) {
+                                is DirectoryGridCellState.Folder -> onFolderPressed(state.id)
+                                is DirectoryGridCellState.Image -> onImageDirectoryPressed(state.id)
                             }
                         },
                         onLongClick = {
@@ -64,17 +62,17 @@ fun DirectoryGrid(
                         },
                         onLongClickLabel = "Action Sheet",
                     )
-            (state as? FolderDirectoryGridCellState)?.let { folderContent ->
-                FolderDirectoryGridCell(
-                    folderContent,
-                    modifier = directoryItemModifier,
-                )
-            }
-            (state as? ImageDirectoryGridCellState)?.let { imageContent ->
-                ImageDirectoryGridCell(
-                    imageContent,
-                    modifier = directoryItemModifier,
-                )
+            when (state) {
+                is DirectoryGridCellState.Folder ->
+                    FolderDirectoryGridCell(
+                        state,
+                        modifier = directoryItemModifier,
+                    )
+                is DirectoryGridCellState.Image ->
+                    ImageDirectoryGridCell(
+                        state,
+                        modifier = directoryItemModifier,
+                    )
             }
         }
     }

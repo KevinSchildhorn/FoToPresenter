@@ -15,19 +15,14 @@ import com.hierynomus.smbj.share.File
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.extension.addPath
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import java.io.OutputStream
-import java.util.*
-import kotlin.math.log
-
 
 object SMBJHandler : NetworkHandler {
     private val client = SMBClient()
     private var connection: Connection? = null
     private var session: Session? = null
     private var share: DiskShare? = null
-    private const val metaDataName: String = "FotoMetaData.json"
+    private const val META_DATA_NAME: String = "FotoMetaData.json"
     private val logger = Logger.withTag("SMBJHandler")
 
     private val accessMask: Set<AccessMask> =
@@ -93,21 +88,23 @@ object SMBJHandler : NetworkHandler {
 
     override suspend fun openDirectory(path: String): String? {
         logger.i { "Opening Directory $path" }
-        val result = share?.openDirectory(
-            path,
-            accessMask,
-            attributes,
-            shareAccesses,
-            createDisposition,
-            createOptions,
-        )
+        val result =
+            share?.openDirectory(
+                path,
+                accessMask,
+                attributes,
+                shareAccesses,
+                createDisposition,
+                createOptions,
+            )
         return result?.path
     }
 
     override suspend fun openImage(path: String): SharedImage? =
-        getFile(path)?.let {
-            val sharedImage = SharedImage(it)
-            it.close()
+        getFile(path)?.let { file ->
+            val byteArray = file.inputStream.readAllBytes()
+            file.close()
+            val sharedImage = SharedImage(byteArray)
             sharedImage
         } ?: run { null }
 
@@ -124,13 +121,15 @@ object SMBJHandler : NetworkHandler {
         connection = null
     }
 
-    override suspend fun savePlaylist(playlistName: String, json: String): Boolean =
-        writeFile(fileName = "$playlistName.json", contents = json)
+    override suspend fun savePlaylist(
+        playlistName: String,
+        json: String,
+    ): Boolean = writeFile(fileName = "$playlistName.json", contents = json)
 
     override suspend fun getPlaylists(): List<String> =
         getDirectoryContents("")
             .filter { it.fileExtension == "json" }
-            .filter { !it.fileName.contains(metaDataName) }
+            .filter { !it.fileName.contains(META_DATA_NAME) }
             .mapNotNull { getFile(it.fullPath) }
             .map {
                 val str = it.inputStream.readAllBytes().decodeToString()
@@ -140,24 +139,22 @@ object SMBJHandler : NetworkHandler {
 
     override suspend fun setMetadata(json: String): Boolean {
         logger.i { "Setting Metadata" }
-        return writeFile(fileName = metaDataName, contents = json)
+        return writeFile(fileName = META_DATA_NAME, contents = json)
     }
 
-    override suspend fun getMetadata(): String? = getFile(metaDataName)?.let {
-        logger.i { "Importing Metadata" }
-        val str = it.inputStream.readAllBytes().decodeToString()
-        it.close()
-        str
-    }
+    override suspend fun getMetadata(): String? =
+        getFile(META_DATA_NAME)?.let {
+            logger.i { "Importing Metadata" }
+            val str = it.inputStream.readAllBytes().decodeToString()
+            it.close()
+            str
+        }
 
     override suspend fun deletePlaylist(playlistName: String) {
         share?.rm("$playlistName.json")
     }
 
-
-    private fun getFile(
-        path: String,
-    ): File? =
+    private fun getFile(path: String): File? =
         try {
             logger.v { "Getting File at path $path" }
             share?.openFile(
@@ -173,8 +170,10 @@ object SMBJHandler : NetworkHandler {
             null
         }
 
-
-    private suspend fun writeFile(fileName: String, contents: String): Boolean {
+    private suspend fun writeFile(
+        fileName: String,
+        contents: String,
+    ): Boolean {
         logger.i { "Writing File" }
         val fileAttributes: MutableSet<FileAttributes> = HashSet()
         fileAttributes.add(FileAttributes.FILE_ATTRIBUTE_NORMAL)
@@ -182,16 +181,16 @@ object SMBJHandler : NetworkHandler {
         createOptions.add(SMB2CreateOptions.FILE_RANDOM_ACCESS)
 
         try {
-
             logger.i { "Trying to open a file $fileName" }
-            val file = share?.openFile(
-                fileName,
-                setOf(AccessMask.GENERIC_ALL),
-                fileAttributes,
-                SMB2ShareAccess.ALL,
-                SMB2CreateDisposition.FILE_OVERWRITE_IF,
-                createOptions
-            )
+            val file =
+                share?.openFile(
+                    fileName,
+                    setOf(AccessMask.GENERIC_ALL),
+                    fileAttributes,
+                    SMB2ShareAccess.ALL,
+                    SMB2CreateDisposition.FILE_OVERWRITE_IF,
+                    createOptions,
+                )
             file?.let {
                 logger.i { "Got the file, writing contents" }
                 val oStream: OutputStream = it.outputStream

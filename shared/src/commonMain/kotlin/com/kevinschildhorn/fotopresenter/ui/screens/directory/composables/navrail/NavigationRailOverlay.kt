@@ -8,8 +8,7 @@ import androidx.compose.material.NavigationRail
 import androidx.compose.material.NavigationRailItem
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.Overlay
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
@@ -33,35 +32,35 @@ fun NavigationRailOverlay(
     ) {
         Row {
             NavigationRail(
-                backgroundColor = FotoColors.surface.composeColor
+                backgroundColor = fotoColors.surface,
             ) {
                 NavigationRailItem(
                     label = {
-                        Text("Playlists", color = FotoColors.surfaceText.composeColor)
+                        Text("Playlists", color = fotoColors.onSurface)
                     },
                     icon = {
                         Icon(
                             EvaIcons.Outline.Monitor,
                             contentDescription = "Playlists",
-                            tint = FotoColors.surfaceText.composeColor
+                            tint = fotoColors.onSurface,
                         )
                     },
                     selected = true,
-                    onClick = onPlaylists
+                    onClick = onPlaylists,
                 )
                 NavigationRailItem(
                     label = {
-                        Text("Logout", color = FotoColors.surfaceText.composeColor)
+                        Text("Logout", color = fotoColors.onSurface)
                     },
                     icon = {
                         Icon(
                             EvaIcons.Fill.LogOut,
                             contentDescription = "Logout",
-                            tint = FotoColors.surfaceText.composeColor
+                            tint = fotoColors.onSurface,
                         )
                     },
                     selected = true,
-                    onClick = onLogout
+                    onClick = onLogout,
                 )
             }
         }

@@ -10,8 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.ChevronRight
@@ -25,25 +24,24 @@ fun DirectoryNavigationBar(
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         DirectoryNavigationHome {
             onHome()
         }
-        LazyRow() {
-            itemsIndexed(directories){ index, item ->
+        LazyRow {
+            itemsIndexed(directories) { index, item ->
                 Icon(
                     EvaIcons.Fill.ChevronRight,
-                    tint = FotoColors.secondaryText.composeColor,
+                    tint = fotoColors.onSecondary,
                     contentDescription = null,
-                    modifier = Modifier.height(44.dp)
+                    modifier = Modifier.height(44.dp),
                 )
                 DirectoryNavigationItem(item) {
                     onItem(index)
                 }
             }
             items(directories) {
-
             }
         }
     }

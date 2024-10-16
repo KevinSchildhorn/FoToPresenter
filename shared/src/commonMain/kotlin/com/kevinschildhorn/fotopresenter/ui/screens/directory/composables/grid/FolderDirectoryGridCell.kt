@@ -10,17 +10,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryAtoms
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.FolderDirectoryGridCellState
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
+import compose.icons.EvaIcons
+import compose.icons.evaicons.Fill
+import compose.icons.evaicons.fill.Folder
 
 @Composable
 fun FolderDirectoryGridCell(
-    folderState: FolderDirectoryGridCellState,
+    folderState: DirectoryGridCellState,
     modifier: Modifier = Modifier,
 ) {
-    val molecule: DirectoryAtoms.EmptyPhotoMolecule = DirectoryAtoms.emptyDirectory
-
     DirectoryGridCell(modifier) {
         Column(
             modifier =
@@ -29,13 +29,13 @@ fun FolderDirectoryGridCell(
                     .padding(5.dp),
         ) {
             Icon(
-                imageVector = molecule.imageAtom.image,
+                imageVector = EvaIcons.Fill.Folder,
                 contentDescription = "Folder",
                 modifier =
                     Modifier
                         .fillMaxWidth()
                         .fillMaxHeight(0.66f),
-                tint = molecule.imageAtom.color.composeColor,
+                tint = fotoColors.onSurface,
             )
             DirectoryGridCellText(
                 folderState.name,

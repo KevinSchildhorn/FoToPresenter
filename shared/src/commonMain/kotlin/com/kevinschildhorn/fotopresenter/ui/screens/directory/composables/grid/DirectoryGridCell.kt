@@ -13,15 +13,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.atomic.atoms.textStyle
-import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryAtoms
+import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 
 @Composable
 fun DirectoryGridCell(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = FotoColors.surface.composeColor,
+    backgroundColor: Color = fotoColors.surface,
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
@@ -39,10 +37,10 @@ fun DirectoryGridCellText(
     text: String,
     modifier: Modifier = Modifier,
 ) {
-    val molecule: DirectoryAtoms.EmptyPhotoMolecule = DirectoryAtoms.emptyDirectory
     Text(
         text = text,
-        style = molecule.textAtom.textStyle,
+        style = FotoTypography().button,
+        color = fotoColors.onSurface,
         textAlign = TextAlign.Center,
         modifier =
             modifier

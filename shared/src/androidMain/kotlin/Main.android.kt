@@ -12,4 +12,4 @@ fun MainView(
     directoryViewModel: DirectoryViewModel,
     slideshowViewModel: SlideshowViewModel,
     playlistViewModel: PlaylistViewModel,
-    ) = App(loginViewModel, directoryViewModel, slideshowViewModel, playlistViewModel)
+) = App(loginViewModel, directoryViewModel, slideshowViewModel, playlistViewModel)

@@ -3,12 +3,7 @@ package com.kevinschildhorn.fotopresenter.ui.screens.directory
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -17,14 +12,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.atomic.atoms.textStyle
-import com.kevinschildhorn.atomik.color.base.composeColor
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.ui.UiState
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
@@ -33,7 +22,6 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.FilterDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ImagePreviewOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.LoadingOverlay
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryAtoms.ImageTicker
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationBar
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.DirectoryTitleBarButton
@@ -70,12 +58,6 @@ fun DirectoryScreen(
     val imageUiState by viewModel.imageUiState.collectAsState()
     var overlayVisible by remember { mutableStateOf(DirectoryOverlay.NONE) }
 
-    // Navigation
-    if (!uiState.loggedIn) onLogout()
-    uiState.slideshowDetails?.let {
-        onStartSlideshow(it)
-    }
-
     //region UI
     Column {
         Row(horizontalArrangement = Arrangement.SpaceBetween) {
@@ -90,10 +72,11 @@ fun DirectoryScreen(
         (uiState.state as? UiState.ERROR)?.let {
             ErrorView(
                 it.message,
-                modifier = Modifier.padding(
-                    horizontal = Padding.STANDARD.dp,
-                    vertical = Padding.SMALL.dp,
-                )
+                modifier =
+                    Modifier.padding(
+                        horizontal = Padding.STANDARD.dp,
+                        vertical = Padding.SMALL.dp,
+                    ),
             )
         }
         DirectoryNavigationBar(
@@ -104,26 +87,8 @@ fun DirectoryScreen(
             onItem = {
                 viewModel.navigateToFolder(it)
             },
-            modifier = Modifier.padding(Padding.SMALL.dp)
+            modifier = Modifier.padding(Padding.SMALL.dp),
         )
-        if (uiState.imageCountString.isNotEmpty()) {
-            Text(
-                uiState.imageCountString,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                style = ImageTicker.textStyle,
-                color = ImageTicker.textColor.composeColor
-            )
-            LinearProgressIndicator(
-                progress = uiState.currentImageCount.toFloat() / uiState.totalImageCount.toFloat(),
-                modifier = Modifier.fillMaxWidth()
-                    .height(25.dp)
-                    .padding(horizontal = Padding.EXTRA_LARGE.dp, vertical = Padding.SMALL.dp)
-                    .clip(RoundedCornerShape(5.dp)),
-                color = FotoColors.primary.composeColor,
-            )
-
-        }
         DirectoryGrid(
             uiState.directoryGridState,
             onFolderPressed = {
@@ -152,6 +117,7 @@ fun DirectoryScreen(
             when (it.action) {
                 ActionSheetAction.START_SLIDESHOW -> {
                     viewModel.startSlideshow()
+                    onStartSlideshow(uiState.slideshowDetails!!)
                     overlayVisible = DirectoryOverlay.NONE
                     viewModel.setSelectedDirectory(null)
                 }
@@ -226,6 +192,7 @@ fun DirectoryScreen(
             },
             onConfirmation = {
                 viewModel.logout()
+                onLogout()
                 overlayVisible = DirectoryOverlay.NONE
             },
         )
@@ -240,7 +207,7 @@ fun DirectoryScreen(
             },
             onConfirmation = {
                 viewModel.setFilterType(it)
-            }
+            },
         )
     }
 
@@ -251,7 +218,7 @@ fun DirectoryScreen(
             overlaid = true,
             onDismiss = {
                 overlayVisible = DirectoryOverlay.NONE
-            }
+            },
         ) { playlist ->
             viewModel.addSelectedDirectoryToPlaylist(playlist)
             overlayVisible = DirectoryOverlay.NONE
@@ -266,10 +233,12 @@ fun DirectoryScreen(
             initialValue = viewModel.selectedMetadata?.tagsString ?: "",
             {
                 overlayVisible = DirectoryOverlay.NONE
-            }, {
+            },
+            {
                 viewModel.saveMetadata(it)
                 viewModel.setSelectedDirectory(null)
                 overlayVisible = DirectoryOverlay.NONE
-            })
+            },
+        )
     }
 }

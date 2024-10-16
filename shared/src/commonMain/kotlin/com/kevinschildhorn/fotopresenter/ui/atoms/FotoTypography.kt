@@ -1,28 +1,47 @@
+@file:Suppress("ktlint:standard:class-naming")
+
 package com.kevinschildhorn.fotopresenter.ui.atoms
 
-import com.kevinschildhorn.atomik.typography.base.AtomikTypography
-import com.kevinschildhorn.atomik.typography.base.AtomikTypographyWeight
-import com.kevinschildhorn.fotopresenter.MR
-import dev.icerock.moko.resources.FontResource
+import androidx.compose.material.Typography
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import fotopresenter.shared.generated.resources.Res
+import fotopresenter.shared.generated.resources.quicksand_bold
+import fotopresenter.shared.generated.resources.quicksand_light
+import fotopresenter.shared.generated.resources.quicksand_medium
+import fotopresenter.shared.generated.resources.quicksand_regular
+import fotopresenter.shared.generated.resources.quicksand_semibold
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.Font
 
-private val fontregularMoko: FontResource = MR.fonts.Quicksand.regular
-private val fontBoldMoko: FontResource = MR.fonts.Quicksand.bold
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+fun QuicksandFontFamily() =
+    FontFamily(
+        Font(Res.font.quicksand_light, weight = FontWeight.Light),
+        Font(Res.font.quicksand_regular, weight = FontWeight.Normal),
+        Font(Res.font.quicksand_medium, weight = FontWeight.Medium),
+        Font(Res.font.quicksand_semibold, weight = FontWeight.SemiBold),
+        Font(Res.font.quicksand_bold, weight = FontWeight.Bold),
+    )
 
-object FotoTypography {
-    val h1 =
-        AtomikTypography(size = 96, weight = AtomikTypographyWeight.NORMAL, font = fontregularMoko)
-    val h2 =
-        AtomikTypography(size = 48, weight = AtomikTypographyWeight.NORMAL, font = fontregularMoko)
-    val h3 =
-        AtomikTypography(size = 36, weight = AtomikTypographyWeight.NORMAL, font = fontregularMoko)
-    val h4 =
-        AtomikTypography(size = 24, weight = AtomikTypographyWeight.NORMAL, font = fontregularMoko)
-    val subtitle =
-        AtomikTypography(size = 16, weight = AtomikTypographyWeight.NORMAL, font = fontregularMoko)
-    val button =
-        AtomikTypography(size = 14, weight = AtomikTypographyWeight.BOLD, font = fontBoldMoko)
-    val body =
-        AtomikTypography(size = 16, weight = AtomikTypographyWeight.NORMAL, font = fontregularMoko)
-    val caption =
-        AtomikTypography(size = 14, weight = AtomikTypographyWeight.BOLD, font = fontBoldMoko)
-}
+@Composable
+fun FotoTypography() =
+    Typography().run {
+        val fontFamily = QuicksandFontFamily()
+        this.copy(
+            h1 = TextStyle(fontSize = 96.sp, fontWeight = FontWeight.Normal, fontFamily = fontFamily),
+            h2 = TextStyle(fontSize = 48.sp, fontWeight = FontWeight.Normal, fontFamily = fontFamily),
+            h3 = TextStyle(fontSize = 36.sp, fontWeight = FontWeight.Normal, fontFamily = fontFamily),
+            h4 = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Normal, fontFamily = fontFamily),
+            subtitle1 = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Normal, fontFamily = fontFamily),
+            subtitle2 = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Normal, fontFamily = fontFamily),
+            button = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Bold, fontFamily = fontFamily),
+            body1 = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Normal, fontFamily = fontFamily),
+            body2 = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Normal, fontFamily = fontFamily),
+            caption = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Bold, fontFamily = fontFamily),
+        )
+    }

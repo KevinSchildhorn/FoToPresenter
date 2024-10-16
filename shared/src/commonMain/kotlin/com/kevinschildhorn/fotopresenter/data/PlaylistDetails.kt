@@ -30,6 +30,6 @@ data class PlaylistItem(
         id = item.id,
         playlistId = item.playlist_id,
         directoryPath = item.directory_path,
-        directoryId = item.directory_id
+        directoryId = item.directory_id,
     )
 }

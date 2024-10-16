@@ -3,7 +3,6 @@ package com.kevinschildhorn.fotopresenter.data.repositories
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.FolderDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
-import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
@@ -18,17 +17,18 @@ class DirectoryRepository(
         val imageDirectories: List<NetworkDirectoryDetails> =
             directoryDataSource.getImageDirectories(path)
 
-        val metaData = metadataDataSource.importMetaData()
-
+        // val metaData = metadataDataSource.importMetaData()
 
         return DirectoryContents(
             folders = folderDirectories.map { FolderDirectory(it) },
-            images = imageDirectories.map { networkDetails ->
-                ImageDirectory(
-                    networkDetails,
-                    metaData = metaData.files.find { networkDetails.fullPath == it.filePath }
-                )
-            },
+            images =
+                imageDirectories.map { networkDetails ->
+                    ImageDirectory(
+                        networkDetails,
+                        // metaData.files.find { networkDetails.fullPath == it.filePath }
+                        metaData = null,
+                    )
+                },
         )
     }
 }

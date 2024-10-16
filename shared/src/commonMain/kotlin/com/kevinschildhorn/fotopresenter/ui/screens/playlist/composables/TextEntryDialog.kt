@@ -13,15 +13,15 @@ import com.kevinschildhorn.fotopresenter.ui.screens.login.composables.LoginTextF
 
 @Composable
 fun TextEntryDialog(
-    title:String,
+    title: String,
     initialValue: String,
     onDismissRequest: () -> Unit,
     onConfirmation: (String) -> Unit,
 ) {
-    var enteredValue:String by remember { mutableStateOf(initialValue) }
+    var enteredValue: String by remember { mutableStateOf(initialValue) }
 
     FotoDialog(
-        dialogTitle = title,//"Playlist Name",
+        dialogTitle = title,
         onDismissRequest = onDismissRequest,
         onConfirmation = {
             onConfirmation(enteredValue)
@@ -33,7 +33,7 @@ fun TextEntryDialog(
                 enteredValue = it
             },
             placeholder = "Name",
-            modifier = Modifier.padding(top = Padding.STANDARD.dp)
+            modifier = Modifier.padding(top = Padding.STANDARD.dp),
         )
     }
 }

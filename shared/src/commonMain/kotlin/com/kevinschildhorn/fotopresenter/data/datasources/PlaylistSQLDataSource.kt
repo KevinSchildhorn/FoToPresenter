@@ -15,10 +15,12 @@ class PlaylistSQLDataSource(
     driver: SqlDriver,
     private val logger: Logger? = null,
 ) : KoinComponent {
-
     private val database = PlaylistDatabase(driver)
 
-    fun createPlaylist(name: String, directories: List<ImageDirectory> = emptyList()): Playlist? {
+    fun createPlaylist(
+        name: String,
+        directories: List<ImageDirectory> = emptyList(),
+    ): Playlist? {
         return try {
             logger?.i { "Creating Playlist $name with images: ${directories.count()}" }
             database.playlistQueries.insertPlaylist(name)
@@ -74,7 +76,10 @@ class PlaylistSQLDataSource(
         }
     }
 
-    fun insertPlaylistImage(playlistId: Long, directory: Directory): PlaylistItem? {
+    fun insertPlaylistImage(
+        playlistId: Long,
+        directory: Directory,
+    ): PlaylistItem? {
         logger?.i { "Inserting Playlist Image ${directory.name}" }
         database.playlistItemsQueries.insertPlaylistImage(
             playlist_id = playlistId,
@@ -84,7 +89,10 @@ class PlaylistSQLDataSource(
         return getPlaylistImage(playlistId, directory.details.fullPath)
     }
 
-    fun getPlaylistImage(playlistId: Long, directoryPath: String): PlaylistItem? {
+    fun getPlaylistImage(
+        playlistId: Long,
+        directoryPath: String,
+    ): PlaylistItem? {
         return try {
             logger?.i { "Selecting Playlist Image $playlistId" }
             val image: PlaylistItems =

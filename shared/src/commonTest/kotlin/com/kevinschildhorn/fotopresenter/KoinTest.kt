@@ -3,14 +3,13 @@ package com.kevinschildhorn.fotopresenter
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import co.touchlab.kermit.Logger
-import co.touchlab.kermit.LoggerConfig
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.russhwolf.settings.MapSettings
 import com.russhwolf.settings.Settings
 import org.koin.dsl.module
 
-private val baseLogger = Logger(LoggerConfig.default)
+private val baseLogger = Logger.withTag("Test")
 
 fun testingModule(settings: MapSettings = MapSettings()) =
     module {
@@ -22,6 +21,4 @@ fun testingModule(settings: MapSettings = MapSettings()) =
             PlaylistDatabase.Schema.create(driver)
             driver
         }
-
-
     } + commonModule

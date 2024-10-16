@@ -5,7 +5,7 @@ import kotlinx.datetime.Clock
 
 interface NetworkDirectoryDetails {
     val fullPath: String
-    val dateMillis:Long
+    val dateMillis: Long
     val id: Int
 
     val fileName: String
@@ -26,5 +26,11 @@ interface NetworkDirectoryDetails {
 class DefaultNetworkDirectoryDetails(
     override val fullPath: String,
     override val id: Int,
-    override val dateMillis: Long = Clock.System.now().toEpochMilliseconds()
+    override val dateMillis: Long = Clock.System.now().toEpochMilliseconds(),
+) : NetworkDirectoryDetails
+
+class MockNetworkDirectoryDetails(
+    override val fullPath: String = "",
+    override val id: Int = 0,
+    override val dateMillis: Long = Clock.System.now().toEpochMilliseconds(),
 ) : NetworkDirectoryDetails

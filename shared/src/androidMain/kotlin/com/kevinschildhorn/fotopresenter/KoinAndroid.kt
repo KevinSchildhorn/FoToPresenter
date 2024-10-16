@@ -8,10 +8,13 @@ import app.cash.sqldelight.db.SqlDriver
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
+import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
 import com.kevinschildhorn.fotopresenter.ui.shared.DriverFactory
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedFileCache
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import org.koin.core.KoinApplication
+import org.koin.core.annotation.KoinInternalApi
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import org.koin.core.module.Module
@@ -25,27 +28,38 @@ fun startKoin(context: Context) {
     }
 }
 
-internal actual val platformModule: Module = module {
-    single<Settings> {
-        SharedPreferencesSettings(
-            delegate = EncryptedSharedPreferences.create(
-                get(),
-                CredentialsDataSource.DATABASE_NAME,
-                MasterKey.Builder(get())
-                    .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                    .build(),
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM,
-            ),
-            commit = false,
-        )
+internal actual val platformModule: Module =
+    module {
+        single<Settings> {
+            SharedPreferencesSettings(
+                delegate =
+                    EncryptedSharedPreferences.create(
+                        get(),
+                        CredentialsDataSource.DATABASE_NAME,
+                        MasterKey.Builder(get())
+                            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                            .build(),
+                        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM,
+                    ),
+                commit = false,
+            )
+        }
+        single<NetworkHandler> {
+            SMBJHandler
+        }
+        single<SqlDriver> { DriverFactory(context = get()).createDriver() }
+        single<NetworkHandler> {
+            SMBJHandler
+        }
+        single<SqlDriver> { DriverFactory(context = get()).createDriver() }
+        single<CacheInterface> {
+            val context: Context = get()
+            SharedFileCache(context.cacheDir.path)
+        }
     }
-    single<NetworkHandler> {
-        SMBJHandler
-    }
-    single<SqlDriver> { DriverFactory(context = get()).createDriver() }
-}
 
+@OptIn(KoinInternalApi::class)
 fun KoinApplication.androidContext(androidContext: Context): KoinApplication {
     if (koin.logger.isAt(Level.INFO)) {
         koin.logger.info("[init] declare Android Context")

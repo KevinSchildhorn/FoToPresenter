@@ -1,7 +1,6 @@
 package com.kevinschildhorn.fotopresenter.domain
 
 import co.touchlab.kermit.Logger
-import co.touchlab.kermit.LoggerConfig
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.testingModule
@@ -22,7 +21,7 @@ class SaveCredentialsUseCaseTest : KoinTest {
 
     @BeforeTest
     fun startTest() {
-        val baseLogger = Logger(LoggerConfig.default)
+        val baseLogger = Logger.withTag("Test")
 
         startKoin {
             modules(testingModule())

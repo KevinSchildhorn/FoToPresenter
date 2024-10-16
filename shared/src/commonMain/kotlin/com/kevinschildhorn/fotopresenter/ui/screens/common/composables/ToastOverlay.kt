@@ -14,18 +14,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.atomik.atomic.atoms.textStyle
-import com.kevinschildhorn.atomik.color.base.composeColor
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoColors
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
-import com.kevinschildhorn.fotopresenter.ui.screens.common.CommonAtoms
+import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import kotlinx.coroutines.delay
 
 @Composable
@@ -42,7 +38,7 @@ fun ToastOverlay(
     AnimatedVisibility(
         visible = visible,
         enter = slideInVertically { -25 } + fadeIn(initialAlpha = 0.3f),
-        exit = slideOutVertically { -25 } + fadeOut()
+        exit = slideOutVertically { -25 } + fadeOut(),
     ) {
         Overlay(
             z = 8f,
@@ -53,24 +49,24 @@ fun ToastOverlay(
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Spacer(Modifier)
                 Column(modifier = Modifier.padding(horizontal = Padding.STANDARD.dp)) {
                     Box(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(25.dp))
-                            .background(FotoColors.secondary.composeColor),
+                        modifier =
+                            Modifier
+                                .clip(RoundedCornerShape(25.dp))
+                                .background(fotoColors.secondary),
                     ) {
-                        Text(
+                        ToastMessage(
                             text,
-                            modifier = Modifier
-                                .padding(
-                                    horizontal = Padding.STANDARD.dp,
-                                    vertical = Padding.MEDIUM.dp
-                                ),
-                            color = CommonAtoms.toastOverlay.textColor.composeColor,
-                            style = CommonAtoms.toastOverlay.textStyle,
+                            modifier =
+                                Modifier
+                                    .padding(
+                                        horizontal = Padding.STANDARD.dp,
+                                        vertical = Padding.MEDIUM.dp,
+                                    ),
                         )
                     }
                     Spacer(Modifier.height(25.dp))

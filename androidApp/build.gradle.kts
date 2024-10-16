@@ -1,9 +1,14 @@
+import org.gradle.kotlin.dsl.get
+import org.gradle.kotlin.dsl.implementation
+import org.gradle.kotlin.dsl.java
+
 plugins {
-    kotlin("multiplatform")
     id("com.android.application")
-    id("org.jetbrains.compose")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    kotlin("multiplatform")
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.crashlytics)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrains.compose)
 }
 
 kotlin {
@@ -12,31 +17,34 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(project(":shared"))
-                implementation("io.insert-koin:koin-android:3.4.0")
-                implementation("com.google.firebase:firebase-crashlytics:18.6.0")
+                implementation(libs.koin.android)
+                implementation(libs.firebase.crashlytics)
+                implementation(libs.accompanist.permissions)
+                implementation(libs.kermit)
+
             }
         }
     }
 }
 
 android {
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
+    compileSdk = libs.versions.compileSdk.get().toInt()
     namespace = "com.kevinschildhorn"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
     defaultConfig {
         applicationId = "com.kevinschildhorn.fotopresenter"
-        minSdk = (findProperty("android.minSdk") as String).toInt()
-        targetSdk = (findProperty("android.targetSdk") as String).toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(libs.versions.java.get().toInt())
     }
 }

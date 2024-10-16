@@ -1,6 +1,7 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.slideshow
 
 import co.touchlab.kermit.Logger
+import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.ui.screens.common.DefaultImageViewModel
@@ -14,16 +15,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
-import java.util.*
+import java.util.Timer
 import kotlin.concurrent.fixedRateTimer
-import com.kevinschildhorn.fotopresenter.UseCaseFactory
 
 class SlideshowViewModel(
     private val logger: Logger,
 ) : ViewModel(),
     ImageViewModel by DefaultImageViewModel(logger),
     KoinComponent {
-
     private val _uiState = MutableStateFlow(SlideshowScreenState())
     val uiState: StateFlow<SlideshowScreenState> = _uiState.asStateFlow()
     private var timer: Timer? = null
@@ -74,9 +73,10 @@ class SlideshowViewModel(
 
     private fun startImageTimer(seconds: Long = 5L) {
         val time = seconds * 1000
-        timer = fixedRateTimer(period = time, initialDelay = time) {
-            showNextImage()
-        }
+        timer =
+            fixedRateTimer(period = time, initialDelay = time) {
+                showNextImage()
+            }
     }
 
     private fun stopImageTimer() {

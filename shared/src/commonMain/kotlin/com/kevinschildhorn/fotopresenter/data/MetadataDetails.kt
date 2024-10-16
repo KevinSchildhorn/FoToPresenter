@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MetadataDetails(
-    val files: MutableList<MetadataFileDetails>
+    val files: MutableList<MetadataFileDetails>,
 )
 
 @Serializable

@@ -20,7 +20,8 @@ data class FolderDirectory(
     override fun toString(): String = "(F:${details.fullPath}:${details.id})"
 
     val isValid: Boolean
-        get() = name != ".." &&
+        get() =
+            name != ".." &&
                 name.isNotEmpty() &&
                 name.isNotBlank()
 }
