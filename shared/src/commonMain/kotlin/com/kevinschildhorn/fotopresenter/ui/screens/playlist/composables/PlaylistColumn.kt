@@ -32,7 +32,7 @@ fun PlaylistColumn(
             .fillMaxWidth()
             .padding(Padding.STANDARD.dp)
             .clip(RoundedCornerShape(10.dp))
-            .background(fotoColors.secondary)
+            .background(fotoColors.secondary),
     ) {
         Column(Modifier.fillMaxWidth().padding(Padding.MEDIUM.dp)) {
             DialogButtonText("Playlists")
@@ -51,12 +51,12 @@ fun PlaylistColumn(
                         },
                         onDelete = {
                             onDelete(it.id)
-                        }
+                        },
                     )
                     Divider(
                         startIndent = 0.dp,
                         thickness = 1.dp,
-                        color = fotoColors.onSecondary
+                        color = fotoColors.onSecondary,
                     )
                 }
             }

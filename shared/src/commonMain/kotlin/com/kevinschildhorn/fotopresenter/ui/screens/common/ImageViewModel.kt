@@ -32,10 +32,12 @@ interface ImageViewModel {
     }
 
     fun clearPresentedImage()
+
     fun cancelImageJobs()
 }
 
 class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel, KoinComponent {
+    @Suppress("ktlint:standard:property-naming")
     private val _uiState = MutableStateFlow(ImageScreenState())
     override var scope: CoroutineScope? = null
     override val imageUiState: StateFlow<ImageScreenState> = _uiState.asStateFlow()

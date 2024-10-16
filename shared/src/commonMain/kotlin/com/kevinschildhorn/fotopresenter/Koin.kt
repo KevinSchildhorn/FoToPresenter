@@ -31,9 +31,7 @@ import com.kevinschildhorn.fotopresenter.ui.shared.SharedFileCache
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-
 val baseLogger = Logger.withTag("")
-
 
 val commonModule =
     module {
@@ -60,14 +58,14 @@ val commonModule =
             DisconnectFromServerUseCase(
                 get(),
                 get(),
-                baseLogger.withTag("DisconnectFromServerUseCase")
+                baseLogger.withTag("DisconnectFromServerUseCase"),
             )
         }
         factory { RetrieveImageDirectoriesUseCase(baseLogger.withTag("RetrieveImageDirectoriesUseCase")) }
         factory {
             RetrieveSlideshowFromPlaylistUseCase(
                 baseLogger.withTag("RetrieveSlideshowFromPlaylistUseCase"),
-                get()
+                get(),
             )
         }
         factory {

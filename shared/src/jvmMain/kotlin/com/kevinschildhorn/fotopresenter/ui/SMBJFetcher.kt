@@ -12,7 +12,6 @@ import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-// ImageRepository
 class SMBJFetcher(
     private val directoryDetails: NetworkDirectoryDetails,
     private val imageRepository: ImageRepository,

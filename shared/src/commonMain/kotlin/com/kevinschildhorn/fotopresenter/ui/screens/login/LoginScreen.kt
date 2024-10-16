@@ -7,8 +7,6 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
@@ -18,7 +16,6 @@ import androidx.compose.ui.text.style.TextAlign
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.TitleView
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ToastOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.login.composables.LoginScreenForm
 
 @Composable
@@ -36,11 +33,11 @@ fun LoginScreen(
         TitleView(
             "Foto",
             modifier =
-            Modifier.padding(
-                top = Padding.SMALL.dp,
-                start = Padding.STANDARD.dp,
-                bottom = Padding.LARGE.dp,
-            ),
+                Modifier.padding(
+                    top = Padding.SMALL.dp,
+                    start = Padding.STANDARD.dp,
+                    bottom = Padding.LARGE.dp,
+                ),
         )
         LoginScreenForm(
             uiState = uiState,

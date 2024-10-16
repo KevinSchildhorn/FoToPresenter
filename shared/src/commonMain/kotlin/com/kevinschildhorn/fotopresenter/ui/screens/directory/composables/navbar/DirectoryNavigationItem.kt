@@ -12,15 +12,18 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.DialogButtonText
 
 @Composable
-fun DirectoryNavigationItem(title: String, onClick: () -> Unit) {
+fun DirectoryNavigationItem(
+    title: String,
+    onClick: () -> Unit,
+) {
     Button(
         onClick = onClick,
         modifier = Modifier.height(44.dp).clip(RoundedCornerShape(10.dp)),
         colors =
-        ButtonDefaults.buttonColors(
-            backgroundColor = fotoColors.secondary,
-            disabledBackgroundColor = fotoColors.onSecondary,
-        ),
+            ButtonDefaults.buttonColors(
+                backgroundColor = fotoColors.secondary,
+                disabledBackgroundColor = fotoColors.onSecondary,
+            ),
     ) {
         DialogButtonText(title)
     }

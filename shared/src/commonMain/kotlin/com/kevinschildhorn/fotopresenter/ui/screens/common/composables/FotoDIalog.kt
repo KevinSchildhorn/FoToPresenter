@@ -28,14 +28,16 @@ fun FotoDialog(
     Dialog(onDismissRequest = { onDismissRequest() }) {
         // Draw a rectangle shape with rounded corners inside the dialog
         Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
             shape = RoundedCornerShape(16.dp),
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth().padding(Padding.STANDARD.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth().padding(Padding.STANDARD.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.Start,
             ) {
@@ -43,17 +45,18 @@ fun FotoDialog(
                 Spacer(Modifier.size(Padding.MEDIUM.dp))
                 content()
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = Padding.SMALL.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(top = Padding.SMALL.dp),
                     horizontalArrangement = Arrangement.End,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     TextButton(
                         onClick = {
                             onDismissRequest()
                         },
-                        modifier = Modifier.padding(Padding.SMALL.dp)
+                        modifier = Modifier.padding(Padding.SMALL.dp),
                     ) {
                         DialogButtonText("Dismiss")
                     }

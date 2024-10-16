@@ -12,8 +12,10 @@ class PlaylistRepository(
     private val playlistSQLDataSource: PlaylistSQLDataSource,
     private val playlistFileDataSource: PlaylistFileDataSource,
 ) {
-
-    suspend fun createPlaylist(name: String, directories: List<ImageDirectory> = emptyList()): Playlist? {
+    suspend fun createPlaylist(
+        name: String,
+        directories: List<ImageDirectory> = emptyList(),
+    ): Playlist? {
         val playlist = playlistSQLDataSource.createPlaylist(name, directories)
         playlistSQLDataSource.getPlaylistByName(name)?.let {
             playlistFileDataSource.exportPlaylist(it)
@@ -26,7 +28,10 @@ class PlaylistRepository(
         return playlistSQLDataSource.getAllPlaylists()
     }
 
-    suspend fun insertPlaylistImage(playlistId: Long, directory: Directory): PlaylistItem? {
+    suspend fun insertPlaylistImage(
+        playlistId: Long,
+        directory: Directory,
+    ): PlaylistItem? {
         val item = playlistSQLDataSource.insertPlaylistImage(playlistId, directory)
         playlistSQLDataSource.getPlaylistById(playlistId)?.let {
             playlistFileDataSource.exportPlaylist(it)
@@ -40,5 +45,4 @@ class PlaylistRepository(
         }
         return playlistSQLDataSource.deletePlaylist(id)
     }
-
 }

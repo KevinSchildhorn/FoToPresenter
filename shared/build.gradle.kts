@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
-    //alias(libs.plugins.crashlytics)
+    // alias(libs.plugins.crashlytics)
     alias(libs.plugins.serialization)
 }
 

@@ -32,7 +32,7 @@ fun NavigationRailOverlay(
     ) {
         Row {
             NavigationRail(
-                backgroundColor = fotoColors.surface
+                backgroundColor = fotoColors.surface,
             ) {
                 NavigationRailItem(
                     label = {
@@ -42,11 +42,11 @@ fun NavigationRailOverlay(
                         Icon(
                             EvaIcons.Outline.Monitor,
                             contentDescription = "Playlists",
-                            tint = fotoColors.onSurface
+                            tint = fotoColors.onSurface,
                         )
                     },
                     selected = true,
-                    onClick = onPlaylists
+                    onClick = onPlaylists,
                 )
                 NavigationRailItem(
                     label = {
@@ -56,11 +56,11 @@ fun NavigationRailOverlay(
                         Icon(
                             EvaIcons.Fill.LogOut,
                             contentDescription = "Logout",
-                            tint = fotoColors.onSurface
+                            tint = fotoColors.onSurface,
                         )
                     },
                     selected = true,
-                    onClick = onLogout
+                    onClick = onLogout,
                 )
             }
         }

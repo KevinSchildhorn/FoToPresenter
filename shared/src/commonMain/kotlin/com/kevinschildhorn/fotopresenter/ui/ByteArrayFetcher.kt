@@ -7,15 +7,14 @@ import coil3.fetch.FetchResult
 import coil3.fetch.Fetcher
 import coil3.request.Options
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 class ByteArrayFetcher(
     private val byteArray: ByteArray,
     private val logger: Logger,
 ) : Fetcher {
-
     override suspend fun fetch(): FetchResult? {
         return withContext(Dispatchers.IO) {
             val image = SharedImage(byteArray)

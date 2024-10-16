@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:filename")
+
 package com.kevinschildhorn.fotopresenter
 
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
@@ -14,7 +16,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 actual object UseCaseFactory : KoinComponent {
-
     actual val connectToServerUseCase: ConnectToServerUseCase
         get() {
             val useCase: ConnectToServerUseCase by inject()

@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:filename")
+
 package com.kevinschildhorn.fotopresenter.ui.shared
 
 import coil3.Image
@@ -9,7 +11,6 @@ import okio.FileSystem
 import okio.buffer
 import okio.source
 import java.io.ByteArrayInputStream
-
 
 actual open class SharedImage actual constructor(actual val byteArray: ByteArray) {
     actual fun getFetchResult(size: Int): FetchResult? {
@@ -25,4 +26,3 @@ actual open class SharedImage actual constructor(actual val byteArray: ByteArray
         )
     }
 }
-

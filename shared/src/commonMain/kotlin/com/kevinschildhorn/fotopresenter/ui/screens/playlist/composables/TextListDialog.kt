@@ -16,7 +16,7 @@ fun TextListDialog(
         onDismissRequest = onDismissRequest,
     ) {
         LazyColumn {
-            items(list){
+            items(list) {
                 Text(it)
             }
         }

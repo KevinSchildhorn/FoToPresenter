@@ -6,11 +6,13 @@ import com.kevinschildhorn.fotopresenter.PlaylistDatabase
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
+import com.kevinschildhorn.fotopresenter.Image as SQLImage
 
 class CachedImageDataSource(
     private val cache: CacheInterface,
     private val logger: Logger,
     driver: SqlDriver,
+    private val logger: Logger,
 ) {
     private val database = PlaylistDatabase(driver)
 
@@ -27,7 +29,10 @@ class CachedImageDataSource(
         }
     }
 
-    suspend fun saveImage(directory: NetworkDirectoryDetails, image: SharedImage) {
+    fun saveImage(
+        directory: NetworkDirectoryDetails,
+        image: SharedImage,
+    ) {
         logger.i { "Saving Image To Cache ${directory.cacheId}" }
         cache.cacheImage(directory.cacheId, image)
         //database.imageQueries.insertImage(
@@ -35,6 +40,7 @@ class CachedImageDataSource(
         //    image.byteArray,
         //)
         logger.i { "Image Saved" }
+        // cache.cacheImage(directory.cacheId, image) TODO
     }
 
     private val NetworkDirectoryDetails.cacheId: String

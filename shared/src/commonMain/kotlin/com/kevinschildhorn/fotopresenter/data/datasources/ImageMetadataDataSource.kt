@@ -14,7 +14,6 @@ class ImageMetadataDataSource(
     private val logger: Logger?,
     private val networkHandler: NetworkHandler,
 ) {
-
     suspend fun importMetaData(): MetadataDetails {
         logger?.i { "Importing Metadata" }
         networkHandler.getMetadata()?.let {
@@ -56,7 +55,7 @@ class ImageMetadataDataSource(
 
             return MetadataFileDetails(
                 filePath = filePath,
-                tags = keywords.toSet()
+                tags = keywords.toSet(),
             )
         }
         return null

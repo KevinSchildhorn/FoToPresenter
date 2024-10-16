@@ -4,8 +4,8 @@ import app.cash.turbine.test
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.testingModule
 import com.kevinschildhorn.fotopresenter.ui.UiState
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.FolderDirectoryGridCellState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -21,9 +21,7 @@ import org.koin.test.inject
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
 /**
 Testing [DirectoryViewModel]
@@ -130,10 +128,11 @@ class DirectoryViewModelTest : KoinTest {
                 state = awaitItem()
                 assertEquals(UiState.SUCCESS, state.state)
 
-                val directory = FolderDirectoryGridCellState(
-                    name = "",
-                    id = MockNetworkHandler.photoDirectoryId,
-                )
+                val directory =
+                    DirectoryGridCellState.Folder(
+                        name = "",
+                        id = MockNetworkHandler.photoDirectoryId,
+                    )
                 viewModel.setSelectedDirectory(directory)
                 viewModel.startSlideshow()
                 while (state.slideshowDetails == null) {

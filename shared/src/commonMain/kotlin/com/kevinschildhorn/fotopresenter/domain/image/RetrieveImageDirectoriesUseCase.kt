@@ -21,10 +21,11 @@ class RetrieveImageDirectoriesUseCase(
         val contents = retrieveContentsUseCase(directoryDetails.fullPath)
 
         logger.i { "Retrieved Contents: $contents" }
-        val folders = contents.folders.filter {
-            logger.i { "Filtering (${it.name})" }
-            it.isValid
-        }
+        val folders =
+            contents.folders.filter {
+                logger.i { "Filtering (${it.name})" }
+                it.isValid
+            }
         val images = contents.images.toMutableList()
 
         if (recursively) {

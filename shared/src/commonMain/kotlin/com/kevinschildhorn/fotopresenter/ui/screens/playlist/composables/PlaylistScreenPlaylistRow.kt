@@ -33,11 +33,11 @@ fun PlaylistScreenPlaylistRow(
     Row(
         modifier = Modifier.fillMaxWidth().height(55.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         TextButton(
             onClick = onClick,
-            modifier = Modifier.fillMaxSize(0.7f)
+            modifier = Modifier.fillMaxSize(0.7f),
         ) {
             DialogButtonText(title)
             Spacer(Modifier.fillMaxWidth())
@@ -45,7 +45,7 @@ fun PlaylistScreenPlaylistRow(
         Row(modifier = Modifier.fillMaxHeight()) {
             TextButton(
                 modifier = Modifier.width(44.dp),
-                onClick = onDetails
+                onClick = onDetails,
             ) {
                 Icon(
                     EvaIcons.Outline.Info,
@@ -55,7 +55,7 @@ fun PlaylistScreenPlaylistRow(
             }
             TextButton(
                 modifier = Modifier.width(44.dp),
-                onClick = onEdit
+                onClick = onEdit,
             ) {
                 Icon(
                     EvaIcons.Outline.Edit,
@@ -70,7 +70,7 @@ fun PlaylistScreenPlaylistRow(
                 Icon(
                     EvaIcons.Outline.Trash,
                     tint = fotoColors.onSecondary,
-                    contentDescription = "Trash"
+                    contentDescription = "Trash",
                 )
             }
         }

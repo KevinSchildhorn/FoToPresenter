@@ -26,7 +26,7 @@ fun PlaylistOverlay(
             onDismiss = onDismiss,
         ) {
             Box(
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             ) {
                 PlaylistColumn(
                     options,

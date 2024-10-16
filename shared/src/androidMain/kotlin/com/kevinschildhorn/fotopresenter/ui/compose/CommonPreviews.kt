@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:class-naming")
+
 package com.kevinschildhorn.fotopresenter.ui.compose
 
 import androidx.compose.foundation.layout.Column
@@ -28,10 +30,11 @@ fun ActionSheetPreview() {
     ActionSheet(
         visible = true,
         offset = 200,
-        values = listOf(
-            ActionSheetContext(ActionSheetAction.START_SLIDESHOW, 1),
-            ActionSheetContext(ActionSheetAction.NONE, 2),
-        ),
+        values =
+            listOf(
+                ActionSheetContext(ActionSheetAction.START_SLIDESHOW, 1),
+                ActionSheetContext(ActionSheetAction.NONE, 2),
+            ),
         onClick = {},
         onDismiss = {},
     )
@@ -44,10 +47,8 @@ fun ConfirmationDialogPreview() {
         "Hello",
         "World",
         {
-
         },
         {
-
         },
     )
 }
@@ -59,10 +60,8 @@ fun TextConfirmationDialogPreview() {
         title = "",
         initialValue = "",
         {
-
         },
         {
-
         },
     )
 }
@@ -73,11 +72,8 @@ fun FilterDialogPreview() {
     FilterDialog(
         "Hello",
         {
-
         },
         {
-
         },
     )
 }
-

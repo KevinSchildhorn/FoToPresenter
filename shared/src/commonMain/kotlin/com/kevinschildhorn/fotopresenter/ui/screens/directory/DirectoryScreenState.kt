@@ -16,9 +16,7 @@ data class DirectoryScreenState(
     val sortingType: SortingType = SortingType.NAME_ASC,
     override val state: UiState = UiState.IDLE,
 ) : ScreenState {
-
-    fun getImageIndexFromId(id: Int): Int =
-        directoryGridState.imageStates.indexOfFirst { it.id == id }
+    fun getImageIndexFromId(id: Int): Int = directoryGridState.imageStates.indexOfFirst { it.id == id }
 
     val currentPathList: List<String>
         get() = currentPath.split("\\").filter { it.isNotEmpty() }
@@ -44,21 +42,25 @@ data class DirectoryGridState(
 sealed class DirectoryGridCellState(
     val name: String,
     val id: Int,
-    val actionSheetContexts: List<ActionSheetContext>
-
+    val actionSheetContexts: List<ActionSheetContext>,
 ) {
     class Folder(name: String, id: Int) : DirectoryGridCellState(
-        name, id, listOf(
+        name,
+        id,
+        listOf(
             ActionSheetContext(ActionSheetAction.START_SLIDESHOW, 1),
             ActionSheetContext(ActionSheetAction.ADD_DYNAMIC_LOCATION, 2),
-        )
+        ),
     )
 
     class Image(val directoryDetails: NetworkDirectoryDetails, name: String, id: Int) : DirectoryGridCellState(
-        name, id, listOf(
+        name,
+        id,
+        listOf(
             ActionSheetContext(ActionSheetAction.ADD_STATIC_LOCATION, 1),
             ActionSheetContext(ActionSheetAction.ADD_METADATA, 2),
-        )
+        ),
     )
+
     override fun toString(): String = "(I:$name:$id)"
 }
