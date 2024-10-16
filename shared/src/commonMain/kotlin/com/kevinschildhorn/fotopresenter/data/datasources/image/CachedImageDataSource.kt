@@ -6,7 +6,6 @@ import com.kevinschildhorn.fotopresenter.PlaylistDatabase
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
-import com.kevinschildhorn.fotopresenter.Image as SQLImage
 
 class CachedImageDataSource(
     private val cache: CacheInterface,
@@ -20,8 +19,8 @@ class CachedImageDataSource(
         logger.i { "Getting Image from Cache ${directory.cacheId}" }
         return try {
             cache.getImage(directory.cacheId)
-            //val image = database.imageQueries.selectImageByName(directory.cacheId).executeAsOne()
-            //SharedImage(image.image)
+            // val image = database.imageQueries.selectImageByName(directory.cacheId).executeAsOne()
+            // SharedImage(image.image)
         } catch (e: Exception) {
             logger.e(e) { "Image NOT found" }
             logger.e { e.localizedMessage ?: "" }
@@ -35,10 +34,10 @@ class CachedImageDataSource(
     ) {
         logger.i { "Saving Image To Cache ${directory.cacheId}" }
         cache.cacheImage(directory.cacheId, image)
-        //database.imageQueries.insertImage(
+        // database.imageQueries.insertImage(
         //    directory.cacheId,
         //    image.byteArray,
-        //)
+        // )
         logger.i { "Image Saved" }
         // cache.cacheImage(directory.cacheId, image) TODO
     }

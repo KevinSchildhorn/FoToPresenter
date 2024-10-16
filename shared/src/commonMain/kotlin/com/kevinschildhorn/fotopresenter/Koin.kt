@@ -26,8 +26,6 @@ import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
-import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
-import com.kevinschildhorn.fotopresenter.ui.shared.SharedFileCache
 import org.koin.core.module.Module
 import org.koin.dsl.module
 

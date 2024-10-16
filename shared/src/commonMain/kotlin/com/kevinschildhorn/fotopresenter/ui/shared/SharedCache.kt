@@ -17,9 +17,10 @@ interface CacheInterface {
 object SharedInMemoryCache : CacheInterface {
     private val imageCache = Cache.Builder<String, ByteArray>().build()
 
-    override suspend fun getImage(id: String): SharedImage? = imageCache.get(id)?.let {
-        SharedImage(it)
-    }
+    override suspend fun getImage(id: String): SharedImage? =
+        imageCache.get(id)?.let {
+            SharedImage(it)
+        }
 
     override suspend fun cacheImage(
         id: String,
@@ -30,7 +31,6 @@ object SharedInMemoryCache : CacheInterface {
 }
 
 class SharedFileCache(private val cacheLocation: String) : CacheInterface {
-
     override suspend fun getImage(id: String): SharedImage? {
         val cache = createCache()
 
@@ -46,31 +46,30 @@ class SharedFileCache(private val cacheLocation: String) : CacheInterface {
     ) {
         val cache = createCache()
         try {
-            val imageData = cache?.put(id) { path ->
-                val file = File(path)
-                try {
-                    val stream = file.outputStream()
-                    stream.write(image.byteArray)
-                    stream.close()
-                    true
-                } catch (e: Exception) {
-                    println(e.localizedMessage)
-                    false
+            val imageData =
+                cache?.put(id) { path ->
+                    val file = File(path)
+                    try {
+                        val stream = file.outputStream()
+                        stream.write(image.byteArray)
+                        stream.close()
+                        true
+                    } catch (e: Exception) {
+                        println(e.localizedMessage)
+                        false
+                    }
                 }
-            }
             println(imageData)
         } finally {
             cache?.close()
         }
     }
 
-
     private suspend fun createCache(): FileKache? {
         try {
             println("Creating Cache")
-            return FileKache(directory =  cacheLocation, maxSize = 10 * 1024 * 1024) {
+            return FileKache(directory = cacheLocation, maxSize = 10 * 1024 * 1024) {
                 strategy = KacheStrategy.LRU
-
             }
         } catch (e: Exception) {
             println("Error Creating Cache")
@@ -90,7 +89,8 @@ class MockSharedCache : CacheInterface {
         contents[id] = image.byteArray
     }
 
-    override suspend fun getImage(id: String): SharedImage? = contents[id]?.let {
-        SharedImage(it)
-    }
+    override suspend fun getImage(id: String): SharedImage? =
+        contents[id]?.let {
+            SharedImage(it)
+        }
 }

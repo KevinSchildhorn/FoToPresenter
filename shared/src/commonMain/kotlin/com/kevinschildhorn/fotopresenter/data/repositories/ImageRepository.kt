@@ -12,13 +12,18 @@ class ImageRepository(
     private val localImageDataSource: CachedImageDataSource,
     private val logger: Logger?,
 ) {
-
-    suspend fun getFetchResult(directoryDetails: NetworkDirectoryDetails, size: Int): FetchResult? {
+    suspend fun getFetchResult(
+        directoryDetails: NetworkDirectoryDetails,
+        size: Int,
+    ): FetchResult? {
         val image = getImage(directoryDetails, size)
         return image?.getFetchResult(size)
     }
 
-    private suspend fun getImage(directoryDetails: NetworkDirectoryDetails, size: Int): SharedImage? {
+    private suspend fun getImage(
+        directoryDetails: NetworkDirectoryDetails,
+        size: Int,
+    ): SharedImage? {
         logger?.i { "Getting Image from Cache: ${directoryDetails.name}" }
         val cachedImage = localImageDataSource.getImage(directoryDetails)
         if (cachedImage != null) {

@@ -4,6 +4,7 @@ import coil3.fetch.FetchResult
 
 expect class SharedImage(byteArray: ByteArray) {
     val byteArray: ByteArray
+
     fun getFetchResult(size: Int): FetchResult?
 }
 

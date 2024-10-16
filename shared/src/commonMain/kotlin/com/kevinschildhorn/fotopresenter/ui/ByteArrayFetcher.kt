@@ -2,11 +2,9 @@ package com.kevinschildhorn.fotopresenter.ui
 
 import co.touchlab.kermit.Logger
 import coil3.ImageLoader
-import coil3.decode.DataSource
 import coil3.fetch.FetchResult
 import coil3.fetch.Fetcher
 import coil3.request.Options
-import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -33,7 +31,7 @@ class ByteArrayFetcher(
         override fun create(
             data: ByteArray,
             options: Options,
-            imageLoader: ImageLoader
+            imageLoader: ImageLoader,
         ): Fetcher = ByteArrayFetcher(data, logger)
     }
 }
