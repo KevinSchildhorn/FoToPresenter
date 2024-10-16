@@ -35,11 +35,13 @@ class DirectoryViewModel(
 ) : PlaylistViewModel(playlistRepository, logger),
     ImageViewModel by DefaultImageViewModel(logger),
     KoinComponent {
-
     private val slideshowScope: CoroutineScope = viewModelScope + Dispatchers.IO
     private val imageScope: CoroutineScope = viewModelScope + Dispatchers.IO
 
+    @Suppress("ktlint:standard:property-naming")
     private val _directoryContentsState = MutableStateFlow(DirectoryContents())
+
+    @Suppress("ktlint:standard:property-naming")
     private val _uiState = MutableStateFlow(DirectoryScreenState())
     val uiState: StateFlow<DirectoryScreenState> = _uiState.asStateFlow()
 
@@ -87,7 +89,7 @@ class DirectoryViewModel(
                     val retrieveImagesUseCase = UseCaseFactory.retrieveImageDirectoriesUseCase
                     val images = retrieveImagesUseCase(it.details)
                     logger.v { "Retrieved images, copying them to state" }
-                    //_uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
+                    // _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails(images)) }
                 }
             }
         } ?: run {
@@ -174,36 +176,39 @@ class DirectoryViewModel(
         }
     }
 
-    private fun updateGrid() = with(_directoryContentsState.value) {
-        logger.i { "Updating State to Success" }
-        logger.i { "Setting Directories: $this" }
-        setImageDirectories(this.images)
-        val gridState = this.asDirectoryGridState
-        logger.i { "New Grid State $gridState" }
-        _uiState.update {
-            it.copy(
-                directoryGridState = gridState,
-                state = UiState.SUCCESS,
-            )
+    private fun updateGrid() =
+        with(_directoryContentsState.value) {
+            logger.i { "Updating State to Success" }
+            logger.i { "Setting Directories: $this" }
+            setImageDirectories(this.images)
+            val gridState = this.asDirectoryGridState
+            logger.i { "New Grid State $gridState" }
+            _uiState.update {
+                it.copy(
+                    directoryGridState = gridState,
+                    state = UiState.SUCCESS,
+                )
+            }
         }
-    }
 
     private val DirectoryContents.asDirectoryGridState: DirectoryGridState
         get() =
             DirectoryGridState(
-                folderStates = folders.map {
-                    DirectoryGridCellState.Folder(
-                        it.name,
-                        it.id
-                    )
-                },
-                imageStates = images.map {
-                    DirectoryGridCellState.Image(
-                        it.details,
-                        it.name,
-                        it.id,
-                    )
-                }.toMutableList(),
+                folderStates =
+                    folders.map {
+                        DirectoryGridCellState.Folder(
+                            it.name,
+                            it.id,
+                        )
+                    },
+                imageStates =
+                    images.map {
+                        DirectoryGridCellState.Image(
+                            it.details,
+                            it.name,
+                            it.id,
+                        )
+                    }.toMutableList(),
             )
 
     //endregion
@@ -216,8 +221,11 @@ class DirectoryViewModel(
                 logger.i { "Inserting Playlist Image ${playlist.id} as ${uiState.value.selectedDirectory}" }
 
                 val states: List<Directory> =
-                    if (selectedDirectory is DirectoryGridCellState.Image) this.images
-                    else this.folders
+                    if (selectedDirectory is DirectoryGridCellState.Image) {
+                        this.images
+                    } else {
+                        this.folders
+                    }
 
                 states.find { it.id == selectedDirectory.id }
                     ?.let { directory ->

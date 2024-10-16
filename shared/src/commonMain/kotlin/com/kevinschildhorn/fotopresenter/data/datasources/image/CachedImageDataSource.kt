@@ -1,46 +1,42 @@
-package com.kevinschildhorn.fotopresenter.data.datasources
+package com.kevinschildhorn.fotopresenter.data.datasources.image
 
-import androidx.compose.ui.graphics.ImageBitmap
 import app.cash.sqldelight.db.SqlDriver
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.PlaylistDatabase
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
-import com.kevinschildhorn.fotopresenter.ui.shared.SharedImageConverter
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
+import com.kevinschildhorn.fotopresenter.Image as SQLImage
 
-class ImageCacheDataSource(
+class CachedImageDataSource(
     private val cache: CacheInterface,
     driver: SqlDriver,
-    private val logger: Logger
+    private val logger: Logger,
 ) {
     private val database = PlaylistDatabase(driver)
 
-
-    fun getImage(directory: NetworkDirectoryDetails): ImageBitmap? {
+    fun getImage(directory: NetworkDirectoryDetails): SharedImage? {
         logger.i { "Getting Image from Cache ${directory.cacheId}" }
         return try {
-            val image = database.imageQueries.selectImageByName(directory.cacheId).executeAsOne()
-            SharedImageConverter.convertBytes(image.image)
+            val image: SQLImage = database.imageQueries.selectImageByName(directory.cacheId).executeAsOne()
+            SharedImage(image.image)
         } catch (e: Exception) {
             logger.e(e) { "Image NOT found" }
-
             null
         }
-        //return cache.getImage(directory.cacheId)
     }
 
     fun saveImage(
         directory: NetworkDirectoryDetails,
-        bitmap: ImageBitmap,
+        image: SharedImage,
     ) {
         logger.i { "Saving Image To Cache ${directory.cacheId}" }
         database.imageQueries.insertImage(
             directory.cacheId,
-            SharedImageConverter.convertImage(bitmap)
+            image.byteArray,
         )
         logger.i { "Image Saved" }
-
-        //DiscCache.storeFile(directory.cacheId, bitmap)
+        // cache.cacheImage(directory.cacheId, image) TODO
     }
 
     private val NetworkDirectoryDetails.cacheId: String

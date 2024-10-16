@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -39,7 +38,7 @@ fun ToastOverlay(
     AnimatedVisibility(
         visible = visible,
         enter = slideInVertically { -25 } + fadeIn(initialAlpha = 0.3f),
-        exit = slideOutVertically { -25 } + fadeOut()
+        exit = slideOutVertically { -25 } + fadeOut(),
     ) {
         Overlay(
             z = 8f,
@@ -50,22 +49,24 @@ fun ToastOverlay(
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Spacer(Modifier)
                 Column(modifier = Modifier.padding(horizontal = Padding.STANDARD.dp)) {
                     Box(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(25.dp))
-                            .background(fotoColors.secondary),
+                        modifier =
+                            Modifier
+                                .clip(RoundedCornerShape(25.dp))
+                                .background(fotoColors.secondary),
                     ) {
                         ToastMessage(
                             text,
-                            modifier = Modifier
-                                .padding(
-                                    horizontal = Padding.STANDARD.dp,
-                                    vertical = Padding.MEDIUM.dp
-                                ),
+                            modifier =
+                                Modifier
+                                    .padding(
+                                        horizontal = Padding.STANDARD.dp,
+                                        vertical = Padding.MEDIUM.dp,
+                                    ),
                         )
                     }
                     Spacer(Modifier.height(25.dp))

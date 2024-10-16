@@ -1,6 +1,5 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

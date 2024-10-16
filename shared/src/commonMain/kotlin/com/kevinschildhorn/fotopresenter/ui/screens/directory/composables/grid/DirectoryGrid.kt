@@ -63,14 +63,16 @@ fun DirectoryGrid(
                         onLongClickLabel = "Action Sheet",
                     )
             when (state) {
-                is DirectoryGridCellState.Folder -> FolderDirectoryGridCell(
-                    state,
-                    modifier = directoryItemModifier,
-                )
-                is DirectoryGridCellState.Image -> ImageDirectoryGridCell(
-                    state,
-                    modifier = directoryItemModifier,
-                )
+                is DirectoryGridCellState.Folder ->
+                    FolderDirectoryGridCell(
+                        state,
+                        modifier = directoryItemModifier,
+                    )
+                is DirectoryGridCellState.Image ->
+                    ImageDirectoryGridCell(
+                        state,
+                        modifier = directoryItemModifier,
+                    )
             }
         }
     }

@@ -7,41 +7,53 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 
 @Composable
-fun DialogButtonText(text: String, modifier: Modifier = Modifier) {
+fun DialogButtonText(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
     Text(
         text,
         style = FotoTypography().button,
         color = fotoColors.onSurface,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
 @Composable
-fun DialogTitle(text: String, modifier: Modifier = Modifier) {
+fun DialogTitle(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
     Text(
         text,
         style = FotoTypography().h4,
         color = fotoColors.onSecondary,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
 @Composable
-fun DialogMessage(text: String, modifier: Modifier = Modifier) {
+fun DialogMessage(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
     Text(
         text,
         style = FotoTypography().body1,
         color = fotoColors.onSurface,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
 @Composable
-fun ToastMessage(text: String, modifier: Modifier = Modifier) {
+fun ToastMessage(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
     Text(
         text,
         style = FotoTypography().body1,
         color = fotoColors.onPrimary,
-        modifier = modifier
+        modifier = modifier,
     )
 }

@@ -6,7 +6,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.LoadingOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.Overlay
 import compose.icons.EvaIcons
@@ -59,10 +59,10 @@ fun SlideshowScreen(
     }
 
     Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
-        imageState.selectedImage?.let { bitmap ->
-            Crossfade(imageState.selectedImageIndex, animationSpec = tween(500)){
-                Image(
-                    bitmap = bitmap,
+        imageState.selectedImage?.let { sharedImage ->
+            Crossfade(imageState.selectedImageIndex, animationSpec = tween(500)) {
+                AsyncImage(
+                    model = sharedImage,
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize(),
                 )
@@ -76,8 +76,7 @@ fun SlideshowScreen(
         5f,
         visible = true,
         onDismiss = {
-
-        }
+        },
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -89,7 +88,7 @@ fun SlideshowScreen(
                 AnimatedVisibility(
                     visible = show,
                     enter = fadeIn(animationSpec = tween(500)),
-                    exit = fadeOut(animationSpec = tween(500))
+                    exit = fadeOut(animationSpec = tween(500)),
                 ) {
                     TextButton(onClick = {
                         viewModel.stopSlideshow()
@@ -99,7 +98,7 @@ fun SlideshowScreen(
                             EvaIcons.Fill.Close,
                             tint = Color.White,
                             contentDescription = "Close",
-                            modifier = Modifier.size(55.dp)
+                            modifier = Modifier.size(55.dp),
                         )
                     }
                 }
@@ -110,57 +109,59 @@ fun SlideshowScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .fillMaxWidth(0.5f)
-                        .combinedClickable(
-                            onClick = {
-                                show = true
-                            },
-                            onDoubleClick = {
-                                viewModel.skipBackwards()
-                            },
-                        )
+                    modifier =
+                        Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth(0.5f)
+                            .combinedClickable(
+                                onClick = {
+                                    show = true
+                                },
+                                onDoubleClick = {
+                                    viewModel.skipBackwards()
+                                },
+                            ),
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Start,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
                     ) {
                         if (show) {
                             Icon(
                                 EvaIcons.Fill.ArrowLeft,
                                 tint = Color.White,
                                 contentDescription = "Left",
-                                modifier = Modifier.size(55.dp)
+                                modifier = Modifier.size(55.dp),
                             )
                         }
                     }
                 }
                 Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .fillMaxWidth()
-                        .combinedClickable(
-                            onClick = {
-                                show = true
-                            },
-                            onDoubleClick = {
-                                viewModel.skipForward()
-                            },
-                        )
+                    modifier =
+                        Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth()
+                            .combinedClickable(
+                                onClick = {
+                                    show = true
+                                },
+                                onDoubleClick = {
+                                    viewModel.skipForward()
+                                },
+                            ),
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.End,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
                     ) {
                         if (show) {
                             Icon(
                                 EvaIcons.Fill.ArrowRight,
                                 tint = Color.White,
                                 contentDescription = "Right",
-                                modifier = Modifier.size(55.dp)
+                                modifier = Modifier.size(55.dp),
                             )
                         }
                     }

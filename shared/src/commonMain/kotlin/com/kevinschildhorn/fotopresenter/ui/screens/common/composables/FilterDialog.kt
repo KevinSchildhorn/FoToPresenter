@@ -29,45 +29,45 @@ fun FilterDialog(
         Row(verticalAlignment = Alignment.CenterVertically) {
             RadioButton(
                 selected = selectedOption.value == SortingType.NAME_ASC,
-                onClick = { selectedOption.value = SortingType.NAME_ASC }
+                onClick = { selectedOption.value = SortingType.NAME_ASC },
             )
             Text(
                 text = "File Name A-Z",
                 style = FotoTypography().button,
-                color = fotoColors.onSurface
+                color = fotoColors.onSurface,
             )
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             RadioButton(
                 selected = selectedOption.value == SortingType.NAME_DESC,
-                onClick = { selectedOption.value = SortingType.NAME_DESC }
+                onClick = { selectedOption.value = SortingType.NAME_DESC },
             )
             Text(
                 text = "File Name Z-A",
                 style = FotoTypography().button,
-                color = fotoColors.onSurface
+                color = fotoColors.onSurface,
             )
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             RadioButton(
                 selected = selectedOption.value == SortingType.TIME_ASC,
-                onClick = { selectedOption.value = SortingType.TIME_ASC }
+                onClick = { selectedOption.value = SortingType.TIME_ASC },
             )
             Text(
                 text = "Time Created Ascending",
                 style = FotoTypography().button,
-                color = fotoColors.onSurface
+                color = fotoColors.onSurface,
             )
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             RadioButton(
                 selected = selectedOption.value == SortingType.TIME_DESC,
-                onClick = { selectedOption.value = SortingType.TIME_DESC }
+                onClick = { selectedOption.value = SortingType.TIME_DESC },
             )
             Text(
                 text = "Time Created Descending",
                 style = FotoTypography().button,
-                color = fotoColors.onSurface
+                color = fotoColors.onSurface,
             )
         }
     }

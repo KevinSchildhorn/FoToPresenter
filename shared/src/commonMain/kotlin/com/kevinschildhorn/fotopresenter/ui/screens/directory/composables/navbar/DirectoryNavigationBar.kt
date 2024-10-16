@@ -24,25 +24,24 @@ fun DirectoryNavigationBar(
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         DirectoryNavigationHome {
             onHome()
         }
-        LazyRow() {
-            itemsIndexed(directories){ index, item ->
+        LazyRow {
+            itemsIndexed(directories) { index, item ->
                 Icon(
                     EvaIcons.Fill.ChevronRight,
                     tint = fotoColors.onSecondary,
                     contentDescription = null,
-                    modifier = Modifier.height(44.dp)
+                    modifier = Modifier.height(44.dp),
                 )
                 DirectoryNavigationItem(item) {
                     onItem(index)
                 }
             }
             items(directories) {
-
             }
         }
     }

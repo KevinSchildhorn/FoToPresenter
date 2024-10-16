@@ -47,7 +47,5 @@ class StringTest {
 
         path = path.navigateBackToPathAtIndex(-1)
         assertEquals("", path)
-
-
     }
 }

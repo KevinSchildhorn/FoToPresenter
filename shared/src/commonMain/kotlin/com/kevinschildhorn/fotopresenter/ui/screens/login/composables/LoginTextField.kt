@@ -1,7 +1,6 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.login.composables
 
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.KeyboardOptions.Companion
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
@@ -34,10 +33,11 @@ fun LoginTextField(
                 style = FotoTypography().subtitle1,
             )
         },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            textColor = fotoColors.onPrimary,
-            disabledTextColor = disabled,
-        ),
+        colors =
+            TextFieldDefaults.outlinedTextFieldColors(
+                textColor = fotoColors.onPrimary,
+                disabledTextColor = disabled,
+            ),
         shape = fotoShapes.small,
         textStyle = FotoTypography().subtitle1,
         keyboardOptions = keyboardOptions,

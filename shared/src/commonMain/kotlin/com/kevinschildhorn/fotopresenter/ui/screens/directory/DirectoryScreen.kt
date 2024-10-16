@@ -3,12 +3,7 @@ package com.kevinschildhorn.fotopresenter.ui.screens.directory
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -17,14 +12,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.ui.UiState
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ConfirmationDialog
@@ -82,10 +72,11 @@ fun DirectoryScreen(
         (uiState.state as? UiState.ERROR)?.let {
             ErrorView(
                 it.message,
-                modifier = Modifier.padding(
-                    horizontal = Padding.STANDARD.dp,
-                    vertical = Padding.SMALL.dp,
-                )
+                modifier =
+                    Modifier.padding(
+                        horizontal = Padding.STANDARD.dp,
+                        vertical = Padding.SMALL.dp,
+                    ),
             )
         }
         DirectoryNavigationBar(
@@ -96,7 +87,7 @@ fun DirectoryScreen(
             onItem = {
                 viewModel.navigateToFolder(it)
             },
-            modifier = Modifier.padding(Padding.SMALL.dp)
+            modifier = Modifier.padding(Padding.SMALL.dp),
         )
         DirectoryGrid(
             uiState.directoryGridState,
@@ -216,7 +207,7 @@ fun DirectoryScreen(
             },
             onConfirmation = {
                 viewModel.setFilterType(it)
-            }
+            },
         )
     }
 
@@ -227,7 +218,7 @@ fun DirectoryScreen(
             overlaid = true,
             onDismiss = {
                 overlayVisible = DirectoryOverlay.NONE
-            }
+            },
         ) { playlist ->
             viewModel.addSelectedDirectoryToPlaylist(playlist)
             overlayVisible = DirectoryOverlay.NONE
@@ -242,10 +233,12 @@ fun DirectoryScreen(
             initialValue = viewModel.selectedMetadata?.tagsString ?: "",
             {
                 overlayVisible = DirectoryOverlay.NONE
-            }, {
+            },
+            {
                 viewModel.saveMetadata(it)
                 viewModel.setSelectedDirectory(null)
                 overlayVisible = DirectoryOverlay.NONE
-            })
+            },
+        )
     }
 }

@@ -16,32 +16,35 @@ import kotlin.test.fail
 Testing [PlaylistSQLDataSource]
  **/
 class PlaylistSQLDataSourceTest {
-
-    private val imageDirectory = ImageDirectory(
-        details = DefaultNetworkDirectoryDetails(
-            fullPath = "Image1.png",
-            id = 1,
-        ),
-        metaData = null,
-
-    )
-    private val imageDirectoryList: List<ImageDirectory> = listOf(
-        imageDirectory,
+    private val imageDirectory =
         ImageDirectory(
-            details = DefaultNetworkDirectoryDetails(
-                fullPath = "Photos/Image2.png",
-                id = 2,
-            ),
+            details =
+                DefaultNetworkDirectoryDetails(
+                    fullPath = "Image1.png",
+                    id = 1,
+                ),
             metaData = null,
-        ),
-        ImageDirectory(
-            details = DefaultNetworkDirectoryDetails(
-                fullPath = "Image3.png",
-                id = 3,
+        )
+    private val imageDirectoryList: List<ImageDirectory> =
+        listOf(
+            imageDirectory,
+            ImageDirectory(
+                details =
+                    DefaultNetworkDirectoryDetails(
+                        fullPath = "Photos/Image2.png",
+                        id = 2,
+                    ),
+                metaData = null,
             ),
-            metaData = null,
-        ),
-    )
+            ImageDirectory(
+                details =
+                    DefaultNetworkDirectoryDetails(
+                        fullPath = "Image3.png",
+                        id = 3,
+                    ),
+                metaData = null,
+            ),
+        )
 
     @Test
     fun `Create Playlist Success`() {
@@ -196,7 +199,6 @@ class PlaylistSQLDataSourceTest {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val playlists = dataSource.getAllPlaylists()
         assertEquals(0, playlists.count())
-
     }
 
     private fun createInMemorySqlDriver(): SqlDriver {

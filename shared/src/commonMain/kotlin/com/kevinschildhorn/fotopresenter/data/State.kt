@@ -51,10 +51,9 @@ sealed class State<out DATA> {
             when (this) {
                 is IDLE -> "Idle"
                 is LOADING -> "Loading"
-                is ERROR -> "Error: ${message}"
-                is SUCCESS -> "Success:${data}"
+                is ERROR -> "Error: $message"
+                is SUCCESS -> "Success:$data"
             }
         }
         """.trimIndent()
-
 }

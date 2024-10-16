@@ -1,13 +1,8 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -42,39 +37,39 @@ fun ActionSheet(
         visible = visible,
         onDismiss = onDismiss,
         enter =
-        slideInVertically(
-            initialOffsetY = { offset },
-        ),
+            slideInVertically(
+                initialOffsetY = { offset },
+            ),
         exit =
-        slideOutVertically(
-            targetOffsetY = { offset },
-        ),
+            slideOutVertically(
+                targetOffsetY = { offset },
+            ),
     ) {
         Column(
             modifier =
-            Modifier
-                .fillMaxSize(),
+                Modifier
+                    .fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Spacer(modifier = Modifier.fillMaxWidth())
             Column(
                 modifier =
-                Modifier
-                    .clip(shape = RoundedCornerShape(15.dp))
-                    .fillMaxWidth()
-                    .padding(10.dp)
-                    .weight(1f, false)
-                    .background(fotoColors.secondary),
+                    Modifier
+                        .clip(shape = RoundedCornerShape(15.dp))
+                        .fillMaxWidth()
+                        .padding(10.dp)
+                        .weight(1f, false)
+                        .background(fotoColors.secondary),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 LazyColumn {
                     items(values) {
                         TextButton(
                             modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .wrapContentHeight()
-                                .padding(start = 10.dp),
+                                Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentHeight()
+                                    .padding(start = 10.dp),
                             onClick = {
                                 onClick(it)
                             },
