@@ -49,16 +49,15 @@ internal actual val platformModule: Module =
             SMBJHandler
         }
         single<SqlDriver> { DriverFactory(context = get()).createDriver() }
+        single<NetworkHandler> {
+            SMBJHandler
+        }
+        single<SqlDriver> { DriverFactory(context = get()).createDriver() }
+        single<CacheInterface> {
+            val context: Context = get()
+            SharedFileCache(context.cacheDir.path)
+        }
     }
-    single<NetworkHandler> {
-        SMBJHandler
-    }
-    single<SqlDriver> { DriverFactory(context = get()).createDriver() }
-    single<CacheInterface> {
-        val context:Context = get()
-        SharedFileCache(context.cacheDir.path)
-    }
-}
 
 @OptIn(KoinInternalApi::class)
 fun KoinApplication.androidContext(androidContext: Context): KoinApplication {

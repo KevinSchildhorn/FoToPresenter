@@ -11,7 +11,6 @@ class CachedImageDataSource(
     private val cache: CacheInterface,
     private val logger: Logger,
     driver: SqlDriver,
-    private val logger: Logger,
 ) {
     private val database = PlaylistDatabase(driver)
 
@@ -28,7 +27,7 @@ class CachedImageDataSource(
         }
     }
 
-    fun saveImage(
+    suspend fun saveImage(
         directory: NetworkDirectoryDetails,
         image: SharedImage,
     ) {

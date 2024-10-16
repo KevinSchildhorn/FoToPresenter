@@ -11,15 +11,17 @@ import coil3.fetch.FetchResult
 import coil3.fetch.ImageFetchResult
 
 actual open class SharedImage actual constructor(actual val byteArray: ByteArray) {
-
     actual fun getFetchResult(size: Int): FetchResult? {
         val image: Image? = getAndroidBitmap(byteArray, size)?.asImage()
-        return if (image != null) ImageFetchResult(
-            image = image,
-            isSampled = true,
-            dataSource = DataSource.NETWORK,
-        )
-        else null
+        return if (image != null) {
+            ImageFetchResult(
+                image = image,
+                isSampled = true,
+                dataSource = DataSource.NETWORK,
+            )
+        } else {
+            null
+        }
     }
 
     private fun getCoilImage(size: Int): Image? = getAndroidBitmap(byteArray, size)?.asImage()
