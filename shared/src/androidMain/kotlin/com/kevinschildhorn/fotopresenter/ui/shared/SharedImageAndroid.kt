@@ -4,9 +4,23 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import coil3.Image
 import coil3.asImage
+import coil3.decode.DataSource
+import coil3.fetch.FetchResult
+import coil3.fetch.ImageFetchResult
 
 actual open class SharedImage actual constructor(actual val byteArray: ByteArray) {
-    actual fun getCoilImage(size: Int): Image? = getAndroidBitmap(byteArray, size)?.asImage()
+
+    actual fun getFetchResult(size: Int): FetchResult? {
+        val image: Image? = getAndroidBitmap(byteArray, size)?.asImage()
+        return if (image != null) ImageFetchResult(
+            image = image,
+            isSampled = true,
+            dataSource = DataSource.NETWORK,
+        )
+        else null
+    }
+
+    private fun getCoilImage(size: Int): Image? = getAndroidBitmap(byteArray, size)?.asImage()
 
     private fun getAndroidBitmap(byteArray: ByteArray, size: Int): Bitmap? {
         val options = BitmapFactory.Options()

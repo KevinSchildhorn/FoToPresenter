@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.ui
 
+import co.touchlab.kermit.Logger
 import coil3.ImageLoader
 import coil3.decode.DataSource
 import coil3.fetch.FetchResult
@@ -15,29 +16,28 @@ import kotlinx.coroutines.withContext
 class SMBJFetcher(
     private val directoryDetails: NetworkDirectoryDetails,
     private val imageRepository: ImageRepository,
+    private val logger: Logger,
 ) : Fetcher {
 
-    override suspend fun fetch(): FetchResult? {
-        return withContext(Dispatchers.IO) {
-            val image = imageRepository.getCoilImage(directoryDetails, 64)
-            if(image != null) {
-                ImageFetchResult(
-                    image = image,
-                    isSampled = true,
-                    dataSource = DataSource.NETWORK,
-                )
-            } else {
-                null
-            }
+    override suspend fun fetch(): FetchResult? = withContext(Dispatchers.IO) {
+        logger.i { "Fetching image: ${directoryDetails.name}" }
+
+        val image = imageRepository.getFetchResult(directoryDetails, 64)
+        if (image != null) {
+            logger.i { "Image Got! ${directoryDetails.name}" }
+            image
+        } else {
+            logger.i { "No Image Fetched: ${directoryDetails.name}" }
+            null
         }
     }
 
-    class Factory(private val imageRepository: ImageRepository) :
+    class Factory(private val imageRepository: ImageRepository, private val logger: Logger) :
         Fetcher.Factory<NetworkDirectoryDetails> {
         override fun create(
             data: NetworkDirectoryDetails,
             options: Options,
             imageLoader: ImageLoader
-        ): Fetcher = SMBJFetcher(data, imageRepository)
+        ): Fetcher = SMBJFetcher(data, imageRepository, logger)
     }
 }

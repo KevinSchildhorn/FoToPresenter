@@ -19,7 +19,9 @@ kotlin {
                 implementation(project(":shared"))
                 implementation(libs.koin.android)
                 implementation(libs.firebase.crashlytics)
-                implementation(libs.coil)
+                implementation(libs.accompanist.permissions)
+                implementation(libs.kermit)
+
             }
         }
     }

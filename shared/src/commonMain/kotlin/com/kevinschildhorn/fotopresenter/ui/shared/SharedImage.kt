@@ -1,11 +1,11 @@
 package com.kevinschildhorn.fotopresenter.ui.shared
 
-import coil3.Image
+import coil3.fetch.FetchResult
 
 expect class SharedImage(byteArray: ByteArray) {
 
     val byteArray: ByteArray
-    fun getCoilImage(size: Int): Image?
+    fun getFetchResult(size: Int): FetchResult?
 }
 
 fun getScaledDimensions(
