@@ -26,8 +26,6 @@ import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
-import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
-import com.kevinschildhorn.fotopresenter.ui.shared.SharedInMemoryCache
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -37,13 +35,12 @@ val commonModule =
     module {
 
         // Data
-        single<CacheInterface> { SharedInMemoryCache }
         single { NetworkImageDataSource(get()) }
         single { CredentialsDataSource(get()) }
         single { CredentialsRepository(get()) }
         single { DirectoryDataSource(get(), baseLogger.withTag("DirectoryDataSource")) }
         single { DirectoryRepository(get(), get()) }
-        single { CachedImageDataSource(get(), get(), baseLogger.withTag("ImageCacheDataSource")) }
+        single { CachedImageDataSource(get(), baseLogger.withTag("ImageCacheDataSource"), get()) }
         single { PlaylistFileDataSource(baseLogger.withTag("PlaylistDataSource"), get()) }
         single { PlaylistSQLDataSource(get(), baseLogger.withTag("PlaylistDataSource")) }
         single { PlaylistRepository(get(), get()) }
@@ -75,7 +72,7 @@ val commonModule =
                 baseLogger.withTag("RetrieveDirectoryContentsUseCase"),
             )
         }
-        factory { RetrieveImageUseCase(get(), baseLogger.withTag("RetrieveImagesUseCase")) }
+        factory { RetrieveImageUseCase(get(), baseLogger.withTag("RetrieveImageUseCase")) }
         factory { SaveMetadataForPathUseCase(get()) }
         // UI
         single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
