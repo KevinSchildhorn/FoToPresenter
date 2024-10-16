@@ -21,9 +21,7 @@ import org.koin.test.inject
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
 /**
 Testing [DirectoryViewModel]
@@ -130,10 +128,11 @@ class DirectoryViewModelTest : KoinTest {
                 state = awaitItem()
                 assertEquals(UiState.SUCCESS, state.state)
 
-                val directory = FolderDirectoryGridCellState(
-                    name = "",
-                    id = MockNetworkHandler.photoDirectoryId,
-                )
+                val directory =
+                    FolderDirectoryGridCellState(
+                        name = "",
+                        id = MockNetworkHandler.photoDirectoryId,
+                    )
                 viewModel.setSelectedDirectory(directory)
                 viewModel.startSlideshow()
                 while (state.slideshowDetails == null) {

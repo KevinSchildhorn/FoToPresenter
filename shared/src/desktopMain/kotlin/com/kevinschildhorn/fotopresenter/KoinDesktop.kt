@@ -16,12 +16,13 @@ fun startKoin() {
     }
 }
 
-internal actual val platformModule: Module = module {
-    single<Settings> {
-        PreferencesSettings(get())
+internal actual val platformModule: Module =
+    module {
+        single<Settings> {
+            PreferencesSettings(get())
+        }
+        single<NetworkHandler> {
+            SMBJHandler
+        }
+        single<SqlDriver> { DriverFactory().createDriver() }
     }
-    single<NetworkHandler> {
-        SMBJHandler
-    }
-    single<SqlDriver> { DriverFactory().createDriver() }
-}

@@ -33,4 +33,3 @@ val String.isImagePath: Boolean
         val extension = this.split(".").last()
         return supportedImageTypes.contains(extension)
     }
-

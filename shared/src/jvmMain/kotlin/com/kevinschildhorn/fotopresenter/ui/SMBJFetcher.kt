@@ -11,16 +11,14 @@ import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-// ImageRepository
 class SMBJFetcher(
     private val directoryDetails: NetworkDirectoryDetails,
     private val imageRepository: ImageRepository,
 ) : Fetcher {
-
     override suspend fun fetch(): FetchResult? {
         return withContext(Dispatchers.IO) {
             val image = imageRepository.getCoilImage(directoryDetails, 64)
-            if(image != null) {
+            if (image != null) {
                 ImageFetchResult(
                     image = image,
                     isSampled = true,
@@ -37,7 +35,7 @@ class SMBJFetcher(
         override fun create(
             data: NetworkDirectoryDetails,
             options: Options,
-            imageLoader: ImageLoader
+            imageLoader: ImageLoader,
         ): Fetcher = SMBJFetcher(data, imageRepository)
     }
 }

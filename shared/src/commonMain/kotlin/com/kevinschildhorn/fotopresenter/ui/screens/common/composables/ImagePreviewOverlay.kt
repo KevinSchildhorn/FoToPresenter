@@ -10,15 +10,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.ArrowLeft
 import compose.icons.evaicons.fill.ArrowRight
-import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 @Composable
 fun ImagePreviewOverlay(
@@ -28,7 +27,6 @@ fun ImagePreviewOverlay(
     onBack: () -> Unit,
     onForward: () -> Unit,
 ) {
-
     Overlay(
         5f,
         visible = visible,
@@ -43,17 +41,17 @@ fun ImagePreviewOverlay(
                 model = image,
                 contentDescription = null,
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(.9f)
-                    .padding(Padding.IMAGE.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(.9f)
+                        .padding(Padding.IMAGE.dp),
             )
             Row(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(Padding.STANDARD.dp)
-                    .height(44.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(Padding.STANDARD.dp)
+                        .height(44.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 PrimaryIconButton(

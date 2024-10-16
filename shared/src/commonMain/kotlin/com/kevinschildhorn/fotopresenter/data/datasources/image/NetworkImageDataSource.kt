@@ -8,5 +8,7 @@ class NetworkImageDataSource(private val networkHandler: NetworkHandler) {
     suspend fun getImage(directory: NetworkDirectoryDetails): SharedImage? =
         if (networkHandler.isConnected) {
             networkHandler.openImage(path = directory.fullPath)
-        } else null
+        } else {
+            null
+        }
 }

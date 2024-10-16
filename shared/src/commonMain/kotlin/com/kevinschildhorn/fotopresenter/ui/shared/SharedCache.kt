@@ -14,9 +14,10 @@ interface CacheInterface {
 object SharedInMemoryCache : CacheInterface {
     private val imageCache = Cache.Builder<String, ByteArray>().build()
 
-    override fun getImage(id: String): SharedImage? = imageCache.get(id)?.let {
-        SharedImage(it)
-    }
+    override fun getImage(id: String): SharedImage? =
+        imageCache.get(id)?.let {
+            SharedImage(it)
+        }
 
     override fun cacheImage(
         id: String,
@@ -36,7 +37,8 @@ class MockSharedCache : CacheInterface {
         contents[id] = image.byteArray
     }
 
-    override fun getImage(id: String): SharedImage? = contents[id]?.let {
-        SharedImage(it)
-    }
+    override fun getImage(id: String): SharedImage? =
+        contents[id]?.let {
+            SharedImage(it)
+        }
 }

@@ -23,16 +23,16 @@ fun DirectoryNavigationHome(onClick: () -> Unit) {
         onClick = onClick,
         modifier = Modifier.height(44.dp).width(44.dp).clip(RoundedCornerShape(10.dp)),
         colors =
-        ButtonDefaults.buttonColors(
-            backgroundColor = fotoColors.secondary,
-            disabledBackgroundColor = disabled,
-        ),
+            ButtonDefaults.buttonColors(
+                backgroundColor = fotoColors.secondary,
+                disabledBackgroundColor = disabled,
+            ),
     ) {
         Icon(
             imageVector = EvaIcons.Fill.Home,
             tint = fotoColors.onSecondary,
             contentDescription = "Home",
-            modifier = Modifier.size(44.dp)
+            modifier = Modifier.size(44.dp),
         )
     }
 }

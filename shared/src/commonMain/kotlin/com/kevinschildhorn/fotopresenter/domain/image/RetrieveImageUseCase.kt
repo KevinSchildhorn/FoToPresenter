@@ -12,7 +12,6 @@ class RetrieveImageUseCase(
     private val cachedImageDataSource: CachedImageDataSource,
     private val logger: Logger,
 ) {
-
     suspend operator fun invoke(
         directory: ImageDirectory,
         imageSize: Int,

@@ -11,15 +11,17 @@ class ImageRepository(
     private val localImageDataSource: CachedImageDataSource,
     private val logger: Logger?,
 ) {
-
-    suspend fun getCoilImage(directoryDetails: NetworkDirectoryDetails, size: Int): Image? {
+    suspend fun getCoilImage(
+        directoryDetails: NetworkDirectoryDetails,
+        size: Int,
+    ): Image? {
         logger?.i { "Getting Image from Cache" }
         val cachedImage = localImageDataSource.getImage(directoryDetails)
         if (cachedImage != null) return cachedImage.getCoilImage(size)
 
         logger?.i { "No cached image found, getting image from directory" }
         val image = remoteImageDataSource.getImage(directoryDetails)
-        if(image != null) {
+        if (image != null) {
             logger?.i { "Storing image in cache" }
             localImageDataSource.saveImage(directoryDetails, image)
         }

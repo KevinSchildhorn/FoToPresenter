@@ -6,8 +6,6 @@ import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.russhwolf.settings.MapSettings
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
@@ -158,7 +156,6 @@ class LoginViewModelTest : KoinTest {
                 cancelAndIgnoreRemainingEvents()
             }
         }
-
 
     @Test
     fun `Login Success`() =

@@ -1,6 +1,5 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 
-
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,7 +13,6 @@ fun PrimaryTextButton(
     buttonState: ButtonState = ButtonState.ENABLED,
     onClick: () -> Unit,
 ) {
-
     PrimaryButton(modifier = modifier, buttonState = buttonState, onClick = onClick) {
         Text(
             title,

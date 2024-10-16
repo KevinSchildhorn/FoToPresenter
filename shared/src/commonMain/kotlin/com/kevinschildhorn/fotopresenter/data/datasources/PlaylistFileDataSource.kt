@@ -11,7 +11,6 @@ class PlaylistFileDataSource(
     private val logger: Logger?,
     private val networkHandler: NetworkHandler,
 ) : KoinComponent {
-
     suspend fun importPlaylists(): List<PlaylistDetails> =
         networkHandler.getPlaylists().mapNotNull {
             try {

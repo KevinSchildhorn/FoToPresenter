@@ -26,26 +26,28 @@ fun startKoin(context: Context) {
     }
 }
 
-internal actual val platformModule: Module = module {
-    single<Settings> {
-        SharedPreferencesSettings(
-            delegate = EncryptedSharedPreferences.create(
-                get(),
-                CredentialsDataSource.DATABASE_NAME,
-                MasterKey.Builder(get())
-                    .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                    .build(),
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM,
-            ),
-            commit = false,
-        )
+internal actual val platformModule: Module =
+    module {
+        single<Settings> {
+            SharedPreferencesSettings(
+                delegate =
+                    EncryptedSharedPreferences.create(
+                        get(),
+                        CredentialsDataSource.DATABASE_NAME,
+                        MasterKey.Builder(get())
+                            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                            .build(),
+                        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM,
+                    ),
+                commit = false,
+            )
+        }
+        single<NetworkHandler> {
+            SMBJHandler
+        }
+        single<SqlDriver> { DriverFactory(context = get()).createDriver() }
     }
-    single<NetworkHandler> {
-        SMBJHandler
-    }
-    single<SqlDriver> { DriverFactory(context = get()).createDriver() }
-}
 
 @OptIn(KoinInternalApi::class)
 fun KoinApplication.androidContext(androidContext: Context): KoinApplication {

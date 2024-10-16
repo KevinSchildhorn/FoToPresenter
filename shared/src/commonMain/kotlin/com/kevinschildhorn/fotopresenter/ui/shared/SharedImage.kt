@@ -3,8 +3,8 @@ package com.kevinschildhorn.fotopresenter.ui.shared
 import coil3.Image
 
 expect class SharedImage(byteArray: ByteArray) {
-
     val byteArray: ByteArray
+
     fun getCoilImage(size: Int): Image?
 }
 

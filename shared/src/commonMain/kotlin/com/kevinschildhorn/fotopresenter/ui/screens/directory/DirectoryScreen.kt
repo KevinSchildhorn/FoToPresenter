@@ -72,10 +72,11 @@ fun DirectoryScreen(
         (uiState.state as? UiState.ERROR)?.let {
             ErrorView(
                 it.message,
-                modifier = Modifier.padding(
-                    horizontal = Padding.STANDARD.dp,
-                    vertical = Padding.SMALL.dp,
-                )
+                modifier =
+                    Modifier.padding(
+                        horizontal = Padding.STANDARD.dp,
+                        vertical = Padding.SMALL.dp,
+                    ),
             )
         }
         DirectoryNavigationBar(
@@ -86,7 +87,7 @@ fun DirectoryScreen(
             onItem = {
                 viewModel.navigateToFolder(it)
             },
-            modifier = Modifier.padding(Padding.SMALL.dp)
+            modifier = Modifier.padding(Padding.SMALL.dp),
         )
         DirectoryGrid(
             uiState.directoryGridState,
@@ -206,7 +207,7 @@ fun DirectoryScreen(
             },
             onConfirmation = {
                 viewModel.setFilterType(it)
-            }
+            },
         )
     }
 
@@ -217,7 +218,7 @@ fun DirectoryScreen(
             overlaid = true,
             onDismiss = {
                 overlayVisible = DirectoryOverlay.NONE
-            }
+            },
         ) { playlist ->
             viewModel.addSelectedDirectoryToPlaylist(playlist)
             overlayVisible = DirectoryOverlay.NONE
@@ -232,10 +233,12 @@ fun DirectoryScreen(
             initialValue = viewModel.selectedMetadata?.tagsString ?: "",
             {
                 overlayVisible = DirectoryOverlay.NONE
-            }, {
+            },
+            {
                 viewModel.saveMetadata(it)
                 viewModel.setSelectedDirectory(null)
                 overlayVisible = DirectoryOverlay.NONE
-            })
+            },
+        )
     }
 }

@@ -20,10 +20,15 @@ interface NetworkHandler {
 
     suspend fun folderExists(path: String): Boolean?
 
-    suspend fun savePlaylist(playlistName:String, json:String): Boolean
+    suspend fun savePlaylist(
+        playlistName: String,
+        json: String,
+    ): Boolean
+
     suspend fun getPlaylists(): List<String>
 
-    suspend fun setMetadata(json:String): Boolean
+    suspend fun setMetadata(json: String): Boolean
+
     suspend fun getMetadata(): String?
 
     suspend fun deletePlaylist(playlistName: String)

@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:filename")
+
 package com.kevinschildhorn.fotopresenter.ui.shared
 
 import android.graphics.Bitmap
@@ -8,7 +10,10 @@ import coil3.asImage
 actual open class SharedImage actual constructor(actual val byteArray: ByteArray) {
     actual fun getCoilImage(size: Int): Image? = getAndroidBitmap(byteArray, size)?.asImage()
 
-    private fun getAndroidBitmap(byteArray: ByteArray, size: Int): Bitmap? {
+    private fun getAndroidBitmap(
+        byteArray: ByteArray,
+        size: Int,
+    ): Bitmap? {
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
         BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size, options)

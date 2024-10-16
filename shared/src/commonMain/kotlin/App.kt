@@ -28,7 +28,7 @@ fun App(
     directoryViewModel: DirectoryViewModel,
     slideshowViewModel: SlideshowViewModel,
     playlistViewModel: PlaylistViewModel,
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
 ) {
     MaterialTheme(
         colors = fotoColors,
@@ -39,7 +39,7 @@ fun App(
             NavHost(
                 navController = navController,
                 startDestination = Screen.LOGIN.name,
-                modifier = Modifier.fillMaxSize().padding(innerPadding)
+                modifier = Modifier.fillMaxSize().padding(innerPadding),
             ) {
                 composable(route = Screen.LOGIN.name) {
                     LoginScreen(loginViewModel) {
@@ -60,7 +60,7 @@ fun App(
                         },
                         onShowPlaylists = {
                             navController.navigate(Screen.PLAYLIST.name)
-                        }
+                        },
                     )
                 }
                 composable(route = Screen.SLIDESHOW.name) {

@@ -29,7 +29,7 @@ fun PlaylistScreenCreateRow(
     ) {
         TextButton(
             modifier = Modifier.fillMaxWidth(),
-            onClick = onClick
+            onClick = onClick,
         ) {
             Icon(
                 EvaIcons.Outline.PlusCircle,

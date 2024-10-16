@@ -3,10 +3,10 @@ package com.kevinschildhorn.fotopresenter
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
-import com.kevinschildhorn.fotopresenter.data.datasources.image.CachedImageDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistFileDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistSQLDataSource
+import com.kevinschildhorn.fotopresenter.data.datasources.image.CachedImageDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.image.NetworkImageDataSource
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
@@ -31,9 +31,7 @@ import com.kevinschildhorn.fotopresenter.ui.shared.SharedInMemoryCache
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-
 val baseLogger = Logger.withTag("")
-
 
 val commonModule =
     module {
@@ -61,14 +59,14 @@ val commonModule =
             DisconnectFromServerUseCase(
                 get(),
                 get(),
-                baseLogger.withTag("DisconnectFromServerUseCase")
+                baseLogger.withTag("DisconnectFromServerUseCase"),
             )
         }
         factory { RetrieveImageDirectoriesUseCase(baseLogger.withTag("RetrieveImageDirectoriesUseCase")) }
         factory {
             RetrieveSlideshowFromPlaylistUseCase(
                 baseLogger.withTag("RetrieveSlideshowFromPlaylistUseCase"),
-                get()
+                get(),
             )
         }
         factory {

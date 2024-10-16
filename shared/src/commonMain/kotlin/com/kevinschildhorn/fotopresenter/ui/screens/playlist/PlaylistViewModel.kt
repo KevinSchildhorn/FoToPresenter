@@ -1,9 +1,7 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.playlist
 
 import co.touchlab.kermit.Logger
-import com.kevinschildhorn.fotopresenter.Playlist
 import com.kevinschildhorn.fotopresenter.data.Directory
-import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.ui.shared.ViewModel
@@ -19,7 +17,7 @@ open class PlaylistViewModel(
     private val playlistRepository: PlaylistRepository,
     private val logger: Logger,
 ) : ViewModel(), KoinComponent {
-
+    @Suppress("ktlint:standard:property-naming")
     private val _uiState = MutableStateFlow(PlaylistScreenState())
     val playlistState: StateFlow<PlaylistScreenState> = _uiState.asStateFlow()
 
@@ -38,8 +36,7 @@ open class PlaylistViewModel(
         _uiState.update { it.copy(selectedId = id) }
     }
 
-    fun getPlaylist(id: Long): PlaylistDetails? =
-        _uiState.value.playlists.find { it.id == id }
+    fun getPlaylist(id: Long): PlaylistDetails? = _uiState.value.playlists.find { it.id == id }
 
     fun clearSelectedPlaylist() {
         _uiState.update { it.copy(selectedId = null) }
@@ -52,12 +49,15 @@ open class PlaylistViewModel(
         }
     }
 
-    fun addToPlaylist(directory: Directory, playlist: PlaylistDetails) {
+    fun addToPlaylist(
+        directory: Directory,
+        playlist: PlaylistDetails,
+    ) {
         logger.i { "Inserting Playlist Image ${playlist.id} as ${directory.name}" }
         viewModelScope.launch(Dispatchers.Default) {
             playlistRepository.insertPlaylistImage(
                 playlistId = playlist.id,
-                directory = directory
+                directory = directory,
             )?.let {
                 logger.i { "Successfully inserted playlist image" }
             } ?: run {

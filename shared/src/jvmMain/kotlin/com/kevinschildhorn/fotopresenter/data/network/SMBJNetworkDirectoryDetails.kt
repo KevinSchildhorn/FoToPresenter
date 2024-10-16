@@ -9,5 +9,4 @@ class SMBJNetworkDirectoryDetails(
     override val id: Int = information.fileId.toInt()
 
     override val dateMillis: Long = information.changeTime.toEpochMillis()
-
 }

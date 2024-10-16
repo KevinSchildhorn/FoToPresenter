@@ -12,7 +12,6 @@ import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.ui.atoms.disabled
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 
-
 @Composable
 fun PrimaryButton(
     modifier: Modifier = Modifier,
@@ -25,10 +24,10 @@ fun PrimaryButton(
         modifier = modifier.height(44.dp),
         enabled = buttonState.enabled,
         colors =
-        ButtonDefaults.buttonColors(
-            backgroundColor = fotoColors.primary,
-            disabledBackgroundColor = disabled,
-        ),
+            ButtonDefaults.buttonColors(
+                backgroundColor = fotoColors.primary,
+                disabledBackgroundColor = disabled,
+            ),
     ) {
         if (buttonState.loading) {
             CircularProgressIndicator(
