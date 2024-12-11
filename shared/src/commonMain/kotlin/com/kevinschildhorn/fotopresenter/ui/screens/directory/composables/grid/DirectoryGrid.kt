@@ -24,8 +24,8 @@ fun DirectoryGrid(
     directoryContent: DirectoryGridState,
     gridSize: Int = 5,
     modifier: Modifier = Modifier,
-    onFolderPressed: (Int) -> Unit,
-    onImageDirectoryPressed: (Int) -> Unit,
+    onFolderPressed: (Long) -> Unit,
+    onImageDirectoryPressed: (Long) -> Unit,
     onActionSheet: (DirectoryGridCellState) -> Unit,
 ) {
     val haptics = LocalHapticFeedback.current

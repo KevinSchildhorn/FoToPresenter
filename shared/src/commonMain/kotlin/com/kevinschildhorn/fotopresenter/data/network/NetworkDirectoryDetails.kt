@@ -1,15 +1,16 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.supportedImageTypes
 import kotlinx.datetime.Clock
 
 interface NetworkDirectoryDetails {
-    val fullPath: String
+    val fullPath: Path
     val dateMillis: Long
-    val id: Int
+    val id: Long
 
     val fileName: String
-        get() = fullPath.split("\\").last()
+        get() = fullPath.fileName
 
     val name: String
         get() = fileName.split(".").first()
@@ -24,13 +25,13 @@ interface NetworkDirectoryDetails {
 }
 
 class DefaultNetworkDirectoryDetails(
-    override val fullPath: String,
-    override val id: Int,
+    override val fullPath: Path,
+    override val id: Long,
     override val dateMillis: Long = Clock.System.now().toEpochMilliseconds(),
 ) : NetworkDirectoryDetails
 
 class MockNetworkDirectoryDetails(
-    override val fullPath: String = "",
-    override val id: Int = 0,
+    override val fullPath: Path = Path.EMPTY,
+    override val id: Long = 0,
     override val dateMillis: Long = Clock.System.now().toEpochMilliseconds(),
 ) : NetworkDirectoryDetails

@@ -2,6 +2,7 @@
 
 package com.kevinschildhorn.fotopresenter.ui.shared
 
+import co.touchlab.kermit.Logger
 import coil3.decode.DataSource
 import coil3.decode.ImageSource
 import coil3.fetch.FetchResult
@@ -12,7 +13,7 @@ import okio.source
 import java.io.ByteArrayInputStream
 
 actual open class SharedImage actual constructor(actual val byteArray: ByteArray) {
-    actual fun getFetchResult(size: Int): FetchResult? {
+    actual fun getFetchResult(size: Int, logger: Logger?): FetchResult? {
         val source = ByteArrayInputStream(byteArray).source().buffer()
 
         return SourceFetchResult(

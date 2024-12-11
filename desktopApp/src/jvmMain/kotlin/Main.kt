@@ -48,8 +48,8 @@ fun main() = application {
         setSingletonImageLoaderFactory { context ->
             ImageLoader.Builder(context)
                 .components {
-                    add(SMBJFetcher.Factory(imageRepository, Logger.withTag("SMBJFetcher")))
-                    add(ByteArrayFetcher.Factory(Logger.withTag("ByteArrayFetcher")))
+                    add(SMBJFetcher.Factory(imageRepository, baseLogger))
+                    add(ByteArrayFetcher.Factory(baseLogger))
                 }
                 .build()
         }

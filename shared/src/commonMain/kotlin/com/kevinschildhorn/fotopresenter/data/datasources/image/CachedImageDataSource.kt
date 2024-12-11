@@ -15,14 +15,13 @@ class CachedImageDataSource(
     private val database = PlaylistDatabase(driver)
 
     suspend fun getImage(directory: NetworkDirectoryDetails): SharedImage? {
-        logger.i { "Getting Image from Cache ${directory.cacheId}" }
+        logger.v { "Getting Image from Cache ${directory.cacheId}" }
         return try {
             cache.getImage(directory.cacheId)
             // val image = database.imageQueries.selectImageByName(directory.cacheId).executeAsOne()
             // SharedImage(image.image)
         } catch (e: Exception) {
             logger.e(e) { "Image NOT found" }
-            logger.e { e.localizedMessage ?: "" }
             null
         }
     }
@@ -31,13 +30,13 @@ class CachedImageDataSource(
         directory: NetworkDirectoryDetails,
         image: SharedImage,
     ) {
-        logger.i { "Saving Image To Cache ${directory.cacheId}" }
+        logger.d { "Saving Image To Cache: ${directory.cacheId}" }
         cache.cacheImage(directory.cacheId, image)
         // database.imageQueries.insertImage(
         //    directory.cacheId,
         //    image.byteArray,
         // )
-        logger.i { "Image Saved" }
+        logger.d { "Image Saved: ${directory.cacheId}" }
         // cache.cacheImage(directory.cacheId, image) TODO
     }
 

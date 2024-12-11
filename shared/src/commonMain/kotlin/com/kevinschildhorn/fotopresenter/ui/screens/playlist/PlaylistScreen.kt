@@ -98,7 +98,7 @@ fun PlaylistScreen(
 
         PlaylistDialog.DETAILS -> {
             uiState.selectedPlaylist?.let {
-                TextListDialog(it.items.map { it.directoryPath }) {
+                TextListDialog(it.items.map { it.directoryPath.toString() }) {
                     dialogOpen = PlaylistDialog.NONE
                 }
             }

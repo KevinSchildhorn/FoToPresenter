@@ -3,6 +3,7 @@ package com.kevinschildhorn.fotopresenter.ui.compose
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridState
@@ -60,7 +61,14 @@ fun DirectoryNavigationItemPreview() {
 @Composable
 fun DirectoryNavigationBarPreview() {
     DirectoryNavigationBar(
-        listOf("Photos1", "Subfolder1", "Photos2", "Subfolder2", "Photos3", "Subfolder3"),
+        directories = listOf(
+            "Photos1",
+            "Subfolder1",
+            "Photos2",
+            "Subfolder2",
+            "Photos3",
+            "Subfolder3"
+        ).map { Path(it) },
         {},
         {},
     )

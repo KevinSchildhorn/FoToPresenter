@@ -9,7 +9,7 @@ data class MetadataDetails(
 
 @Serializable
 data class MetadataFileDetails(
-    val filePath: String,
+    val filePath: Path,
     val tags: Set<String>,
 ) {
     val tagsString: String

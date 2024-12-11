@@ -1,43 +1,44 @@
 [versions]
 accompanistPermissions = "0.36.0"
-activity-compose = "1.9.2"
+activity-compose = "1.9.3"
 agp = "8.5.2"
 appcompat = "1.7.0"
 atomik = "0.0.6"
 cache4k = "0.12.0"
-coil = "3.0.0-rc01"
-core-ktx = "1.13.1"
+coil = "3.0.4"
+core-ktx = "1.15.0"
 eva-icons = "1.1.0"
 fileKache = "2.1.0"
-firebase-crashlytics = "19.2.0"
-kermit = "2.0.4"
-kermit-koin = "1.2.2"
+firebase-crashlytics = "19.3.0"
+kermit = "2.0.5"
+kermit-koin = "2.0.4"
 kim = "0.8.3"
-koin-core = "3.5.3"
-koin-test = "3.4.0"
-kotlin = "2.0.10"
+koin-core = "4.0.0"
+koin-test = "3.5.3"
+kotlin = "2.1.0"
 crashlytics = "3.0.2"
 google-services = "4.4.2"
-kotlinx-datetime = "0.6.0"
+kotlinx-datetime = "0.6.1"
 kotlinx-serialization-json = "1.7.3"
+kotlinx-coroutines = "1.9.0"
 ktlint = "0.0.26"
 ktlint-plugin = "12.1.1"
-multiplatform-settings = "1.1.1"
-multiplatform-settings-test = "1.0.0"
+multiplatform-settings = "1.2.0"
+multiplatform-settings-test = "1.2.0"
 navigationCompose = "2.7.0-alpha07"
 resources-version = "0.23.0"
 security-crypto = "1.1.0-alpha06"
 smbj = "0.11.5"
 sqldelight = "2.0.2"
 resources = "0.23.0"
-compose = "1.6.11"
-sqlite-driver = "2.0.1"
-turbine = "1.0.0"
+compose = "1.7.1"
+sqlite-driver = "2.0.2"
+turbine = "1.2.0"
 
 ## SDK Versions
 minSdk = "29"
-targetSdk = "34"
-compileSdk = "34"
+targetSdk = "35"
+compileSdk = "35"
 java = "21"
 
 [libraries]
@@ -58,7 +59,7 @@ coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-core" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-core" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin-test" }
-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-serialization-json" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 ktlint = { module = "com.twitter.compose.rules:ktlint", version.ref = "ktlint" }

@@ -7,6 +7,7 @@ import com.kevinschildhorn.fotopresenter.PlaylistDatabase
 import com.kevinschildhorn.fotopresenter.PlaylistItems
 import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistItem
 import org.koin.core.component.KoinComponent
@@ -83,7 +84,7 @@ class PlaylistSQLDataSource(
         logger?.i { "Inserting Playlist Image ${directory.name}" }
         database.playlistItemsQueries.insertPlaylistImage(
             playlist_id = playlistId,
-            directory_path = directory.details.fullPath,
+            directory_path = directory.details.fullPath.toString(),
             directory_id = directory.id.toLong(),
         )
         return getPlaylistImage(playlistId, directory.details.fullPath)
@@ -91,12 +92,12 @@ class PlaylistSQLDataSource(
 
     fun getPlaylistImage(
         playlistId: Long,
-        directoryPath: String,
+        directoryPath: Path,
     ): PlaylistItem? {
         return try {
             logger?.i { "Selecting Playlist Image $playlistId" }
             val image: PlaylistItems =
-                database.playlistItemsQueries.selectPlaylistImage(playlistId, directoryPath)
+                database.playlistItemsQueries.selectPlaylistImage(playlistId, directoryPath.toString())
                     .executeAsOne()
             logger?.i { "Selecting Playlist Image" }
             PlaylistItem(image)

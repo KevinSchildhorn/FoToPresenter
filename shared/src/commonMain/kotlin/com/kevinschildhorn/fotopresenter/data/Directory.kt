@@ -3,6 +3,7 @@ package com.kevinschildhorn.fotopresenter.data
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
+import kotlinx.serialization.Serializable
 
 interface Directory {
     val details: NetworkDirectoryDetails
@@ -10,7 +11,7 @@ interface Directory {
     val name: String
         get() = details.name
 
-    val id: Int
+    val id: Long
         get() = details.id
 }
 
@@ -22,8 +23,8 @@ data class FolderDirectory(
     val isValid: Boolean
         get() =
             name != ".." &&
-                name.isNotEmpty() &&
-                name.isNotBlank()
+                    name.isNotEmpty() &&
+                    name.isNotBlank()
 }
 
 data class ImageDirectory(
@@ -50,12 +51,12 @@ data class DirectoryContents(
 
     override fun toString(): String {
         return """
-            DirectoryContents:
-            Folders: ${folders.count()}
-                ${folders.map { it.toString() }.joinToString(", ")}
-            Images: ${images.count()}
-                ${images.map { it.toString() }.joinToString(", ")}
-            """
+        DirectoryContents:
+        Folders: ${folders.count()}
+            ${folders.map { it.toString() }.joinToString(", ")}
+        Images: ${images.count()}
+            ${images.map { it.toString() }.joinToString(", ")}
+        """
     }
 }
 

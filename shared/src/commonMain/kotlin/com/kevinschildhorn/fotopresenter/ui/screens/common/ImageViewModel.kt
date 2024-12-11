@@ -81,7 +81,7 @@ class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel
     }
 
     override fun cancelImageJobs() {
-        logger?.d { "Cancelling Image Jobs" }
+        logger?.v { "Cancelling Image Jobs" }
         scope?.coroutineContext?.cancelChildren()
     }
 

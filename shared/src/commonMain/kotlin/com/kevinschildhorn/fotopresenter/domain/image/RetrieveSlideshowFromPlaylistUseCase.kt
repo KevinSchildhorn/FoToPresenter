@@ -5,7 +5,6 @@ import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
-import com.kevinschildhorn.fotopresenter.extension.isImagePath
 import org.koin.core.component.KoinComponent
 
 /**
@@ -21,7 +20,7 @@ class RetrieveSlideshowFromPlaylistUseCase(
             playlistDetails.items.map { item ->
                 val directoryDetails =
                     DefaultNetworkDirectoryDetails(
-                        id = item.directoryId.toInt(),
+                        id = item.directoryId,
                         fullPath = item.directoryPath,
                     )
                 if (item.directoryPath.isImagePath) {

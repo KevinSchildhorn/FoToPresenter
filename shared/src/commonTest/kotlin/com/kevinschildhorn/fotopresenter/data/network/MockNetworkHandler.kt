@@ -116,7 +116,7 @@ object MockNetworkHandler : NetworkHandler {
         connected = false
     }
 
-    override suspend fun getDirectoryDetails(path: String): NetworkDirectoryDetails? {
+    override suspend fun getDirectoryDetails(path: Path): NetworkDirectoryDetails? {
         networkContents.values.forEach { details ->
             details.find { detail ->
                 detail.fullPath == path
@@ -127,7 +127,7 @@ object MockNetworkHandler : NetworkHandler {
         return null
     }
 
-    override suspend fun getDirectoryContents(path: String): List<NetworkDirectoryDetails> {
+    override suspend fun getDirectoryContents(path: Path): List<NetworkDirectoryDetails> {
         print("Getting Directory Contents ${path}\n")
 
         return networkContents[path] ?: emptyList()
@@ -149,7 +149,7 @@ object MockNetworkHandler : NetworkHandler {
         return null
     }
 
-    override suspend fun folderExists(path: String): Boolean? =
+    override suspend fun folderExists(path: Path): Boolean? =
         if (path == "") {
             null
         } else {

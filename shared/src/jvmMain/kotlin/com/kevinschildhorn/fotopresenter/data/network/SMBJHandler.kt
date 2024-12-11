@@ -13,7 +13,7 @@ import com.hierynomus.smbj.session.Session
 import com.hierynomus.smbj.share.DiskShare
 import com.hierynomus.smbj.share.File
 import com.kevinschildhorn.fotopresenter.data.LoginCredentials
-import com.kevinschildhorn.fotopresenter.extension.addPath
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import java.io.OutputStream
 
@@ -22,7 +22,7 @@ object SMBJHandler : NetworkHandler {
     private var connection: Connection? = null
     private var session: Session? = null
     private var share: DiskShare? = null
-    private const val META_DATA_NAME: String = "FotoMetaData.json"
+    private val META_DATA_NAME: Path = Path("FotoMetaData.json")
     private val logger = Logger.withTag("SMBJHandler")
 
     private val accessMask: Set<AccessMask> =
@@ -44,7 +44,7 @@ object SMBJHandler : NetworkHandler {
 
     override suspend fun connect(credentials: LoginCredentials): Boolean {
         try {
-            logger.i { "Connecting" }
+            logger.d { "Connecting to location ${credentials.hostname}" }
             with(credentials) {
                 connection = client.connect(hostname)
                 val context = AuthenticationContext(username, password.toCharArray(), null)
@@ -64,11 +64,11 @@ object SMBJHandler : NetworkHandler {
         return true
     }
 
-    override suspend fun getDirectoryDetails(path: String): NetworkDirectoryDetails? {
+    override suspend fun getDirectoryDetails(path: Path): NetworkDirectoryDetails? {
         logger.i { "Getting Directory Details for $path" }
-        share?.getFileInformation(path)?.let {
+        share?.getFileInformation(path.toString())?.let {
             return DefaultNetworkDirectoryDetails(
-                id = it.internalInformation.indexNumber.toInt(),
+                id = it.internalInformation.indexNumber,
                 fullPath = path,
             )
         } ?: run {
@@ -76,9 +76,9 @@ object SMBJHandler : NetworkHandler {
         }
     }
 
-    override suspend fun getDirectoryContents(path: String): List<NetworkDirectoryDetails> {
-        logger.i { "Getting Directory Contents for $path" }
-        return share?.list(path)?.map {
+    override suspend fun getDirectoryContents(path: Path): List<NetworkDirectoryDetails> {
+        logger.d { "Getting Directory Contents for '$path'" }
+        return share?.list(path.toString())?.map {
             SMBJNetworkDirectoryDetails(
                 it,
                 fullPath = path.addPath(it.fileName),
@@ -86,21 +86,21 @@ object SMBJHandler : NetworkHandler {
         } ?: emptyList()
     }
 
-    override suspend fun openDirectory(path: String): String? {
+    override suspend fun openDirectory(path: Path): Path? {
         logger.i { "Opening Directory $path" }
         val result =
             share?.openDirectory(
-                path,
+                path.toString(),
                 accessMask,
                 attributes,
                 shareAccesses,
                 createDisposition,
                 createOptions,
             )
-        return result?.path
+        return if(result != null) Path(result.path) else null
     }
 
-    override suspend fun openImage(path: String): SharedImage? =
+    override suspend fun openImage(path: Path): SharedImage? =
         getFile(path)?.let { file ->
             val byteArray = file.inputStream.readAllBytes()
             file.close()
@@ -108,8 +108,8 @@ object SMBJHandler : NetworkHandler {
             sharedImage
         } ?: run { null }
 
-    override suspend fun folderExists(path: String): Boolean? {
-        return share?.folderExists(path)
+    override suspend fun folderExists(path: Path): Boolean? {
+        return share?.folderExists(path.toString())
     }
 
     override suspend fun disconnect() {
@@ -127,9 +127,9 @@ object SMBJHandler : NetworkHandler {
     ): Boolean = writeFile(fileName = "$playlistName.json", contents = json)
 
     override suspend fun getPlaylists(): List<String> =
-        getDirectoryContents("")
+        getDirectoryContents(Path.EMPTY)
             .filter { it.fileExtension == "json" }
-            .filter { !it.fileName.contains(META_DATA_NAME) }
+            .filter { !it.fileName.contains(META_DATA_NAME.toString()) }
             .mapNotNull { getFile(it.fullPath) }
             .map {
                 val str = it.inputStream.readAllBytes().decodeToString()
@@ -139,7 +139,7 @@ object SMBJHandler : NetworkHandler {
 
     override suspend fun setMetadata(json: String): Boolean {
         logger.i { "Setting Metadata" }
-        return writeFile(fileName = META_DATA_NAME, contents = json)
+        return writeFile(fileName = META_DATA_NAME.toString(), contents = json)
     }
 
     override suspend fun getMetadata(): String? =
@@ -154,11 +154,11 @@ object SMBJHandler : NetworkHandler {
         share?.rm("$playlistName.json")
     }
 
-    private fun getFile(path: String): File? =
+    private fun getFile(path: Path): File? =
         try {
             logger.v { "Getting File at path $path" }
             share?.openFile(
-                path,
+                path.toString(),
                 accessMask,
                 attributes,
                 shareAccesses,

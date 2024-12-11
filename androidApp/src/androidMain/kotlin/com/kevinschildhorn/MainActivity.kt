@@ -1,10 +1,8 @@
 package com.kevinschildhorn
 
 import MainView
-import android.Manifest
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import co.touchlab.kermit.Logger
 import coil3.ImageLoader
@@ -12,11 +10,8 @@ import coil3.compose.setSingletonImageLoaderFactory
 import coil3.disk.DiskCache
 import coil3.disk.directory
 import coil3.memory.MemoryCache
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.rememberPermissionState
-import com.kevinschildhorn.fotopresenter.baseLogger
-import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
+import com.kevinschildhorn.fotopresenter.extension.logLargeTitle
 import com.kevinschildhorn.fotopresenter.startKoin
 import com.kevinschildhorn.fotopresenter.ui.ByteArrayFetcher
 import com.kevinschildhorn.fotopresenter.ui.SMBJFetcher
@@ -39,18 +34,20 @@ class MainActivity : AppCompatActivity(), KoinComponent {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         startKoin(this)
+        val logger = Logger.withTag("MainActivity")
+        logger.logLargeTitle("App has started")
 
         setContent {
 
             setSingletonImageLoaderFactory { context ->
                 ImageLoader.Builder(context)
                     .components {
-                        add(SMBJFetcher.Factory(imageRepository, baseLogger))
-                        add(ByteArrayFetcher.Factory(Logger.withTag("ByteArrayFetcher")))
+                        add(SMBJFetcher.Factory(imageRepository, Logger))
+                        add(ByteArrayFetcher.Factory(Logger))
                     }
                     .memoryCache {
                         MemoryCache.Builder()
-                            .maxSizePercent(context,0.25)
+                            .maxSizePercent(context, 0.25)
                             .build()
                     }
                     .diskCache {
