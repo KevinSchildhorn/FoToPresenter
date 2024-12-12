@@ -41,7 +41,7 @@ val commonModule =
         single { CredentialsRepository(get()) }
         single { DirectoryDataSource(get(), getLoggerWithTag("DirectoryDataSource$LoggerTagSuffix")) }
         single { DirectoryRepository(get(), get()) }
-        single { CachedImageDataSource(get(), getLoggerWithTag("ImageCacheDataSource$LoggerTagSuffix"), get()) }
+        single { CachedImageDataSource(get(), getLoggerWithTag("ImageCacheDataSource$LoggerTagSuffix")) }
         single { PlaylistFileDataSource(getLoggerWithTag("PlaylistDataSource$LoggerTagSuffix"), get()) }
         single { PlaylistSQLDataSource(get(), getLoggerWithTag("PlaylistDataSource$LoggerTagSuffix")) }
         single { PlaylistRepository(get(), get(), getLoggerWithTag("PlaylistRepository$LoggerTagSuffix")) }

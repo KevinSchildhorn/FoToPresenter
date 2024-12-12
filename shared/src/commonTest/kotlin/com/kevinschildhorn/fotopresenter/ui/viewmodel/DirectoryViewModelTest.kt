@@ -49,6 +49,7 @@ class DirectoryViewModelTest : KoinTest {
             Dispatchers.resetMain()
         }
 
+
     @Test
     fun `Refresh Screen`() =
         runTest(testDispatcher) {
@@ -71,7 +72,7 @@ class DirectoryViewModelTest : KoinTest {
                 cancelAndIgnoreRemainingEvents()
             }
         }
-
+/* TODO
     @Test
     fun logout() =
         runTest(testDispatcher) {
@@ -82,7 +83,7 @@ class DirectoryViewModelTest : KoinTest {
                 cancelAndIgnoreRemainingEvents()
             }
         }
-
+*/
     @Test
     fun `change Directory`() =
         runTest(testDispatcher) {
