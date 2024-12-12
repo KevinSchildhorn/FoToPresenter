@@ -1,6 +1,6 @@
 package com.kevinschildhorn.fotopresenter
 
-import co.touchlab.kermit.Logger
+import co.touchlab.kermit.koin.getLoggerWithTag
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
@@ -22,14 +22,15 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUs
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
+import com.kevinschildhorn.fotopresenter.extension.LoggerTagSuffix
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
+import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedInMemoryCache
 import org.koin.core.module.Module
 import org.koin.dsl.module
-
-val baseLogger = Logger.withTag("")
 
 val commonModule =
     module {
@@ -38,47 +39,53 @@ val commonModule =
         single { NetworkImageDataSource(get()) }
         single { CredentialsDataSource(get()) }
         single { CredentialsRepository(get()) }
-        single { DirectoryDataSource(get(), baseLogger.withTag("DirectoryDataSource")) }
+        single { DirectoryDataSource(get(), getLoggerWithTag("DirectoryDataSource$LoggerTagSuffix")) }
         single { DirectoryRepository(get(), get()) }
-        single { CachedImageDataSource(get(), baseLogger.withTag("ImageCacheDataSource"), get()) }
-        single { PlaylistFileDataSource(baseLogger.withTag("PlaylistDataSource"), get()) }
-        single { PlaylistSQLDataSource(get(), baseLogger.withTag("PlaylistDataSource")) }
-        single { PlaylistRepository(get(), get()) }
-        factory { ImageMetadataDataSource(baseLogger.withTag("ImageMetadataDataSource"), get()) }
-        single { ImageRepository(get(), get(), baseLogger.withTag("ImageRepository")) }
+        single { CachedImageDataSource(get(), getLoggerWithTag("ImageCacheDataSource$LoggerTagSuffix")) }
+        single { PlaylistFileDataSource(getLoggerWithTag("PlaylistDataSource$LoggerTagSuffix"), get()) }
+        single { PlaylistSQLDataSource(get(), getLoggerWithTag("PlaylistDataSource$LoggerTagSuffix")) }
+        single { PlaylistRepository(get(), get(), getLoggerWithTag("PlaylistRepository$LoggerTagSuffix")) }
+        factory { ImageMetadataDataSource(getLoggerWithTag("ImageMetadataDataSource$LoggerTagSuffix"), get()) }
+        single { ImageRepository(get(), get(), getLoggerWithTag("ImageRepository$LoggerTagSuffix")) }
+        single<CacheInterface> {
+            //val context: Context = get()
+            //SharedFileCache(context.filesDir.path, getLoggerWithTag("SharedFileCache$LoggerTagSuffix"))
+            SharedInMemoryCache
+        }
 
         // Domain
-        factory { ConnectToServerUseCase(get(), baseLogger.withTag("ConnectToServerUseCase")) }
-        factory { ChangeDirectoryUseCase(get(), baseLogger.withTag("ChangeDirectoryUseCase")) }
-        factory { AutoConnectUseCase(get(), get(), baseLogger.withTag("AutoConnectUseCase")) }
-        factory { SaveCredentialsUseCase(get(), baseLogger.withTag("SaveCredentialsUseCase")) }
+        factory { ConnectToServerUseCase(get(), getLoggerWithTag("ConnectToServerUseCase$LoggerTagSuffix")) }
+        factory { ChangeDirectoryUseCase(get(), getLoggerWithTag("ChangeDirectoryUseCase$LoggerTagSuffix")) }
+        factory { AutoConnectUseCase(get(), get(), getLoggerWithTag("AutoConnectUseCase$LoggerTagSuffix")) }
+        factory { SaveCredentialsUseCase(get(), getLoggerWithTag("SaveCredentialsUseCase$LoggerTagSuffix")) }
         factory {
             DisconnectFromServerUseCase(
                 get(),
                 get(),
-                baseLogger.withTag("DisconnectFromServerUseCase"),
+                getLoggerWithTag("DisconnectFromServerUseCase$LoggerTagSuffix"),
             )
         }
-        factory { RetrieveImageDirectoriesUseCase(baseLogger.withTag("RetrieveImageDirectoriesUseCase")) }
+        factory { RetrieveImageDirectoriesUseCase(getLoggerWithTag("RetrieveImageDirectoriesUseCase$LoggerTagSuffix")) }
         factory {
             RetrieveSlideshowFromPlaylistUseCase(
-                baseLogger.withTag("RetrieveSlideshowFromPlaylistUseCase"),
+                getLoggerWithTag("RetrieveSlideshowFromPlaylistUseCase$LoggerTagSuffix"),
                 get(),
             )
         }
         factory {
             RetrieveDirectoryContentsUseCase(
                 get(),
-                baseLogger.withTag("RetrieveDirectoryContentsUseCase"),
+                getLoggerWithTag("RetrieveDirectoryContentsUseCase$LoggerTagSuffix"),
             )
         }
-        factory { RetrieveImageUseCase(get(), baseLogger.withTag("RetrieveImageUseCase")) }
+        factory { RetrieveImageUseCase(get(), getLoggerWithTag("RetrieveImageUseCase$LoggerTagSuffix")) }
         factory { SaveMetadataForPathUseCase(get()) }
         // UI
-        single { LoginViewModel(baseLogger.withTag("LoginViewModel"), get()) }
-        single { DirectoryViewModel(get(), baseLogger.withTag("DirectoryViewModel")) }
-        single { SlideshowViewModel(baseLogger.withTag("SlideshowViewModel")) }
-        single { PlaylistViewModel(get(), baseLogger.withTag("PlaylistViewModel")) }
+        single { LoginViewModel(getLoggerWithTag("LoginViewModel$LoggerTagSuffix"), get()) }
+        single { DirectoryViewModel(get(), getLoggerWithTag("DirectoryViewModel$LoggerTagSuffix")) }
+        single { SlideshowViewModel(getLoggerWithTag("SlideshowViewModel$LoggerTagSuffix")) }
+        single { PlaylistViewModel(get(), getLoggerWithTag("PlaylistViewModel$LoggerTagSuffix")) }
     }
+
 
 internal expect val platformModule: Module

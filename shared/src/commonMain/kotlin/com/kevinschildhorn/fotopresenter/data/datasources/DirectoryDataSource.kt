@@ -1,6 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data.datasources
 
 import co.touchlab.kermit.Logger
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerError
@@ -15,28 +16,30 @@ class DirectoryDataSource(
     private val logger: Logger?,
 ) {
     @Throws(NetworkHandlerException::class, CancellationException::class)
-    suspend fun changeDirectory(directoryName: String): String {
-        logger?.i { "Changing directory to $directoryName" }
-        logger?.i { "Is network Connected? ${networkHandler.isConnected}" }
+    suspend fun changeDirectory(directoryName: Path): Path {
+        logger?.v { "Changing directory to $directoryName" }
+        logger?.v { "Is network Connected? ${networkHandler.isConnected}" }
         if (!networkHandler.isConnected) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
 
-        logger?.i { "Does the directory exist?" }
+        logger?.v { "Does the directory exist?" }
         // val exists = networkHandler.folderExists(directoryName)
         // logger?.i { "Does the directory exist? $exists" }
 
-        logger?.i { "Opening the directory..." }
+        logger?.v { "Opening the directory..." }
         networkHandler.openDirectory(directoryName)?.let { return it }
         throw NetworkHandlerException(NetworkHandlerError.DIRECTORY_NOT_FOUND)
     }
 
-    suspend fun getFolderDirectories(path: String): List<NetworkDirectoryDetails> {
+    suspend fun getFolderDirectories(path: Path): List<NetworkDirectoryDetails> {
+        logger?.v { "Getting Folder Directories at path '$path'" }
         if (!networkHandler.isConnected) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
         return networkHandler.getDirectoryContents(path).filter {
             it.fileName != "."
         }.filter { it.isDirectory }
     }
 
-    suspend fun getImageDirectories(path: String): List<NetworkDirectoryDetails> {
+    suspend fun getImageDirectories(path: Path): List<NetworkDirectoryDetails> {
+        logger?.v { "Getting Image Directories at path '$path'" }
         if (!networkHandler.isConnected) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
         return networkHandler.getDirectoryContents(path).filter {
             it.fileName != "."

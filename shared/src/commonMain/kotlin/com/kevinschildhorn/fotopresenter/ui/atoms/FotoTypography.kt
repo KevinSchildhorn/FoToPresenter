@@ -8,16 +8,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import fotopresenter.shared.generated.resources.Res
-import fotopresenter.shared.generated.resources.quicksand_bold
-import fotopresenter.shared.generated.resources.quicksand_light
-import fotopresenter.shared.generated.resources.quicksand_medium
-import fotopresenter.shared.generated.resources.quicksand_regular
-import fotopresenter.shared.generated.resources.quicksand_semibold
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+import com.kevinschildhorn.fotopresenter.Res
+import com.kevinschildhorn.fotopresenter.quicksand_bold
+import com.kevinschildhorn.fotopresenter.quicksand_light
+import com.kevinschildhorn.fotopresenter.quicksand_medium
+import com.kevinschildhorn.fotopresenter.quicksand_regular
+import com.kevinschildhorn.fotopresenter.quicksand_semibold
 import org.jetbrains.compose.resources.Font
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun QuicksandFontFamily() =
     FontFamily(

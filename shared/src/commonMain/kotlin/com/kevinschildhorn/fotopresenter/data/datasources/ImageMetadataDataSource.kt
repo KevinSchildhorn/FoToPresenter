@@ -6,6 +6,7 @@ import com.ashampoo.kim.common.convertToPhotoMetadata
 import com.ashampoo.kim.format.tiff.constants.ExifTag
 import com.kevinschildhorn.fotopresenter.data.MetadataDetails
 import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -39,7 +40,7 @@ class ImageMetadataDataSource(
         return true
     }
 
-    suspend fun readMetadataFromFile(filePath: String): MetadataFileDetails? {
+    suspend fun readMetadataFromFile(filePath: Path): MetadataFileDetails? {
         networkHandler.openImage(filePath)?.let { sharedImage ->
             val metadata = Kim.readMetadata(sharedImage.byteArray)
             println(metadata)

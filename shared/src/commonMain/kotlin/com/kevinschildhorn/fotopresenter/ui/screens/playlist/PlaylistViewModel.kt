@@ -21,12 +21,9 @@ open class PlaylistViewModel(
     private val _uiState = MutableStateFlow(PlaylistScreenState())
     val playlistState: StateFlow<PlaylistScreenState> = _uiState.asStateFlow()
 
-    init {
-        refreshPlaylists()
-    }
-
     fun refreshPlaylists() {
         viewModelScope.launch(Dispatchers.Default) {
+            logger.i { "Refreshing Playlists" }
             val allPlaylists = playlistRepository.getAllPlaylists()
             _uiState.update { it.copy(playlists = allPlaylists) }
         }

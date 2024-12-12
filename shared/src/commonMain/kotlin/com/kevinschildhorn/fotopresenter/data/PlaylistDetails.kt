@@ -23,13 +23,13 @@ data class PlaylistDetails(
 data class PlaylistItem(
     val id: Long,
     val playlistId: Long,
-    val directoryPath: String,
+    val directoryPath: Path,
     val directoryId: Long,
 ) {
     constructor(item: PlaylistItems) : this(
         id = item.id,
         playlistId = item.playlist_id,
-        directoryPath = item.directory_path,
+        directoryPath = Path(item.directory_path),
         directoryId = item.directory_id,
     )
 }

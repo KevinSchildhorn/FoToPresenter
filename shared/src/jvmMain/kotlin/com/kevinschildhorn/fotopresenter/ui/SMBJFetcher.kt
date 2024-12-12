@@ -7,6 +7,7 @@ import coil3.fetch.Fetcher
 import coil3.request.Options
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
+import com.kevinschildhorn.fotopresenter.extension.LoggerTagSuffix
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -24,7 +25,7 @@ class SMBJFetcher(
                 logger.i { "Image Got! ${directoryDetails.name}" }
                 image
             } else {
-                logger.i { "No Image Fetched: ${directoryDetails.name}" }
+                logger.e { "No Image Fetched: ${directoryDetails.name}" }
                 null
             }
         }
@@ -35,6 +36,6 @@ class SMBJFetcher(
             data: NetworkDirectoryDetails,
             options: Options,
             imageLoader: ImageLoader,
-        ): Fetcher = SMBJFetcher(data, imageRepository, logger)
+        ): Fetcher = SMBJFetcher(data, imageRepository, logger.withTag("SMBJFetcher$LoggerTagSuffix"))
     }
 }

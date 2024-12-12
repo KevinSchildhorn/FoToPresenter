@@ -1,6 +1,7 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.UiState
@@ -9,17 +10,17 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ScreenState
 
 data class DirectoryScreenState(
-    val currentPath: String = "",
+    val currentPath: Path = Path.EMPTY,
     var directoryGridState: DirectoryGridState = DirectoryGridState(emptyList(), mutableListOf()),
     val slideshowDetails: ImageSlideshowDetails? = null,
     val selectedDirectory: DirectoryGridCellState? = null,
     val sortingType: SortingType = SortingType.NAME_ASC,
     override val state: UiState = UiState.IDLE,
 ) : ScreenState {
-    fun getImageIndexFromId(id: Int): Int = directoryGridState.imageStates.indexOfFirst { it.id == id }
+    fun getImageIndexFromId(id: Long): Int = directoryGridState.imageStates.indexOfFirst { it.id == id }
 
-    val currentPathList: List<String>
-        get() = currentPath.split("\\").filter { it.isNotEmpty() }
+    val currentPathList: List<Path>
+        get() = currentPath.pathList
 }
 
 data class DirectoryGridState(
@@ -31,20 +32,20 @@ data class DirectoryGridState(
 
     override fun toString(): String =
         """
-            Directory Grid State:
-            Folders: ${folderStates.count()}
-                ${folderStates.map { it.toString() }.joinToString(", ")}
-            Images: ${imageStates.count()}
-                ${imageStates.map { it.toString() }.joinToString(", ")}
-            """
+        Directory Grid State:
+        Folders: ${folderStates.count()}
+            ${folderStates.map { it.toString() }.joinToString(", ")}
+        Images: ${imageStates.count()}
+            ${imageStates.map { it.toString() }.joinToString(", ")}
+        """
 }
 
 sealed class DirectoryGridCellState(
     val name: String,
-    val id: Int,
+    val id: Long,
     val actionSheetContexts: List<ActionSheetContext>,
 ) {
-    class Folder(name: String, id: Int) : DirectoryGridCellState(
+    class Folder(name: String, id: Long) : DirectoryGridCellState(
         name,
         id,
         listOf(
@@ -53,7 +54,7 @@ sealed class DirectoryGridCellState(
         ),
     )
 
-    class Image(val directoryDetails: NetworkDirectoryDetails, name: String, id: Int) : DirectoryGridCellState(
+    class Image(val directoryDetails: NetworkDirectoryDetails, name: String, id: Long) : DirectoryGridCellState(
         name,
         id,
         listOf(

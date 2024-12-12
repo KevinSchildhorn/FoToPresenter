@@ -147,3 +147,9 @@ sqldelight {
         }
     }
 }
+
+compose.resources {
+    publicResClass = false
+    packageOfResClass = "com.kevinschildhorn.fotopresenter"
+    generateResClass = auto
+}

@@ -1,6 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data.datasources
 
 import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -47,7 +48,7 @@ class ImageMetadataDataSourceTest {
 
             val newMetadataFileDetails =
                 MetadataFileDetails(
-                    "MyPath.png",
+                    Path("MyPath.png"),
                     setOf("Tag1", "Wallpaper"),
                 )
             val mutableFiles = metadata.files.toMutableList()

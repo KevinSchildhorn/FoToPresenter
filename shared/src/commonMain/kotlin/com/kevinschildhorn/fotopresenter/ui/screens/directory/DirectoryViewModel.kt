@@ -7,11 +7,11 @@ import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.FolderDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
-import com.kevinschildhorn.fotopresenter.extension.addPath
-import com.kevinschildhorn.fotopresenter.extension.navigateBackToPathAtIndex
+import com.kevinschildhorn.fotopresenter.extension.logLargeTitle
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
@@ -45,7 +45,7 @@ class DirectoryViewModel(
     private val _uiState = MutableStateFlow(DirectoryScreenState())
     val uiState: StateFlow<DirectoryScreenState> = _uiState.asStateFlow()
 
-    private val currentPath: String
+    private val currentPath: Path
         get() = uiState.value.currentPath
 
     val actionSheetContexts: List<ActionSheetContext>
@@ -59,6 +59,7 @@ class DirectoryViewModel(
     }
 
     fun refreshScreen() {
+        if(currentPath.isRoot) logger.logLargeTitle("Directory Shown")
         updateDirectories()
     }
 
@@ -101,7 +102,7 @@ class DirectoryViewModel(
         _uiState.update { it.copy(slideshowDetails = null) }
     }
 
-    fun setSelectedImageById(imageId: Int?) {
+    fun setSelectedImageById(imageId: Long?) {
         logger.i { "Set Image with ID: $imageId" }
         var index: Int? = null
         imageId?.let {
@@ -126,23 +127,23 @@ class DirectoryViewModel(
         changeDirectoryToPath(finalPath)
     }
 
-    fun changeDirectory(id: Int) {
+    fun changeDirectory(id: Long) {
         _directoryContentsState.value.allDirectories.find { it.id == id }?.let {
             changeDirectoryToPath(currentPath.addPath(it.details.name))
         }
     }
 
-    private fun changeDirectoryToPath(path: String) {
-        logger.i { "Changing directory to path $path" }
+    private fun changeDirectoryToPath(path: Path) {
+        logger.i { "Changing directory to path '$path'" }
 
         cancelJobs()
         viewModelScope.launch(Dispatchers.Default) {
             val changeDirectoryUseCase = UseCaseFactory.changeDirectoryUseCase
             try {
-                logger.i { "Getting New Path" }
+                logger.d { "Getting New Path" }
                 val newPath = changeDirectoryUseCase(path)
-                logger.i { "New Path got: $newPath" }
                 _uiState.update { it.copy(currentPath = newPath) }
+                logger.d { "New Path got: $newPath" }
                 updateDirectories()
             } catch (e: NetworkHandlerException) {
                 logger.e(e) { "Error Occurred Getting new path" }
@@ -161,28 +162,26 @@ class DirectoryViewModel(
     }
 
     private fun updateDirectories() {
-        logger.i { "Updating Directories" }
+        logger.i { "Updating Directories for path '$currentPath'" }
         _uiState.update { it.copy(state = UiState.LOADING) }
         viewModelScope.launch(Dispatchers.Default) {
             val retrieveDirectoryUseCase = UseCaseFactory.retrieveDirectoryContentsUseCase
-
-            logger.i { "Getting Directory Contents" }
             val directoryContents = retrieveDirectoryUseCase(currentPath)
-            logger.i { "Got Directory Contents: ${directoryContents.allDirectories.count()}" }
+            logger.d { "Got Directory Contents: ${directoryContents.allDirectories.count()} directories found" }
             _directoryContentsState.update { directoryContents }
 
             updateGrid()
-            logger.i { "Current State ${uiState.value.state}" }
+            logger.d { "Current State: ${uiState.value.state}" }
         }
     }
 
     private fun updateGrid() =
         with(_directoryContentsState.value) {
-            logger.i { "Updating State to Success" }
-            logger.i { "Setting Directories: $this" }
+            logger.d { "Updating Grid: Updating State to Success" }
+            logger.v { "Setting Directories: $this" }
             setImageDirectories(this.images)
             val gridState = this.asDirectoryGridState
-            logger.i { "New Grid State $gridState" }
+            logger.v { "New Grid State $gridState" }
             _uiState.update {
                 it.copy(
                     directoryGridState = gridState,

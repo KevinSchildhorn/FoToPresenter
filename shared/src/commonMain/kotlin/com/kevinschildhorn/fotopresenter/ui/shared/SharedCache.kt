@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.ui.shared
 
+import co.touchlab.kermit.Logger
 import com.mayakapps.kache.FileKache
 import com.mayakapps.kache.KacheStrategy
 import io.github.reactivecircus.cache4k.Cache
@@ -30,13 +31,15 @@ object SharedInMemoryCache : CacheInterface {
     }
 }
 
-class SharedFileCache(private val cacheLocation: String) : CacheInterface {
+class SharedFileCache(private val cacheLocation: String, private val logger: Logger) : CacheInterface {
     override suspend fun getImage(id: String): SharedImage? {
-        val cache = createCache()
 
-        val test = cache?.get(id)
-        println(test)
-        val byteArray = cache?.get(id)?.toByteArray()
+        val cache = createCache() ?: return null
+
+        val test = cache.get(id)
+        logger.v { test ?: "" }
+        val byteArray = cache.get(id)?.toByteArray()
+        cache.close()
         return if (byteArray != null) SharedImage(byteArray) else null
     }
 
@@ -44,10 +47,10 @@ class SharedFileCache(private val cacheLocation: String) : CacheInterface {
         id: String,
         image: SharedImage,
     ) {
-        val cache = createCache()
+        val cache = createCache() ?: return
         try {
             val imageData =
-                cache?.put(id) { path ->
+                cache.put(id) { path ->
                     val file = File(path)
                     try {
                         val stream = file.outputStream()
@@ -55,25 +58,24 @@ class SharedFileCache(private val cacheLocation: String) : CacheInterface {
                         stream.close()
                         true
                     } catch (e: Exception) {
-                        println(e.localizedMessage)
+                        logger.e(e){ "Failed to cache image" }
                         false
                     }
                 }
-            println(imageData)
+            logger.v { imageData ?: "" }
         } finally {
-            cache?.close()
+            cache.close()
         }
     }
 
     private suspend fun createCache(): FileKache? {
         try {
-            println("Creating Cache")
+            logger.v { "Creating Cache" }
             return FileKache(directory = cacheLocation, maxSize = 10 * 1024 * 1024) {
-                strategy = KacheStrategy.LRU
+                strategy = KacheStrategy.MRU
             }
         } catch (e: Exception) {
-            println("Error Creating Cache")
-            println(e.localizedMessage)
+            logger.e(e) { "Error Creating Cache" }
             return null
         }
     }

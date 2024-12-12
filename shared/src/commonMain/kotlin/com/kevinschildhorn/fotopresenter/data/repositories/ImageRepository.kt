@@ -17,26 +17,28 @@ class ImageRepository(
         size: Int,
     ): FetchResult? {
         val image = getImage(directoryDetails, size)
-        return image?.getFetchResult(size)
+        if (image == null) logger?.e { "Shared Image was not retrieved from directory :${directoryDetails.fullPath}" }
+        return image?.getFetchResult(size, logger)
     }
 
     private suspend fun getImage(
         directoryDetails: NetworkDirectoryDetails,
         size: Int,
     ): SharedImage? {
-        logger?.i { "Getting Image from Cache: ${directoryDetails.name}" }
+        logger?.d { "Getting Image: ${directoryDetails.name}" }
         val cachedImage = localImageDataSource.getImage(directoryDetails)
         if (cachedImage != null) {
-            logger?.i { "Cached image found from Cache: ${directoryDetails.name}" }
+            logger?.v { "Cached image found: ${directoryDetails.name}" }
             return cachedImage
         }
 
-        logger?.i { "No cached image found, getting image from directory" }
+        logger?.v { "No cached image found, getting image from directory" }
         val image = remoteImageDataSource.getImage(directoryDetails)
         if (image != null) {
-            logger?.i { "Storing image in cache: ${directoryDetails.name}" }
+            logger?.v { "Storing image in cache: ${directoryDetails.name}" }
             localImageDataSource.saveImage(directoryDetails, image)
         }
+        logger?.d { "Image retrieved: ${directoryDetails.name}" }
         return image
     }
 }

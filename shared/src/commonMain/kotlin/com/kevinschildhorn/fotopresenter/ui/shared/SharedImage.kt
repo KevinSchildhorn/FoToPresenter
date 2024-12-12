@@ -1,11 +1,12 @@
 package com.kevinschildhorn.fotopresenter.ui.shared
 
+import co.touchlab.kermit.Logger
 import coil3.fetch.FetchResult
 
 expect class SharedImage(byteArray: ByteArray) {
     val byteArray: ByteArray
 
-    fun getFetchResult(size: Int): FetchResult?
+    fun getFetchResult(size: Int, logger: Logger?): FetchResult?
 }
 
 fun getScaledDimensions(
