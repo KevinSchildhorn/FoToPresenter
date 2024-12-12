@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.domain
 
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerError
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
@@ -41,15 +42,15 @@ class ChangeDirectoryUseCaseTest : KoinTest {
     @Test
     fun `change directory success`() =
         runBlocking {
-            val result = useCase("Photos")
-            assertEquals("Photos", result)
+            val result = useCase(Path("Photos"))
+            assertEquals(Path("Photos"), result)
         }
 
     @Test
     fun `change directory failure`() =
         runBlocking {
             try {
-                val result = useCase("nonExistant")
+                val result = useCase(Path("nonExistant"))
                 fail("Should've thrown")
             } catch (e: NetworkHandlerException) {
                 assertEquals(NetworkHandlerError.DIRECTORY_NOT_FOUND.message, e.message)
@@ -61,7 +62,7 @@ class ChangeDirectoryUseCaseTest : KoinTest {
         runBlocking {
             MockNetworkHandler.disconnect()
             try {
-                val result = useCase("Photos")
+                val result = useCase(Path("Photos"))
                 fail("Should've thrown")
             } catch (e: NetworkHandlerException) {
                 assertEquals(NetworkHandlerError.NOT_CONNECTED.message, e.message)

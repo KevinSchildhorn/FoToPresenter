@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.domain
 
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerError
@@ -42,7 +43,8 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
     @Test
     fun `receive directory content success`() =
         runBlocking {
-            val details = DefaultNetworkDirectoryDetails("", 1)
+            val details = DefaultNetworkDirectoryDetails(
+                Path(""), 1)
             val result = useCase(details)
             assertEquals(6, result.count())
         }
@@ -50,7 +52,7 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
     @Test
     fun `receive directory content only directories`() =
         runBlocking {
-            val details = DefaultNetworkDirectoryDetails("Directories", 1)
+            val details = DefaultNetworkDirectoryDetails(Path("Directories"), 1)
             val result = useCase(details)
             assertEquals(0, result.count())
         }
@@ -58,7 +60,7 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
     @Test
     fun `receive directory content failure`() =
         runBlocking {
-            val details = DefaultNetworkDirectoryDetails("nonExistant", 1)
+            val details = DefaultNetworkDirectoryDetails(Path("nonExistant"), 1)
             val result = useCase(details)
             assertEquals(0, result.count())
         }
@@ -68,7 +70,7 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
         runBlocking {
             MockNetworkHandler.disconnect()
             try {
-                val details = DefaultNetworkDirectoryDetails("Photos", 1)
+                val details = DefaultNetworkDirectoryDetails(Path("Photos"), 1)
                 val result = useCase(details)
                 fail("Should've thrown")
             } catch (e: NetworkHandlerException) {

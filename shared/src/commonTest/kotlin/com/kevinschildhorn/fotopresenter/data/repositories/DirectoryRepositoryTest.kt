@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.data.repositories
 
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerError
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
@@ -41,7 +42,7 @@ class DirectoryRepositoryTest : KoinTest {
     @Test
     fun `retrieve Directory Contents Success`() =
         runBlocking {
-            val result = repository.getDirectoryContents("")
+            val result = repository.getDirectoryContents(Path.EMPTY)
             assertEquals(2, result.folders.count())
             assertEquals(2, result.images.count())
         }
@@ -49,7 +50,7 @@ class DirectoryRepositoryTest : KoinTest {
     @Test
     fun `retrieve Directory Contents Failure`() =
         runBlocking {
-            val result = repository.getDirectoryContents("nonExistant")
+            val result = repository.getDirectoryContents(Path("nonExistant"))
             assertEquals(0, result.folders.count())
             assertEquals(0, result.images.count())
         }
@@ -59,7 +60,7 @@ class DirectoryRepositoryTest : KoinTest {
         runBlocking {
             networkHandler.disconnect()
             try {
-                val result = repository.getDirectoryContents("")
+                val result = repository.getDirectoryContents(Path(""))
                 fail("Should Throw Exception")
             } catch (e: NetworkHandlerException) {
                 assertEquals(e.message, NetworkHandlerError.NOT_CONNECTED.message)

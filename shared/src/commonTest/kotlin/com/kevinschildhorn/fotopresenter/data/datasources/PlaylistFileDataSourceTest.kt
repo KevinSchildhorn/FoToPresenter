@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.data.datasources
 
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistItem
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
@@ -26,13 +27,13 @@ class PlaylistFileDataSourceTest {
                     PlaylistItem(
                         id = 1,
                         playlistId = 2,
-                        directoryPath = "Photos/SubPhotos/Peeng3.png",
+                        directoryPath = Path("Photos/SubPhotos/Peeng3.png"),
                         directoryId = 2,
                     ),
                     PlaylistItem(
                         id = 2,
                         playlistId = 2,
-                        directoryPath = "Photos/SubPhotos/Jaypeg3.jpg",
+                        directoryPath = Path("Photos/SubPhotos/Jaypeg3.jpg"),
                         directoryId = 3,
                     ),
                 ),

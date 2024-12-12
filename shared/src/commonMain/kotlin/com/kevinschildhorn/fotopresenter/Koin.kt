@@ -27,6 +27,8 @@ import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
+import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedInMemoryCache
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -45,6 +47,11 @@ val commonModule =
         single { PlaylistRepository(get(), get(), getLoggerWithTag("PlaylistRepository$LoggerTagSuffix")) }
         factory { ImageMetadataDataSource(getLoggerWithTag("ImageMetadataDataSource$LoggerTagSuffix"), get()) }
         single { ImageRepository(get(), get(), getLoggerWithTag("ImageRepository$LoggerTagSuffix")) }
+        single<CacheInterface> {
+            //val context: Context = get()
+            //SharedFileCache(context.filesDir.path, getLoggerWithTag("SharedFileCache$LoggerTagSuffix"))
+            SharedInMemoryCache
+        }
 
         // Domain
         factory { ConnectToServerUseCase(get(), getLoggerWithTag("ConnectToServerUseCase$LoggerTagSuffix")) }

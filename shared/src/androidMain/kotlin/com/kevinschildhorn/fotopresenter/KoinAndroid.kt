@@ -10,9 +10,7 @@ import co.touchlab.kermit.koin.kermitLoggerModule
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
-import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
 import com.kevinschildhorn.fotopresenter.ui.shared.DriverFactory
-import com.kevinschildhorn.fotopresenter.ui.shared.SharedInMemoryCache
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import org.koin.core.KoinApplication
@@ -55,11 +53,6 @@ internal actual val platformModule: Module =
             SMBJHandler
         }
         single<SqlDriver> { DriverFactory(context = get()).createDriver() }
-        single<CacheInterface> {
-            //val context: Context = get()
-            //SharedFileCache(context.filesDir.path, getLoggerWithTag("SharedFileCache$LoggerTagSuffix"))
-            SharedInMemoryCache
-        }
     }
 
 @OptIn(KoinInternalApi::class)

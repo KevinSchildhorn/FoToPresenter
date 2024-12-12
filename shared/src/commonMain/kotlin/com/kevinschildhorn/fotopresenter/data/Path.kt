@@ -11,7 +11,7 @@ value class Path(private val pathString: String) {
     val isRoot: Boolean
         get() = pathString.isEmpty()
 
-    private val isEmpty: Boolean
+    val isEmpty: Boolean
         get() = pathString.isEmpty()
 
     val isImagePath: Boolean

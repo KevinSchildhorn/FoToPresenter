@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.domain
 
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerError
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
@@ -41,7 +42,7 @@ class RetrieveDirectoryContentsUseCaseTest : KoinTest {
     @Test
     fun `receive directory content success`() =
         runBlocking {
-            val result = useCase("")
+            val result = useCase(Path(""))
             assertTrue(result.images.first().details.isAnImage)
             assertTrue(result.folders.first().details.isDirectory)
             assertEquals(2, result.folders.count())
@@ -52,7 +53,7 @@ class RetrieveDirectoryContentsUseCaseTest : KoinTest {
     @Test
     fun `receive directory content only directories`() =
         runBlocking {
-            val result = useCase("Directories")
+            val result = useCase(Path("Directories"))
             assertEquals(2, result.folders.count())
             assertEquals(0, result.images.count())
             assertEquals(2, result.allDirectories.count())
@@ -61,7 +62,7 @@ class RetrieveDirectoryContentsUseCaseTest : KoinTest {
     @Test
     fun `receive directory content failure`() =
         runBlocking {
-            val result = useCase("nonExistant")
+            val result = useCase(Path("nonExistant"))
             assertEquals(0, result.folders.count())
             assertEquals(0, result.images.count())
             assertEquals(0, result.allDirectories.count())
@@ -72,7 +73,7 @@ class RetrieveDirectoryContentsUseCaseTest : KoinTest {
         runBlocking {
             MockNetworkHandler.disconnect()
             try {
-                val result = useCase("Photos")
+                val result = useCase(Path("Photos"))
                 fail("Should've thrown")
             } catch (e: NetworkHandlerException) {
                 assertEquals(NetworkHandlerError.NOT_CONNECTED.message, e.message)

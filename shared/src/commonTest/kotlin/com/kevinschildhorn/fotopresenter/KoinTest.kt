@@ -3,6 +3,7 @@ package com.kevinschildhorn.fotopresenter
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import co.touchlab.kermit.Logger
+import co.touchlab.kermit.koin.kermitLoggerModule
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.russhwolf.settings.MapSettings
@@ -21,4 +22,4 @@ fun testingModule(settings: MapSettings = MapSettings()) =
             PlaylistDatabase.Schema.create(driver)
             driver
         }
-    } + commonModule
+    } + kermitLoggerModule(Logger) + commonModule

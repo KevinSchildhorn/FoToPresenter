@@ -45,6 +45,6 @@ class StringTest {
         assertEquals("Public\\Public\\Subfolder\\SuperSubfolder", path.toString())
 
         path = path.navigateBackToPathAtIndex(-1)
-        assertEquals("", path.toString())
+        assertEquals("/", path.toString())
     }
 }

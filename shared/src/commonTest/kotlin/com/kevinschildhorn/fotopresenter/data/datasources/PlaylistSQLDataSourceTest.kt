@@ -4,6 +4,7 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import com.kevinschildhorn.fotopresenter.PlaylistDatabase
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
+import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -20,7 +21,7 @@ class PlaylistSQLDataSourceTest {
         ImageDirectory(
             details =
                 DefaultNetworkDirectoryDetails(
-                    fullPath = "Image1.png",
+                    fullPath = Path("Image1.png"),
                     id = 1,
                 ),
             metaData = null,
@@ -31,7 +32,7 @@ class PlaylistSQLDataSourceTest {
             ImageDirectory(
                 details =
                     DefaultNetworkDirectoryDetails(
-                        fullPath = "Photos/Image2.png",
+                        fullPath = Path("Photos/Image2.png"),
                         id = 2,
                     ),
                 metaData = null,
@@ -39,7 +40,7 @@ class PlaylistSQLDataSourceTest {
             ImageDirectory(
                 details =
                     DefaultNetworkDirectoryDetails(
-                        fullPath = "Image3.png",
+                        fullPath = Path("Image3.png"),
                         id = 3,
                     ),
                 metaData = null,
