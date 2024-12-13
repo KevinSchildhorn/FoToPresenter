@@ -36,6 +36,7 @@ fun LoadingAsyncImage(
         modifier = modifier,
         onLoading = { loading = true },
         onSuccess = { loading = false },
+        onError = { loading = false },
         error = painterResource(Res.drawable.error),
     )
     if (loading) {

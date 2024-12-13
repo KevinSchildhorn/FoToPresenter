@@ -47,11 +47,7 @@ val commonModule =
         single { PlaylistRepository(get(), get(), getLoggerWithTag("PlaylistRepository$LoggerTagSuffix")) }
         factory { ImageMetadataDataSource(getLoggerWithTag("ImageMetadataDataSource$LoggerTagSuffix"), get()) }
         single { ImageRepository(get(), get(), getLoggerWithTag("ImageRepository$LoggerTagSuffix")) }
-        single<CacheInterface> {
-            //val context: Context = get()
-            //SharedFileCache(context.filesDir.path, getLoggerWithTag("SharedFileCache$LoggerTagSuffix"))
-            SharedInMemoryCache
-        }
+        single<CacheInterface> { SharedInMemoryCache }
 
         // Domain
         factory { ConnectToServerUseCase(get(), getLoggerWithTag("ConnectToServerUseCase$LoggerTagSuffix")) }
