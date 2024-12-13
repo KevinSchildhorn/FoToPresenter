@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 val fotoColors =
     Colors(
         primary = Color(0xFFFFA500),
-        primaryVariant = Color(0xFFFFA500),
+        primaryVariant = Color(0x44FFA500),
         secondary = Color(0xFFFFD383),
         secondaryVariant = Color(0xFFFFD383),
         background = Color(0xFFFFFFFF),

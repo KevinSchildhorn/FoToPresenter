@@ -19,6 +19,7 @@ import com.kevinschildhorn.fotopresenter.error
 import com.kevinschildhorn.fotopresenter.photo_camera
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import com.kevinschildhorn.fotopresenter.ui.composables.LoadingAsyncImage
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
@@ -43,12 +44,10 @@ fun ImagePreviewOverlay(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            AsyncImage(
+            LoadingAsyncImage(
                 model = image,
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
-                error = painterResource(Res.drawable.error),
-                placeholder = painterResource(Res.drawable.photo_camera),
+                contentScale = ContentScale.Fit,
                 modifier =
                     Modifier
                         .fillMaxWidth()

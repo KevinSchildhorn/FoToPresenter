@@ -16,7 +16,7 @@ class ImageRepository(
         directoryDetails: NetworkDirectoryDetails,
         size: Int,
     ): FetchResult? {
-        val image = getImage(directoryDetails, size)
+        val image = getImage(directoryDetails)
         if (image == null) logger?.e { "Shared Image was not retrieved from directory :${directoryDetails.fullPath}" }
         return image?.getFetchResult(size, logger)
     }
