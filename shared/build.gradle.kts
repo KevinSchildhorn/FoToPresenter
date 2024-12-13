@@ -55,6 +55,7 @@ kotlin {
                 implementation(libs.kim)
                 api(libs.coil)
                 implementation(libs.file.kache)
+                implementation(libs.compose.shimmer)
             }
         }
         val commonTest by getting {
