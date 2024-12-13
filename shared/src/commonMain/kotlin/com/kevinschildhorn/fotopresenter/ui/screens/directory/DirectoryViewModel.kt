@@ -108,7 +108,7 @@ class DirectoryViewModel(
         imageId?.let {
             index = _uiState.value.getImageIndexFromId(it)
         }
-        logger.i { "Set Image with Index: $index" }
+        logger.d { "Set Image with Index: $index" }
         setSelectedImage(index)
     }
 

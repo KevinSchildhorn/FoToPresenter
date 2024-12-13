@@ -13,7 +13,7 @@ import coil3.memory.MemoryCache
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
 import com.kevinschildhorn.fotopresenter.extension.logLargeTitle
 import com.kevinschildhorn.fotopresenter.startKoin
-import com.kevinschildhorn.fotopresenter.ui.ByteArrayFetcher
+import com.kevinschildhorn.fotopresenter.ui.SharedImageFetcher
 import com.kevinschildhorn.fotopresenter.ui.SMBJFetcher
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), KoinComponent {
                 ImageLoader.Builder(context)
                     .components {
                         add(SMBJFetcher.Factory(imageRepository, Logger))
-                        add(ByteArrayFetcher.Factory(Logger))
+                        add(SharedImageFetcher.Factory(Logger))
                     }
                     .memoryCache {
                         MemoryCache.Builder()

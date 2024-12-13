@@ -15,7 +15,7 @@ import com.kevinschildhorn.fotopresenter.data.datasources.image.CachedImageDataS
 import com.kevinschildhorn.fotopresenter.data.datasources.image.NetworkImageDataSource
 import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
-import com.kevinschildhorn.fotopresenter.ui.ByteArrayFetcher
+import com.kevinschildhorn.fotopresenter.ui.SharedImageFetcher
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedFileCache
 
 
@@ -49,7 +49,7 @@ fun main() = application {
             ImageLoader.Builder(context)
                 .components {
                     add(SMBJFetcher.Factory(imageRepository, baseLogger))
-                    add(ByteArrayFetcher.Factory(baseLogger))
+                    add(SharedImageFetcher.Factory(baseLogger))
                 }
                 .build()
         }

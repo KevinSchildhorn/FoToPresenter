@@ -21,10 +21,7 @@ class ImageRepository(
         return image?.getFetchResult(size, logger)
     }
 
-    private suspend fun getImage(
-        directoryDetails: NetworkDirectoryDetails,
-        size: Int,
-    ): SharedImage? {
+    private suspend fun getImage(directoryDetails: NetworkDirectoryDetails): SharedImage? {
         logger?.d { "Getting Image: ${directoryDetails.name}" }
         val cachedImage = localImageDataSource.getImage(directoryDetails)
         if (cachedImage != null) {

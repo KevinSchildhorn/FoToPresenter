@@ -4,42 +4,40 @@ package com.kevinschildhorn.fotopresenter.ui.shared
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import co.touchlab.kermit.Logger
 import coil3.asImage
 import coil3.decode.DataSource
 import coil3.fetch.FetchResult
 import coil3.fetch.ImageFetchResult
+import com.ashampoo.kim.Kim
+import com.ashampoo.kim.common.convertToPhotoMetadata
+import com.ashampoo.kim.model.TiffOrientation
 
 actual open class SharedImage actual constructor(actual val byteArray: ByteArray) {
     actual fun getFetchResult(size: Int, logger: Logger?): FetchResult? {
-        if(byteArray.isEmpty()){
+        if (byteArray.isEmpty()) {
             logger?.e { "Byte Array is Empty!" }
             return null
         }
 
         logger?.d { "Getting Android Bitmap from Byte Array" }
         val bitmap = getAndroidBitmap(byteArray, size, logger)
-        if (bitmap == null) logger?.e { "Could not generate Bitmap" }
         logger?.v { "Getting Image from Bitmap" }
-        val image = bitmap?.asImage()
-        return if (image != null) {
-            logger?.v { "Returning result" }
-            ImageFetchResult(
-                image = image,
-                isSampled = true,
-                dataSource = DataSource.NETWORK,
-            )
-        } else {
-            logger?.e { "Image NOT Found" }
-            null
-        }
+        val image = bitmap.asImage()
+        logger?.v { "Returning result" }
+        return ImageFetchResult(
+            image = image,
+            isSampled = true,
+            dataSource = DataSource.NETWORK,
+        )
     }
 
     private fun getAndroidBitmap(
         byteArray: ByteArray,
         size: Int,
         logger: Logger?,
-    ): Bitmap? {
+    ): Bitmap {
         logger?.v { "Getting Android Bitmap" }
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
@@ -59,6 +57,34 @@ actual open class SharedImage actual constructor(actual val byteArray: ByteArray
 
         options.inJustDecodeBounds = false
         logger?.v { "Decoding Byte Array (Size: ${byteArray.size})" }
-        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size, options)
+        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size, options)
+
+        val imageRotation = getImageRotationOffset(byteArray) ?: return bitmap
+        val matrix = Matrix()
+        matrix.postRotate(imageRotation)
+        val rotatedBitmap = Bitmap.createBitmap(
+            bitmap,
+            0,
+            0,
+            bitmap.width,
+            bitmap.height,
+            matrix,
+            true
+        )
+        return rotatedBitmap
+    }
+
+    private fun getImageRotationOffset(byteArray: ByteArray): Float? {
+        val photoMetadata = Kim.readMetadata(byteArray)?.convertToPhotoMetadata()
+        if (photoMetadata?.orientation != null) {
+            val orientation = photoMetadata.orientation!!
+            return when (orientation) {
+                TiffOrientation.ROTATE_LEFT -> -90f
+                TiffOrientation.ROTATE_RIGHT -> 90f
+                TiffOrientation.UPSIDE_DOWN -> 180f
+                else -> null
+            }
+        }
+        return null
     }
 }

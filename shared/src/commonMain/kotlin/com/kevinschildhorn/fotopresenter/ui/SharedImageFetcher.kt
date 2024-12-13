@@ -10,14 +10,13 @@ import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ByteArrayFetcher(
-    private val byteArray: ByteArray,
+class SharedImageFetcher(
+    private val sharedImage: SharedImage,
     private val logger: Logger,
 ) : Fetcher {
     override suspend fun fetch(): FetchResult? {
         return withContext(Dispatchers.IO) {
-            val image = SharedImage(byteArray)
-            val result = image.getFetchResult(64, logger)
+            val result = sharedImage.getFetchResult(1024, logger)
             if (result != null) {
                 logger.i { "Image Got!" }
                 result
@@ -28,11 +27,11 @@ class ByteArrayFetcher(
         }
     }
 
-    class Factory(private val logger: Logger) : Fetcher.Factory<ByteArray> {
+    class Factory(private val logger: Logger) : Fetcher.Factory<SharedImage> {
         override fun create(
-            data: ByteArray,
+            data: SharedImage,
             options: Options,
             imageLoader: ImageLoader,
-        ): Fetcher = ByteArrayFetcher(data, logger.withTag("ByteArrayFetcher$LoggerTagSuffix"))
+        ): Fetcher = SharedImageFetcher(data, logger.withTag("ByteArrayFetcher$LoggerTagSuffix"))
     }
 }

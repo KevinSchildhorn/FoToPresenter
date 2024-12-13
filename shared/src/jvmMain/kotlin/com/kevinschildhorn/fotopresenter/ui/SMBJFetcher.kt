@@ -19,8 +19,7 @@ class SMBJFetcher(
     override suspend fun fetch(): FetchResult? =
         withContext(Dispatchers.IO) {
             logger.i { "Fetching image: ${directoryDetails.name}" }
-
-            val image = imageRepository.getFetchResult(directoryDetails, 64)
+            val image = imageRepository.getFetchResult(directoryDetails, 128)
             if (image != null) {
                 logger.i { "Image Got! ${directoryDetails.name}" }
                 image

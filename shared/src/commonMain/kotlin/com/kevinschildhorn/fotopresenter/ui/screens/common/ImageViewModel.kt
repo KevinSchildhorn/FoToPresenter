@@ -86,7 +86,7 @@ class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel
     }
 
     private fun updateSelectedImage() {
-        logger?.i { "Updating Selected Index" }
+        logger?.d { "Updating Selected Index" }
         with(imageUiState.value) {
             selectedImageDirectory?.let {
                 logger?.d { "Image Directory found, showing photo" }
