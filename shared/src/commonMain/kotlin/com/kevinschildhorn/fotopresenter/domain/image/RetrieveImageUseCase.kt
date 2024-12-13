@@ -14,7 +14,6 @@ class RetrieveImageUseCase(
 ) {
     suspend operator fun invoke(
         directory: ImageDirectory,
-        imageSize: Int,
     ): SharedImage? {
         val imageName = "\"${directory.details.fullPath}\""
         logger?.i { "Starting to get Image $imageName" }
@@ -24,12 +23,12 @@ class RetrieveImageUseCase(
             return it
         }
 
-        logger?.i { "Getting Image Bitmap from File ${directory.name}" }
+        logger?.i { "$imageName not found in cache. Getting Image Bitmap from File ${directory.name}" }
         val imageBitmap: SharedImage? = directory.image
         imageBitmap?.let {
             logger?.i { "Caching new Image ${directory.name}" }
             cachedImageDataSource.saveImage(directory.details, it)
-        }
+        } ?: run { logger?.v { "Couldn't load image remotely" } }
         return imageBitmap
     }
 }

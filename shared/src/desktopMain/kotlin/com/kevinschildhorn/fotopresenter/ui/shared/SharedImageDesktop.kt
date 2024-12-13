@@ -14,6 +14,7 @@ import java.io.ByteArrayInputStream
 
 actual open class SharedImage actual constructor(actual val byteArray: ByteArray) {
     actual fun getFetchResult(size: Int, logger: Logger?): FetchResult? {
+        logger?.v { "Getting Fetch Result for Shared Image" }
         val source = ByteArrayInputStream(byteArray).source().buffer()
 
         return SourceFetchResult(

@@ -146,6 +146,8 @@ fun DirectoryScreen(
 
     //region Selected Image
     imageUiState.selectedImage?.let {
+        println("selectedImage")
+
         ImagePreviewOverlay(
             it,
             visible = overlayVisible == DirectoryOverlay.IMAGE,

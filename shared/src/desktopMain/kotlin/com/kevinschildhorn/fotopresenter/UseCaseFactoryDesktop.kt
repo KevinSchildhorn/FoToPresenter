@@ -2,6 +2,7 @@
 
 package com.kevinschildhorn.fotopresenter
 
+import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
@@ -29,6 +30,8 @@ import com.russhwolf.settings.PreferencesSettings
 import java.util.prefs.Preferences
 
 actual object UseCaseFactory {
+    private val baseLogger = Logger
+
     private val preferences: Preferences = Preferences.userRoot()
     private val settings = PreferencesSettings(preferences)
     private val networkHandler: NetworkHandler = SMBJHandler
@@ -45,18 +48,20 @@ actual object UseCaseFactory {
             networkHandler = networkHandler,
             logger = baseLogger.withTag("imageMetadataDataSource"),
         )
-    private val directoryRepository = DirectoryRepository(directoryDataSource, imageMetadataDataSource)
+    private val directoryRepository =
+        DirectoryRepository(directoryDataSource, imageMetadataDataSource)
     private val playlistSQLDataSource =
         PlaylistSQLDataSource(
             sqlDriver,
-            com.kevinschildhorn.fotopresenter.baseLogger,
+            baseLogger,
         )
     private val playlistFileDataSource =
         PlaylistFileDataSource(
             baseLogger.withTag("playlistFileDataSource"),
             networkHandler,
         )
-    val playlistRepository = PlaylistRepository(playlistSQLDataSource, playlistFileDataSource)
+    val playlistRepository =
+        PlaylistRepository(playlistSQLDataSource, playlistFileDataSource, baseLogger)
 
     actual val connectToServerUseCase: ConnectToServerUseCase
         get() =
@@ -117,7 +122,6 @@ actual object UseCaseFactory {
                 cachedImageDataSource =
                     CachedImageDataSource(
                         cache = SharedInMemoryCache,
-                        driver = sqlDriver,
                         logger = baseLogger.withTag("ImageCacheDataSource"),
                     ),
                 logger = baseLogger.withTag("RetrieveImageUseCase"),

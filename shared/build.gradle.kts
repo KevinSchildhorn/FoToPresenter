@@ -1,6 +1,5 @@
 @file:OptIn(ExperimentalKotlinGradlePluginApi::class)
 
-import org.gradle.kotlin.dsl.get
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
@@ -153,4 +152,8 @@ compose.resources {
     publicResClass = false
     packageOfResClass = "com.kevinschildhorn.fotopresenter"
     generateResClass = auto
+}
+
+tasks.withType<Copy> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
