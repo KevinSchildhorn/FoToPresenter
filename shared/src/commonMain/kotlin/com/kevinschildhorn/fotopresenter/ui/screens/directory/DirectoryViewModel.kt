@@ -35,6 +35,8 @@ class DirectoryViewModel(
 ) : PlaylistViewModel(playlistRepository, logger),
     ImageViewModel by DefaultImageViewModel(logger),
     KoinComponent {
+
+        
     private val slideshowScope: CoroutineScope = viewModelScope + Dispatchers.IO
     private val imageScope: CoroutineScope = viewModelScope + Dispatchers.IO
 
@@ -42,8 +44,8 @@ class DirectoryViewModel(
     private val _directoryContentsState = MutableStateFlow(DirectoryContents())
 
     @Suppress("ktlint:standard:property-naming")
-    private val _uiState = MutableStateFlow(DirectoryScreenState())
-    val uiState: StateFlow<DirectoryScreenState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(DirectoryScreenUIState())
+    val uiState: StateFlow<DirectoryScreenUIState> = _uiState.asStateFlow()
 
     private val currentPath: Path
         get() = uiState.value.currentPath
@@ -120,7 +122,7 @@ class DirectoryViewModel(
 
     //region Directory
 
-    fun navigateToFolder(folderIndex: Int) {
+    fun navigateBackToFolder(folderIndex: Int) {
         logger.i { "Getting path at index $folderIndex" }
         cancelJobs()
         val finalPath = currentPath.navigateBackToPathAtIndex(folderIndex)
@@ -179,20 +181,19 @@ class DirectoryViewModel(
         with(_directoryContentsState.value) {
             logger.d { "Updating Grid: Updating State to Success" }
             logger.v { "Setting Directories: $this" }
-            setImageDirectories(this.images)
-            val gridState = this.asDirectoryGridState
+            val gridState = this.asDirectoryGridUIState
             logger.v { "New Grid State $gridState" }
             _uiState.update {
                 it.copy(
-                    directoryGridState = gridState,
+                    directoryGridUIState = gridState,
                     state = UiState.SUCCESS,
                 )
             }
         }
 
-    private val DirectoryContents.asDirectoryGridState: DirectoryGridState
+    private val DirectoryContents.asDirectoryGridUIState: DirectoryGridUIState
         get() =
-            DirectoryGridState(
+            DirectoryGridUIState(
                 folderStates =
                     folders.map {
                         DirectoryGridCellState.Folder(

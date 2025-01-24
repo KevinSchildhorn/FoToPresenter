@@ -16,12 +16,12 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridState
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridUIState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DirectoryGrid(
-    directoryContent: DirectoryGridState,
+    directoryContent: DirectoryGridUIState,
     gridSize: Int = 5,
     modifier: Modifier = Modifier,
     onFolderPressed: (Long) -> Unit,

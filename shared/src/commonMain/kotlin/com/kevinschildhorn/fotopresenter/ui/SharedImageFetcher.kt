@@ -16,7 +16,7 @@ class SharedImageFetcher(
 ) : Fetcher {
     override suspend fun fetch(): FetchResult? {
         return withContext(Dispatchers.IO) {
-            val result = sharedImage.getFetchResult(1024, logger)
+            val result = sharedImage.getFetchResult(logger)
             if (result != null) {
                 logger.i { "Image Got!" }
                 result

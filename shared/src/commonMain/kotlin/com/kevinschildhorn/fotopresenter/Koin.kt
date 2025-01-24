@@ -1,12 +1,12 @@
 package com.kevinschildhorn.fotopresenter
 
 import co.touchlab.kermit.koin.getLoggerWithTag
+import com.kevinschildhorn.fotopresenter.data.DirectoryNavigator
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistFileDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistSQLDataSource
-import com.kevinschildhorn.fotopresenter.data.datasources.image.CachedImageDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.image.NetworkImageDataSource
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
@@ -24,6 +24,7 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlayl
 import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 import com.kevinschildhorn.fotopresenter.extension.LoggerTagSuffix
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
@@ -40,14 +41,15 @@ val commonModule =
         single { CredentialsDataSource(get()) }
         single { CredentialsRepository(get()) }
         single { DirectoryDataSource(get(), getLoggerWithTag("DirectoryDataSource$LoggerTagSuffix")) }
-        single { DirectoryRepository(get(), get()) }
-        single { CachedImageDataSource(get(), getLoggerWithTag("ImageCacheDataSource$LoggerTagSuffix")) }
+        single { DirectoryRepository(get(), get(), getLoggerWithTag("DirectoryRepository$LoggerTagSuffix")) }
+        //single { CachedImageDataSource(get(), getLoggerWithTag("ImageCacheDataSource$LoggerTagSuffix")) }
         single { PlaylistFileDataSource(getLoggerWithTag("PlaylistDataSource$LoggerTagSuffix"), get()) }
         single { PlaylistSQLDataSource(get(), getLoggerWithTag("PlaylistDataSource$LoggerTagSuffix")) }
         single { PlaylistRepository(get(), get(), getLoggerWithTag("PlaylistRepository$LoggerTagSuffix")) }
         factory { ImageMetadataDataSource(getLoggerWithTag("ImageMetadataDataSource$LoggerTagSuffix"), get()) }
-        single { ImageRepository(get(), get(), getLoggerWithTag("ImageRepository$LoggerTagSuffix")) }
+        single { ImageRepository(get(), getLoggerWithTag("ImageRepository$LoggerTagSuffix")) }
         single<CacheInterface> { SharedInMemoryCache }
+        single { DirectoryNavigator(get()) }
 
         // Domain
         factory { ConnectToServerUseCase(get(), getLoggerWithTag("ConnectToServerUseCase$LoggerTagSuffix")) }
@@ -79,6 +81,7 @@ val commonModule =
         // UI
         single { LoginViewModel(getLoggerWithTag("LoginViewModel$LoggerTagSuffix"), get()) }
         single { DirectoryViewModel(get(), getLoggerWithTag("DirectoryViewModel$LoggerTagSuffix")) }
+        single { DirectoryViewModelNew(get()) }
         single { SlideshowViewModel(getLoggerWithTag("SlideshowViewModel$LoggerTagSuffix")) }
         single { PlaylistViewModel(get(), getLoggerWithTag("PlaylistViewModel$LoggerTagSuffix")) }
     }

@@ -5,7 +5,6 @@ import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.testingModule
 import com.kevinschildhorn.fotopresenter.ui.UiState
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,7 +21,6 @@ import org.koin.test.inject
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 /**
 Testing [DirectoryViewModel]
@@ -67,8 +65,8 @@ class DirectoryViewModelTest : KoinTest {
                 state = awaitItem()
                 assertEquals(UiState.SUCCESS, state.state)
                 assertEquals(Path(""), state.currentPath)
-                assertEquals(2, state.directoryGridState.imageStates.count())
-                assertEquals(2, state.directoryGridState.folderStates.count())
+                assertEquals(2, state.directoryGridUIState.imageStates.count())
+                assertEquals(2, state.directoryGridUIState.folderStates.count())
                 cancelAndIgnoreRemainingEvents()
             }
         }
@@ -96,7 +94,7 @@ class DirectoryViewModelTest : KoinTest {
                 assertEquals(UiState.LOADING, state.state)
                 state = awaitItem()
                 assertEquals(UiState.SUCCESS, state.state)
-                val firstId = state.directoryGridState.folderStates.first().id
+                val firstId = state.directoryGridUIState.folderStates.first().id
                 assertEquals(MockNetworkHandler.photoDirectoryId, firstId)
 
                 // Changing Directory
@@ -107,11 +105,11 @@ class DirectoryViewModelTest : KoinTest {
                     state = awaitItem()
                 }
                 assertEquals(Path("Photos"), state.currentPath)
-                while (state.directoryGridState.folderStates.count() != 1) {
+                while (state.directoryGridUIState.folderStates.count() != 1) {
                     state = awaitItem()
                 }
-                assertEquals(2, state.directoryGridState.imageStates.count())
-                assertEquals(1, state.directoryGridState.folderStates.count())
+                assertEquals(2, state.directoryGridUIState.imageStates.count())
+                assertEquals(1, state.directoryGridUIState.folderStates.count())
                 cancelAndIgnoreRemainingEvents()
             }
         }

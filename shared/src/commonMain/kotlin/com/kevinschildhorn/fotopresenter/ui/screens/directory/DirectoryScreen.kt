@@ -46,7 +46,7 @@ enum class DirectoryOverlay {
 
 @Composable
 fun DirectoryScreen(
-    viewModel: DirectoryViewModel,
+    viewModel: DirectoryViewModelNew,
     onLogout: () -> Unit,
     onStartSlideshow: (ImageSlideshowDetails) -> Unit,
     onShowPlaylists: () -> Unit,
@@ -55,7 +55,7 @@ fun DirectoryScreen(
         viewModel.refreshScreen()
     }
     val uiState by viewModel.uiState.collectAsState()
-    val imageUiState by viewModel.imageUiState.collectAsState()
+    //val imageUiState by viewModel.imageUiState.collectAsState()
     var overlayVisible by remember { mutableStateOf(DirectoryOverlay.NONE) }
 
     //region UI
@@ -82,24 +82,24 @@ fun DirectoryScreen(
         DirectoryNavigationBar(
             directories = uiState.currentPathList,
             onHome = {
-                viewModel.navigateToFolder(-1)
+                viewModel.navigateBackToDirectory(-1)
             },
             onItem = {
-                viewModel.navigateToFolder(it)
+                viewModel.navigateBackToDirectory(it)
             },
             modifier = Modifier.padding(Padding.SMALL.dp),
         )
         DirectoryGrid(
-            uiState.directoryGridState,
+            uiState.directoryGridUIState,
             onFolderPressed = {
-                viewModel.changeDirectory(it)
+                viewModel.navigateIntoDirectory(it)
             },
             onImageDirectoryPressed = {
-                viewModel.setSelectedImageById(it)
+                //viewModel.setSelectedImageById(it)
                 overlayVisible = DirectoryOverlay.IMAGE
             },
             onActionSheet = {
-                viewModel.setSelectedDirectory(it)
+                //viewModel.setSelectedDirectory(it)
                 overlayVisible = DirectoryOverlay.ACTION_SHEET
             },
         )
@@ -109,6 +109,7 @@ fun DirectoryScreen(
     // Overlays
 
     //region ActionSheet
+    /*
     ActionSheet(
         visible = overlayVisible == DirectoryOverlay.ACTION_SHEET,
         offset = 200,
@@ -141,10 +142,11 @@ fun DirectoryScreen(
             overlayVisible = DirectoryOverlay.NONE
             viewModel.setSelectedDirectory(null)
         },
-    )
+    )*/
     //endregion
 
     //region Selected Image
+    /*
     imageUiState.selectedImage?.let {
         println("selectedImage")
 
@@ -162,7 +164,7 @@ fun DirectoryScreen(
                 viewModel.showNextImage()
             },
         )
-    }
+    }*/
     //endregion
 
     //region Loading
@@ -193,7 +195,7 @@ fun DirectoryScreen(
                 overlayVisible = DirectoryOverlay.NONE
             },
             onConfirmation = {
-                viewModel.logout()
+                //viewModel.logout()
                 onLogout()
                 overlayVisible = DirectoryOverlay.NONE
             },
@@ -208,12 +210,13 @@ fun DirectoryScreen(
                 overlayVisible = DirectoryOverlay.NONE
             },
             onConfirmation = {
-                viewModel.setFilterType(it)
+                //viewModel.setFilterType(it)
             },
         )
     }
 
     //region Playlist
+    /*
     if (overlayVisible == DirectoryOverlay.PLAYLIST) {
         PlaylistScreen(
             viewModel,
@@ -226,9 +229,10 @@ fun DirectoryScreen(
             overlayVisible = DirectoryOverlay.NONE
             viewModel.setSelectedDirectory(null)
         }
-    }
+    }*/
     //endregion
 
+    /*
     if (overlayVisible == DirectoryOverlay.METADATA) {
         TextEntryDialog(
             title = "Add Keywords",
@@ -242,5 +246,5 @@ fun DirectoryScreen(
                 overlayVisible = DirectoryOverlay.NONE
             },
         )
-    }
+    }*/
 }

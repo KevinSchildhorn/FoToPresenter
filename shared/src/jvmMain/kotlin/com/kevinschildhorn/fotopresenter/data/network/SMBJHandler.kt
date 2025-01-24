@@ -86,6 +86,7 @@ object SMBJHandler : NetworkHandler {
         } ?: emptyList()
     }
 
+    // Gets a handle to a directory in the given path
     override suspend fun openDirectory(path: Path): Path? {
         logger.i { "Opening Directory $path" }
         val result =

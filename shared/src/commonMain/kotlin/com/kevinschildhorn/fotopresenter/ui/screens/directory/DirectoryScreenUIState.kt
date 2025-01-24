@@ -9,21 +9,21 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ScreenState
 
-data class DirectoryScreenState(
+data class DirectoryScreenUIState(
     val currentPath: Path = Path.EMPTY,
-    var directoryGridState: DirectoryGridState = DirectoryGridState(emptyList(), mutableListOf()),
+    var directoryGridUIState: DirectoryGridUIState = DirectoryGridUIState(emptyList(), mutableListOf()),
     val slideshowDetails: ImageSlideshowDetails? = null,
     val selectedDirectory: DirectoryGridCellState? = null,
     val sortingType: SortingType = SortingType.NAME_ASC,
     override val state: UiState = UiState.IDLE,
 ) : ScreenState {
-    fun getImageIndexFromId(id: Long): Int = directoryGridState.imageStates.indexOfFirst { it.id == id }
+    fun getImageIndexFromId(id: Long): Int = directoryGridUIState.imageStates.indexOfFirst { it.id == id }
 
     val currentPathList: List<Path>
         get() = currentPath.pathList
 }
 
-data class DirectoryGridState(
+data class DirectoryGridUIState(
     val folderStates: List<DirectoryGridCellState.Folder>,
     val imageStates: List<DirectoryGridCellState.Image>,
 ) {

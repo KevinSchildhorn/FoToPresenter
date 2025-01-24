@@ -101,7 +101,7 @@ class DefaultImageViewModel(private val logger: Logger? = null) : ImageViewModel
         logger?.i { "Showing Photo" }
         scope?.launch(Dispatchers.Default) {
             val retrieveImagesUseCase = UseCaseFactory.retrieveImageUseCase
-            logger?.d { "Retrieving Image ${imageDirectory.image}" }
+            //logger?.d { "Retrieving Image ${imageDirectory.image}" }
 
             val imageBitmap = retrieveImagesUseCase(imageDirectory)
             _uiState.update { it.copy(selectedImage = imageBitmap) }

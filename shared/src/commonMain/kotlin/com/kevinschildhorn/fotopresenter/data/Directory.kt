@@ -2,8 +2,6 @@ package com.kevinschildhorn.fotopresenter.data
 
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.ui.SortingType
-import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
-import kotlinx.serialization.Serializable
 
 interface Directory {
     val details: NetworkDirectoryDetails
@@ -30,34 +28,8 @@ data class FolderDirectory(
 data class ImageDirectory(
     override val details: NetworkDirectoryDetails,
     val metaData: MetadataFileDetails?,
-    val image: SharedImage? = null,
 ) : Directory {
     override fun toString(): String = "(I:${details.fullPath}:${details.id})"
-}
-
-data class DirectoryContents(
-    val folders: List<FolderDirectory> = emptyList(),
-    val images: List<ImageDirectory> = emptyList(),
-) {
-    val allDirectories: List<Directory>
-        get() = folders + images
-
-    fun sorted(sortingType: SortingType): DirectoryContents {
-        return DirectoryContents(
-            folders = folders.sorted(sortingType) as List<FolderDirectory>,
-            images = images.sorted(sortingType) as List<ImageDirectory>,
-        )
-    }
-
-    override fun toString(): String {
-        return """
-        DirectoryContents:
-        Folders: ${folders.count()}
-            ${folders.map { it.toString() }.joinToString(", ")}
-        Images: ${images.count()}
-            ${images.map { it.toString() }.joinToString(", ")}
-        """
-    }
 }
 
 fun List<Directory>.sorted(sortingType: SortingType): List<Directory> =

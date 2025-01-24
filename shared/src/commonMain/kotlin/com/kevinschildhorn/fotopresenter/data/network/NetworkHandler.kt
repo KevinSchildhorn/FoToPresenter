@@ -15,6 +15,7 @@ interface NetworkHandler {
 
     suspend fun getDirectoryContents(path: Path): List<NetworkDirectoryDetails>
 
+    // Gets a handle to a directory in the given path
     suspend fun openDirectory(path: Path): Path?
 
     suspend fun openImage(path: Path): SharedImage?
