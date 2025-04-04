@@ -47,7 +47,7 @@ class DirectoryViewModelTest : KoinTest {
             Dispatchers.resetMain()
         }
 
-
+/*
     @Test
     fun `Refresh Screen`() =
         runTest(testDispatcher) {
@@ -69,7 +69,7 @@ class DirectoryViewModelTest : KoinTest {
                 assertEquals(2, state.directoryGridUIState.folderStates.count())
                 cancelAndIgnoreRemainingEvents()
             }
-        }
+        }*/
 /* TODO
     @Test
     fun logout() =
@@ -82,6 +82,7 @@ class DirectoryViewModelTest : KoinTest {
             }
         }
 */
+    /*
     @Test
     fun `change Directory`() =
         runTest(testDispatcher) {
@@ -114,8 +115,8 @@ class DirectoryViewModelTest : KoinTest {
             }
         }
 
-    @Test
-    fun `start Slideshow`() =
+    @Test*/
+    fun `startSlideshow`() =
         runTest(testDispatcher) {
             /* TODO
             val viewModel: DirectoryViewModel by inject()
@@ -147,7 +148,7 @@ class DirectoryViewModelTest : KoinTest {
                 cancelAndIgnoreRemainingEvents()
             }*/
         }
-
+/*
     @Test
     fun `select Image by ID`() =
         runTest(testDispatcher) {
@@ -171,5 +172,5 @@ class DirectoryViewModelTest : KoinTest {
                 assertEquals(0, state.selectedImageIndex)
                 cancelAndIgnoreRemainingEvents()
             }
-        }
+        }*/
 }

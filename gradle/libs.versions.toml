@@ -41,6 +41,7 @@ minSdk = "29"
 targetSdk = "35"
 compileSdk = "35"
 java = "21"
+uiTestJunit4Android = "1.7.8"
 
 [libraries]
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
@@ -72,6 +73,8 @@ security-crypto = { module = "androidx.security:security-crypto", version.ref = 
 smbj = { module = "com.hierynomus:smbj", version.ref = "smbj" }
 sqlite-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlite-driver" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+ui-test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
+ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "uiTestJunit4Android" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

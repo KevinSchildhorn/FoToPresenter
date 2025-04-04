@@ -59,7 +59,7 @@ class ImageViewModelTest : KoinTest {
         }
 
     @Test
-    fun `Set Selected Image`() =
+    fun `SetSelectedImage`() =
         runTest(testDispatcher) {
             val viewModel = DefaultImageViewModel()
             viewModel.imageUiState.test {
@@ -73,7 +73,7 @@ class ImageViewModelTest : KoinTest {
         }
 
     @Test
-    fun `Show Previous Image`() =
+    fun `ShowPreviousImage`() =
         runTest(testDispatcher) {
             val viewModel = DefaultImageViewModel()
             viewModel.imageUiState.test {
@@ -96,7 +96,7 @@ class ImageViewModelTest : KoinTest {
         }
 
     @Test
-    fun `Show Next Image`() =
+    fun `ShowNextImage`() =
         runTest(testDispatcher) {
             val viewModel = DefaultImageViewModel()
             viewModel.imageUiState.test {
@@ -119,7 +119,7 @@ class ImageViewModelTest : KoinTest {
         }
 
     @Test
-    fun `Clear Presented Image`() =
+    fun `ClearPresentedImage`() =
         runTest(testDispatcher) {
             val viewModel = DefaultImageViewModel()
             viewModel.imageUiState.test {

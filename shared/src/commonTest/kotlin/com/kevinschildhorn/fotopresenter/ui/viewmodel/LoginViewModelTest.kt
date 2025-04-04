@@ -37,7 +37,7 @@ class LoginViewModelTest : KoinTest {
     }
 
     @Test
-    fun `UI State`() =
+    fun uiStateTest() =
         runTest {
             startKoin {
                 modules(testingModule(settings = emptySettings))
@@ -68,7 +68,7 @@ class LoginViewModelTest : KoinTest {
         }
 
     @Test
-    fun `UI State Auto Populate`() =
+    fun uiStateAutoPopulate() =
         runTest {
             startKoin {
                 modules(testingModule(settings = settings))
@@ -84,7 +84,7 @@ class LoginViewModelTest : KoinTest {
         }
 
     @Test
-    fun `Login Button State`() =
+    fun loginButtonState() =
         runTest {
             startKoin {
                 modules(testingModule(settings = emptySettings))
@@ -135,7 +135,7 @@ class LoginViewModelTest : KoinTest {
         }
 
     @Test
-    fun `Login Failure`() =
+    fun loginFailure() =
         runTest {
             startKoin {
                 modules(testingModule(settings = emptySettings))
@@ -158,7 +158,7 @@ class LoginViewModelTest : KoinTest {
         }
 
     @Test
-    fun `Login Success`() =
+    fun loginSuccess() =
         runTest {
             startKoin {
                 modules(testingModule(settings = emptySettings))

@@ -21,7 +21,7 @@ class CredentialsDataSourceTest {
     private val dataSource = CredentialsDataSource(settings)
 
     @Test
-    fun `update Credentials`() {
+    fun `updateCredentials`() {
         assertEquals("google.com", dataSource.hostname)
         assertEquals("John", dataSource.username)
         assertEquals("secret", dataSource.password)

@@ -10,7 +10,7 @@ This is the recommended architecture from [the android documentation](https://de
 ## UI Layer
 ![](https://developer.android.com/static/topic/libraries/architecture/images/mad-arch-overview-ui.png)
 
-`com.kevinschildhorn.common.layers.ui`
+`com.kevinschildhorn.fotopresenter.ui`
 
 Contains:
 * **UI elements**, which are in the platform layers(Using Compose and SwiftUI)
@@ -19,14 +19,14 @@ Contains:
 
 ## Domain Layer
 
-`com.kevinschildhorn.common.layers.domain`
+`com.kevinschildhorn.fotopresenter.domain`
 
 Contains **Use Cases** to reuse business logic. Note that it is generally recommended that you don't need `Use Cases` in a smaller application, but for clean architecture and wanting to work with `Uses Cases` I have added them to this project. These Use cases live in the `commonMain` sourceset.
 
 ## Data Layer
-![](https://developer.android.com/static/topic/libraries/architecture/images/mad-arch-overview-data.png)
+<img src="https://developer.android.com/static/topic/libraries/architecture/images/mad-arch-overview-data.png" width="200">
 
-`com.kevinschildhorn.common.layers.data`
+`com.kevinschildhorn.fotopresenter.data`
 
 Contains:
 * **Data Sources**, which are in the `commonMain` sourceset

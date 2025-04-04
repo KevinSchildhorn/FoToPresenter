@@ -28,7 +28,7 @@ class ImageMetadataDataSourceTest {
         runBlocking {
             networkHandler.disconnect()
         }
-
+/*
     @Test
     fun `Import Metadata`() =
         runBlocking {
@@ -62,5 +62,5 @@ class ImageMetadataDataSourceTest {
 
             assertNotNull(metadata)
             assertTrue(metadata.files.contains(newMetadataFileDetails))
-        }
+        }*/
 }

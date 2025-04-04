@@ -18,11 +18,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
-import kotlinx.serialization.Serializable
 
-@Serializable
-data class Test(val test: String)
-// The ViewModels need to be passed in here because koin doesn't support Koin
 @Composable
 fun App(
     loginViewModel: LoginViewModel,

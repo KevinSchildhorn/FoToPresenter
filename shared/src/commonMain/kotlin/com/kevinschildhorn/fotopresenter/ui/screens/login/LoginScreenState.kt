@@ -20,7 +20,7 @@ data class LoginScreenState(
                 username.isNotEmpty() &&
                 password.isNotEmpty()
 
-    val loginbuttonState: ButtonState
+    val loginButtonState: ButtonState
         get() =
             when {
                 state == UiState.LOADING -> ButtonState.LOADING
