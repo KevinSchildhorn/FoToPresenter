@@ -4,45 +4,16 @@ import co.touchlab.kermit.Logger
 import com.ashampoo.kim.Kim
 import com.ashampoo.kim.common.convertToPhotoMetadata
 import com.ashampoo.kim.format.tiff.constants.ExifTag
-import com.kevinschildhorn.fotopresenter.data.MetadataDetails
 import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
 import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 class ImageMetadataDataSource(
     private val logger: Logger?,
     private val networkHandler: NetworkHandler,
 ) {
-    /*
-    suspend fun importMetaData(): MetadataDetails {
-        logger?.i { "Importing Metadata" }
-        networkHandler.getMetadata()?.let {
-            logger?.i { "Found Metadata" }
-            return Json.decodeFromString<MetadataDetails>(it)
-        }
-
-        logger?.i { "No Metadata Found" }
-        return MetadataDetails(mutableListOf())
-    }
-
-    suspend fun exportMetadata(metadata: MetadataDetails): Boolean {
-        logger?.i { "Exporting Metadata" }
-        try {
-            val jsonString = Json.encodeToString(metadata)
-            networkHandler.setMetadata(jsonString)
-        } catch (e: Exception) {
-            logger?.e(e) { "Error Exporting Metadata" }
-            return false
-        }
-
-        logger?.i { "Successfully Exported Metadata" }
-        return true
-    }*/
-
     suspend fun readMetadataFromFile(filePath: Path): MetadataFileDetails? {
-        networkHandler.openImage(filePath)?.let { sharedImage ->
+        networkHandler.getSharedImage(filePath)?.let { sharedImage ->
             val metadata = Kim.readMetadata(sharedImage.byteArray)
             println(metadata)
 
@@ -66,7 +37,7 @@ class ImageMetadataDataSource(
 
     // TODO
     suspend fun writeMetadataToFile(metadata:String, filePath: Path): MetadataFileDetails? {
-        networkHandler.openImage(filePath)?.let { sharedImage ->
+        networkHandler.getSharedImage(filePath)?.let { sharedImage ->
             val metadata = Kim.readMetadata(sharedImage.byteArray)
             println(metadata)
 

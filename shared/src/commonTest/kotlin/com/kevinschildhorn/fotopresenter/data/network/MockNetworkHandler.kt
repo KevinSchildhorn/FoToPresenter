@@ -40,7 +40,6 @@ object MockNetworkHandler : NetworkHandler {
                 }
                 """.trimIndent(),
         )
-    private var metadata: String? = null
     private val networkContents =
         mapOf(
             Path.EMPTY to
@@ -142,7 +141,7 @@ object MockNetworkHandler : NetworkHandler {
         return null
     }
 
-    override suspend fun openImage(path: Path): SharedImage? {
+    override suspend fun getSharedImage(path: Path): SharedImage? {
         print("Opening Image ${path}\n")
         if (path == successImageName) {
             throw Exception("Success") // TODO: This is messy, but SharedImageIs expect
@@ -166,13 +165,6 @@ object MockNetworkHandler : NetworkHandler {
     }
 
     override suspend fun getPlaylists(): List<String> = playlists.values.toList()
-
-    override suspend fun setMetadata(json: String): Boolean {
-        metadata = json
-        return true
-    }
-
-    override suspend fun getMetadata(): String? = metadata
 
     override suspend fun deletePlaylist(playlistName: String) {
         playlists.remove(playlistName)

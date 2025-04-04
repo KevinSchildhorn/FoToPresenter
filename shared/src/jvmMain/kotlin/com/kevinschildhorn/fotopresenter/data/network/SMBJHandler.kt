@@ -22,7 +22,6 @@ object SMBJHandler : NetworkHandler {
     private var connection: Connection? = null
     private var session: Session? = null
     private var share: DiskShare? = null
-    private val META_DATA_NAME: Path = Path("FotoMetaData.json")
     private val logger = Logger.withTag("SMBJHandler")
 
     private val accessMask: Set<AccessMask> =
@@ -101,7 +100,7 @@ object SMBJHandler : NetworkHandler {
         return if(result != null) Path(result.path) else null
     }
 
-    override suspend fun openImage(path: Path): SharedImage? =
+    override suspend fun getSharedImage(path: Path): SharedImage? =
         getFile(path)?.let { file ->
             val byteArray = file.inputStream.readAllBytes()
             file.close()
@@ -125,31 +124,18 @@ object SMBJHandler : NetworkHandler {
     override suspend fun savePlaylist(
         playlistName: String,
         json: String,
-    ): Boolean = writeFile(fileName = "$playlistName.json", contents = json)
+    ): Boolean = writeFile(fileName = "$playlistName.playlist.json", contents = json)
 
     override suspend fun getPlaylists(): List<String> =
         getDirectoryContents(Path.EMPTY)
             .filter { it.fileExtension == "json" }
-            .filter { !it.fileName.contains(META_DATA_NAME.toString()) }
+            .filter { !it.fileName.contains(".playlist") }
             .mapNotNull { getFile(it.fullPath) }
             .map {
                 val str = it.inputStream.readAllBytes().decodeToString()
                 it.close()
                 str
             }
-
-    override suspend fun setMetadata(json: String): Boolean {
-        logger.i { "Setting Metadata" }
-        return writeFile(fileName = META_DATA_NAME.toString(), contents = json)
-    }
-
-    override suspend fun getMetadata(): String? =
-        getFile(META_DATA_NAME)?.let {
-            logger.i { "Importing Metadata" }
-            val str = it.inputStream.readAllBytes().decodeToString()
-            it.close()
-            str
-        }
 
     override suspend fun deletePlaylist(playlistName: String) {
         share?.rm("$playlistName.json")
@@ -171,7 +157,7 @@ object SMBJHandler : NetworkHandler {
             null
         }
 
-    private suspend fun writeFile(
+    private fun writeFile(
         fileName: String,
         contents: String,
     ): Boolean {

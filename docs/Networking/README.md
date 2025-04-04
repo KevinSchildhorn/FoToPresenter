@@ -19,20 +19,16 @@ The `NetworkHandler` interface provides a standardized way to interact with netw
 - `disconnect()`: Closes the connection and cleans up resources
 
 ### Directory Operations
-- `getDirectoryDetails(path: Path)`: Retrieves details about a specific directory
-- `getDirectoryContents(path: Path)`: Lists contents of a directory
-- `openDirectory(path: Path)`: Opens a directory for access
-- `folderExists(path: Path)`: Checks if a directory exists
+- `getDirectoryDetails(path: Path): NetworkDirectoryDetails`: Retrieves details about a specific directory (i.e. Name and Path)
+- `getDirectoryContents(path: Path): List<NetworkDirectoryDetails>`: Lists contents of a directory
+- `openDirectory(path: Path): Path?`: Opens a directory for access
+- `folderExists(path: Path): Boolean?`: Checks if a directory exists
 
 ### File Operations
-- `openImage(path: Path)`: Opens and reads an image file
-- `savePlaylist(playlistName: String, json: String)`: Saves playlist data
+- `getSharedImage(path: Path): SharedImage?`: Gets a Shared Image, containing a ByteArray, from the path
+- `savePlaylist(playlistName: String, json: String)`: Saves playlist data to a json file
 - `getPlaylists()`: Retrieves all playlists
 - `deletePlaylist(playlistName: String)`: Removes a playlist
-
-### Metadata Operations
-- `setMetadata(json: String)`: Saves metadata information
-- `getMetadata()`: Retrieves stored metadata
 
 ## SMBJHandler Implementation
 
@@ -59,32 +55,6 @@ The implementation includes robust error handling for:
 - Authentication errors
 - File access issues
 - Directory navigation problems
-
-## Usage Example
-
-```kotlin
-// Initialize the handler
-val networkHandler: NetworkHandler = SMBJHandler
-
-// Connect to server
-val credentials = LoginCredentials(
-    hostname = "server.example.com",
-    username = "user",
-    password = "pass",
-    sharedFolder = "Photos",
-    shouldAutoConnect = false
-)
-val connected = networkHandler.connect(credentials)
-
-// Access directory contents
-if (connected) {
-    val contents = networkHandler.getDirectoryContents(Path("Photos"))
-    // Process contents...
-}
-
-// Cleanup
-networkHandler.disconnect()
-```
 
 ## Error Handling
 

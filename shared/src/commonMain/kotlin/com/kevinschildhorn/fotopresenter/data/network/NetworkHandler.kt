@@ -18,7 +18,7 @@ interface NetworkHandler {
     // Gets a handle to a directory in the given path
     suspend fun openDirectory(path: Path): Path?
 
-    suspend fun openImage(path: Path): SharedImage?
+    suspend fun getSharedImage(path: Path): SharedImage?
 
     suspend fun folderExists(path: Path): Boolean?
 
@@ -28,10 +28,6 @@ interface NetworkHandler {
     ): Boolean
 
     suspend fun getPlaylists(): List<String>
-
-    suspend fun setMetadata(json: String): Boolean
-
-    suspend fun getMetadata(): String?
 
     suspend fun deletePlaylist(playlistName: String)
 }
