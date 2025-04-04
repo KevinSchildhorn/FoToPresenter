@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.ui.viewmodel
+package com.kevinschildhorn.fotopresenter.ui.login
 
 import app.cash.turbine.test
 import com.kevinschildhorn.fotopresenter.testingModule
@@ -7,18 +7,18 @@ import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.russhwolf.settings.MapSettings
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import org.junit.After
+import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
-import kotlin.test.AfterTest
-import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 /**
-Testing [LoginViewModel]
+Testing [com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel]
  **/
 @OptIn(ExperimentalCoroutinesApi::class)
 class LoginViewModelTest : KoinTest {
@@ -31,7 +31,7 @@ class LoginViewModelTest : KoinTest {
         )
     private val emptySettings = MapSettings()
 
-    @AfterTest
+    @After
     fun tearDown() {
         stopKoin()
     }

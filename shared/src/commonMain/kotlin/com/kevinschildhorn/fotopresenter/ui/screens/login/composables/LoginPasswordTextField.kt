@@ -12,6 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import com.kevinschildhorn.fotopresenter.ui.TestTag
+import com.kevinschildhorn.fotopresenter.ui.TestTags
+import com.kevinschildhorn.fotopresenter.ui.testTag
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.Eye
@@ -43,7 +46,10 @@ fun LoginPasswordTextField(
 
             val description = if (passwordVisible) "Hide password" else "Show password"
 
-            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+            IconButton(
+                onClick = { passwordVisible = !passwordVisible },
+                modifier = Modifier.testTag(TestTags.Login.HIDE_SHOW_PASSWORD),
+            ) {
                 Icon(imageVector = image, description)
             }
         },

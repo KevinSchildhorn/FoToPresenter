@@ -39,23 +39,23 @@ class LoginViewModel(
     }
 
     fun updateHost(hostname: String) {
-        _uiState.update { it.copy(hostname = hostname) }
+        _uiState.update { it.copy(hostname = hostname, state = UiState.IDLE) }
     }
 
     fun updateUsername(username: String) {
-        _uiState.update { it.copy(username = username) }
+        _uiState.update { it.copy(username = username, state = UiState.IDLE) }
     }
 
     fun updatePassword(password: String) {
-        _uiState.update { it.copy(password = password) }
+        _uiState.update { it.copy(password = password, state = UiState.IDLE) }
     }
 
     fun updateSharedFolder(sharedFolder: String) {
-        _uiState.update { it.copy(sharedFolder = sharedFolder) }
+        _uiState.update { it.copy(sharedFolder = sharedFolder, state = UiState.IDLE) }
     }
 
     fun updateShouldAutoConnect(shouldAutoConnect: Boolean) {
-        _uiState.update { it.copy(shouldAutoConnect = shouldAutoConnect) }
+        _uiState.update { it.copy(shouldAutoConnect = shouldAutoConnect, state = UiState.IDLE) }
     }
 
     fun login() {
