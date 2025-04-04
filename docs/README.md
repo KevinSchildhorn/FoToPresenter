@@ -13,29 +13,23 @@ These documents go over how I planned out this application from the ground up, f
 - [UX](UX) - Goes over the UX Research that helped define the project. Contains User Stories and Use Cases.
 - [Testing](Testing.md) - How testing is handled to cover all use cases and as much code coverage as possible.
 
-### Core Documentation
-- [Architecture](Architecture) - Explains the overall architecture of the application, including the MVVM pattern, data flow, and component relationships.
-- [Navigation](Architecture/Navigation.md) - Details the navigation system using Jetpack Compose Navigation, including available screens and navigation flows.
+### Overview Documentation
+- [Architecture](Architecture/Architecture.md) - Explains the overall architecture of the application, including the MVVM pattern, data flow, and component relationships.
 - [Libraries](Architecture/Libraries.md) - Lists and describes all major libraries used in the shared module, their versions, and purposes.
+- [Navigation](Architecture/Navigation.md) - Details the navigation system using Jetpack Compose Navigation, including available screens and navigation flows.
+- [Networking](Architecture/Networking.md) - Explains the networking implementation in the FoToPresenter application, including the NetworkHandler interface.'
 
+### Screen Documentation
+- [Login Screen](Architecture/Screens/Login/Login.md) - Documents The Login Screen
+- [Directory Screen](Architecture/Screens/Directory/Directory.md) - Documents The Login Screen
+ 
 ### Feature Documentation
-- [ImageLoading.md](ImageLoading.md) - Documents the image loading system, including caching strategies and image processing.
-- [Playlists.md](Playlists.md) - Explains the playlist functionality, including creation, management, and playback.
-- [Slideshow.md](Slideshow.md) - Details the slideshow feature, including controls, transitions, and display options.
-
-### Technical Documentation
-- [DataSources.md](DataSources.md) - Describes the various data sources used in the application, including network and local storage.
-- [Repositories.md](Repositories.md) - Explains the repository pattern implementation and data access layer.
-- [UseCases.md](UseCases.md) - Documents the business logic implementation through use cases.
-
-### Development Guides
-- [Contributing.md](Contributing.md) - Guidelines for contributing to the project, including code style and pull request process.
-- [Testing.md](Testing.md) - Information about testing strategies, including unit tests, UI tests, and testing utilities.
+- [ImageLoading](Architecture/ImageLoading.md) - Documents the image loading system, including caching strategies and image processing.
 
 ## How to Use This Documentation
 
-1. Start with [Architecture.md](Architecture.md) to understand the overall structure of the application.
-2. Review [Libraries.md](Libraries.md) to familiarize yourself with the dependencies.
+1. Start with [Architecture.md](Architecture/Architecture.md) to understand the overall structure of the application.
+2. Review [Libraries.md](Architecture/Libraries.md) to familiarize yourself with the dependencies.
 3. Explore feature-specific documentation based on what you're working on.
 4. Refer to technical documentation for implementation details.
 5. Follow development guides when contributing to the project.

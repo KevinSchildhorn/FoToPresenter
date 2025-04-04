@@ -1,6 +1,6 @@
 # Image Loading 
 
-![Image Fetcher](./Diagrams/ImageFetching.drawio.png)
+![Image Fetcher](../UML/ImageFetching.drawio.png)
 
 ## Coil
 
