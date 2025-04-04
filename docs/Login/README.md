@@ -18,6 +18,8 @@ The login system consists of several key components that work together to provid
 
 ### LoginScreen
 
+| `com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreen`
+
 The `LoginScreen` is a Compose UI component that provides:
 - Input fields for hostname, username, password, and shared folder
 - Auto-connect checkbox option
