@@ -4,7 +4,6 @@ package com.kevinschildhorn.fotopresenter
 
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
-import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
@@ -16,11 +15,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 actual object UseCaseFactory : KoinComponent {
-    actual val connectToServerUseCase: ConnectToServerUseCase
-        get() {
-            val useCase: ConnectToServerUseCase by inject()
-            return useCase
-        }
     actual val changeDirectoryUseCase: ChangeDirectoryUseCase
         get() {
             val useCase: ChangeDirectoryUseCase by inject()

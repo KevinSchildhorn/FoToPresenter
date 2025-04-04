@@ -15,7 +15,6 @@ import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
-import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
@@ -54,7 +53,6 @@ val commonModule =
         single { ImagePreviewNavigator(getLoggerWithTag("ImagePreviewNavigator$LoggerTagSuffix")) }
 
         // Domain
-        factory { ConnectToServerUseCase(get(), getLoggerWithTag("ConnectToServerUseCase$LoggerTagSuffix")) }
         factory { ChangeDirectoryUseCase(get(), getLoggerWithTag("ChangeDirectoryUseCase$LoggerTagSuffix")) }
         factory { AutoConnectUseCase(get(), get(), getLoggerWithTag("AutoConnectUseCase$LoggerTagSuffix")) }
         factory { SaveCredentialsUseCase(get(), getLoggerWithTag("SaveCredentialsUseCase$LoggerTagSuffix")) }
@@ -81,7 +79,7 @@ val commonModule =
         factory { RetrieveImageUseCase(get(), getLoggerWithTag("RetrieveImageUseCase$LoggerTagSuffix")) }
         factory { SaveMetadataForPathUseCase(get()) }
         // UI
-        single { LoginViewModel(getLoggerWithTag("LoginViewModel$LoggerTagSuffix"), get()) }
+        single { LoginViewModel(getLoggerWithTag("LoginViewModel$LoggerTagSuffix"), get(), get()) }
         single { DirectoryViewModel(get(), getLoggerWithTag("DirectoryViewModel$LoggerTagSuffix")) }
         single { DirectoryViewModelNew(get(), get(), get(), get(), get(), getLoggerWithTag("DirectoryViewModelNew$LoggerTagSuffix")) }
         single { SlideshowViewModel(getLoggerWithTag("SlideshowViewModel$LoggerTagSuffix")) }

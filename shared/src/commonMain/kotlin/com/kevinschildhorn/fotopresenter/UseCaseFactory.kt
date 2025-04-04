@@ -2,7 +2,6 @@ package com.kevinschildhorn.fotopresenter
 
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
-import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
@@ -12,7 +11,6 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlayl
 import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 
 expect object UseCaseFactory {
-    val connectToServerUseCase: ConnectToServerUseCase
     val changeDirectoryUseCase: ChangeDirectoryUseCase
     val autoConnectUseCase: AutoConnectUseCase
     val saveCredentialsUseCase: SaveCredentialsUseCase

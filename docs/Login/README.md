@@ -75,7 +75,7 @@ The `NetworkHandler` interface and its implementations:
 2. `LoginViewModel` validates the input
 3. On login button press:
    - UI state changes to loading
-   - `ConnectToServerUseCase` attempts connection
+   - `NetworkHandler` attempts connection
    - On success: credentials are saved and user is redirected
    - On failure: error is displayed to user
 

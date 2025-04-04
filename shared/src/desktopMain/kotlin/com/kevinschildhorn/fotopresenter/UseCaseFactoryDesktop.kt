@@ -16,7 +16,6 @@ import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
-import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
@@ -63,12 +62,6 @@ actual object UseCaseFactory {
     val playlistRepository =
         PlaylistRepository(playlistSQLDataSource, playlistFileDataSource, baseLogger)
 
-    actual val connectToServerUseCase: ConnectToServerUseCase
-        get() =
-            ConnectToServerUseCase(
-                client = networkHandler,
-                logger = baseLogger.withTag("ConnectToServerUseCase"),
-            )
     actual val changeDirectoryUseCase: ChangeDirectoryUseCase
         get() =
             ChangeDirectoryUseCase(
