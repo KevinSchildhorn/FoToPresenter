@@ -10,8 +10,8 @@ plugins {
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
-    // alias(libs.plugins.crashlytics)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.kover)
 }
 
 kotlin {
@@ -170,4 +170,12 @@ compose.resources {
 
 tasks.withType<Copy> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+kover {
+    reports {
+        total {
+            // configuring report tasks
+        }
+    }
 }
