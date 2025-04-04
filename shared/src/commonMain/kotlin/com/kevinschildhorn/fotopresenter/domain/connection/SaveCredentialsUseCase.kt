@@ -1,7 +1,7 @@
 package com.kevinschildhorn.fotopresenter.domain.connection
 
 import co.touchlab.kermit.Logger
-import com.kevinschildhorn.fotopresenter.data.LoginCredentials
+import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 
 /**

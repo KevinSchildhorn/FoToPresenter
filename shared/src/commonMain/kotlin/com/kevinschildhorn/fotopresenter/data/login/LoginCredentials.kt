@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.data
+package com.kevinschildhorn.fotopresenter.data.login
 
 /**
 Credentials used for signing into an server

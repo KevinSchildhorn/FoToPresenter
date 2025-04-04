@@ -18,7 +18,7 @@ The login system consists of several key components that work together to provid
 
 ### LoginScreen
 
-| `com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreen`
+`ui.screens.login.LoginScreen`
 
 The `LoginScreen` is a Compose UI component that provides:
 - Input fields for hostname, username, password, and shared folder
@@ -29,6 +29,8 @@ The `LoginScreen` is a Compose UI component that provides:
 
 ### LoginViewModel
 
+`ui.screens.login.LoginViewModel`
+
 The `LoginViewModel` manages the login process and includes:
 - State management using `LoginScreenState`
 - Credential validation
@@ -37,6 +39,8 @@ The `LoginViewModel` manages the login process and includes:
 - Error state management
 
 ### LoginCredentials
+
+`data.login.LoginCredentials`
 
 The `LoginCredentials` data class contains:
 - `hostname`: Server address
@@ -47,6 +51,8 @@ The `LoginCredentials` data class contains:
 
 ### CredentialsRepository
 
+`data.repositories.CredentialsRepository`
+
 The `CredentialsRepository` handles:
 - Loading saved credentials
 - Saving new credentials
@@ -54,6 +60,8 @@ The `CredentialsRepository` handles:
 - Clearing credentials when needed
 
 ### NetworkHandler
+
+`data.network.NetworkHandler`
 
 The `NetworkHandler` interface and its implementations:
 - Establish connection to the server

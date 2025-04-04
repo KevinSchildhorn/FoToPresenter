@@ -1,6 +1,6 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.login
 
-import com.kevinschildhorn.fotopresenter.data.LoginCredentials
+import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ScreenState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ButtonState

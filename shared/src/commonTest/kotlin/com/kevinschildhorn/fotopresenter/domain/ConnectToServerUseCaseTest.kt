@@ -1,6 +1,6 @@
 package com.kevinschildhorn.fotopresenter.domain
 
-import com.kevinschildhorn.fotopresenter.data.LoginCredentials
+import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCase
 import com.kevinschildhorn.fotopresenter.testingModule
 import kotlinx.coroutines.runBlocking
