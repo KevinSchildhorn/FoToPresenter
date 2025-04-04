@@ -1,8 +1,13 @@
 # FoToPresenter Documentation
 
-This directory contains comprehensive documentation for the FoToPresenter application. Below is a guide to the available documentation files and their purposes.
+This directory contains comprehensive documentation for the FoToPresenter application. 
+Below is a guide to the available documentation files and their purposes.
 
 ## Documentation Structure
+
+
+- [UX](/UX) - Goes over the UX Research that helped define the project. Contains User Stories and Use Cases.
+- 
 
 ### Core Documentation
 - [Architecture.md](Architecture.md) - Explains the overall architecture of the application, including the MVVM pattern, data flow, and component relationships.

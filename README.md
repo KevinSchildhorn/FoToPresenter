@@ -60,7 +60,4 @@ The project uses Gradle with Kotlin DSL for build management. To build the proje
 
 ## Documentation
 
-For more detailed information about the project, check the [docs](docs/) directory:
-- [UML Diagrams](docs/UML)
-- [UX Designs](docs/UX)
-- [Development Process](docs/PROCESS.md)
+For more detailed information about the project, check the [docs](docs/) directory.
