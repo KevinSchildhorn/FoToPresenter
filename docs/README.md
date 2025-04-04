@@ -9,7 +9,6 @@ Below is a guide to the available documentation files and their purposes.
 
 These documents go over how I planned out this application from the ground up, from research into UX.
 
-- [Process](Process.md) - How I progressed through the project, covering all the bases.
 - [UX](UX) - Goes over the UX Research that helped define the project. Contains User Stories and Use Cases.
 - [Testing](Testing.md) - How testing is handled to cover all use cases and as much code coverage as possible.
 
