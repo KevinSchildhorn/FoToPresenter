@@ -13,6 +13,8 @@ FoToPresenter is a Kotlin Multiplatform application that allows users to present
 
 ## Technology Stack
 
+| For more in depth technical docs, check the [docs](docs/) directory.
+
 ### Core Libraries
 - **Kotlin Multiplatform**: For cross-platform development
 - **Jetpack Compose**: Modern UI toolkit for building native interfaces
