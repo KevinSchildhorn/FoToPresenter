@@ -20,6 +20,7 @@ object TestTags {
         AUTO_CONNECT("AutoConnectCheck"),
         LOGIN_BUTTON("LoginButton"),
         HIDE_SHOW_PASSWORD("HideShowPassword"),
+        LINK("Link"),
     }
 }
 

@@ -40,7 +40,7 @@ class DirectoryRepositoryTest : KoinTest {
         }
 
     @Test
-    fun `retrieve Directory Contents Success`() =
+    fun `retrieve_Directory_Contents_Success`() =
         runBlocking {
             val result = repository.getDirectoryContents(Path.EMPTY)
             assertEquals(2, result.folders.count())
@@ -48,7 +48,7 @@ class DirectoryRepositoryTest : KoinTest {
         }
 
     @Test
-    fun `retrieve Directory Contents Failure`() =
+    fun `retrieve_Directory_Contents_Failure`() =
         runBlocking {
             val result = repository.getDirectoryContents(Path("nonExistant"))
             assertEquals(0, result.folders.count())
@@ -56,7 +56,7 @@ class DirectoryRepositoryTest : KoinTest {
         }
 
     @Test
-    fun `retrieve Directory Contents Disconnected`() =
+    fun `retrieve_Directory_Contents_Disconnected`() =
         runBlocking {
             networkHandler.disconnect()
             try {

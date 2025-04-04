@@ -11,7 +11,7 @@ object MockNetworkHandler : NetworkHandler {
             "admin",
             "password",
             "Public",
-            shouldAutoConnect = false,
+            shouldAutoConnect = true,
         )
 
     const val PHOTO_DIRECTORY_ID: Long = 5L

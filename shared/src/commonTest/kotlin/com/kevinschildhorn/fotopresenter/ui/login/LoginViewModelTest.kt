@@ -23,12 +23,15 @@ Testing [com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel]
 @OptIn(ExperimentalCoroutinesApi::class)
 class LoginViewModelTest : KoinTest {
     private val viewModel: LoginViewModel by inject()
-    private val settings =
+    private fun settings(autoLogin: Boolean = false) =
         MapSettings(
-            KEY_HOSTNAME to "defaultHostname",
-            KEY_USERNAME to "defaultUsername",
-            KEY_PASSWORD to "defaultPassword",
+            KEY_HOSTNAME to "192.168.1.1",
+            KEY_USERNAME to "admin",
+            KEY_PASSWORD to "password",
+            KEY_SHAREDFOLDER to "Public",
+            KEY_AUTOCONNECT to autoLogin,
         )
+
     private val emptySettings = MapSettings()
 
     @After
@@ -71,17 +74,43 @@ class LoginViewModelTest : KoinTest {
     fun uiStateAutoPopulate() =
         runTest {
             startKoin {
-                modules(testingModule(settings = settings))
-                with(viewModel.uiState.value) {
-                    assertEquals("defaultHostname", hostname)
-                    assertEquals("defaultUsername", username)
-                    assertEquals("defaultPassword", password)
-                    assertEquals("", sharedFolder)
-                    assertEquals(false, shouldAutoConnect)
-                    assertEquals(UiState.IDLE, state)
-                }
+                modules(testingModule(settings = settings(autoLogin = false)))
+            }
+
+            with(viewModel.uiState.value) {
+                assertEquals("192.168.1.1", hostname)
+                assertEquals("admin", username)
+                assertEquals("password", password)
+                assertEquals("Public", sharedFolder)
+                assertEquals(false, shouldAutoConnect)
+                assertEquals(UiState.IDLE, state)
             }
         }
+
+    @Test
+    fun uiStateAutoLoginPopulate() = runTest {
+        startKoin {
+            modules(testingModule(settings = settings(autoLogin = true)))
+        }
+
+        with(viewModel.uiState.value) {
+            assertEquals("192.168.1.1", hostname)
+            assertEquals("admin", username)
+            assertEquals("password", password)
+            assertEquals("Public", sharedFolder)
+            assertEquals(true, shouldAutoConnect)
+            assertEquals(UiState.IDLE, state)
+        }
+
+        viewModel.uiState.test {
+            var state = awaitItem()
+            while (state.state == UiState.LOADING || state.state == UiState.IDLE) {
+                state = awaitItem()
+            }
+            assertEquals(UiState.SUCCESS, state.state)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
 
     @Test
     fun loginButtonState() =
@@ -158,6 +187,28 @@ class LoginViewModelTest : KoinTest {
         }
 
     @Test
+    fun loginError() = runTest {
+        startKoin {
+            modules(testingModule(settings = emptySettings))
+        }
+        viewModel.updateHost("throw")
+        viewModel.updateUsername("throw")
+        viewModel.updatePassword("throw")
+        viewModel.updateSharedFolder("throw")
+        viewModel.updateShouldAutoConnect(false)
+        viewModel.login()
+
+        viewModel.uiState.test {
+            var state = awaitItem()
+            while (state.state == UiState.LOADING || state.state == UiState.IDLE) {
+                state = awaitItem()
+            }
+            assertTrue(state.state is UiState.ERROR)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
     fun loginSuccess() =
         runTest {
             startKoin {
@@ -167,7 +218,7 @@ class LoginViewModelTest : KoinTest {
             viewModel.updateUsername("admin")
             viewModel.updatePassword("password")
             viewModel.updateSharedFolder("Public")
-            viewModel.updateShouldAutoConnect(false)
+            viewModel.updateShouldAutoConnect(true)
             viewModel.login()
 
             viewModel.uiState.test {
@@ -180,9 +231,39 @@ class LoginViewModelTest : KoinTest {
             }
         }
 
+    @Test
+    fun logout() = runTest {
+        startKoin {
+            modules(testingModule())
+        }
+        viewModel.updateHost("192.168.1.1")
+        viewModel.updateUsername("admin")
+        viewModel.updatePassword("password")
+        viewModel.updateSharedFolder("Public")
+        viewModel.updateShouldAutoConnect(true)
+
+
+        viewModel.uiState.test {
+            viewModel.login()
+            var state = awaitItem()
+            while (state.state == UiState.LOADING || state.state == UiState.IDLE) {
+                state = awaitItem()
+            }
+            assertEquals(UiState.SUCCESS, state.state)
+
+            viewModel.setLoggedOut()
+            state = awaitItem()
+            assertEquals(UiState.IDLE, state.state)
+
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
     companion object {
         private const val KEY_HOSTNAME = "hostname"
+        private const val KEY_SHAREDFOLDER = "sharedFolder"
         private const val KEY_USERNAME = "username"
         private const val KEY_PASSWORD = "password"
+        private const val KEY_AUTOCONNECT = "autoConnect"
     }
 }

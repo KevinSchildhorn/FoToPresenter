@@ -183,5 +183,17 @@ kover {
         total {
             // configuring report tasks
         }
+        filters {
+            excludes {
+                packages("com.kevinschildhorn.fotopresenter.ui.screens.directory.composables")
+                packages("com.kevinschildhorn.fotopresenter.ui.screens.login.composables")
+                packages("com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables")
+                packages("com.kevinschildhorn.fotopresenter.ui.screens.common.composables")
+                packages("com.kevinschildhorn.fotopresenter.ui.atoms")
+                packages("com.kevinschildhorn.fotopresenter.ui.composables")
+                // Auto Generated SQLDelight
+                classes("PlaylistDatabaseImpl")
+            }
+        }
     }
 }

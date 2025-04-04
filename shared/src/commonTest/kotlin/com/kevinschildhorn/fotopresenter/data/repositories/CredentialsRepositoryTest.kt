@@ -30,7 +30,7 @@ class CredentialsRepositoryTest : KoinTest {
     }
 
     @Test
-    fun `save credentials`() {
+    fun `save_credentials`() {
         val hostname = "google.com"
         val sharedFolder = "Public"
         val username = "John"
@@ -53,7 +53,7 @@ class CredentialsRepositoryTest : KoinTest {
     }
 
     @Test
-    fun `clear auto-connect`() {
+    fun `clear_auto-connect`() {
         repository.saveCredentials(
             hostname = "google.com",
             username = "secret",
@@ -68,5 +68,15 @@ class CredentialsRepositoryTest : KoinTest {
         credentials = repository.fetchCredentials()
 
         assertEquals(false, credentials.shouldAutoConnect)
+    }
+
+    @Test
+    fun `get_credentials`() {
+        // Implementation needed
+    }
+
+    @Test
+    fun `delete_credentials`() {
+        // Implementation needed
     }
 }

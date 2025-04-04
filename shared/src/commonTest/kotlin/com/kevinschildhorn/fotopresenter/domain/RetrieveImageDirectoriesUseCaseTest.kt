@@ -41,7 +41,7 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
         }
 /*
     @Test
-    fun `receive directory content success`() =
+    fun `receive_directory_content_success`() =
         runBlocking {
             val details =
                 DefaultNetworkDirectoryDetails(
@@ -53,7 +53,7 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
         }
 
     @Test
-    fun `receive directory content only directories`() =
+    fun `receive_directory_content_only_directories`() =
         runBlocking {
             val details = DefaultNetworkDirectoryDetails(Path("Directories"), 1)
             val result = useCase(details)
@@ -61,7 +61,7 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
         }
 
     @Test
-    fun `receive directory content failure`() =
+    fun `receive_directory_content_failure`() =
         runBlocking {
             val details = DefaultNetworkDirectoryDetails(Path("nonExistant"), 1)
             val result = useCase(details)
@@ -69,7 +69,7 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
         }
 
     @Test
-    fun `receive directory content disconnected`() =
+    fun `receive_directory_content_disconnected`() =
         runBlocking {
             MockNetworkHandler.disconnect()
             try {

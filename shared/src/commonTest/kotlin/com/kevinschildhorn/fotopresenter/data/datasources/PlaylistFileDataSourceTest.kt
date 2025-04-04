@@ -52,7 +52,7 @@ class PlaylistFileDataSourceTest {
         }
 
     @Test
-    fun `Import Playlist`() =
+    fun `Import_Playlist`() =
         runBlocking {
             val dataSource = PlaylistFileDataSource(null, networkHandler)
             val playlists = dataSource.importPlaylists()
@@ -64,7 +64,7 @@ class PlaylistFileDataSourceTest {
         }
 
     @Test
-    fun `Export Playlist`() =
+    fun `Export_Playlist`() =
         runBlocking {
             val dataSource = PlaylistFileDataSource(null, networkHandler)
             var playlists = dataSource.importPlaylists().toMutableList()
@@ -81,7 +81,7 @@ class PlaylistFileDataSourceTest {
         }
 
     @Test
-    fun `Delete Playlist`() =
+    fun `Delete_Playlist`() =
         runBlocking {
             val dataSource = PlaylistFileDataSource(null, networkHandler)
             dataSource.exportPlaylist(newPlaylist)
