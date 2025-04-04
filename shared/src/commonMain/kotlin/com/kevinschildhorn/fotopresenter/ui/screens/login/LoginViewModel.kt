@@ -16,7 +16,7 @@ import org.koin.core.component.KoinComponent
 
 class LoginViewModel(
     private val logger: Logger,
-    credentialsRepository: CredentialsRepository,
+    private val credentialsRepository: CredentialsRepository,
     private val networkHandler: NetworkHandler,
 ) : ViewModel(), KoinComponent {
     private val _uiState = MutableStateFlow(LoginScreenState())
@@ -83,8 +83,16 @@ class LoginViewModel(
                 _uiState.update { it.copy(state = UiState.SUCCESS) }
                 logger.i { "Saving Credentials" }
                 logger.i { "State is ${uiState.value}" }
-                val saveCredentials = UseCaseFactory.saveCredentialsUseCase
-                saveCredentials(_uiState.value.asLoginCredentials)
+                with(_uiState.value.asLoginCredentials) {
+                    logger.i { "Saving Credentials" }
+                    credentialsRepository.saveCredentials(
+                        hostname = hostname,
+                        username = username,
+                        password = password,
+                        sharedFolder = sharedFolder,
+                        shouldAutoConnect = shouldAutoConnect,
+                    )
+                }
             }
         }
     }

@@ -17,7 +17,6 @@ import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
-import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
@@ -78,12 +77,6 @@ actual object UseCaseFactory {
                 client = networkHandler,
                 repository = credentialsRepository,
                 logger = baseLogger.withTag("AutoConnectUseCase"),
-            )
-    actual val saveCredentialsUseCase: SaveCredentialsUseCase
-        get() =
-            SaveCredentialsUseCase(
-                repository = credentialsRepository,
-                logger = baseLogger.withTag("SaveCredentialsUseCase"),
             )
     actual val disconnectFromServerUseCase: DisconnectFromServerUseCase
         get() =
