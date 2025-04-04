@@ -31,3 +31,8 @@ The data layer is mostly comprised of `Repositories` and `DataSources`. These wi
 #### How are tests defined
 
 The tests will be based on functions of the classes. For every public function there should be a test.
+
+
+## Additional Notes
+
+Testing will use `Koin` to inject any dependencies. Tests will use `Fakes` rather than `Mocks`, so that we can fully control outcomes.
