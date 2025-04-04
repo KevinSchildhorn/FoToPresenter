@@ -102,16 +102,6 @@ The login system handles various error scenarios:
 - Server access problems
 - Invalid shared folder paths
 
-## Usage Example
-
-```kotlin
-// Initialize login screen
-LoginScreen(
-    viewModel = loginViewModel,
-    onLoginSuccess = { /* Handle successful login */ }
-)
-```
-
 ## Related Components
 
 - `DirectoryViewModel`: Handles post-login navigation
