@@ -2,6 +2,15 @@
 
 FotoPresenter uses an **MVVM** Architecture(Model-View-ViewModel), which is mostly stored in the shared code.
 
+![Diagram](../UML/ProjectLayoutDiagram.drawio.png)
+
+
+The project is separated into packages based on the layer, then the usage. For `ui` this is the screen that is shown(i.e. `Login`), for `data` this is the functionality(i.e. `credentials`).
+
+### MVVM Summary
+
+To help clarify how MVVM works in the project, here is some documentation based on the recommended pattern.
+
 In short, there's the UI Layer, which talks to the Domain Layer, which talks to the Data Layer(see below)
 <img src="https://developer.android.com/static/topic/libraries/architecture/images/mad-arch-overview.png" width="600">
 
