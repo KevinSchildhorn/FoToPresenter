@@ -10,7 +10,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ButtonState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ConfirmationDialog
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.FilterDialog
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.SortDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryTextButton
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.TextEntryDialog
 
@@ -69,7 +69,7 @@ fun TextConfirmationDialogPreview() {
 @Preview
 @Composable
 fun FilterDialogPreview() {
-    FilterDialog(
+    SortDialog(
         "Hello",
         {
         },

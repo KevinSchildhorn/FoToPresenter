@@ -12,6 +12,7 @@ class SaveMetadataForPathUseCase(
         path: Path,
         tags: String,
     ): Boolean {
+        /*
         val tagList: List<String> = tags.split(",").map { it.trim() }
         val metaData = dataSource.importMetaData()
 
@@ -24,6 +25,8 @@ class SaveMetadataForPathUseCase(
         metaData.files.removeIf { it.filePath == path }
         if (fileMetadata.tags.isNotEmpty()) metaData.files.add(fileMetadata)
 
-        return dataSource.exportMetadata(metaData)
+        return dataSource.exportMetadata(metaData)*/
+        return false
+
     }
 }

@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectoryDetails
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellUIState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridUIState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGridCell
@@ -25,7 +25,7 @@ fun BaseDirectoryPreview() {
 @Composable
 fun FolderDirectoryEmptyPreview() {
     Column {
-        FolderDirectoryGridCell(DirectoryGridCellState.Folder("Hello", 0))
+        FolderDirectoryGridCell(DirectoryGridCellUIState.Folder("Hello", 0))
     }
 }
 
@@ -35,13 +35,14 @@ fun DirectoryGridPreview() {
     DirectoryGrid(
         directoryContent =
             DirectoryGridUIState(
+                currentPath = Path.EMPTY,
                 folderStates =
                     listOf(
-                        DirectoryGridCellState.Folder("Hello", 0),
+                        DirectoryGridCellUIState.Folder("Hello", 0),
                     ),
                 imageStates =
                     mutableListOf(
-                        DirectoryGridCellState.Image(MockNetworkDirectoryDetails(), "Hello", 1),
+                        DirectoryGridCellUIState.Image(MockNetworkDirectoryDetails(), "Hello", 1),
                     ),
             ),
         onFolderPressed = {},

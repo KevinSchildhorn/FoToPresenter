@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter
 
 import co.touchlab.kermit.koin.getLoggerWithTag
 import com.kevinschildhorn.fotopresenter.data.DirectoryNavigator
+import com.kevinschildhorn.fotopresenter.data.ImagePreviewNavigator
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
@@ -50,6 +51,7 @@ val commonModule =
         single { ImageRepository(get(), getLoggerWithTag("ImageRepository$LoggerTagSuffix")) }
         single<CacheInterface> { SharedInMemoryCache }
         single { DirectoryNavigator(get()) }
+        single { ImagePreviewNavigator(getLoggerWithTag("ImagePreviewNavigator$LoggerTagSuffix")) }
 
         // Domain
         factory { ConnectToServerUseCase(get(), getLoggerWithTag("ConnectToServerUseCase$LoggerTagSuffix")) }
@@ -81,7 +83,7 @@ val commonModule =
         // UI
         single { LoginViewModel(getLoggerWithTag("LoginViewModel$LoggerTagSuffix"), get()) }
         single { DirectoryViewModel(get(), getLoggerWithTag("DirectoryViewModel$LoggerTagSuffix")) }
-        single { DirectoryViewModelNew(get()) }
+        single { DirectoryViewModelNew(get(), get(), get(), get(), get(), getLoggerWithTag("DirectoryViewModelNew$LoggerTagSuffix")) }
         single { SlideshowViewModel(getLoggerWithTag("SlideshowViewModel$LoggerTagSuffix")) }
         single { PlaylistViewModel(get(), getLoggerWithTag("PlaylistViewModel$LoggerTagSuffix")) }
     }

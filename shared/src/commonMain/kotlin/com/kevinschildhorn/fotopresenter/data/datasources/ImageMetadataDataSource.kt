@@ -15,6 +15,7 @@ class ImageMetadataDataSource(
     private val logger: Logger?,
     private val networkHandler: NetworkHandler,
 ) {
+    /*
     suspend fun importMetaData(): MetadataDetails {
         logger?.i { "Importing Metadata" }
         networkHandler.getMetadata()?.let {
@@ -38,9 +39,33 @@ class ImageMetadataDataSource(
 
         logger?.i { "Successfully Exported Metadata" }
         return true
-    }
+    }*/
 
     suspend fun readMetadataFromFile(filePath: Path): MetadataFileDetails? {
+        networkHandler.openImage(filePath)?.let { sharedImage ->
+            val metadata = Kim.readMetadata(sharedImage.byteArray)
+            println(metadata)
+
+            val comments = metadata?.findStringValue(ExifTag.EXIF_TAG_USER_COMMENT)
+            val keywords = comments?.split(",") ?: emptyList()
+
+            val takenDate = metadata?.findStringValue(ExifTag.EXIF_TAG_DATE_TIME_ORIGINAL)
+            println("Taken date: $takenDate")
+
+            val photoMetadata = metadata?.convertToPhotoMetadata()
+            photoMetadata?.orientation
+
+            return MetadataFileDetails(
+                filePath = filePath,
+                tags = keywords.toSet(),
+            )
+        }
+        return null
+    }
+
+
+    // TODO
+    suspend fun writeMetadataToFile(metadata:String, filePath: Path): MetadataFileDetails? {
         networkHandler.openImage(filePath)?.let { sharedImage ->
             val metadata = Kim.readMetadata(sharedImage.byteArray)
             println(metadata)
