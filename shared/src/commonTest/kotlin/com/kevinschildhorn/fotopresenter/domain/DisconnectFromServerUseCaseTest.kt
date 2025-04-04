@@ -32,14 +32,14 @@ class DisconnectFromServerUseCaseTest : KoinTest {
     }
 
     @Test
-    fun `logout Success`() =
+    fun `logout_Success`() =
         runBlocking {
             useCase()
             assertFalse(MockNetworkHandler.isConnected, "Failed to Disconnect")
         }
 
     @Test
-    fun `logout Success Safe`() =
+    fun `logout_Success_Safe`() =
         runBlocking {
             MockNetworkHandler.disconnect()
             assertFalse(MockNetworkHandler.isConnected, "Failed to Disconnect")

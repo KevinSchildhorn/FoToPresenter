@@ -12,7 +12,7 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 
 @Composable
-fun FilterDialog(
+fun SortDialog(
     dialogTitle: String,
     onDismissRequest: () -> Unit,
     onConfirmation: (SortingType) -> Unit,

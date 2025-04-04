@@ -6,7 +6,7 @@ import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 
 /**
-Retrieving Directory Contents from Path
+Retrieving Directory Contents from Path TODO: REMOVE
  **/
 class RetrieveDirectoryContentsUseCase(
     private val directoryRepository: DirectoryRepository,

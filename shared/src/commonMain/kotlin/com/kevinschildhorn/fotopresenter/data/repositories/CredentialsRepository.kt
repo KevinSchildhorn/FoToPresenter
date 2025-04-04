@@ -1,7 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data.repositories
 
-import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
+import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 
 /**
 Fetches [LoginCredentials] from [CredentialsDataSource] to be used to sign into an FTP server

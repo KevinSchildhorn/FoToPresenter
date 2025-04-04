@@ -26,7 +26,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
 
 @Composable
 fun ActionSheet(
-    visible: Boolean,
+    visible: Boolean, // TODO: Not always being used
     offset: Int,
     values: List<ActionSheetContext>,
     onClick: (ActionSheetContext) -> Unit,

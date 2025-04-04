@@ -4,9 +4,7 @@ package com.kevinschildhorn.fotopresenter
 
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
-import com.kevinschildhorn.fotopresenter.domain.connection.ConnectToServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
-import com.kevinschildhorn.fotopresenter.domain.connection.SaveCredentialsUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
@@ -16,11 +14,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 actual object UseCaseFactory : KoinComponent {
-    actual val connectToServerUseCase: ConnectToServerUseCase
-        get() {
-            val useCase: ConnectToServerUseCase by inject()
-            return useCase
-        }
     actual val changeDirectoryUseCase: ChangeDirectoryUseCase
         get() {
             val useCase: ChangeDirectoryUseCase by inject()
@@ -29,11 +22,6 @@ actual object UseCaseFactory : KoinComponent {
     actual val autoConnectUseCase: AutoConnectUseCase
         get() {
             val useCase: AutoConnectUseCase by inject()
-            return useCase
-        }
-    actual val saveCredentialsUseCase: SaveCredentialsUseCase
-        get() {
-            val useCase: SaveCredentialsUseCase by inject()
             return useCase
         }
     actual val disconnectFromServerUseCase: DisconnectFromServerUseCase

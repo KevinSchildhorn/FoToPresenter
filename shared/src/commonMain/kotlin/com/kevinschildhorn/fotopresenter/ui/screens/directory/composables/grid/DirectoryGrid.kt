@@ -15,18 +15,18 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridState
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellUIState
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridUIState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DirectoryGrid(
-    directoryContent: DirectoryGridState,
+    directoryContent: DirectoryGridUIState,
     gridSize: Int = 5,
     modifier: Modifier = Modifier,
     onFolderPressed: (Long) -> Unit,
     onImageDirectoryPressed: (Long) -> Unit,
-    onActionSheet: (DirectoryGridCellState) -> Unit,
+    onActionSheet: (DirectoryGridCellUIState) -> Unit,
 ) {
     val haptics = LocalHapticFeedback.current
 
@@ -52,8 +52,8 @@ fun DirectoryGrid(
                     .combinedClickable(
                         onClick = {
                             when (state) {
-                                is DirectoryGridCellState.Folder -> onFolderPressed(state.id)
-                                is DirectoryGridCellState.Image -> onImageDirectoryPressed(state.id)
+                                is DirectoryGridCellUIState.Folder -> onFolderPressed(state.id)
+                                is DirectoryGridCellUIState.Image -> onImageDirectoryPressed(state.id)
                             }
                         },
                         onLongClick = {
@@ -63,12 +63,12 @@ fun DirectoryGrid(
                         onLongClickLabel = "Action Sheet",
                     )
             when (state) {
-                is DirectoryGridCellState.Folder ->
+                is DirectoryGridCellUIState.Folder ->
                     FolderDirectoryGridCell(
                         state,
                         modifier = directoryItemModifier,
                     )
-                is DirectoryGridCellState.Image ->
+                is DirectoryGridCellUIState.Image ->
                     ImageDirectoryGridCell(
                         state,
                         modifier = directoryItemModifier,

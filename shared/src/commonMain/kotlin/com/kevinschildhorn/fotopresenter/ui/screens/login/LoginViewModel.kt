@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter.ui.screens.login
 
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.UseCaseFactory
+import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.shared.ViewModel
@@ -15,7 +16,8 @@ import org.koin.core.component.KoinComponent
 
 class LoginViewModel(
     private val logger: Logger,
-    credentialsRepository: CredentialsRepository,
+    private val credentialsRepository: CredentialsRepository,
+    private val networkHandler: NetworkHandler,
 ) : ViewModel(), KoinComponent {
     private val _uiState = MutableStateFlow(LoginScreenState())
     val uiState: StateFlow<LoginScreenState> = _uiState.asStateFlow()
@@ -37,23 +39,23 @@ class LoginViewModel(
     }
 
     fun updateHost(hostname: String) {
-        _uiState.update { it.copy(hostname = hostname) }
+        _uiState.update { it.copy(hostname = hostname, state = UiState.IDLE) }
     }
 
     fun updateUsername(username: String) {
-        _uiState.update { it.copy(username = username) }
+        _uiState.update { it.copy(username = username, state = UiState.IDLE) }
     }
 
     fun updatePassword(password: String) {
-        _uiState.update { it.copy(password = password) }
+        _uiState.update { it.copy(password = password, state = UiState.IDLE) }
     }
 
     fun updateSharedFolder(sharedFolder: String) {
-        _uiState.update { it.copy(sharedFolder = sharedFolder) }
+        _uiState.update { it.copy(sharedFolder = sharedFolder, state = UiState.IDLE) }
     }
 
     fun updateShouldAutoConnect(shouldAutoConnect: Boolean) {
-        _uiState.update { it.copy(shouldAutoConnect = shouldAutoConnect) }
+        _uiState.update { it.copy(shouldAutoConnect = shouldAutoConnect, state = UiState.IDLE) }
     }
 
     fun login() {
@@ -61,14 +63,17 @@ class LoginViewModel(
 
         _uiState.update { it.copy(state = UiState.LOADING) }
 
-        val connectToServer = UseCaseFactory.connectToServerUseCase
         viewModelScope.launch(Dispatchers.Default) {
             logger.i { "Connecting To Server With Credentials" }
 
             val result =
-                connectToServer(
-                    _uiState.value.asLoginCredentials,
-                )
+                try {
+                    logger.i { "Connecting to Client ${_uiState.value.hostname}" }
+                    networkHandler.connect(_uiState.value.asLoginCredentials)
+                } catch (e: Exception) {
+                    logger.e(e) { "Something went wrong" }
+                    false
+                }
 
             if (!result) {
                 logger.w { "Error Occurred Connecting to Server" }
@@ -79,8 +84,16 @@ class LoginViewModel(
                 _uiState.update { it.copy(state = UiState.SUCCESS) }
                 logger.i { "Saving Credentials" }
                 logger.i { "State is ${uiState.value}" }
-                val saveCredentials = UseCaseFactory.saveCredentialsUseCase
-                saveCredentials(_uiState.value.asLoginCredentials)
+                with(_uiState.value.asLoginCredentials) {
+                    logger.i { "Saving Credentials" }
+                    credentialsRepository.saveCredentials(
+                        hostname = hostname,
+                        username = username,
+                        password = password,
+                        sharedFolder = sharedFolder,
+                        shouldAutoConnect = shouldAutoConnect,
+                    )
+                }
             }
         }
     }

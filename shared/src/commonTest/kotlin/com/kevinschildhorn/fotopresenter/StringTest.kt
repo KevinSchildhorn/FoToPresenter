@@ -9,7 +9,7 @@ Testing [String]
  **/
 class StringTest {
     @Test
-    fun `Add Path`() {
+    fun `Add_Path`() {
         var path = Path.EMPTY
         path = path.addPath("Public")
         assertEquals("Public", path.toString())
@@ -20,7 +20,7 @@ class StringTest {
     }
 
     @Test
-    fun ` Navigate Back`() {
+    fun `Navigate_Back`() {
         var path = Path.EMPTY
         path = path.addPath("Public")
         path = path.addPath("Subfolder")

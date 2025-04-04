@@ -11,14 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellUIState
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.Folder
 
 @Composable
 fun FolderDirectoryGridCell(
-    folderState: DirectoryGridCellState,
+    folderState: DirectoryGridCellUIState,
     modifier: Modifier = Modifier,
 ) {
     DirectoryGridCell(modifier) {

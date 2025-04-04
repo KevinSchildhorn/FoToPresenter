@@ -1,6 +1,7 @@
 @file:OptIn(ExperimentalKotlinGradlePluginApi::class)
 
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -9,13 +10,16 @@ plugins {
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
-    // alias(libs.plugins.crashlytics)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.kover)
 }
 
 kotlin {
     applyDefaultHierarchyTemplate()
-    androidTarget()
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
+    }
     jvm("desktop")
     /*
     listOf( TODO re-add
@@ -65,6 +69,8 @@ kotlin {
                 implementation(libs.koin.test)
                 implementation(libs.turbine)
                 implementation(libs.sqlite.driver)
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.uiTest)
             }
         }
 
@@ -109,6 +115,12 @@ kotlin {
                 implementation(compose.desktop.common)
             }
         }
+        val desktopTest by getting {
+            dependsOn(commonTest)
+            dependencies {
+                implementation(compose.desktop.currentOs)
+            }
+        }
     }
 
     compilerOptions {
@@ -123,9 +135,9 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/commonMain/resources")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
-
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
@@ -138,6 +150,8 @@ android {
 
 dependencies {
     ktlintRuleset(libs.ktlint)
+    androidTestImplementation(libs.ui.test.junit4.android)
+    debugImplementation(libs.ui.test.manifest)
 }
 
 sqldelight {
@@ -156,4 +170,30 @@ compose.resources {
 
 tasks.withType<Copy> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+kover {
+    currentProject {
+        createVariant("custom") {
+            add("debug")
+            add("jvm")
+        }
+    }
+    reports {
+        total {
+            // configuring report tasks
+        }
+        filters {
+            excludes {
+                packages("com.kevinschildhorn.fotopresenter.ui.screens.directory.composables")
+                packages("com.kevinschildhorn.fotopresenter.ui.screens.login.composables")
+                packages("com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables")
+                packages("com.kevinschildhorn.fotopresenter.ui.screens.common.composables")
+                packages("com.kevinschildhorn.fotopresenter.ui.atoms")
+                packages("com.kevinschildhorn.fotopresenter.ui.composables")
+                // Auto Generated SQLDelight
+                classes("PlaylistDatabaseImpl")
+            }
+        }
+    }
 }

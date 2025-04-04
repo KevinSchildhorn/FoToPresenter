@@ -1,8 +1,6 @@
 package com.kevinschildhorn.fotopresenter.data.datasources.image
 
-import app.cash.sqldelight.db.SqlDriver
 import co.touchlab.kermit.Logger
-import com.kevinschildhorn.fotopresenter.PlaylistDatabase
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.ui.shared.CacheInterface
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
@@ -10,9 +8,9 @@ import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 class CachedImageDataSource(
     private val cache: CacheInterface,
     private val logger: Logger? = null,
-    //driver: SqlDriver,
+    // driver: SqlDriver,
 ) {
-    //private val database = PlaylistDatabase(driver)
+    // private val database = PlaylistDatabase(driver)
 
     suspend fun getImage(directory: NetworkDirectoryDetails): SharedImage? {
         logger?.v { "Getting Image from Cache ${directory.cacheId}" }
