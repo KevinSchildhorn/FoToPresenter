@@ -8,8 +8,7 @@ In short, there's the UI Layer, which talks to the Domain Layer, which talks to 
 This is the recommended architecture from [the android documentation](https://developer.android.com/topic/architecture), which can be used in common code as well. While there are many different architectures in iOS (MVC, VIPER, etc) a lot of developers are moving towards MVVM to work with SwiftUI.
 
 ## UI Layer
-![](https://developer.android.com/static/topic/libraries/architecture/images/mad-arch-overview-ui.png)
-
+<img src="https://developer.android.com/static/topic/libraries/architecture/images/mad-arch-overview-ui.png" width="500">
 `com.kevinschildhorn.fotopresenter.ui`
 
 Contains:
@@ -24,7 +23,7 @@ Contains:
 Contains **Use Cases** to reuse business logic. Note that it is generally recommended that you don't need `Use Cases` in a smaller application, but for clean architecture and wanting to work with `Uses Cases` I have added them to this project. These Use cases live in the `commonMain` sourceset.
 
 ## Data Layer
-<img src="https://developer.android.com/static/topic/libraries/architecture/images/mad-arch-overview-data.png" width="200">
+<img src="https://developer.android.com/static/topic/libraries/architecture/images/mad-arch-overview-data.png" width="500">
 
 `com.kevinschildhorn.fotopresenter.data`
 
@@ -34,7 +33,7 @@ Contains:
 * **Data** used in the sources and repositories, which are generally data classes
 
 ### Example of Data Flow
-![AndroidArchitecture](photos/android_architecture.png)
+<img src="photos/android_architecture.png" width="500">
 
 The general hierarchy of the app is:
 `UI -> ViewModel -> UseCase -> Repository -> DataSource`
