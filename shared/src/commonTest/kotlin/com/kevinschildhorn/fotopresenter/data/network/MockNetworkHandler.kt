@@ -1,7 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
-import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.data.Path
+import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 object MockNetworkHandler : NetworkHandler {
@@ -11,10 +11,10 @@ object MockNetworkHandler : NetworkHandler {
             "admin",
             "password",
             "Public",
-            shouldAutoConnect = false,
+            shouldAutoConnect = true,
         )
 
-    const val photoDirectoryId: Long = 5L
+    const val PHOTO_DIRECTORY_ID: Long = 5L
 
     private val playlists =
         mutableMapOf(
@@ -40,12 +40,11 @@ object MockNetworkHandler : NetworkHandler {
                 }
                 """.trimIndent(),
         )
-    private var metadata: String? = null
     private val networkContents =
         mapOf(
             Path.EMPTY to
                 listOf<NetworkDirectoryDetails>(
-                    DefaultNetworkDirectoryDetails(fullPath = Path("Photos"), id = photoDirectoryId),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("Photos"), id = PHOTO_DIRECTORY_ID),
                     DefaultNetworkDirectoryDetails(fullPath = Path("NewDirectory"), id = 1),
                     DefaultNetworkDirectoryDetails(fullPath = Path("Peeng.png"), id = 75),
                     DefaultNetworkDirectoryDetails(fullPath = Path("Jaypeg.jpg"), id = 3),
@@ -129,7 +128,7 @@ object MockNetworkHandler : NetworkHandler {
     }
 
     override suspend fun getDirectoryContents(path: Path): List<NetworkDirectoryDetails> {
-        print("Getting Directory Contents '${path}'\n")
+        print("Getting Directory Contents '$path'\n")
 
         return networkContents[path] ?: emptyList()
     }
@@ -142,7 +141,7 @@ object MockNetworkHandler : NetworkHandler {
         return null
     }
 
-    override suspend fun openImage(path: Path): SharedImage? {
+    override suspend fun getSharedImage(path: Path): SharedImage? {
         print("Opening Image ${path}\n")
         if (path == successImageName) {
             throw Exception("Success") // TODO: This is messy, but SharedImageIs expect
@@ -166,13 +165,6 @@ object MockNetworkHandler : NetworkHandler {
     }
 
     override suspend fun getPlaylists(): List<String> = playlists.values.toList()
-
-    override suspend fun setMetadata(json: String): Boolean {
-        metadata = json
-        return true
-    }
-
-    override suspend fun getMetadata(): String? = metadata
 
     override suspend fun deletePlaylist(playlistName: String) {
         playlists.remove(playlistName)

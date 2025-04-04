@@ -33,7 +33,6 @@ object SharedInMemoryCache : CacheInterface {
 
 class SharedFileCache(private val cacheLocation: String, private val logger: Logger) : CacheInterface {
     override suspend fun getImage(id: String): SharedImage? {
-
         val cache = createCache() ?: return null
 
         val test = cache.get(id)
@@ -58,7 +57,7 @@ class SharedFileCache(private val cacheLocation: String, private val logger: Log
                         stream.close()
                         true
                     } catch (e: Exception) {
-                        logger.e(e){ "Failed to cache image" }
+                        logger.e(e) { "Failed to cache image" }
                         false
                     }
                 }

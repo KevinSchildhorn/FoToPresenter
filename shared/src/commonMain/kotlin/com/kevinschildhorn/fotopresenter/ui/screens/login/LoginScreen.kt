@@ -13,10 +13,12 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.TitleView
 import com.kevinschildhorn.fotopresenter.ui.screens.login.composables.LoginScreenForm
+import com.kevinschildhorn.fotopresenter.ui.testTag
 
 @Composable
 fun LoginScreen(
@@ -53,7 +55,7 @@ fun LoginScreen(
                 append("Setting up a QNAP NAS")
             },
             style = TextStyle(textAlign = TextAlign.Center),
-            modifier = Modifier.padding(top = Padding.STANDARD.dp).fillMaxWidth(),
+            modifier = Modifier.padding(top = Padding.STANDARD.dp).fillMaxWidth().testTag(TestTags.Login.LINK),
         ) {
             uriHandler.openUri("https://www.qnap.com/en/how-to/faq/article/how-to-map-network-drive-in-windows-os-by-qfinder")
         }

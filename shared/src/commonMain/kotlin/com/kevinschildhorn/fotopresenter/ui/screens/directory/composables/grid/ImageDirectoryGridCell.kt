@@ -7,11 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.composables.LoadingAsyncImage
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellState
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellUIState
 
 @Composable
 fun ImageDirectoryGridCell(
-    imageContent: DirectoryGridCellState.Image,
+    imageContent: DirectoryGridCellUIState.Image,
     modifier: Modifier = Modifier,
 ) {
     DirectoryGridCell(modifier) {

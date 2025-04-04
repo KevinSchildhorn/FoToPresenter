@@ -7,7 +7,7 @@ import coil3.fetch.Fetcher
 import coil3.request.Options
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
-import com.kevinschildhorn.fotopresenter.extension.LoggerTagSuffix
+import com.kevinschildhorn.fotopresenter.extension.LOGGER_TAG_SUFFIX
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -35,6 +35,6 @@ class SMBJFetcher(
             data: NetworkDirectoryDetails,
             options: Options,
             imageLoader: ImageLoader,
-        ): Fetcher = SMBJFetcher(data, imageRepository, logger.withTag("SMBJFetcher$LoggerTagSuffix"))
+        ): Fetcher = SMBJFetcher(data, imageRepository, logger.withTag("SMBJFetcher$LOGGER_TAG_SUFFIX"))
     }
 }

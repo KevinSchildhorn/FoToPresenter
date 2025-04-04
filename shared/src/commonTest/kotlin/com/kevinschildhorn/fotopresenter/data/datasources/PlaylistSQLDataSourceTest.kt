@@ -48,7 +48,7 @@ class PlaylistSQLDataSourceTest {
         )
 
     @Test
-    fun `Create Playlist Success`() {
+    fun `Create_Playlist_Success`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val playlist = dataSource.createPlaylist("Playlist1")
         assertEquals("Playlist1", playlist?.name)
@@ -56,7 +56,7 @@ class PlaylistSQLDataSourceTest {
     }
 
     @Test
-    fun `Create Playlist Large`() {
+    fun `Create_Playlist_Large`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val playlist = dataSource.createPlaylist("Playlist1", imageDirectoryList)
         assertEquals("Playlist1", playlist?.name)
@@ -68,7 +68,7 @@ class PlaylistSQLDataSourceTest {
     }
 
     @Test
-    fun `Create Playlist Failure`() {
+    fun `Create_Playlist_Failure`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val playlist1 = dataSource.createPlaylist("Playlist1")
         val playlist2 = dataSource.createPlaylist("Playlist1")
@@ -77,7 +77,7 @@ class PlaylistSQLDataSourceTest {
     }
 
     @Test
-    fun `Insert Playlist Image Success`() {
+    fun `Insert_Playlist_Image_Success`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         dataSource.createPlaylist("Playlist1")?.let { playlist ->
             val image = dataSource.insertPlaylistImage(playlist.id, imageDirectory)
@@ -89,7 +89,7 @@ class PlaylistSQLDataSourceTest {
     }
 
     @Test
-    fun `Insert Playlist Image Failure`() {
+    fun `Insert_Playlist_Image_Failure`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         dataSource.createPlaylist("Playlist1")?.let { playlist ->
             val image1 = dataSource.insertPlaylistImage(playlist.id, imageDirectory)
@@ -102,7 +102,7 @@ class PlaylistSQLDataSourceTest {
     }
 
     @Test
-    fun `Get Playlist by Name Success`() {
+    fun `Get_Playlist_by_Name_Success`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val playlistName = "Playlist1"
         val playlist = dataSource.createPlaylist(playlistName)
@@ -112,14 +112,14 @@ class PlaylistSQLDataSourceTest {
     }
 
     @Test
-    fun `Select Playlist by Name Failure`() {
+    fun `Select_Playlist_by_Name_Failure`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val selectedPlaylist = dataSource.getPlaylistByName("NonExistant")
         assertNull(selectedPlaylist)
     }
 
     @Test
-    fun `Get Playlist by Id Success`() {
+    fun `Get_Playlist_by_Id_Success`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val playlistName = "Playlist1"
         val playlist = dataSource.createPlaylist(playlistName)
@@ -129,14 +129,14 @@ class PlaylistSQLDataSourceTest {
     }
 
     @Test
-    fun `Select Playlist by Id Failure`() {
+    fun `Select_Playlist_by_Id_Failure`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val selectedPlaylist = dataSource.getPlaylistById(-1)
         assertNull(selectedPlaylist)
     }
 
     @Test
-    fun `Get Playlist Image Success`() {
+    fun `Get_Playlist_Image_Success`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         dataSource.createPlaylist("Playlist1")?.let { playlist ->
             val image1 = dataSource.insertPlaylistImage(playlist.id, imageDirectory)
@@ -152,21 +152,21 @@ class PlaylistSQLDataSourceTest {
     }
 
     @Test
-    fun `Get Playlist Image Failure`() {
+    fun `Get_Playlist_Image_Failure`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val image = dataSource.getPlaylistImage(0, imageDirectory.details.fullPath)
         assertNull(image)
     }
 
     @Test
-    fun `Delete Playlist Success`() {
+    fun `Delete_Playlist_Success`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val image = dataSource.getPlaylistImage(0, imageDirectory.details.fullPath)
         assertNull(image)
     }
 
     @Test
-    fun `Delete Playlist Failure`() {
+    fun `Delete_Playlist_Failure`() {
         val playlistName = "Playlist1"
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val playlist = dataSource.createPlaylist(playlistName, imageDirectoryList)
@@ -188,7 +188,7 @@ class PlaylistSQLDataSourceTest {
     }
 
     @Test
-    fun `Select All Playlists Success`() {
+    fun `Select_All_Playlists_Success`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val playlist = dataSource.createPlaylist("Playlist1", imageDirectoryList)
         val playlists = dataSource.getAllPlaylists()
@@ -196,7 +196,7 @@ class PlaylistSQLDataSourceTest {
     }
 
     @Test
-    fun `Select All Playlists Failure`() {
+    fun `Select_All_Playlists_Failure`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val playlists = dataSource.getAllPlaylists()
         assertEquals(0, playlists.count())

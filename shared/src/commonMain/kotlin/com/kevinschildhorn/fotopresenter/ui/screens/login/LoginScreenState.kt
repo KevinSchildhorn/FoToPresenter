@@ -1,6 +1,6 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.login
 
-import com.kevinschildhorn.fotopresenter.data.LoginCredentials
+import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ScreenState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ButtonState
@@ -18,9 +18,9 @@ data class LoginScreenState(
             hostname.isNotEmpty() &&
                 sharedFolder.isNotEmpty() &&
                 username.isNotEmpty() &&
-                password.isNotEmpty()
+                password.isNotEmpty() && state == UiState.IDLE
 
-    val loginbuttonState: ButtonState
+    val loginButtonState: ButtonState
         get() =
             when {
                 state == UiState.LOADING -> ButtonState.LOADING

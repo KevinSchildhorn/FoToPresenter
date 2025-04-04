@@ -1,29 +1,37 @@
 package com.kevinschildhorn.fotopresenter.ui.shared
 
 import co.touchlab.kermit.Logger
+import coil3.decode.DataSource
+import coil3.decode.ImageSource
 import coil3.fetch.FetchResult
+import coil3.fetch.SourceFetchResult
+import okio.FileSystem
+import okio.buffer
+import okio.source
+import java.io.ByteArrayInputStream
 
-expect class SharedImage(byteArray: ByteArray) {
-    val byteArray: ByteArray
+class SharedImage(val byteArray: ByteArray) {
+    fun getFetchResult(logger: Logger?): FetchResult? {
+        if (byteArray.isEmpty()) {
+            logger?.e { "Byte Array is Empty!" }
+            return null
+        }
 
-    fun getFetchResult(size: Int, logger: Logger?): FetchResult?
-}
+        logger?.d { "Getting Android Bitmap from Byte Array" }
+        logger?.v { "Getting Image from Bitmap" }
+        logger?.v { "Returning result" }
 
-fun getScaledDimensions(
-    width: Int,
-    height: Int,
-    minSize: Int,
-): Pair<Int, Int> {
-    val newWidth: Float
-    val newHeight: Float
-    if (height < width) {
-        newHeight = minSize.toFloat()
-        val ratio: Float = (newHeight / height)
-        newWidth = width * ratio
-    } else {
-        newWidth = minSize.toFloat()
-        val ratio: Float = (newWidth / width)
-        newHeight = height * ratio
+        logger?.v { "Getting Fetch Result for Shared Image" }
+        val source = ByteArrayInputStream(byteArray).source().buffer()
+
+        return SourceFetchResult(
+            source =
+                ImageSource(
+                    source = source,
+                    fileSystem = FileSystem.SYSTEM,
+                ),
+            mimeType = null,
+            dataSource = DataSource.NETWORK,
+        )
     }
-    return Pair(newWidth.toInt(), newHeight.toInt())
 }

@@ -1,15 +1,9 @@
 package com.kevinschildhorn.fotopresenter.data.datasources
 
-import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
-import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import kotlinx.coroutines.runBlocking
-import org.junit.Test
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
 /**
 Testing [ImageMetadataDataSource]
@@ -28,7 +22,7 @@ class ImageMetadataDataSourceTest {
         runBlocking {
             networkHandler.disconnect()
         }
-
+/*
     @Test
     fun `Import Metadata`() =
         runBlocking {
@@ -62,5 +56,5 @@ class ImageMetadataDataSourceTest {
 
             assertNotNull(metadata)
             assertTrue(metadata.files.contains(newMetadataFileDetails))
-        }
+        }*/
 }

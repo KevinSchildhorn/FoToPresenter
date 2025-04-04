@@ -1,7 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
-import com.kevinschildhorn.fotopresenter.data.LoginCredentials
 import com.kevinschildhorn.fotopresenter.data.Path
+import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 interface NetworkHandler {
@@ -15,9 +15,10 @@ interface NetworkHandler {
 
     suspend fun getDirectoryContents(path: Path): List<NetworkDirectoryDetails>
 
+    // Gets a handle to a directory in the given path
     suspend fun openDirectory(path: Path): Path?
 
-    suspend fun openImage(path: Path): SharedImage?
+    suspend fun getSharedImage(path: Path): SharedImage?
 
     suspend fun folderExists(path: Path): Boolean?
 
@@ -27,10 +28,6 @@ interface NetworkHandler {
     ): Boolean
 
     suspend fun getPlaylists(): List<String>
-
-    suspend fun setMetadata(json: String): Boolean
-
-    suspend fun getMetadata(): String?
 
     suspend fun deletePlaylist(playlistName: String)
 }

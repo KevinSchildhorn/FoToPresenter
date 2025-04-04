@@ -40,14 +40,14 @@ class ChangeDirectoryUseCaseTest : KoinTest {
         }
 
     @Test
-    fun `change directory success`() =
+    fun `change_directory_success`() =
         runBlocking {
             val result = useCase(Path("Photos"))
             assertEquals(Path("Photos"), result)
         }
 
     @Test
-    fun `change directory failure`() =
+    fun `change_directory_failure`() =
         runBlocking {
             try {
                 val result = useCase(Path("nonExistant"))
@@ -58,7 +58,7 @@ class ChangeDirectoryUseCaseTest : KoinTest {
         }
 
     @Test
-    fun `change directory disconnected`() =
+    fun `change_directory_disconnected`() =
         runBlocking {
             MockNetworkHandler.disconnect()
             try {
