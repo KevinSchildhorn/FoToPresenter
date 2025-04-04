@@ -5,14 +5,18 @@ Below is a guide to the available documentation files and their purposes.
 
 ## Documentation Structure
 
+### Planning
 
-- [UX](/UX) - Goes over the UX Research that helped define the project. Contains User Stories and Use Cases.
-- 
+These documents go over how I planned out this application from the ground up, from research into UX.
+
+- [Process](Process.md) - How I progressed through the project, covering all the bases.
+- [UX](UX) - Goes over the UX Research that helped define the project. Contains User Stories and Use Cases.
+- [Testing](Testing.md) - How testing is handled to cover all use cases and as much code coverage as possible.
 
 ### Core Documentation
-- [Architecture.md](Architecture.md) - Explains the overall architecture of the application, including the MVVM pattern, data flow, and component relationships.
-- [Navigation.md](Navigation.md) - Details the navigation system using Jetpack Compose Navigation, including available screens and navigation flows.
-- [Libraries.md](Libraries.md) - Lists and describes all major libraries used in the shared module, their versions, and purposes.
+- [Architecture](Architecture) - Explains the overall architecture of the application, including the MVVM pattern, data flow, and component relationships.
+- [Navigation](Architecture/Navigation.md) - Details the navigation system using Jetpack Compose Navigation, including available screens and navigation flows.
+- [Libraries](Architecture/Libraries.md) - Lists and describes all major libraries used in the shared module, their versions, and purposes.
 
 ### Feature Documentation
 - [ImageLoading.md](ImageLoading.md) - Documents the image loading system, including caching strategies and image processing.
