@@ -36,7 +36,7 @@ The `SMBJHandler` is the concrete implementation of `NetworkHandler` using the S
 
 ### Connection Management
 - Uses `SMBClient` for establishing connections
-- Maintains connection state through `Connection`, `Session`, and `DiskShare` objects
+- Maintains connection state through `Connection`, `Session`, and `DiskShare` objects (`com.hierynomus.smbj`)
 - Handles authentication using provided credentials
 
 ### Security Features
@@ -63,14 +63,6 @@ The networking system uses a custom exception class `NetworkHandlerException` wi
 - `NOT_CONNECTED`: When operations are attempted without an active connection
 - `DIRECTORY_NOT_FOUND`: When attempting to access a non-existent directory
 - `FILE_NOT_FOUND`: When attempting to access a non-existent file
-
-## Best Practices
-
-1. Always check `isConnected` before performing operations
-2. Use try-catch blocks to handle `NetworkHandlerException`
-3. Properly disconnect when done to free resources
-4. Handle authentication failures gracefully
-5. Implement proper error messaging for users
 
 ## Dependencies
 
