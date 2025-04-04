@@ -12,8 +12,6 @@ The login system consists of several key components that work together to provid
 4. **CredentialsRepository**: Handles credential persistence
 5. **NetworkHandler**: Manages the actual server connection
 
-![Login Flow](../../../UML/LoginFlow.drawio.png)
-
 ## Components
 
 ### LoginScreen

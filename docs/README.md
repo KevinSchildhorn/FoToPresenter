@@ -19,8 +19,8 @@ These documents go over how I planned out this application from the ground up, f
 - [Networking](Architecture/Networking.md) - Explains the networking implementation in the FoToPresenter application, including the NetworkHandler interface.'
 
 ### Screen Documentation
-- [Login Screen](Architecture/Screens/Login/Login.md) - Documents The Login Screen
-- [Directory Screen](Architecture/Screens/Directory/Directory.md) - Documents The Login Screen
+- [Login Screen](Architecture/Screens/Login) - Documents The Login Screen
+- [Directory Screen](Architecture/Screens/Directory) - Documents The Login Screen
  
 ### Feature Documentation
 - [ImageLoading](Architecture/ImageLoading.md) - Documents the image loading system, including caching strategies and image processing.

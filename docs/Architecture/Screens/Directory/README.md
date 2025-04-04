@@ -16,8 +16,12 @@ These are handled using short clicks and long clicks on mobile, and left and rig
 
 This is done using the `DirectoryNavigator`. 
 The `DirectoryViewModel` passes commands to the Navigator which then handles these states and contains the current state as a Flow.
+Navigation is in its own file `DirectoryNavigator` in order to prevent the `DirectoryViewModel` from getting bloated.
+It is called from the `ViewModel`, and updates from the `Navigator` come back as a `StateFlow` and is combined with the `UiState` of the `ViewModel`.
 
 This handles clicking on Folders (and the navigation bar), while clicking on images is handled by the next part
+
+![Directory Navigation](../../../UML/DirectoryFlow.drawio.png)
 
 ## Image Previews
 
