@@ -31,7 +31,7 @@ fun FotoTypography() =
     Typography().run {
         val fontFamily = QuicksandFontFamily()
         this.copy(
-            h1 = TextStyle( fontSize = 96.sp, fontWeight = FontWeight.Normal, fontFamily = fontFamily),
+            h1 = TextStyle(fontSize = 96.sp, fontWeight = FontWeight.Normal, fontFamily = fontFamily),
             h2 = TextStyle(fontSize = 48.sp, fontWeight = FontWeight.Normal, fontFamily = fontFamily),
             h3 = TextStyle(fontSize = 36.sp, fontWeight = FontWeight.Normal, fontFamily = fontFamily),
             h4 = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Normal, fontFamily = fontFamily),

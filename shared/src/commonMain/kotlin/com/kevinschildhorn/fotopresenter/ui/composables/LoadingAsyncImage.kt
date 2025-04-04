@@ -26,7 +26,7 @@ fun LoadingAsyncImage(
     model: Any?,
     contentDescription: String?,
     contentScale: ContentScale,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var loading by remember { mutableStateOf(true) }
     AsyncImage(
@@ -44,11 +44,12 @@ fun LoadingAsyncImage(
         CompositionLocalProvider(LocalShimmerTheme provides shimmerTheme) {
             Box(
                 modifier = Modifier.fillMaxSize().shimmer(),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 Box(
-                    modifier = Modifier.fillMaxSize()
-                        .background(MaterialTheme.colors.primaryVariant)
+                    modifier =
+                        Modifier.fillMaxSize()
+                            .background(MaterialTheme.colors.primaryVariant),
                 )
             }
         }

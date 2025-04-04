@@ -62,14 +62,15 @@ fun DirectoryNavigationItemPreview() {
 @Composable
 fun DirectoryNavigationBarPreview() {
     DirectoryNavigationBar(
-        directories = listOf(
-            "Photos1",
-            "Subfolder1",
-            "Photos2",
-            "Subfolder2",
-            "Photos3",
-            "Subfolder3"
-        ).map { Path(it) },
+        directories =
+            listOf(
+                "Photos1",
+                "Subfolder1",
+                "Photos2",
+                "Subfolder2",
+                "Photos3",
+                "Subfolder3",
+            ).map { Path(it) },
         {},
         {},
     )

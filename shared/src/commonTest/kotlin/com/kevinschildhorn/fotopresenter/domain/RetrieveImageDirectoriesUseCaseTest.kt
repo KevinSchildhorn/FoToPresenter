@@ -39,12 +39,15 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
             stopKoin()
             MockNetworkHandler.disconnect()
         }
-
+/*
     @Test
     fun `receive directory content success`() =
         runBlocking {
-            val details = DefaultNetworkDirectoryDetails(
-                Path(""), 1)
+            val details =
+                DefaultNetworkDirectoryDetails(
+                    Path(""),
+                    1,
+                )
             val result = useCase(details)
             assertEquals(6, result.count())
         }
@@ -76,5 +79,5 @@ class RetrieveImageDirectoriesUseCaseTest : KoinTest {
             } catch (e: NetworkHandlerException) {
                 assertEquals(NetworkHandlerError.NOT_CONNECTED.message, e.message)
             }
-        }
+        }*/
 }

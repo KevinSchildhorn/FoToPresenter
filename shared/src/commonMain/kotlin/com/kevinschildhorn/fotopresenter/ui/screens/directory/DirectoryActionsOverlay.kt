@@ -17,7 +17,7 @@ fun DirectoryActionsOverlay(
     onAction: (ActionSheetAction) -> Unit,
     onSaveMetadata: (String) -> Unit,
     changeOverlay: (DirectoryOverlayType) -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     when (overlayState) {
         is DirectoryOverlayUiState.Actions.Sheet -> {
@@ -26,7 +26,7 @@ fun DirectoryActionsOverlay(
                 offset = 200,
                 values = overlayState.directoryUiState.actionSheetContexts,
                 onClick = { onAction(it.action) },
-                onDismiss = onDismiss
+                onDismiss = onDismiss,
             )
         }
         is DirectoryOverlayUiState.Actions.EditMetaData -> {

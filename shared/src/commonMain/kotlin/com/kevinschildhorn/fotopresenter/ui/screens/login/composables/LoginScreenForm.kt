@@ -16,7 +16,6 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryTe
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreenState
 import com.kevinschildhorn.fotopresenter.ui.testTag
 
-
 @Composable
 fun LoginScreenForm(
     uiState: LoginScreenState,

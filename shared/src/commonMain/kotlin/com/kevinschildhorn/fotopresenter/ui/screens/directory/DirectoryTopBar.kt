@@ -11,7 +11,10 @@ import compose.icons.evaicons.fill.Menu
 import compose.icons.evaicons.fill.Options
 
 @Composable
-fun DirectoryTopBar(showMenu: () -> Unit, showOverlay: (DirectoryOverlayType) -> Unit) {
+fun DirectoryTopBar(
+    showMenu: () -> Unit,
+    showOverlay: (DirectoryOverlayType) -> Unit,
+) {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.background,
         contentColor = MaterialTheme.colors.onBackground,
@@ -27,6 +30,6 @@ fun DirectoryTopBar(showMenu: () -> Unit, showOverlay: (DirectoryOverlayType) ->
         },
         title = {
             BasicText("Directories")
-        }
+        },
     )
 }

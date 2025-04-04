@@ -2,7 +2,6 @@ package com.kevinschildhorn.fotopresenter.data
 
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 
-
 /*
  * The contents of a Directory on your NAS File System.
  * Contains folders and images each of which has DirectoryDetails

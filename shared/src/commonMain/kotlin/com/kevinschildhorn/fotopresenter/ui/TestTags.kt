@@ -6,11 +6,13 @@ import androidx.compose.ui.platform.testTag
 interface TestTag {
     val value: String
 }
+
 class TestTagImpl(override val value: String) : TestTag
 
 object TestTags {
     val ERROR_VIEW = TestTagImpl("ErrorView")
-    enum class Login(override val value: String): TestTag {
+
+    enum class Login(override val value: String) : TestTag {
         HOST_NAME("HostNameText"),
         USERNAME("UsernameText"),
         PASSWORD("PasswordText"),

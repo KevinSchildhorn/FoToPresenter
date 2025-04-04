@@ -12,9 +12,7 @@ class RetrieveImageUseCase(
     private val cachedImageDataSource: CachedImageDataSource,
     private val logger: Logger? = null,
 ) {
-    suspend operator fun invoke(
-        directory: ImageDirectory,
-    ): SharedImage? {
+    suspend operator fun invoke(directory: ImageDirectory): SharedImage? {
         val imageName = "\"${directory.details.fullPath}\""
         logger?.i { "Starting to get Image $imageName" }
 

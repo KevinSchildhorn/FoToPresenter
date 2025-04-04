@@ -47,14 +47,15 @@ value class Path(private val pathString: String) {
      * for example: "Users/Kevin/Photos/New" navigateBackToPathAtIndex(2) will return "Users/Kevin"
      */
     fun navigateBackToPathAtIndex(index: Int): Path {
-        val pathString = if (index < -1) {
-            ""
-        } else {
-            pathString
-                .split("\\")
-                .joinToString("\\", limit = index + 1, truncated = "")
-                .dropLast(1)
-        }
+        val pathString =
+            if (index < -1) {
+                ""
+            } else {
+                pathString
+                    .split("\\")
+                    .joinToString("\\", limit = index + 1, truncated = "")
+                    .dropLast(1)
+            }
         return Path(pathString)
     }
 

@@ -2,8 +2,8 @@ package com.kevinschildhorn.fotopresenter.ui.screens.login
 
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.UseCaseFactory
-import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
+import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.shared.ViewModel
 import kotlinx.coroutines.Dispatchers
@@ -66,13 +66,14 @@ class LoginViewModel(
         viewModelScope.launch(Dispatchers.Default) {
             logger.i { "Connecting To Server With Credentials" }
 
-            val result = try {
-                logger.i { "Connecting to Client ${_uiState.value.hostname}" }
-                networkHandler.connect(_uiState.value.asLoginCredentials)
-            } catch (e: Exception) {
-                logger.e(e) { "Something went wrong" }
-                false
-            }
+            val result =
+                try {
+                    logger.i { "Connecting to Client ${_uiState.value.hostname}" }
+                    networkHandler.connect(_uiState.value.asLoginCredentials)
+                } catch (e: Exception) {
+                    logger.e(e) { "Something went wrong" }
+                    false
+                }
 
             if (!result) {
                 logger.w { "Error Occurred Connecting to Server" }

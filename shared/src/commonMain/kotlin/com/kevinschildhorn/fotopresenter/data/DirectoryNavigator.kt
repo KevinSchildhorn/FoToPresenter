@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.update
  * and emits a flow of the current directories contents.
  */
 class DirectoryNavigator(private val directoryRepository: DirectoryRepository) {
-
     private val _currentDirectoryContents = MutableStateFlow(DirectoryContents())
     val currentDirectoryContents: StateFlow<DirectoryContents> =
         _currentDirectoryContents.asStateFlow()
@@ -44,8 +43,7 @@ class DirectoryNavigator(private val directoryRepository: DirectoryRepository) {
         refreshDirectoryContents()
     }
 
-    fun getDirectoryFromId(id: Long) =
-        currentDirectoryContents.value.allDirectories.find { it.id == id }
+    fun getDirectoryFromId(id: Long) = currentDirectoryContents.value.allDirectories.find { it.id == id }
 
     // Emits from to the Flow the current directories contents.
     // Used when the DirectoryScreen is first shown

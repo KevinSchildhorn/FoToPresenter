@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.update
 class ImagePreviewNavigator(
     private val logger: Logger,
 ) {
-
     private var directories: List<ImageDirectory> = emptyList()
     private var index: Int = 0
 
@@ -47,7 +46,6 @@ class ImagePreviewNavigator(
         if (index >= directories.count()) index = 0
         logger.i { "Show next image at index: $index of ${directories.count()}" }
         updatePreviewData()
-
     }
 
     private fun updatePreviewData() {

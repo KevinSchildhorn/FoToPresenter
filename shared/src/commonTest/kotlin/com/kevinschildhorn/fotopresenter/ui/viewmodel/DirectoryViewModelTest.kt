@@ -1,26 +1,19 @@
 package com.kevinschildhorn.fotopresenter.ui.viewmodel
 
-import app.cash.turbine.test
-import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.testingModule
-import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
-import org.koin.test.inject
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
-import kotlin.test.assertEquals
 
 /**
 Testing [DirectoryViewModel]
@@ -69,8 +62,8 @@ class DirectoryViewModelTest : KoinTest {
                 assertEquals(2, state.directoryGridUIState.folderStates.count())
                 cancelAndIgnoreRemainingEvents()
             }
-        }*/
-/* TODO
+        }
+
     @Test
     fun logout() =
         runTest(testDispatcher) {
@@ -81,8 +74,7 @@ class DirectoryViewModelTest : KoinTest {
                 cancelAndIgnoreRemainingEvents()
             }
         }
-*/
-    /*
+
     @Test
     fun `change Directory`() =
         runTest(testDispatcher) {
@@ -115,10 +107,10 @@ class DirectoryViewModelTest : KoinTest {
             }
         }
 
-    @Test*/
+    @Test
     fun `startSlideshow`() =
         runTest(testDispatcher) {
-            /* TODO
+             TODO
             val viewModel: DirectoryViewModel by inject()
             viewModel.uiState.test {
                 viewModel.refreshScreen()
@@ -146,9 +138,8 @@ class DirectoryViewModelTest : KoinTest {
                 val list = state.slideshowDetails?.directories!!
                 assertEquals(4, list.size)
                 cancelAndIgnoreRemainingEvents()
-            }*/
+            }
         }
-/*
     @Test
     fun `select Image by ID`() =
         runTest(testDispatcher) {

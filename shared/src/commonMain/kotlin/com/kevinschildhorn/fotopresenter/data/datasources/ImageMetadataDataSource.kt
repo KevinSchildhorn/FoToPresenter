@@ -34,9 +34,11 @@ class ImageMetadataDataSource(
         return null
     }
 
-
     // TODO
-    suspend fun writeMetadataToFile(metadata:String, filePath: Path): MetadataFileDetails? {
+    suspend fun writeMetadataToFile(
+        metadata: String,
+        filePath: Path,
+    ): MetadataFileDetails? {
         networkHandler.getSharedImage(filePath)?.let { sharedImage ->
             val metadata = Kim.readMetadata(sharedImage.byteArray)
             println(metadata)

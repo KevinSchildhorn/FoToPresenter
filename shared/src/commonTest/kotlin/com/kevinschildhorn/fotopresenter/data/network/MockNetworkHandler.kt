@@ -1,7 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
-import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 import com.kevinschildhorn.fotopresenter.data.Path
+import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 object MockNetworkHandler : NetworkHandler {
@@ -14,7 +14,7 @@ object MockNetworkHandler : NetworkHandler {
             shouldAutoConnect = false,
         )
 
-    const val photoDirectoryId: Long = 5L
+    const val PHOTO_DIRECTORY_ID: Long = 5L
 
     private val playlists =
         mutableMapOf(
@@ -44,7 +44,7 @@ object MockNetworkHandler : NetworkHandler {
         mapOf(
             Path.EMPTY to
                 listOf<NetworkDirectoryDetails>(
-                    DefaultNetworkDirectoryDetails(fullPath = Path("Photos"), id = photoDirectoryId),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("Photos"), id = PHOTO_DIRECTORY_ID),
                     DefaultNetworkDirectoryDetails(fullPath = Path("NewDirectory"), id = 1),
                     DefaultNetworkDirectoryDetails(fullPath = Path("Peeng.png"), id = 75),
                     DefaultNetworkDirectoryDetails(fullPath = Path("Jaypeg.jpg"), id = 3),
@@ -128,7 +128,7 @@ object MockNetworkHandler : NetworkHandler {
     }
 
     override suspend fun getDirectoryContents(path: Path): List<NetworkDirectoryDetails> {
-        print("Getting Directory Contents '${path}'\n")
+        print("Getting Directory Contents '$path'\n")
 
         return networkContents[path] ?: emptyList()
     }

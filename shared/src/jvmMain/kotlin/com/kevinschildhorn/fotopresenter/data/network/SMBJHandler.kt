@@ -12,8 +12,8 @@ import com.hierynomus.smbj.connection.Connection
 import com.hierynomus.smbj.session.Session
 import com.hierynomus.smbj.share.DiskShare
 import com.hierynomus.smbj.share.File
-import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 import com.kevinschildhorn.fotopresenter.data.Path
+import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import java.io.OutputStream
 
@@ -97,7 +97,7 @@ object SMBJHandler : NetworkHandler {
                 createDisposition,
                 createOptions,
             )
-        return if(result != null) Path(result.path) else null
+        return if (result != null) Path(result.path) else null
     }
 
     override suspend fun getSharedImage(path: Path): SharedImage? =

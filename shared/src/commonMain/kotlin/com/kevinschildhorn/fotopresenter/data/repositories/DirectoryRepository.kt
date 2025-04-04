@@ -16,7 +16,6 @@ class DirectoryRepository(
     private val metadataDataSource: ImageMetadataDataSource,
     private val logger: Logger,
 ) {
-
     @Throws(NetworkHandlerException::class, CancellationException::class)
     suspend fun changeDirectory(path: Path): Path =
         try {
@@ -26,7 +25,6 @@ class DirectoryRepository(
             logger.e(e) { "Error Changing Directory" }
             throw NetworkHandlerException(e.message ?: "")
         }
-
 
     suspend fun getDirectoryContents(path: Path): DirectoryContents {
         val folderDirectories: List<NetworkDirectoryDetails> =

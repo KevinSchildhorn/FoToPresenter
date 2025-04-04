@@ -16,9 +16,9 @@ import org.koin.dsl.module
 fun startKoin() {
     org.koin.core.context.startKoin {
         logger(
-            KermitKoinLogger(Logger)
+            KermitKoinLogger(Logger),
         )
-        modules(commonModule, kermitLoggerModule(Logger),  platformModule)
+        modules(commonModule, kermitLoggerModule(Logger), platformModule)
     }
 }
 

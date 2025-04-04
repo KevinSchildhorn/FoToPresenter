@@ -1,6 +1,5 @@
 package com.kevinschildhorn.fotopresenter.domain.image
 
-import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
 import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import org.koin.core.component.KoinComponent
@@ -27,6 +26,5 @@ class SaveMetadataForPathUseCase(
 
         return dataSource.exportMetadata(metaData)*/
         return false
-
     }
 }

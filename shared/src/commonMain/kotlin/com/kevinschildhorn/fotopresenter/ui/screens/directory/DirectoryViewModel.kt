@@ -1,31 +1,10 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
 import co.touchlab.kermit.Logger
-import com.kevinschildhorn.fotopresenter.UseCaseFactory
-import com.kevinschildhorn.fotopresenter.data.Directory
-import com.kevinschildhorn.fotopresenter.data.DirectoryContents
-import com.kevinschildhorn.fotopresenter.data.FolderDirectory
-import com.kevinschildhorn.fotopresenter.data.ImageDirectory
-import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
-import com.kevinschildhorn.fotopresenter.data.Path
-import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
-import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
-import com.kevinschildhorn.fotopresenter.extension.logLargeTitle
-import com.kevinschildhorn.fotopresenter.ui.SortingType
-import com.kevinschildhorn.fotopresenter.ui.UiState
-import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
 import com.kevinschildhorn.fotopresenter.ui.screens.common.DefaultImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import org.koin.core.component.KoinComponent
 
@@ -35,8 +14,7 @@ class DirectoryViewModel(
 ) : PlaylistViewModel(playlistRepository, logger),
     ImageViewModel by DefaultImageViewModel(logger),
     KoinComponent {
-
-/*
+        /*
     private val slideshowScope: CoroutineScope = viewModelScope + Dispatchers.IO
     private val imageScope: CoroutineScope = viewModelScope + Dispatchers.IO
 
@@ -153,5 +131,5 @@ class DirectoryViewModel(
         }
 
 
- */
+         */
 }

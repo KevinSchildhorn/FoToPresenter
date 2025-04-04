@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.fotopresenter.ui.TestTag
 import com.kevinschildhorn.fotopresenter.ui.TestTags.ERROR_VIEW
 import com.kevinschildhorn.fotopresenter.ui.testTag
 

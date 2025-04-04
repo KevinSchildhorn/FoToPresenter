@@ -5,7 +5,7 @@ import coil3.ImageLoader
 import coil3.fetch.FetchResult
 import coil3.fetch.Fetcher
 import coil3.request.Options
-import com.kevinschildhorn.fotopresenter.extension.LoggerTagSuffix
+import com.kevinschildhorn.fotopresenter.extension.LOGGER_TAG_SUFFIX
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -32,6 +32,6 @@ class SharedImageFetcher(
             data: SharedImage,
             options: Options,
             imageLoader: ImageLoader,
-        ): Fetcher = SharedImageFetcher(data, logger.withTag("ByteArrayFetcher$LoggerTagSuffix"))
+        ): Fetcher = SharedImageFetcher(data, logger.withTag("ByteArrayFetcher$LOGGER_TAG_SUFFIX"))
     }
 }

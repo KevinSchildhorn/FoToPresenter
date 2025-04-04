@@ -18,7 +18,6 @@ import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ConfirmationDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ImagePreviewOverlay
@@ -58,7 +57,7 @@ fun DirectoryScreen(
         topBar = {
             DirectoryTopBar(
                 showMenu = { scope.launch { scaffoldState.drawerState.open() } },
-                showOverlay = { overlayVisible = it }
+                showOverlay = { overlayVisible = it },
             )
         },
         drawerContent = { // TODO: Too wide
@@ -66,7 +65,7 @@ fun DirectoryScreen(
                 onLogout = { overlayVisible = DirectoryOverlayType.LOGOUT_CONFIRMATION },
                 onPlaylists = onShowPlaylists,
             )
-        }
+        },
     ) {
         // Content
         Column {
@@ -134,7 +133,7 @@ fun DirectoryScreen(
                     },
                     onSaveMetadata = { viewModel.saveMetadata(it) },
                     changeOverlay = {},
-                    onDismiss = { viewModel.clearOverlay() }
+                    onDismiss = { viewModel.clearOverlay() },
                 )
             }
 

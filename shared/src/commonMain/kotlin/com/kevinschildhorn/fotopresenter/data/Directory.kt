@@ -21,8 +21,8 @@ data class FolderDirectory(
     val isValid: Boolean
         get() =
             name != ".." &&
-                    name.isNotEmpty() &&
-                    name.isNotBlank()
+                name.isNotEmpty() &&
+                name.isNotBlank()
 }
 
 data class ImageDirectory(

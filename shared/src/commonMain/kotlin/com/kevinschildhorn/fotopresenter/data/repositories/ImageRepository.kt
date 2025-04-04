@@ -2,14 +2,13 @@ package com.kevinschildhorn.fotopresenter.data.repositories
 
 import co.touchlab.kermit.Logger
 import coil3.fetch.FetchResult
-import com.kevinschildhorn.fotopresenter.data.datasources.image.CachedImageDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.image.NetworkImageDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 class ImageRepository(
     private val remoteImageDataSource: NetworkImageDataSource,
-    //private val localImageDataSource: CachedImageDataSource,
+    // private val localImageDataSource: CachedImageDataSource,
     private val logger: Logger?,
 ) {
     suspend fun getFetchResult(
@@ -34,7 +33,7 @@ class ImageRepository(
         val image = remoteImageDataSource.getImage(directoryDetails)
         if (image != null) {
             logger?.v { "Storing image in cache: ${directoryDetails.name}" }
-            //localImageDataSource.saveImage(directoryDetails, image)
+            // localImageDataSource.saveImage(directoryDetails, image)
         }
         logger?.d { "Image retrieved: ${directoryDetails.name}" }
         return image

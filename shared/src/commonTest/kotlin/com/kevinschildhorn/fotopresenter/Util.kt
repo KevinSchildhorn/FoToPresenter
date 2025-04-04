@@ -6,5 +6,5 @@ import com.kevinschildhorn.fotopresenter.ui.TestTag
 
 fun SemanticsNodeInteractionsProvider.onNodeWithTag(
     testTag: TestTag,
-    useUnmergedTree: Boolean = false
+    useUnmergedTree: Boolean = false,
 ) = this.onNodeWithTag(testTag.value, useUnmergedTree)

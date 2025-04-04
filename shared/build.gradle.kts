@@ -16,7 +16,7 @@ plugins {
 
 kotlin {
     applyDefaultHierarchyTemplate()
-    androidTarget{
+    androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
@@ -173,6 +173,12 @@ tasks.withType<Copy> {
 }
 
 kover {
+    currentProject {
+        createVariant("custom") {
+            add("debug")
+            add("jvm")
+        }
+    }
     reports {
         total {
             // configuring report tasks

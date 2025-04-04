@@ -21,7 +21,7 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUs
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
-import com.kevinschildhorn.fotopresenter.extension.LoggerTagSuffix
+import com.kevinschildhorn.fotopresenter.extension.LOGGER_TAG_SUFFIX
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
@@ -39,50 +39,49 @@ val commonModule =
         single { NetworkImageDataSource(get()) }
         single { CredentialsDataSource(get()) }
         single { CredentialsRepository(get()) }
-        single { DirectoryDataSource(get(), getLoggerWithTag("DirectoryDataSource$LoggerTagSuffix")) }
-        single { DirectoryRepository(get(), get(), getLoggerWithTag("DirectoryRepository$LoggerTagSuffix")) }
-        //single { CachedImageDataSource(get(), getLoggerWithTag("ImageCacheDataSource$LoggerTagSuffix")) }
-        single { PlaylistFileDataSource(getLoggerWithTag("PlaylistDataSource$LoggerTagSuffix"), get()) }
-        single { PlaylistSQLDataSource(get(), getLoggerWithTag("PlaylistDataSource$LoggerTagSuffix")) }
-        single { PlaylistRepository(get(), get(), getLoggerWithTag("PlaylistRepository$LoggerTagSuffix")) }
-        factory { ImageMetadataDataSource(getLoggerWithTag("ImageMetadataDataSource$LoggerTagSuffix"), get()) }
-        single { ImageRepository(get(), getLoggerWithTag("ImageRepository$LoggerTagSuffix")) }
+        single { DirectoryDataSource(get(), getLoggerWithTag("DirectoryDataSource$LOGGER_TAG_SUFFIX")) }
+        single { DirectoryRepository(get(), get(), getLoggerWithTag("DirectoryRepository$LOGGER_TAG_SUFFIX")) }
+        // single { CachedImageDataSource(get(), getLoggerWithTag("ImageCacheDataSource$LoggerTagSuffix")) }
+        single { PlaylistFileDataSource(getLoggerWithTag("PlaylistDataSource$LOGGER_TAG_SUFFIX"), get()) }
+        single { PlaylistSQLDataSource(get(), getLoggerWithTag("PlaylistDataSource$LOGGER_TAG_SUFFIX")) }
+        single { PlaylistRepository(get(), get(), getLoggerWithTag("PlaylistRepository$LOGGER_TAG_SUFFIX")) }
+        factory { ImageMetadataDataSource(getLoggerWithTag("ImageMetadataDataSource$LOGGER_TAG_SUFFIX"), get()) }
+        single { ImageRepository(get(), getLoggerWithTag("ImageRepository$LOGGER_TAG_SUFFIX")) }
         single<CacheInterface> { SharedInMemoryCache }
         single { DirectoryNavigator(get()) }
-        single { ImagePreviewNavigator(getLoggerWithTag("ImagePreviewNavigator$LoggerTagSuffix")) }
+        single { ImagePreviewNavigator(getLoggerWithTag("ImagePreviewNavigator$LOGGER_TAG_SUFFIX")) }
 
         // Domain
-        factory { ChangeDirectoryUseCase(get(), getLoggerWithTag("ChangeDirectoryUseCase$LoggerTagSuffix")) }
-        factory { AutoConnectUseCase(get(), get(), getLoggerWithTag("AutoConnectUseCase$LoggerTagSuffix")) }
+        factory { ChangeDirectoryUseCase(get(), getLoggerWithTag("ChangeDirectoryUseCase$LOGGER_TAG_SUFFIX")) }
+        factory { AutoConnectUseCase(get(), get(), getLoggerWithTag("AutoConnectUseCase$LOGGER_TAG_SUFFIX")) }
         factory {
             DisconnectFromServerUseCase(
                 get(),
                 get(),
-                getLoggerWithTag("DisconnectFromServerUseCase$LoggerTagSuffix"),
+                getLoggerWithTag("DisconnectFromServerUseCase$LOGGER_TAG_SUFFIX"),
             )
         }
-        factory { RetrieveImageDirectoriesUseCase(getLoggerWithTag("RetrieveImageDirectoriesUseCase$LoggerTagSuffix")) }
+        factory { RetrieveImageDirectoriesUseCase(getLoggerWithTag("RetrieveImageDirectoriesUseCase$LOGGER_TAG_SUFFIX")) }
         factory {
             RetrieveSlideshowFromPlaylistUseCase(
-                getLoggerWithTag("RetrieveSlideshowFromPlaylistUseCase$LoggerTagSuffix"),
+                getLoggerWithTag("RetrieveSlideshowFromPlaylistUseCase$LOGGER_TAG_SUFFIX"),
                 get(),
             )
         }
         factory {
             RetrieveDirectoryContentsUseCase(
                 get(),
-                getLoggerWithTag("RetrieveDirectoryContentsUseCase$LoggerTagSuffix"),
+                getLoggerWithTag("RetrieveDirectoryContentsUseCase$LOGGER_TAG_SUFFIX"),
             )
         }
-        factory { RetrieveImageUseCase(get(), getLoggerWithTag("RetrieveImageUseCase$LoggerTagSuffix")) }
+        factory { RetrieveImageUseCase(get(), getLoggerWithTag("RetrieveImageUseCase$LOGGER_TAG_SUFFIX")) }
         factory { SaveMetadataForPathUseCase(get()) }
         // UI
-        single { LoginViewModel(getLoggerWithTag("LoginViewModel$LoggerTagSuffix"), get(), get()) }
-        single { DirectoryViewModel(get(), getLoggerWithTag("DirectoryViewModel$LoggerTagSuffix")) }
-        single { DirectoryViewModelNew(get(), get(), get(), get(), get(), getLoggerWithTag("DirectoryViewModelNew$LoggerTagSuffix")) }
-        single { SlideshowViewModel(getLoggerWithTag("SlideshowViewModel$LoggerTagSuffix")) }
-        single { PlaylistViewModel(get(), getLoggerWithTag("PlaylistViewModel$LoggerTagSuffix")) }
+        single { LoginViewModel(getLoggerWithTag("LoginViewModel$LOGGER_TAG_SUFFIX"), get(), get()) }
+        single { DirectoryViewModel(get(), getLoggerWithTag("DirectoryViewModel$LOGGER_TAG_SUFFIX")) }
+        single { DirectoryViewModelNew(get(), get(), get(), get(), get(), getLoggerWithTag("DirectoryViewModelNew$LOGGER_TAG_SUFFIX")) }
+        single { SlideshowViewModel(getLoggerWithTag("SlideshowViewModel$LOGGER_TAG_SUFFIX")) }
+        single { PlaylistViewModel(get(), getLoggerWithTag("PlaylistViewModel$LOGGER_TAG_SUFFIX")) }
     }
-
 
 internal expect val platformModule: Module

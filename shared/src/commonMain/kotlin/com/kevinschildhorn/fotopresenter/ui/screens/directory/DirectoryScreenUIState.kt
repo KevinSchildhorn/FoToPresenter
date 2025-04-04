@@ -27,22 +27,20 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ScreenState
  **/
 data class DirectoryScreenUIState(
     override val state: UiState = UiState.IDLE,
-    var directoryGridUIState: DirectoryGridUIState = DirectoryGridUIState(
-        Path.EMPTY,
-        emptyList(),
-        mutableListOf()
-    ),
+    var directoryGridUIState: DirectoryGridUIState =
+        DirectoryGridUIState(
+            Path.EMPTY,
+            emptyList(),
+            mutableListOf(),
+        ),
     val overlayUiState: DirectoryOverlayUiState = DirectoryOverlayUiState.None,
     val slideshowDetails: ImageSlideshowDetails? = null, // TODO: Assess
 ) : ScreenState {
-
-    fun getImageIndexFromId(id: Long?): Int =
-        directoryGridUIState.imageStates.indexOfFirst { it.id == id }
+    fun getImageIndexFromId(id: Long?): Int = directoryGridUIState.imageStates.indexOfFirst { it.id == id }
 
     val currentPathList: List<Path>
         get() = directoryGridUIState.currentPath.pathList
 }
-
 
 /**
  * **DirectoryGridUIState**
@@ -113,14 +111,12 @@ sealed class DirectoryGridCellUIState(
     override fun toString(): String = "(I:$name:$id)"
 }
 
-
 /**
  * **DirectoryOverlayUiState**
  *
  * The UiState of Overlays visible on the Directory Screen
  **/
 sealed class DirectoryOverlayUiState {
-
     /**
      * **ImagePreview**
      *
@@ -140,7 +136,6 @@ sealed class DirectoryOverlayUiState {
         val directoryUiState: DirectoryGridCellUIState,
         val directory: Directory,
     ) : DirectoryOverlayUiState() {
-
         class AddToPlaylist(
             directoryUiState: DirectoryGridCellUIState,
             directory: Directory,
@@ -159,10 +154,11 @@ sealed class DirectoryOverlayUiState {
     }
 
     data object Sort : DirectoryOverlayUiState()
+
     data object LogoutConfirmation : DirectoryOverlayUiState()
+
     data object None : DirectoryOverlayUiState()
 
-
     @Suppress("UNCHECKED_CAST")
-    fun <T:DirectoryOverlayUiState> castTo():T? = this as? T
+    fun <T : DirectoryOverlayUiState> castTo(): T? = this as? T
 }
