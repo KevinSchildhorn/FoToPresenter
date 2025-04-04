@@ -9,8 +9,8 @@ This directory contains UML diagrams that document the architecture and design o
 
 This diagram illustrates the navigation flow within the application, showing how different screens and components are connected and how users navigate between them.
 
-### 2. Architecture Flow
-![Architecture Flow](ArchitectureFlow.drawio.png)
+### 2. Login Flow
+![Architecture Flow](LoginFlow.drawio.png)
 
 This diagram shows the high-level architecture of the application, including:
 - Component relationships
