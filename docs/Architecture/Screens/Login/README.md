@@ -12,6 +12,12 @@ The login system consists of several key components that work together to provid
 4. **CredentialsRepository**: Handles credential persistence
 5. **NetworkHandler**: Manages the actual server connection
 
+### Status
+- [X] UI
+- [X] ViewModel
+- [X] Use Cases Work
+- [X] Unit Tests
+- [X] UI Tests
 
 ## Use Cases
 * [Login Use Case](UseCases/LoginUseCase.md)
