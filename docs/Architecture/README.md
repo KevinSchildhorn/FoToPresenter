@@ -5,7 +5,7 @@ FotoPresenter uses an **MVVM** Architecture(Model-View-ViewModel), which is most
 ![Diagram](../UML/ProjectLayoutDiagram.drawio.png)
 
 
-The project is separated into packages based on the layer, then the usage. For `ui` this is the screen that is shown(i.e. `Login`), for `data` this is the functionality(i.e. `credentials`).
+The project is separated into packages based on the layer, then the usage. For `ui` this is the screen that is shown(i.e. `Login`), for `data` this is the functionality(i.e. `login`).
 
 ### MVVM Summary
 
