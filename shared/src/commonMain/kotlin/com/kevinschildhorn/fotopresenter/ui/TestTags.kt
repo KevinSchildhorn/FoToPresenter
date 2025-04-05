@@ -22,6 +22,14 @@ object TestTags {
         HIDE_SHOW_PASSWORD("HideShowPassword"),
         LINK("Link"),
     }
+
+    enum class Directory(override val value: String) : TestTag {
+        TOP_BAR("DirectoryTopBar"),
+        NAVIGATION_RAIL("AppNavigationRail"),
+        NAVIGATION_RAIL_ITEM_PLAYLIST("AppNavigationRailItemPlaylist"),
+        NAVIGATION_RAIL_ITEM_LOGOUT("AppNavigationRailItemLogout"),
+        NAVIGATION_BAR("NavigationBar"),
+    }
 }
 
 fun Modifier.testTag(tag: TestTag) = this.testTag(tag.value)

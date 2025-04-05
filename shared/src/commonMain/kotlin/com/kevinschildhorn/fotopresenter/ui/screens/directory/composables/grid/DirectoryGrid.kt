@@ -13,6 +13,7 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.isSecondaryPressed
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellUIState
@@ -37,6 +38,7 @@ fun DirectoryGrid(
         items(directoryContent.allStates, { it.id }) { state ->
             val directoryItemModifier =
                 Modifier
+                    .testTag("Directory${state.name}")
                     .padding(5.dp)
                     .pointerInput(Unit) {
                         awaitPointerEventScope {

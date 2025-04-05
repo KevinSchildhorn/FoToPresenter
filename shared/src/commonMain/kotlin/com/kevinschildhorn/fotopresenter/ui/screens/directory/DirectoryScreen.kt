@@ -15,6 +15,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
+import com.kevinschildhorn.fotopresenter.ui.TestTag
+import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
@@ -26,6 +28,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.SortDialo
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationBar
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.AppNavigationRail
+import com.kevinschildhorn.fotopresenter.ui.testTag
 import kotlinx.coroutines.launch
 
 enum class DirectoryOverlayType {
@@ -85,7 +88,7 @@ fun DirectoryScreen(
                 directories = uiState.currentPathList,
                 onHome = { viewModel.navigateBackToDirectory(-1) },
                 onItem = { viewModel.navigateBackToDirectory(it) },
-                modifier = Modifier.padding(Padding.SMALL.dp).testTag("DirectoryNavigationBar"),
+                modifier = Modifier.padding(Padding.SMALL.dp).testTag(TestTags.Directory.NAVIGATION_BAR),
             )
             // Grid
             DirectoryGrid(
