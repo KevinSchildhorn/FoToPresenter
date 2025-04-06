@@ -7,9 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import com.kevinschildhorn.fotopresenter.ui.SortingType
+import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import com.kevinschildhorn.fotopresenter.ui.testTag
 
 @Composable
 fun SortDialog(
@@ -30,6 +33,7 @@ fun SortDialog(
             RadioButton(
                 selected = selectedOption.value == SortingType.NAME_ASC,
                 onClick = { selectedOption.value = SortingType.NAME_ASC },
+                modifier = Modifier.testTag(TestTags.Directory.SORT_A_TO_Z),
             )
             Text(
                 text = "File Name A-Z",
@@ -41,6 +45,7 @@ fun SortDialog(
             RadioButton(
                 selected = selectedOption.value == SortingType.NAME_DESC,
                 onClick = { selectedOption.value = SortingType.NAME_DESC },
+                modifier = Modifier.testTag(TestTags.Directory.SORT_Z_TO_A),
             )
             Text(
                 text = "File Name Z-A",
@@ -52,6 +57,7 @@ fun SortDialog(
             RadioButton(
                 selected = selectedOption.value == SortingType.TIME_ASC,
                 onClick = { selectedOption.value = SortingType.TIME_ASC },
+                modifier = Modifier.testTag(TestTags.Directory.SORT_TIME_CREATED_ASC),
             )
             Text(
                 text = "Time Created Ascending",
@@ -63,6 +69,7 @@ fun SortDialog(
             RadioButton(
                 selected = selectedOption.value == SortingType.TIME_DESC,
                 onClick = { selectedOption.value = SortingType.TIME_DESC },
+                modifier = Modifier.testTag(TestTags.Directory.SORT_TIME_CREATED_DES),
             )
             Text(
                 text = "Time Created Descending",

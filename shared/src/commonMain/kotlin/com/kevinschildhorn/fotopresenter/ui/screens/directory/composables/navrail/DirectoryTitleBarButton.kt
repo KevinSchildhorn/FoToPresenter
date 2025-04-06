@@ -12,10 +12,11 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 @Composable
 fun DirectoryTitleBarButton(
     imageVector: ImageVector,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
     TextButton(
-        modifier = Modifier.size(55.dp),
+        modifier = modifier.size(55.dp),
         onClick = onClick,
     ) {
         Icon(

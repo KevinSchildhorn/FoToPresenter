@@ -14,6 +14,7 @@ import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
@@ -58,10 +59,10 @@ fun FotoDialog(
                         },
                         modifier = Modifier.padding(Padding.SMALL.dp),
                     ) {
-                        DialogButtonText("Dismiss")
+                        DialogButtonText("Dismiss", modifier = Modifier.testTag("Dismiss"))
                     }
                     onConfirmation?.let {
-                        PrimaryTextButton("Confirm") {
+                        PrimaryTextButton("Confirm", modifier = Modifier.testTag("Confirm")) {
                             it()
                         }
                     }

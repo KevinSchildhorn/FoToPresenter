@@ -28,7 +28,7 @@ fun DirectoryTopBar(
             }
         },
         actions = {
-            DirectoryTitleBarButton(EvaIcons.Fill.Options) {
+            DirectoryTitleBarButton(EvaIcons.Fill.Options, modifier = Modifier.testTag(TestTags.Directory.TOP_BAR_OPTIONS)) {
                 showOverlay(DirectoryOverlayType.SORT)
             }
         },

@@ -25,10 +25,15 @@ object TestTags {
 
     enum class Directory(override val value: String) : TestTag {
         TOP_BAR("DirectoryTopBar"),
+        TOP_BAR_OPTIONS("DirectoryTopBarOptions"),
         NAVIGATION_RAIL("AppNavigationRail"),
         NAVIGATION_RAIL_ITEM_PLAYLIST("AppNavigationRailItemPlaylist"),
         NAVIGATION_RAIL_ITEM_LOGOUT("AppNavigationRailItemLogout"),
         NAVIGATION_BAR("NavigationBar"),
+        SORT_A_TO_Z("SortAToZ"),
+        SORT_Z_TO_A("SortZToA"),
+        SORT_TIME_CREATED_ASC("SortTimeAscending"),
+        SORT_TIME_CREATED_DES("SortTimeDescending"),
     }
 }
 

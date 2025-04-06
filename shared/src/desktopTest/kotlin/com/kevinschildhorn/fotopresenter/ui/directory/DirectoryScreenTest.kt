@@ -123,6 +123,44 @@ class DirectoryScreenTest : KoinTest {
         onNodeWithTag("DirectorytextFile2").assertDoesNotExist()
     }
 
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun searching() = runComposeUiTest {
+        Dispatchers.setMain(Dispatchers.IO)
+
+        setContent {
+            DirectoryScreen(
+                viewModel = viewModel,
+                onLogout = {},
+                onStartSlideshow = {},
+                onShowPlaylists = {},
+            )
+        }
+        // TODO: This is not implemented
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun sorting() = runComposeUiTest {
+        Dispatchers.setMain(Dispatchers.IO)
+
+        setContent {
+            DirectoryScreen(
+                viewModel = viewModel,
+                onLogout = {},
+                onStartSlideshow = {},
+                onShowPlaylists = {},
+            )
+        }
+        // TODO: This is not implemented
+        onNodeWithTag(TestTags.Directory.TOP_BAR_OPTIONS).assertExists()
+        onNodeWithTag(TestTags.Directory.TOP_BAR_OPTIONS).performClick()
+
+
+        onNodeWithTag(TestTags.Directory.SORT_A_TO_Z).performClick()
+        onNodeWithTag("Confirm").performClick()
+    }
+
 
     @OptIn(ExperimentalTestApi::class)
     @Test
