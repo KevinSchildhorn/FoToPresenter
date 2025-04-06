@@ -63,25 +63,16 @@ object MockNetworkHandler : NetworkHandler {
                 ),
             Path("Photos") to
                 listOf<NetworkDirectoryDetails>(
-                    DefaultNetworkDirectoryDetails(fullPath = Path("Photos/Peeng2.png"), id = 2),
-                    DefaultNetworkDirectoryDetails(fullPath = Path("Photos/Jaypeg2.jpg"), id = 3),
-                    DefaultNetworkDirectoryDetails(fullPath = Path("Photos/textFile2.txt"), id = 4),
-                    DefaultNetworkDirectoryDetails(fullPath = Path("Photos/SubPhotos"), id = 5),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("Peeng2.png"), id = 2),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("Jaypeg2.jpg"), id = 3),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("textFile2.txt"), id = 4),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("SubPhotos"), id = 5),
                 ),
-            Path("Photos/SubPhotos") to
+            Path("Photos\\SubPhotos") to
                 listOf<NetworkDirectoryDetails>(
-                    DefaultNetworkDirectoryDetails(
-                        fullPath = Path("Photos/SubPhotos/Peeng3.png"),
-                        id = 2,
-                    ),
-                    DefaultNetworkDirectoryDetails(
-                        fullPath = Path("Photos/SubPhotos/Jaypeg3.jpg"),
-                        id = 3,
-                    ),
-                    DefaultNetworkDirectoryDetails(
-                        fullPath = Path("Photos/SubPhotos/textFile3.txt"),
-                        id = 4,
-                    ),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("Peeng3.png"), id = 2),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("Jaypeg3.jpg"), id = 3),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("textFile3.txt"), id = 4),
                 ),
         )
 

@@ -97,20 +97,30 @@ class DirectoryScreenTest : KoinTest {
         onNodeWithTag("DirectoryJaypeg").assertExists()
         onNodeWithTag("DirectorytextFile").assertDoesNotExist()
 
+        // Going Forward
         val directory = "Photos"
         onNodeWithTag("Directory$directory").performClick()
         waitForIdle()
         onNodeWithTag("NavItem$directory").assertExists()
-        onNodeWithTag("Directory$directory/Peeng2").assertExists()
-        onNodeWithTag("Directory$directory/Jaypeg2").assertExists()
-        onNodeWithTag("Directory$directory/textFile2").assertDoesNotExist()
+        onNodeWithTag("DirectoryPeeng2").assertExists()
+        onNodeWithTag("DirectoryJaypeg2").assertExists()
+        onNodeWithTag("DirectorytextFile2").assertDoesNotExist()
 
+        // Going Forward Again
         val subDirectory = "SubPhotos"
-        onNodeWithTag("Directory$directory/$subDirectory").performClick()
+        onNodeWithTag("Directory$subDirectory").performClick()
         waitForIdle()
         onNodeWithTag("NavItem$directory").assertExists()
         onNodeWithTag("NavItem$subDirectory").assertExists()
-        onNodeWithTag("Directory$directory/$subDirectory/Peeng3").assertExists()
+        onNodeWithTag("DirectoryPeeng3").assertExists()
+
+        // Going Backward
+        onNodeWithTag("NavItem$directory").performClick()
+        waitForIdle()
+        onNodeWithTag("NavItem$directory").assertExists()
+        onNodeWithTag("DirectoryPeeng2").assertExists()
+        onNodeWithTag("DirectoryJaypeg2").assertExists()
+        onNodeWithTag("DirectorytextFile2").assertDoesNotExist()
     }
 
 
