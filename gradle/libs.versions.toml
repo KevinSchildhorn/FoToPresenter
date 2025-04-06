@@ -24,6 +24,7 @@ kotlinx-serialization-json = "1.7.3"
 kotlinx-coroutines = "1.10.1"
 ktlint = "0.0.26"
 ktlint-plugin = "12.1.1"
+lifecycleViewmodelCompose = "2.8.4"
 multiplatform-settings = "1.2.0"
 multiplatform-settings-test = "1.2.0"
 navigationCompose = "2.7.0-alpha07"
@@ -67,6 +68,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 ktlint = { module = "com.twitter.compose.rules:ktlint", version.ref = "ktlint" }
+lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatform-settings" }
 multiplatform-settings-test = { module = "com.russhwolf:multiplatform-settings-test", version.ref = "multiplatform-settings-test" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }

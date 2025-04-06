@@ -5,7 +5,8 @@ import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.ui.UiState
-import com.kevinschildhorn.fotopresenter.ui.shared.ViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

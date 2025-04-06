@@ -6,7 +6,8 @@ import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.ui.screens.common.DefaultImageViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
-import com.kevinschildhorn.fotopresenter.ui.shared.ViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

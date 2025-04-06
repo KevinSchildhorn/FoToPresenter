@@ -56,6 +56,7 @@ kotlin {
                 implementation(libs.multiplatform.settings)
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.kim)
+                implementation(libs.lifecycle.viewmodel.compose)
                 api(libs.coil)
                 implementation(libs.file.kache)
                 implementation(libs.compose.shimmer)
