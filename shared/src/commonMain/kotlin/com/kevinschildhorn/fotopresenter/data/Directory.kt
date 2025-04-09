@@ -21,8 +21,8 @@ data class FolderDirectory(
     val isValid: Boolean
         get() =
             name != ".." &&
-                name.isNotEmpty() &&
-                name.isNotBlank()
+                    name.isNotEmpty() &&
+                    name.isNotBlank()
 }
 
 data class ImageDirectory(
@@ -39,3 +39,6 @@ fun List<Directory>.sorted(sortingType: SortingType): List<Directory> =
         SortingType.TIME_ASC -> this.sortedBy { it.details.dateMillis }
         SortingType.TIME_DESC -> this.sortedByDescending { it.details.dateMillis }
     }
+
+fun List<Directory>.filtered(string: String): List<Directory> =
+    this.filter { it.name.lowercase().contains(string.lowercase()) }

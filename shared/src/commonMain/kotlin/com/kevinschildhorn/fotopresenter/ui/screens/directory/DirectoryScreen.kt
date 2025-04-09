@@ -59,6 +59,7 @@ fun DirectoryScreen(
         topBar = {
             DirectoryTopBar(
                 showMenu = { scope.launch { scaffoldState.drawerState.open() } },
+                onSearchChanged = { viewModel.onSearch(it) },
                 showOverlay = { viewModel.showOverlay(it) },
             )
         },

@@ -41,6 +41,7 @@ object TestTags {
 
         enum class TopBar(override val value: String) : TestTag {
             TOP_BAR("DirectoryTopBar"),
+            SEARCH_BAR("DirectorySearchBar"),
             OPTIONS("DirectoryTopBarOptions"),
             MENU("DirectoryTopBarMenu"),
         }

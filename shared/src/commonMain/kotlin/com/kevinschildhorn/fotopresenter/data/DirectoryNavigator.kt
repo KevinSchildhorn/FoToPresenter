@@ -19,6 +19,7 @@ class DirectoryNavigator(private val directoryRepository: DirectoryRepository) {
         _currentDirectoryContents.asStateFlow()
 
     private var sortType: SortingType = SortingType.NAME_ASC
+    private var searchText: String = ""
 
     var currentPath: Path = Path.EMPTY
         private set
@@ -43,13 +44,18 @@ class DirectoryNavigator(private val directoryRepository: DirectoryRepository) {
         refreshDirectoryContents()
     }
 
+    suspend fun setSearch(searchText: String) {
+        this.searchText = searchText
+        refreshDirectoryContents()
+    }
+
     fun getDirectoryFromId(id: Long) = currentDirectoryContents.value.allDirectories.find { it.id == id }
 
     // Emits from to the Flow the current directories contents.
     // Used when the DirectoryScreen is first shown
     suspend fun refreshDirectoryContents() {
         val newDirectoryContents = directoryRepository.getDirectoryContents(currentPath)
-        _currentDirectoryContents.update { newDirectoryContents.sorted(sortType) }
+        _currentDirectoryContents.update { newDirectoryContents.sorted(sortType).filtered(searchText) }
     }
 
     private suspend fun changeDirectoryToPath(path: Path) {

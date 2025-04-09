@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.DirectoryTitleBarButton
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.search.DirectorySearchBar
 import com.kevinschildhorn.fotopresenter.ui.testTag
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
@@ -16,6 +17,7 @@ import compose.icons.evaicons.fill.Options
 @Composable
 fun DirectoryTopBar(
     showMenu: () -> Unit,
+    onSearchChanged: (String) -> Unit,
     showOverlay: (DirectoryOverlayType) -> Unit,
 ) {
     TopAppBar(
@@ -28,6 +30,8 @@ fun DirectoryTopBar(
             }
         },
         actions = {
+            // Search Bar
+            DirectorySearchBar(onSearch = onSearchChanged)
             DirectoryTitleBarButton(EvaIcons.Fill.Options, modifier = Modifier.testTag(TestTags.Directory.TopBar.OPTIONS)) {
                 showOverlay(DirectoryOverlayType.SORT)
             }

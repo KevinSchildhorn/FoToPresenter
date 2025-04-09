@@ -78,7 +78,10 @@ class DirectoryViewModelNew(
                 initialValue = DirectoryScreenUIState(),
             )
 
-
+    fun onSearch(searchText: String) = viewModelScope.launch(Dispatchers.Default) {
+        logger.i { "Setting Search Text" }
+        directoryNavigator.setSearch(searchText)
+    }
     fun showOverlay(state: DirectoryOverlayType) {
         logger.i { "Showing overlay: $state" }
         when (state) {

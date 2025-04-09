@@ -20,6 +20,13 @@ data class DirectoryContents(
         )
     }
 
+    fun filtered(string: String): DirectoryContents {
+        return DirectoryContents(
+            folders = folders.filtered(string) as List<FolderDirectory>,
+            images = images.filtered(string) as List<ImageDirectory>,
+        )
+    }
+
     override fun toString(): String {
         return """
         DirectoryContents:

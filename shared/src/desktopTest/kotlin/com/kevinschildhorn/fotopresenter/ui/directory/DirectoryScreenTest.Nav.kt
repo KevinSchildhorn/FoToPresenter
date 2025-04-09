@@ -3,6 +3,7 @@ package com.kevinschildhorn.fotopresenter.ui.directory
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.onNodeWithTag
@@ -111,7 +112,16 @@ class DirectoryScreenTestNav : KoinTest {
                 onShowPlaylists = {},
             )
         }
-        // TODO: This is not implemented
+
+        onNodeWithTag(TestTags.Directory.DIRECTORY(0,"NewDirectory")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1,"Photos")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(2,"Jaypeg")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(3,"Peeng")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(4,"textFile")).assertDoesNotExist()
+
+        onNodeWithTag(TestTags.Directory.TopBar.SEARCH_BAR).assertExists().performTextInput("pe")
+        onNodeWithTag(TestTags.Directory.DIRECTORY(0,"Jaypeg")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1,"Peeng")).assertExists()
     }
 
     /**
