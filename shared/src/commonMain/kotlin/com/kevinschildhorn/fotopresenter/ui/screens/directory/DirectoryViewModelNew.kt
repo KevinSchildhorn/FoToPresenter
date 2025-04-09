@@ -3,9 +3,11 @@ package com.kevinschildhorn.fotopresenter.ui.screens.directory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
+import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.DirectoryNavigator
 import com.kevinschildhorn.fotopresenter.data.ImagePreviewNavigator
+import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
@@ -91,18 +93,22 @@ class DirectoryViewModelNew(
                 // The action sheet state is already set by setSelectedDirectory
                 // No need to update overlayUiState here
             }
+
             DirectoryOverlayType.IMAGE -> {
                 // The image preview state is handled by the imagePreviewNavigator
                 // No need to update overlayUiState here
             }
+
             DirectoryOverlayType.LOGOUT_CONFIRMATION -> {
                 logger.i { "Setting logout confirmation overlay" }
                 _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.LogoutConfirmation) }
             }
+
             DirectoryOverlayType.SORT -> {
                 logger.i { "Setting sort overlay" }
                 _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.Sort) }
             }
+
             DirectoryOverlayType.NONE -> {
                 logger.i { "Clearing overlay" }
                 _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
@@ -184,7 +190,12 @@ class DirectoryViewModelNew(
 
     //region Actions
 
-    fun startSlideShow() {} // TODO
+    fun startSlideShow(directory: Directory) = viewModelScope.launch(Dispatchers.Default) {
+        val images = directoryNavigator.getDirectoryContents(directory.details.fullPath).images
+        _uiState.update {
+            it.copy(slideshowDetails = ImageSlideshowDetails(images))
+        }
+    }
 
     fun addLocationToPlaylist(dynamic: Boolean) {} // TODO
 

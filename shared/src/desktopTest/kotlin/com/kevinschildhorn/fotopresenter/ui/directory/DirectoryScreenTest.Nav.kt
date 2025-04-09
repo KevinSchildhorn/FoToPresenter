@@ -25,8 +25,8 @@ import org.koin.test.inject
 
 /**
 Testing [DirectoryScreen], specifically navigating the Screen
- Use Cases: [https://github.com/KevinSchildhorn/FoToPresenter/blob/main/docs/UX/USE_CASES_BROWSING.md]
- Gets data from [MockNetworkHandler]
+Use Cases: [https://github.com/KevinSchildhorn/FoToPresenter/blob/main/docs/UX/USE_CASES_BROWSING.md]
+Gets data from [MockNetworkHandler]
  **/
 @OptIn(ExperimentalTestApi::class, ExperimentalCoroutinesApi::class)
 class DirectoryScreenTestNav : KoinTest {
@@ -68,38 +68,37 @@ class DirectoryScreenTestNav : KoinTest {
 
         /** See [MockNetworkHandler.networkContents] */
         onNodeWithTag(TestTags.Directory.DIRECTORY(0, "NewDirectory")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(1,"Photos")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(2,"Jaypeg")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(3,"Peeng")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(4,"textFile")).assertDoesNotExist()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1, "Photos")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(2, "Jaypeg")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(3, "Peeng")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(4, "textFile")).assertDoesNotExist()
 
         // Going Forward
         val directory = "Photos"
-        onNodeWithTag(TestTags.Directory.DIRECTORY(1,directory)).performClick()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1, directory)).performClick()
         waitForIdle()
         onNodeWithTag("NavItem$directory").assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(1,"Jaypeg2")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(2,"Peeng2")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(3,"textFile2")).assertDoesNotExist()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1, "Jaypeg2")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(2, "Peeng2")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(3, "textFile2")).assertDoesNotExist()
 
         // Going Forward Again
         val subDirectory = "SubPhotos"
-        onNodeWithTag(TestTags.Directory.DIRECTORY(0,subDirectory)).performClick()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(0, subDirectory)).performClick()
         waitForIdle()
         onNodeWithTag("NavItem$directory").assertExists()
         onNodeWithTag("NavItem$subDirectory").assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(1,"Peeng3")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1, "Peeng3")).assertExists()
 
         // Going Backward
         onNodeWithTag("NavItem$directory").performClick()
         waitForIdle()
         onNodeWithTag("NavItem$directory").assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(1,"Jaypeg2")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(2,"Peeng2")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(3,"textFile2")).assertDoesNotExist()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1, "Jaypeg2")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(2, "Peeng2")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(3, "textFile2")).assertDoesNotExist()
     }
 
-    // TODO: Implement Test
     @Test
     fun searching() = runComposeUiTest {
         Dispatchers.setMain(Dispatchers.IO)
@@ -113,22 +112,22 @@ class DirectoryScreenTestNav : KoinTest {
             )
         }
 
-        onNodeWithTag(TestTags.Directory.DIRECTORY(0,"NewDirectory")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(1,"Photos")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(2,"Jaypeg")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(3,"Peeng")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(4,"textFile")).assertDoesNotExist()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(0, "NewDirectory")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1, "Photos")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(2, "Jaypeg")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(3, "Peeng")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(4, "textFile")).assertDoesNotExist()
 
         onNodeWithTag(TestTags.Directory.TopBar.SEARCH_BAR).assertExists().performTextInput("pe")
-        onNodeWithTag(TestTags.Directory.DIRECTORY(0,"Jaypeg")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(1,"Peeng")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(0, "Jaypeg")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1, "Peeng")).assertExists()
     }
 
-    /**
-     * See [MockNetworkHandler.networkContents]
-     **/
     @Test
     fun sorting() = runComposeUiTest {
+        /**
+         * See [MockNetworkHandler.networkContents]
+         **/
         Dispatchers.setMain(Dispatchers.IO)
 
         setContent {
@@ -141,11 +140,11 @@ class DirectoryScreenTestNav : KoinTest {
         }
 
         // Original View, should be A-Z
-        onNodeWithTag(TestTags.Directory.DIRECTORY(0,"NewDirectory")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(1,"Photos")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(2,"Jaypeg")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(3,"Peeng")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(4,"textFile")).assertDoesNotExist()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(0, "NewDirectory")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1, "Photos")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(2, "Jaypeg")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(3, "Peeng")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(4, "textFile")).assertDoesNotExist()
 
         // Open Sort Dialog and Change Sorting
         onNodeWithTag(TestTags.Directory.TopBar.OPTIONS).assertExists().performClick()
@@ -157,11 +156,11 @@ class DirectoryScreenTestNav : KoinTest {
 
         // Check Newly Sorted Directories
         onNodeWithTag(TestTags.Directory.Sort.SORT_A_TO_Z).assertDoesNotExist()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(0,"Photos")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(1,"NewDirectory")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(2,"Peeng")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(3,"Jaypeg")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(4,"textFile")).assertDoesNotExist()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(0, "Photos")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1, "NewDirectory")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(2, "Peeng")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(3, "Jaypeg")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(4, "textFile")).assertDoesNotExist()
 
         // Open Sort Dialog and Change Sorting
         onNodeWithTag(TestTags.Directory.TopBar.OPTIONS).assertExists().performClick()
@@ -173,10 +172,10 @@ class DirectoryScreenTestNav : KoinTest {
 
         // Check Newly Sorted Directories
         onNodeWithTag(TestTags.Directory.Sort.SORT_TIME_CREATED_ASC).assertDoesNotExist()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(0,"Photos")).assertExists() // Day 1
-        onNodeWithTag(TestTags.Directory.DIRECTORY(1,"NewDirectory")).assertExists() // Day 23
-        onNodeWithTag(TestTags.Directory.DIRECTORY(2,"Jaypeg")).assertExists() // Day 10
-        onNodeWithTag(TestTags.Directory.DIRECTORY(3,"Peeng")).assertExists() // Day 20
+        onNodeWithTag(TestTags.Directory.DIRECTORY(0, "Photos")).assertExists() // Day 1
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1, "NewDirectory")).assertExists() // Day 23
+        onNodeWithTag(TestTags.Directory.DIRECTORY(2, "Jaypeg")).assertExists() // Day 10
+        onNodeWithTag(TestTags.Directory.DIRECTORY(3, "Peeng")).assertExists() // Day 20
 
         // Open Sort Dialog and Change Sorting
         onNodeWithTag(TestTags.Directory.TopBar.OPTIONS).assertExists().performClick()
@@ -188,9 +187,9 @@ class DirectoryScreenTestNav : KoinTest {
 
         // Check Newly Sorted Directories
         onNodeWithTag(TestTags.Directory.Sort.SORT_TIME_CREATED_ASC).assertDoesNotExist()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(0,"NewDirectory")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(1,"Photos")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(2,"Peeng")).assertExists()
-        onNodeWithTag(TestTags.Directory.DIRECTORY(3,"Jaypeg")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(0, "NewDirectory")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1, "Photos")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(2, "Peeng")).assertExists()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(3, "Jaypeg")).assertExists()
     }
 }

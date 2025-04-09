@@ -8,15 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.testTag
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
-import com.kevinschildhorn.fotopresenter.ui.TestTag
 import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
@@ -55,6 +50,10 @@ fun DirectoryScreen(
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
+
+    uiState.slideshowDetails?.let {
+        onStartSlideshow(it)
+    }
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -131,7 +130,9 @@ fun DirectoryScreen(
                     selectionState,
                     onAction = {
                         when (it) {
-                            ActionSheetAction.START_SLIDESHOW -> viewModel.startSlideShow()
+                            ActionSheetAction.START_SLIDESHOW -> {
+                                viewModel.startSlideShow(selectionState.directory)
+                            }
                             ActionSheetAction.ADD_STATIC_LOCATION ->
                                 viewModel.addLocationToPlaylist(dynamic = false)
 

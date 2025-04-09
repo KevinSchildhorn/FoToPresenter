@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter.ui
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 
 interface TestTag {
     val value: String
@@ -15,6 +16,8 @@ object TestTags {
     val CONFIRM = TestTagImpl("Confirm")
     val DISMISS = TestTagImpl("Dismiss")
     val OVERLAY_SHADOW = TestTagImpl("OverlayShadow")
+    val ACTION_SHEET = TestTagImpl("ActionSheet")
+    fun ACTION_SHEET_ITEM(action: ActionSheetAction) = TestTagImpl("ActionSheetItem-${action.name}")
 
     enum class Login(override val value: String) : TestTag {
         HOST_NAME("HostNameText"),
@@ -28,8 +31,8 @@ object TestTags {
     }
 
     object Directory {
-        fun DIRECTORY(index: Int, name:String) = TestTagImpl("Directory-index$index-$name")
-        fun IMAGE_PREVIEW(imageName:String) = TestTagImpl("ImagePreview-$imageName")
+        fun DIRECTORY(index: Int, name: String) = TestTagImpl("Directory-index$index-$name")
+        fun IMAGE_PREVIEW(imageName: String) = TestTagImpl("ImagePreview-$imageName")
         val NAVIGATION_BAR = TestTagImpl("NavigationBar")
 
         enum class Sort(override val value: String) : TestTag {
@@ -52,9 +55,6 @@ object TestTags {
             ITEM_LOGOUT("AppNavigationRailItemLogout"),
         }
     }
-
-
-
 }
 
 fun Modifier.testTag(tag: TestTag) = this.testTag(tag.value)

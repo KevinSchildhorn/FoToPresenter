@@ -49,14 +49,16 @@ class DirectoryNavigator(private val directoryRepository: DirectoryRepository) {
         refreshDirectoryContents()
     }
 
-    fun getDirectoryFromId(id: Long) = currentDirectoryContents.value.allDirectories.find { it.id == id }
+    fun getDirectoryFromId(id: Long):Directory? = currentDirectoryContents.value.allDirectories.find { it.id == id }
 
     // Emits from to the Flow the current directories contents.
     // Used when the DirectoryScreen is first shown
     suspend fun refreshDirectoryContents() {
-        val newDirectoryContents = directoryRepository.getDirectoryContents(currentPath)
+        val newDirectoryContents = getDirectoryContents(currentPath)
         _currentDirectoryContents.update { newDirectoryContents.sorted(sortType).filtered(searchText) }
     }
+
+    suspend fun getDirectoryContents(path: Path) = directoryRepository.getDirectoryContents(currentPath)
 
     private suspend fun changeDirectoryToPath(path: Path) {
         currentPath = directoryRepository.changeDirectory(path)

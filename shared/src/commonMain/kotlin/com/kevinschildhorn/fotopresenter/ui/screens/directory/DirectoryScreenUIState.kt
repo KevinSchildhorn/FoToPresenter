@@ -35,7 +35,7 @@ data class DirectoryScreenUIState(
             mutableListOf(),
         ),
     val overlayUiState: DirectoryOverlayUiState = DirectoryOverlayUiState.None,
-    val slideshowDetails: ImageSlideshowDetails? = null, // TODO: Assess
+    val slideshowDetails: ImageSlideshowDetails? = null,
 ) : ScreenState {
     fun getImageIndexFromId(id: Long?): Int = directoryGridUIState.imageStates.indexOfFirst { it.id == id }
 

@@ -120,8 +120,6 @@ object MockNetworkHandler : NetworkHandler {
             print("Success Credentials: $successLoginCredentials\n")
             print("Actual Credentials $credentials\n")
         }
-
-        credentials.toString()
         return connected
     }
 

@@ -1,13 +1,17 @@
 package com.kevinschildhorn.fotopresenter.ui.directory
 
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.longClick
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.runComposeUiTest
+import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.onNodeWithTag
 import com.kevinschildhorn.fotopresenter.testingModule
 import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.TestTags.OVERLAY_SHADOW
+import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
 import kotlinx.coroutines.Dispatchers
@@ -21,8 +25,10 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import kotlin.test.fail
 
 /**
 Testing [DirectoryScreen], specifically navigating from the main screen to other sub-screens
@@ -74,14 +80,31 @@ class DirectoryScreenTestActions : KoinTest {
     fun startingSlideshow() = runComposeUiTest {
         Dispatchers.setMain(Dispatchers.IO)
 
+        var slideshowStarted: Boolean = false
+        var directories:List<ImageDirectory> = emptyList()
         setContent {
             DirectoryScreen(
                 viewModel = viewModel,
                 onLogout = {},
-                onStartSlideshow = {},
+                onStartSlideshow = {
+                    directories = it.directories
+                    slideshowStarted = true
+                },
                 onShowPlaylists = {},
             )
         }
+
+        onNodeWithTag(TestTags.Directory.DIRECTORY(1, "Photos"))
+            .assertExists()
+            .performTouchInput { longClick() }
+        waitForIdle()
+        onNodeWithTag(TestTags.ACTION_SHEET).assertExists()
+        assertFalse(slideshowStarted)
+        assert(directories.isEmpty())
+        onNodeWithTag(TestTags.ACTION_SHEET_ITEM(ActionSheetAction.START_SLIDESHOW)).assertExists().performClick()
+        waitForIdle()
+        assertEquals(2, directories.count())
+        assertTrue(slideshowStarted)
     }
 
     // TODO: Implement Test

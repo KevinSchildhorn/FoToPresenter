@@ -21,8 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.kevinschildhorn.fotopresenter.ui.TestTags.ACTION_SHEET
+import com.kevinschildhorn.fotopresenter.ui.TestTags.ACTION_SHEET_ITEM
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
+import com.kevinschildhorn.fotopresenter.ui.testTag
 
 @Composable
 fun ActionSheet(
@@ -46,20 +49,17 @@ fun ActionSheet(
             ),
     ) {
         Column(
-            modifier =
-                Modifier
-                    .fillMaxSize(),
+            modifier = Modifier.fillMaxSize().testTag(ACTION_SHEET),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Spacer(modifier = Modifier.fillMaxWidth())
             Column(
-                modifier =
-                    Modifier
-                        .clip(shape = RoundedCornerShape(15.dp))
-                        .fillMaxWidth()
-                        .padding(10.dp)
-                        .weight(1f, false)
-                        .background(fotoColors.secondary),
+                modifier = Modifier
+                    .clip(shape = RoundedCornerShape(15.dp))
+                    .fillMaxWidth()
+                    .padding(10.dp)
+                    .weight(1f, false)
+                    .background(fotoColors.secondary),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 LazyColumn {
@@ -69,7 +69,8 @@ fun ActionSheet(
                                 Modifier
                                     .fillMaxWidth()
                                     .wrapContentHeight()
-                                    .padding(start = 10.dp),
+                                    .padding(start = 10.dp)
+                                    .testTag(ACTION_SHEET_ITEM(it.action)),
                             onClick = {
                                 onClick(it)
                             },
