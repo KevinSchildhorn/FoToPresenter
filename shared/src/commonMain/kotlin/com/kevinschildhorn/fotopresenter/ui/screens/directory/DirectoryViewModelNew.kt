@@ -80,8 +80,10 @@ class DirectoryViewModelNew(
 
     fun onSearch(searchText: String) = viewModelScope.launch(Dispatchers.Default) {
         logger.i { "Setting Search Text" }
+        _uiState.update { it.copy(searchText = searchText) }
         directoryNavigator.setSearch(searchText)
     }
+
     fun showOverlay(state: DirectoryOverlayType) {
         logger.i { "Showing overlay: $state" }
         when (state) {
@@ -155,13 +157,13 @@ class DirectoryViewModelNew(
 
     fun navigateBackToDirectory(directoryIndex: Int) =
         viewModelScope.launch(Dispatchers.Default) {
-            _uiState.update { it.copy(state = UiState.LOADING) }
+            _uiState.update { it.copy(state = UiState.LOADING, searchText = "") }
             tryCatch { directoryNavigator.navigateBackToDirectory(directoryIndex) }
         }
 
     fun navigateIntoDirectory(id: Long) =
         viewModelScope.launch(Dispatchers.Default) {
-            _uiState.update { it.copy(state = UiState.LOADING) }
+            _uiState.update { it.copy(state = UiState.LOADING, searchText = "") }
             tryCatch { directoryNavigator.navigateIntoDirectory(id) }
         }
 

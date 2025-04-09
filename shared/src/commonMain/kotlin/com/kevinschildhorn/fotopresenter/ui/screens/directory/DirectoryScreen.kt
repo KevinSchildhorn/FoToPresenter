@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.ui.TestTag
@@ -53,11 +54,13 @@ fun DirectoryScreen(
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val focusManager = LocalFocusManager.current
 
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
             DirectoryTopBar(
+                searchText = uiState.searchText,
                 showMenu = { scope.launch { scaffoldState.drawerState.open() } },
                 onSearchChanged = { viewModel.onSearch(it) },
                 showOverlay = { viewModel.showOverlay(it) },
@@ -87,17 +90,23 @@ fun DirectoryScreen(
                 directories = uiState.currentPathList,
                 onHome = { viewModel.navigateBackToDirectory(-1) },
                 onItem = { viewModel.navigateBackToDirectory(it) },
-                modifier = Modifier.padding(Padding.SMALL.dp).testTag(TestTags.Directory.NAVIGATION_BAR),
+                modifier = Modifier.padding(Padding.SMALL.dp)
+                    .testTag(TestTags.Directory.NAVIGATION_BAR),
             )
             // Grid
             DirectoryGrid(
                 uiState.directoryGridUIState,
-                onFolderPressed = { folderId -> viewModel.navigateIntoDirectory(folderId) },
+                onFolderPressed = { folderId ->
+                    focusManager.clearFocus()
+                    viewModel.navigateIntoDirectory(folderId)
+                },
                 onImageDirectoryPressed = { imageDirectoryId ->
+                    focusManager.clearFocus()
                     viewModel.setSelectedImageById(imageDirectoryId)
                     viewModel.showOverlay(DirectoryOverlayType.IMAGE)
                 },
                 onActionSheet = { directoryUiState ->
+                    focusManager.clearFocus()
                     viewModel.setSelectedDirectory(directoryUiState)
                     viewModel.showOverlay(DirectoryOverlayType.ACTION_SHEET)
                 },
@@ -151,6 +160,7 @@ fun DirectoryScreen(
                     },
                 )
             }
+
             is DirectoryOverlayUiState.Sort -> {
                 println("Rendering Sort Dialog")
                 SortDialog(

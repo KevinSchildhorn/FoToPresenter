@@ -16,6 +16,7 @@ import compose.icons.evaicons.fill.Options
 
 @Composable
 fun DirectoryTopBar(
+    searchText: String,
     showMenu: () -> Unit,
     onSearchChanged: (String) -> Unit,
     showOverlay: (DirectoryOverlayType) -> Unit,
@@ -31,7 +32,7 @@ fun DirectoryTopBar(
         },
         actions = {
             // Search Bar
-            DirectorySearchBar(onSearch = onSearchChanged)
+            DirectorySearchBar(searchText, onSearch = onSearchChanged)
             DirectoryTitleBarButton(EvaIcons.Fill.Options, modifier = Modifier.testTag(TestTags.Directory.TopBar.OPTIONS)) {
                 showOverlay(DirectoryOverlayType.SORT)
             }

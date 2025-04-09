@@ -25,16 +25,15 @@ import compose.icons.evaicons.fill.Close
 
 @Composable
 fun DirectorySearchBar(
+    searchText: String,
     onSearch: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var searchQuery by remember { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
 
     OutlinedTextField(
-        value = searchQuery,
+        value = searchText,
         onValueChange = { 
-            searchQuery = it
             onSearch(it)
         },
         modifier = modifier
@@ -48,10 +47,9 @@ fun DirectorySearchBar(
             )
         },
         trailingIcon = {
-            if (searchQuery.isNotEmpty()) {
+            if (searchText.isNotEmpty()) {
                 IconButton(
                     onClick = {
-                        searchQuery = ""
                         onSearch("")
                         focusManager.clearFocus()
                     }
