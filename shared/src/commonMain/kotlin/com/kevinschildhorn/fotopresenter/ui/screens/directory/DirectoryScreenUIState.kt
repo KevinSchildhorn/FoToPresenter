@@ -47,11 +47,8 @@ data class DirectoryScreenUIState(
  *
  * The UiState of Directory Grid, containing contents of the current directory
  *
- *
  * **currentPath** -    The current path in the FTP Server that is displayed
- *
  * **folderStates** -   The states for each folder displayed on screen
- *
  * **imageStates** -    The states for each image displayed on screen
  **/
 data class DirectoryGridUIState(

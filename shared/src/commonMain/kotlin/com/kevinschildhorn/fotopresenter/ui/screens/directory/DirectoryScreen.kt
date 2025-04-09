@@ -50,7 +50,6 @@ fun DirectoryScreen(
         viewModel.refreshScreen()
     }
     val uiState by viewModel.uiState.collectAsState()
-    var overlayVisible by remember { mutableStateOf(DirectoryOverlayType.NONE) }
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -60,17 +59,16 @@ fun DirectoryScreen(
         topBar = {
             DirectoryTopBar(
                 showMenu = { scope.launch { scaffoldState.drawerState.open() } },
-                showOverlay = { overlayVisible = it },
+                showOverlay = { viewModel.showOverlay(it) },
             )
         },
         drawerContent = { // TODO: Too wide
             AppNavigationRail(
-                onLogout = { overlayVisible = DirectoryOverlayType.LOGOUT_CONFIRMATION },
+                onLogout = { viewModel.showOverlay(DirectoryOverlayType.LOGOUT_CONFIRMATION) },
                 onPlaylists = onShowPlaylists,
             )
         },
     ) {
-        // Content
         Column {
             // Error View
             (uiState.state as? UiState.ERROR)?.let {
@@ -96,11 +94,11 @@ fun DirectoryScreen(
                 onFolderPressed = { folderId -> viewModel.navigateIntoDirectory(folderId) },
                 onImageDirectoryPressed = { imageDirectoryId ->
                     viewModel.setSelectedImageById(imageDirectoryId)
-                    overlayVisible = DirectoryOverlayType.IMAGE
+                    viewModel.showOverlay(DirectoryOverlayType.IMAGE)
                 },
                 onActionSheet = { directoryUiState ->
                     viewModel.setSelectedDirectory(directoryUiState)
-                    overlayVisible = DirectoryOverlayType.ACTION_SHEET
+                    viewModel.showOverlay(DirectoryOverlayType.ACTION_SHEET)
                 },
             )
         }
@@ -148,17 +146,18 @@ fun DirectoryScreen(
                     onConfirmation = {
                         viewModel.logout()
                         onLogout()
-                        overlayVisible = DirectoryOverlayType.NONE
+                        viewModel.showOverlay(DirectoryOverlayType.NONE)
                     },
                 )
             }
             is DirectoryOverlayUiState.Sort -> {
+                println("Rendering Sort Dialog")
                 SortDialog(
                     "Sort Images by",
                     onDismissRequest = { viewModel.clearOverlay() },
                     onConfirmation = {
                         viewModel.setSortType(it)
-                        overlayVisible = DirectoryOverlayType.NONE
+                        viewModel.showOverlay(DirectoryOverlayType.NONE)
                     },
                 )
             }

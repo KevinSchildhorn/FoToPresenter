@@ -14,6 +14,9 @@ object TestTags {
     val FOTO_DIALOG = TestTagImpl("FotoDialog")
     val CONFIRM = TestTagImpl("Confirm")
     val CANCEL = TestTagImpl("Cancel")
+    val OVERLAY_SHADOW = TestTagImpl("OverlayShadow")
+    fun DIRECTORY(index: Int, name:String) = TestTagImpl("Directory-index$index-$name")
+    fun IMAGE_PREVIEW(imageName:String) = TestTagImpl("ImagePreview-$imageName")
 
     enum class Login(override val value: String) : TestTag {
         HOST_NAME("HostNameText"),

@@ -13,8 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
+import com.kevinschildhorn.fotopresenter.ui.TestTags.IMAGE_PREVIEW
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.composables.LoadingAsyncImage
+import com.kevinschildhorn.fotopresenter.ui.testTag
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.ArrowLeft
@@ -44,7 +46,8 @@ fun ImagePreviewOverlay(
                 modifier =
                     Modifier
                         .fillMaxSize()
-                        .padding(Padding.IMAGE.dp),
+                        .padding(Padding.IMAGE.dp)
+                        .testTag(IMAGE_PREVIEW(image.name)),
             )
             Row(
                 modifier =

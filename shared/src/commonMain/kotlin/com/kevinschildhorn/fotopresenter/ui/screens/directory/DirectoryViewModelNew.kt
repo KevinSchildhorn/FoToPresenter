@@ -36,6 +36,9 @@ class DirectoryViewModelNew(
     private val logger: Logger,
 ) : ViewModel(), KoinComponent {
 
+    /*
+     * UI State
+     */
     @Suppress("ktlint:standard:property-naming")
     private val _uiState = MutableStateFlow(DirectoryScreenUIState())
     val uiState: StateFlow<DirectoryScreenUIState> =
@@ -71,9 +74,38 @@ class DirectoryViewModelNew(
             }
             .stateIn(
                 scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000),
+                started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = DirectoryScreenUIState(),
             )
+
+
+    fun showOverlay(state: DirectoryOverlayType) {
+        logger.i { "Showing overlay: $state" }
+        when (state) {
+            DirectoryOverlayType.ACTION_SHEET -> {
+                // The action sheet state is already set by setSelectedDirectory
+                // No need to update overlayUiState here
+            }
+            DirectoryOverlayType.IMAGE -> {
+                // The image preview state is handled by the imagePreviewNavigator
+                // No need to update overlayUiState here
+            }
+            DirectoryOverlayType.LOGOUT_CONFIRMATION -> {
+                logger.i { "Setting logout confirmation overlay" }
+                _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.LogoutConfirmation) }
+            }
+            DirectoryOverlayType.SORT -> {
+                logger.i { "Setting sort overlay" }
+                _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.Sort) }
+            }
+            DirectoryOverlayType.NONE -> {
+                logger.i { "Clearing overlay" }
+                _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
+            }
+        }
+        logger.i { "Current overlay state: ${_uiState.value.overlayUiState}" }
+    }
+
 
     fun setSortType(sortingType: SortingType) =
         viewModelScope.launch(Dispatchers.Default) {
@@ -102,13 +134,14 @@ class DirectoryViewModelNew(
                 uiState.copy(state = UiState.ERROR("Selected Directory Error"))
             }
         }
-    
+
     fun logout() =
         viewModelScope.launch(Dispatchers.Default) {
             logger.i { "Logging Out" }
             networkHandler.disconnect()
             credentialsRepository.clearAutoConnect()
         }
+
 
     //region Navigation
 

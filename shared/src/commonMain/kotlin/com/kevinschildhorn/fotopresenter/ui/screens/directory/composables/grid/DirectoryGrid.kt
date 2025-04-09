@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -16,8 +17,10 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellUIState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridUIState
+import com.kevinschildhorn.fotopresenter.ui.testTag
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -35,10 +38,10 @@ fun DirectoryGrid(
         columns = GridCells.Fixed(gridSize),
         modifier = modifier.zIndex(0f),
     ) {
-        items(directoryContent.allStates, { it.id }) { state ->
+        itemsIndexed(directoryContent.allStates, key = { _, item -> item.id }) { index, state ->
             val directoryItemModifier =
                 Modifier
-                    .testTag("Directory${state.name}")
+                    .testTag(TestTags.DIRECTORY(index, state.name))
                     .padding(5.dp)
                     .pointerInput(Unit) {
                         awaitPointerEventScope {
@@ -70,6 +73,7 @@ fun DirectoryGrid(
                         state,
                         modifier = directoryItemModifier,
                     )
+
                 is DirectoryGridCellUIState.Image ->
                     ImageDirectoryGridCell(
                         state,

@@ -44,7 +44,6 @@ This handles clicking on Folders (and the navigation bar), while clicking on ima
 Image previews appear if the user clicks on an image, which is shown in an overlay. This overlay shows an image and supports moving to next and previous image.
 The state of the preview is handled by the `ImagePreviewNavigator`. This handles the current image the user is looking at, and handles changes in which image is shown.
 
-
 ## Editing Image Metadata
 
 
