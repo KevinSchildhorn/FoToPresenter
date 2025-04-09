@@ -46,7 +46,7 @@ actual object UseCaseFactory {
             networkHandler = networkHandler,
             logger = baseLogger.withTag("imageMetadataDataSource"),
         )
-    private val directoryRepository =
+    val directoryRepository =
         DirectoryRepository(
             directoryDataSource,
             imageMetadataDataSource,

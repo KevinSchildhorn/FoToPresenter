@@ -5,6 +5,11 @@ import co.touchlab.kermit.Logger
 import coil3.ImageLoader
 import coil3.compose.setSingletonImageLoaderFactory
 import com.kevinschildhorn.fotopresenter.UseCaseFactory
+import com.kevinschildhorn.fotopresenter.UseCaseFactory.credentialsRepository
+import com.kevinschildhorn.fotopresenter.UseCaseFactory.directoryRepository
+import com.kevinschildhorn.fotopresenter.data.DirectoryNavigator
+import com.kevinschildhorn.fotopresenter.data.ImagePreviewNavigator
+import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.image.CachedImageDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.image.NetworkImageDataSource
 import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
@@ -12,6 +17,7 @@ import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
 import com.kevinschildhorn.fotopresenter.ui.SMBJFetcher
 import com.kevinschildhorn.fotopresenter.ui.SharedImageFetcher
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
@@ -28,11 +34,29 @@ object KoinPurse {
         )
 
     val loginViewModel =
-        LoginViewModel(baseLogger.withTag("LoginViewModel"), UseCaseFactory.credentialsRepository)
+        LoginViewModel(
+            baseLogger.withTag("LoginViewModel"), UseCaseFactory.credentialsRepository,
+            SMBJHandler
+        )
     val directoryViewModel =
         DirectoryViewModel(
             UseCaseFactory.playlistRepository,
             baseLogger.withTag("DirectoryViewModel")
+        )
+    val imageMetadataDataSource = ImageMetadataDataSource(
+        logger = baseLogger.withTag("ImageMetadataDataSource"),
+        SMBJHandler,
+    )
+    val directoryNavigator = DirectoryNavigator(directoryRepository)
+    val imagePreviewNavigator = ImagePreviewNavigator(baseLogger.withTag("ImagePreviewNavigator"))
+    val directoryViewModelNew =
+        DirectoryViewModelNew(
+            directoryNavigator = directoryNavigator,
+            imagePreviewNavigator = imagePreviewNavigator,
+            credentialsRepository = credentialsRepository,
+            networkHandler = SMBJHandler,
+            dataSource = imageMetadataDataSource,
+            logger = baseLogger.withTag("DirectoryViewModelNew")
         )
     val slideshowViewModel = SlideshowViewModel(baseLogger.withTag("SlideshowViewModel"))
     val playlistViewModel =
@@ -43,7 +67,6 @@ object KoinPurse {
     val imageRepository =
         ImageRepository(
             remoteImageDataSource,
-            localImageDataSource,
             baseLogger.withTag("ImageRepository")
         )
 }
@@ -65,7 +88,7 @@ fun main() = application {
 
         MainView(
             KoinPurse.loginViewModel,
-            KoinPurse.directoryViewModel,
+            KoinPurse.directoryViewModelNew,
             KoinPurse.slideshowViewModel,
             KoinPurse.playlistViewModel,
         )

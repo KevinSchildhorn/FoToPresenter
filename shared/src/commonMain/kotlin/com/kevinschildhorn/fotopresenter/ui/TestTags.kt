@@ -11,6 +11,9 @@ class TestTagImpl(override val value: String) : TestTag
 
 object TestTags {
     val ERROR_VIEW = TestTagImpl("ErrorView")
+    val FOTO_DIALOG = TestTagImpl("FotoDialog")
+    val CONFIRM = TestTagImpl("Confirm")
+    val CANCEL = TestTagImpl("Cancel")
 
     enum class Login(override val value: String) : TestTag {
         HOST_NAME("HostNameText"),

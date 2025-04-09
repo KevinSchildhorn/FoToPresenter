@@ -34,8 +34,8 @@ class DirectoryViewModelNew(
     // Used for MetaData
     private val dataSource: ImageMetadataDataSource,
     private val logger: Logger,
-) : ViewModel(),
-    KoinComponent {
+) : ViewModel(), KoinComponent {
+
     @Suppress("ktlint:standard:property-naming")
     private val _uiState = MutableStateFlow(DirectoryScreenUIState())
     val uiState: StateFlow<DirectoryScreenUIState> =
@@ -43,7 +43,9 @@ class DirectoryViewModelNew(
             .combine(directoryNavigator.currentDirectoryContents) { uiState, directoryContents ->
                 imagePreviewNavigator.setFolderContents(directoryContents.images)
                 uiState.copy(
-                    directoryGridUIState = directoryContents.asDirectoryGridUIState(directoryNavigator.currentPath),
+                    directoryGridUIState = directoryContents.asDirectoryGridUIState(
+                        directoryNavigator.currentPath
+                    ),
                     state = UiState.SUCCESS,
                 )
             }
@@ -53,7 +55,7 @@ class DirectoryViewModelNew(
                 when (uiState.overlayUiState) {
                     is DirectoryOverlayUiState.ImagePreview,
                     DirectoryOverlayUiState.None,
-                    -> {
+                        -> {
                         val selectionState =
                             if (imagePreview != null) {
                                 DirectoryOverlayUiState.ImagePreview(imagePreview)
@@ -100,7 +102,7 @@ class DirectoryViewModelNew(
                 uiState.copy(state = UiState.ERROR("Selected Directory Error"))
             }
         }
-
+    
     fun logout() =
         viewModelScope.launch(Dispatchers.Default) {
             logger.i { "Logging Out" }
@@ -131,7 +133,8 @@ class DirectoryViewModelNew(
 
     //region Image Preview
 
-    fun setSelectedImageById(imageId: Long?) = imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
+    fun setSelectedImageById(imageId: Long?) =
+        imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
 
     fun clearPresentedImage() = imagePreviewNavigator.setImageIndex(null)
 
@@ -149,26 +152,28 @@ class DirectoryViewModelNew(
 
     fun startEditingMetadata() =
         viewModelScope.launch(Dispatchers.Default) {
-            uiState.value.overlayUiState.castTo<DirectoryOverlayUiState.Actions>()?.let { actionState ->
-                _uiState.update {
-                    it.copy(
-                        overlayUiState =
-                            DirectoryOverlayUiState.Actions.EditMetaData(
-                                metadata = dataSource.readMetadataFromFile(actionState.directory.details.fullPath),
-                                directoryUiState = actionState.directoryUiState,
-                                directory = actionState.directory,
-                            ),
-                    )
+            uiState.value.overlayUiState.castTo<DirectoryOverlayUiState.Actions>()
+                ?.let { actionState ->
+                    _uiState.update {
+                        it.copy(
+                            overlayUiState =
+                                DirectoryOverlayUiState.Actions.EditMetaData(
+                                    metadata = dataSource.readMetadataFromFile(actionState.directory.details.fullPath),
+                                    directoryUiState = actionState.directoryUiState,
+                                    directory = actionState.directory,
+                                ),
+                        )
+                    }
                 }
-            }
         }
 
     fun saveMetadata(metadata: String) =
         viewModelScope.launch {
-            uiState.value.overlayUiState.castTo<DirectoryOverlayUiState.Actions>()?.let { actionState ->
-                dataSource.writeMetadataToFile(metadata, actionState.directory.details.fullPath)
-                clearOverlay()
-            }
+            uiState.value.overlayUiState.castTo<DirectoryOverlayUiState.Actions>()
+                ?.let { actionState ->
+                    dataSource.writeMetadataToFile(metadata, actionState.directory.details.fullPath)
+                    clearOverlay()
+                }
         } // TODO
 
     fun clearOverlay() = _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }

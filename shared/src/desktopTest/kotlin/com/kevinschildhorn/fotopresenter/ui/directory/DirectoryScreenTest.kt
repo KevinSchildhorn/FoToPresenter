@@ -1,41 +1,19 @@
 package com.kevinschildhorn.fotopresenter.ui.directory
 
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
 import app.cash.turbine.test
-import app.cash.turbine.turbineScope
-import co.touchlab.kermit.Logger
-import com.kevinschildhorn.fotopresenter.data.DirectoryNavigator
-import com.kevinschildhorn.fotopresenter.data.ImagePreviewNavigator
-import com.kevinschildhorn.fotopresenter.data.Path
-import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
-import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
-import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
-import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.onNodeWithTag
 import com.kevinschildhorn.fotopresenter.testingModule
 import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.UiState
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryOverlayUiState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreenUIState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
@@ -43,7 +21,6 @@ import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
-import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import kotlin.test.assertEquals
@@ -51,6 +28,7 @@ import kotlin.test.assertNotEquals
 
 /**
 Testing [com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen]
+ See: [This](https://github.com/KevinSchildhorn/FoToPresenter/blob/main/docs/UX/USE_CASES_BROWSING.md)
  **/
 class DirectoryScreenTest : KoinTest {
     private val viewModel: DirectoryViewModelNew by inject()
@@ -72,7 +50,7 @@ class DirectoryScreenTest : KoinTest {
 
     @OptIn(ExperimentalTestApi::class)
     @Test
-    fun navigatingForwardAndBackward() = runComposeUiTest {
+    fun navigation() = runComposeUiTest {
         Dispatchers.setMain(Dispatchers.IO)
 
         setContent {
@@ -152,13 +130,35 @@ class DirectoryScreenTest : KoinTest {
                 onShowPlaylists = {},
             )
         }
+
         // TODO: This is not implemented
-        onNodeWithTag(TestTags.Directory.TOP_BAR_OPTIONS).assertExists()
-        onNodeWithTag(TestTags.Directory.TOP_BAR_OPTIONS).performClick()
+        onNodeWithTag(TestTags.Directory.TOP_BAR_OPTIONS).assertExists().performClick()
+        waitForIdle()
+        onNodeWithTag(TestTags.FOTO_DIALOG).assertExists()
+        onNodeWithTag(TestTags.Directory.SORT_A_TO_Z).assertExists().performClick()
+        onNodeWithTag(TestTags.CONFIRM).assertExists().performClick()
 
+        onNodeWithTag(TestTags.Directory.SORT_A_TO_Z).assertDoesNotExist()
+    }
 
-        onNodeWithTag(TestTags.Directory.SORT_A_TO_Z).performClick()
-        onNodeWithTag("Confirm").performClick()
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun viewingPhoto() = runComposeUiTest {
+        Dispatchers.setMain(Dispatchers.IO)
+
+        setContent {
+            DirectoryScreen(
+                viewModel = viewModel,
+                onLogout = {},
+                onStartSlideshow = {},
+                onShowPlaylists = {},
+            )
+        }
+
+        onNodeWithTag("DirectoryPeeng").performClick()
+
+        onNodeWithTag(TestTags.Directory.TOP_BAR_OPTIONS).assertExists().performClick()
+        waitForIdle()
     }
 
 
