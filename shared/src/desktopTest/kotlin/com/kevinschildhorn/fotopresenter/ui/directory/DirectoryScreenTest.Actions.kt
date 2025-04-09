@@ -48,7 +48,6 @@ class DirectoryScreenTestActions : KoinTest {
         stopKoin()
     }
 
-    // COMPLETE
     @Test
     fun viewingPhoto() = runComposeUiTest {
         Dispatchers.setMain(Dispatchers.IO)
@@ -73,6 +72,36 @@ class DirectoryScreenTestActions : KoinTest {
     // TODO: Implement Test
     @Test
     fun startingSlideshow() = runComposeUiTest {
+        Dispatchers.setMain(Dispatchers.IO)
+
+        setContent {
+            DirectoryScreen(
+                viewModel = viewModel,
+                onLogout = {},
+                onStartSlideshow = {},
+                onShowPlaylists = {},
+            )
+        }
+    }
+
+    // TODO: Implement Test
+    @Test
+    fun navigatingToLibraries() = runComposeUiTest {
+        Dispatchers.setMain(Dispatchers.IO)
+
+        setContent {
+            DirectoryScreen(
+                viewModel = viewModel,
+                onLogout = {},
+                onStartSlideshow = {},
+                onShowPlaylists = {},
+            )
+        }
+    }
+
+    // TODO: Implement Test
+    @Test
+    fun selectingLibrary() = runComposeUiTest {
         Dispatchers.setMain(Dispatchers.IO)
 
         setContent {
