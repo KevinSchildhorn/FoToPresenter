@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
-import com.kevinschildhorn.fotopresenter.ui.TestTags.IMAGE_PREVIEW
+import com.kevinschildhorn.fotopresenter.ui.TestTags.Directory.IMAGE_PREVIEW
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.composables.LoadingAsyncImage
 import com.kevinschildhorn.fotopresenter.ui.testTag

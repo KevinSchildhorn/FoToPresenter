@@ -13,10 +13,8 @@ object TestTags {
     val ERROR_VIEW = TestTagImpl("ErrorView")
     val FOTO_DIALOG = TestTagImpl("FotoDialog")
     val CONFIRM = TestTagImpl("Confirm")
-    val CANCEL = TestTagImpl("Cancel")
+    val DISMISS = TestTagImpl("Dismiss")
     val OVERLAY_SHADOW = TestTagImpl("OverlayShadow")
-    fun DIRECTORY(index: Int, name:String) = TestTagImpl("Directory-index$index-$name")
-    fun IMAGE_PREVIEW(imageName:String) = TestTagImpl("ImagePreview-$imageName")
 
     enum class Login(override val value: String) : TestTag {
         HOST_NAME("HostNameText"),
@@ -29,18 +27,33 @@ object TestTags {
         LINK("Link"),
     }
 
-    enum class Directory(override val value: String) : TestTag {
-        TOP_BAR("DirectoryTopBar"),
-        TOP_BAR_OPTIONS("DirectoryTopBarOptions"),
-        NAVIGATION_RAIL("AppNavigationRail"),
-        NAVIGATION_RAIL_ITEM_PLAYLIST("AppNavigationRailItemPlaylist"),
-        NAVIGATION_RAIL_ITEM_LOGOUT("AppNavigationRailItemLogout"),
-        NAVIGATION_BAR("NavigationBar"),
-        SORT_A_TO_Z("SortAToZ"),
-        SORT_Z_TO_A("SortZToA"),
-        SORT_TIME_CREATED_ASC("SortTimeAscending"),
-        SORT_TIME_CREATED_DES("SortTimeDescending"),
+    object Directory {
+        fun DIRECTORY(index: Int, name:String) = TestTagImpl("Directory-index$index-$name")
+        fun IMAGE_PREVIEW(imageName:String) = TestTagImpl("ImagePreview-$imageName")
+        val NAVIGATION_BAR = TestTagImpl("NavigationBar")
+
+        enum class Sort(override val value: String) : TestTag {
+            SORT_A_TO_Z("SortAToZ"),
+            SORT_Z_TO_A("SortZToA"),
+            SORT_TIME_CREATED_ASC("SortTimeAscending"),
+            SORT_TIME_CREATED_DES("SortTimeDescending"),
+        }
+
+        enum class TopBar(override val value: String) : TestTag {
+            TOP_BAR("DirectoryTopBar"),
+            OPTIONS("DirectoryTopBarOptions"),
+            MENU("DirectoryTopBarMenu"),
+        }
+
+        enum class NavigationRail(override val value: String) : TestTag {
+            NAVIGATION_RAIL("AppNavigationRail"),
+            ITEM_PLAYLIST("AppNavigationRailItemPlaylist"),
+            ITEM_LOGOUT("AppNavigationRailItemLogout"),
+        }
     }
+
+
+
 }
 
 fun Modifier.testTag(tag: TestTag) = this.testTag(tag.value)

@@ -41,7 +41,7 @@ fun DirectoryGrid(
         itemsIndexed(directoryContent.allStates, key = { _, item -> item.id }) { index, state ->
             val directoryItemModifier =
                 Modifier
-                    .testTag(TestTags.DIRECTORY(index, state.name))
+                    .testTag(TestTags.Directory.DIRECTORY(index, state.name))
                     .padding(5.dp)
                     .pointerInput(Unit) {
                         awaitPointerEventScope {

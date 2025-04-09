@@ -33,7 +33,7 @@ fun SortDialog(
             RadioButton(
                 selected = selectedOption.value == SortingType.NAME_ASC,
                 onClick = { selectedOption.value = SortingType.NAME_ASC },
-                modifier = Modifier.testTag(TestTags.Directory.SORT_A_TO_Z),
+                modifier = Modifier.testTag(TestTags.Directory.Sort.SORT_A_TO_Z),
             )
             Text(
                 text = "File Name A-Z",
@@ -45,7 +45,7 @@ fun SortDialog(
             RadioButton(
                 selected = selectedOption.value == SortingType.NAME_DESC,
                 onClick = { selectedOption.value = SortingType.NAME_DESC },
-                modifier = Modifier.testTag(TestTags.Directory.SORT_Z_TO_A),
+                modifier = Modifier.testTag(TestTags.Directory.Sort.SORT_Z_TO_A),
             )
             Text(
                 text = "File Name Z-A",
@@ -57,7 +57,7 @@ fun SortDialog(
             RadioButton(
                 selected = selectedOption.value == SortingType.TIME_ASC,
                 onClick = { selectedOption.value = SortingType.TIME_ASC },
-                modifier = Modifier.testTag(TestTags.Directory.SORT_TIME_CREATED_ASC),
+                modifier = Modifier.testTag(TestTags.Directory.Sort.SORT_TIME_CREATED_ASC),
             )
             Text(
                 text = "Time Created Ascending",
@@ -69,7 +69,7 @@ fun SortDialog(
             RadioButton(
                 selected = selectedOption.value == SortingType.TIME_DESC,
                 onClick = { selectedOption.value = SortingType.TIME_DESC },
-                modifier = Modifier.testTag(TestTags.Directory.SORT_TIME_CREATED_DES),
+                modifier = Modifier.testTag(TestTags.Directory.Sort.SORT_TIME_CREATED_DES),
             )
             Text(
                 text = "Time Created Descending",

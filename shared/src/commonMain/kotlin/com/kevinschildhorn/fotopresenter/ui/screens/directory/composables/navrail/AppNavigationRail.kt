@@ -22,10 +22,10 @@ fun AppNavigationRail(
 ) {
     NavigationRail(
         backgroundColor = fotoColors.surface,
-        modifier = Modifier.testTag(TestTags.Directory.NAVIGATION_RAIL),
+        modifier = Modifier.testTag(TestTags.Directory.NavigationRail.NAVIGATION_RAIL),
     ) {
         NavigationRailItem(
-            modifier = Modifier.testTag(TestTags.Directory.NAVIGATION_RAIL_ITEM_PLAYLIST),
+            modifier = Modifier.testTag(TestTags.Directory.NavigationRail.ITEM_PLAYLIST),
             label = {
                 Text("Playlists", color = fotoColors.onSurface)
             },
@@ -40,7 +40,7 @@ fun AppNavigationRail(
             onClick = onPlaylists,
         )
         NavigationRailItem(
-            modifier = Modifier.testTag(TestTags.Directory.NAVIGATION_RAIL_ITEM_LOGOUT),
+            modifier = Modifier.testTag(TestTags.Directory.NavigationRail.ITEM_LOGOUT),
             label = {
                 Text("Logout", color = fotoColors.onSurface)
             },

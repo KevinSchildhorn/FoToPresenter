@@ -16,6 +16,7 @@ fun LoginCheckbox(
     onCheckedChange: (Boolean) -> Unit,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.End,
     modifier: Modifier = Modifier,
+    checkBoxModifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -25,6 +26,7 @@ fun LoginCheckbox(
         Text(title)
         Checkbox(
             checked = checked,
+            modifier = checkBoxModifier,
             onCheckedChange = onCheckedChange,
         )
     }

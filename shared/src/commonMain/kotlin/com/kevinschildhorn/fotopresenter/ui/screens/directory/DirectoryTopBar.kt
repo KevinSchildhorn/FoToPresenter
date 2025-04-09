@@ -20,15 +20,15 @@ fun DirectoryTopBar(
 ) {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.background,
-        modifier = Modifier.testTag(TestTags.Directory.TOP_BAR),
+        modifier = Modifier.testTag(TestTags.Directory.TopBar.TOP_BAR),
         contentColor = MaterialTheme.colors.onBackground,
         navigationIcon = {
-            DirectoryTitleBarButton(EvaIcons.Fill.Menu) {
+            DirectoryTitleBarButton(EvaIcons.Fill.Menu, modifier = Modifier.testTag(TestTags.Directory.TopBar.MENU)) {
                 showMenu()
             }
         },
         actions = {
-            DirectoryTitleBarButton(EvaIcons.Fill.Options, modifier = Modifier.testTag(TestTags.Directory.TOP_BAR_OPTIONS)) {
+            DirectoryTitleBarButton(EvaIcons.Fill.Options, modifier = Modifier.testTag(TestTags.Directory.TopBar.OPTIONS)) {
                 showOverlay(DirectoryOverlayType.SORT)
             }
         },

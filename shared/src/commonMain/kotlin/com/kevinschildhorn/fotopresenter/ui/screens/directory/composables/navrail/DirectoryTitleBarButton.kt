@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import com.kevinschildhorn.fotopresenter.ui.testTag
 
 @Composable
 fun DirectoryTitleBarButton(

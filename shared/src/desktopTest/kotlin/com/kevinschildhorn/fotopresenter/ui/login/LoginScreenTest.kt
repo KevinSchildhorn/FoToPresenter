@@ -21,9 +21,12 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 /**
 Testing [com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreen]
+ Uses [com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler]
  **/
 class LoginScreenTest : KoinTest {
     private val viewModel: LoginViewModel by inject()
@@ -43,8 +46,11 @@ class LoginScreenTest : KoinTest {
     @OptIn(ExperimentalTestApi::class)
     @Test
     fun signingInSuccess() = runComposeUiTest {
+        var loggedIn = false
         setContent {
-            LoginScreen(viewModel) {}
+            LoginScreen(viewModel) {
+                loggedIn = true
+            }
         }
 
         // Initial State
@@ -52,16 +58,16 @@ class LoginScreenTest : KoinTest {
         onNodeWithTag(TestTags.Login.LOGIN_BUTTON).assertTextEquals("Log In")
 
         // Go through every input and make sure login is only enabled after all is filled
-        onNodeWithTag(TestTags.Login.HOST_NAME).performTextInput("google.com")
+        onNodeWithTag(TestTags.Login.HOST_NAME).performTextInput("192.168.1.1")
         onNodeWithTag(TestTags.Login.LOGIN_BUTTON).assertIsNotEnabled()
 
-        onNodeWithTag(TestTags.Login.USERNAME).performTextInput("John")
+        onNodeWithTag(TestTags.Login.USERNAME).performTextInput("admin")
         onNodeWithTag(TestTags.Login.LOGIN_BUTTON).assertIsNotEnabled()
 
-        onNodeWithTag(TestTags.Login.PASSWORD).performTextInput("Password")
+        onNodeWithTag(TestTags.Login.PASSWORD).performTextInput("password")
         onNodeWithTag(TestTags.Login.LOGIN_BUTTON).assertIsNotEnabled()
 
-        onNodeWithTag(TestTags.Login.SHARED_FOLDER).performTextInput("MyFolder")
+        onNodeWithTag(TestTags.Login.SHARED_FOLDER).performTextInput("Public")
         onNodeWithTag(TestTags.Login.LOGIN_BUTTON).assertIsEnabled()
 
         // Testing toggle
@@ -73,6 +79,14 @@ class LoginScreenTest : KoinTest {
         // Remove credentials
         onNodeWithTag(TestTags.Login.HOST_NAME).performTextClearance()
         onNodeWithTag(TestTags.Login.LOGIN_BUTTON).assertIsNotEnabled()
+
+        // Login
+        assertFalse(loggedIn)
+        onNodeWithTag(TestTags.Login.HOST_NAME).performTextInput("192.168.1.1")
+        onNodeWithTag(TestTags.Login.AUTO_CONNECT).performClick()
+        onNodeWithTag(TestTags.Login.LOGIN_BUTTON).assertIsEnabled().performClick()
+        waitForIdle()
+        assertTrue(loggedIn)
     }
 
     @OptIn(ExperimentalTestApi::class)

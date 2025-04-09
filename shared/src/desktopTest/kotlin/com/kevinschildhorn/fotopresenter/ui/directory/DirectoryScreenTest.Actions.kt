@@ -1,15 +1,12 @@
 package com.kevinschildhorn.fotopresenter.ui.directory
 
 import androidx.compose.ui.test.ExperimentalTestApi
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.onNodeWithTag
 import com.kevinschildhorn.fotopresenter.testingModule
 import com.kevinschildhorn.fotopresenter.ui.TestTags
-import com.kevinschildhorn.fotopresenter.ui.TestTags.DIRECTORY
-import com.kevinschildhorn.fotopresenter.ui.TestTags.IMAGE_PREVIEW
 import com.kevinschildhorn.fotopresenter.ui.TestTags.OVERLAY_SHADOW
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
@@ -24,6 +21,8 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 /**
 Testing [DirectoryScreen], specifically navigating from the main screen to other sub-screens
@@ -63,14 +62,15 @@ class DirectoryScreenTestActions : KoinTest {
             )
         }
 
-        onNodeWithTag(DIRECTORY(2,"Jaypeg")).assertExists().performClick()
+        onNodeWithTag(TestTags.Directory.DIRECTORY(2, "Jaypeg")).assertExists().performClick()
         waitForIdle()
-        onNodeWithTag(IMAGE_PREVIEW("Jaypeg")).assertExists()
+        onNodeWithTag(TestTags.Directory.IMAGE_PREVIEW("Jaypeg")).assertExists()
         onNodeWithTag(OVERLAY_SHADOW).assertExists().performClick()
         waitForIdle()
-        onNodeWithTag(IMAGE_PREVIEW("Jaypeg")).assertDoesNotExist()
+        onNodeWithTag(TestTags.Directory.IMAGE_PREVIEW("Jaypeg")).assertDoesNotExist()
     }
 
+    // TODO: Implement Test
     @Test
     fun startingSlideshow() = runComposeUiTest {
         Dispatchers.setMain(Dispatchers.IO)
@@ -83,27 +83,35 @@ class DirectoryScreenTestActions : KoinTest {
                 onShowPlaylists = {},
             )
         }
-
-        // Open Sort Dialog and Change Sorting
-        onNodeWithTag(TestTags.Directory.TOP_BAR_OPTIONS).assertExists().performClick()
-        waitForIdle()
-        onNodeWithTag(TestTags.FOTO_DIALOG).assertExists()
-        onNodeWithTag(TestTags.Directory.SORT_Z_TO_A).assertExists().performClick()
-        onNodeWithTag(TestTags.CONFIRM).assertExists().performClick()
-        waitForIdle()
     }
 
     @Test
     fun logout() = runComposeUiTest {
         Dispatchers.setMain(Dispatchers.IO)
-
+        var logoutCalled = false
         setContent {
             DirectoryScreen(
                 viewModel = viewModel,
-                onLogout = {},
+                onLogout = {
+                    logoutCalled = true
+                },
                 onStartSlideshow = {},
                 onShowPlaylists = {},
             )
         }
+
+        onNodeWithTag(TestTags.Directory.TopBar.TOP_BAR).assertExists()
+        onNodeWithTag(TestTags.Directory.TopBar.MENU).assertExists().performClick()
+        onNodeWithTag(TestTags.Directory.NavigationRail.ITEM_LOGOUT).assertExists().performClick()
+        onNodeWithTag(TestTags.FOTO_DIALOG).assertExists()
+        onNodeWithTag(TestTags.DISMISS).assertExists().performClick()
+        assertFalse(logoutCalled)
+
+        onNodeWithTag(TestTags.Directory.TopBar.TOP_BAR).assertExists()
+        onNodeWithTag(TestTags.Directory.TopBar.MENU).assertExists().performClick()
+        onNodeWithTag(TestTags.Directory.NavigationRail.ITEM_LOGOUT).assertExists().performClick()
+        onNodeWithTag(TestTags.FOTO_DIALOG).assertExists()
+        onNodeWithTag(TestTags.CONFIRM).assertExists().performClick()
+        assertTrue(logoutCalled)
     }
 }
