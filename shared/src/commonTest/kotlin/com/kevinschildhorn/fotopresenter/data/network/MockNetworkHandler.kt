@@ -92,9 +92,14 @@ object MockNetworkHandler : NetworkHandler {
                     ),
             Path("Photos\\SubPhotos") to
                     listOf<NetworkDirectoryDetails>(
+                        DefaultNetworkDirectoryDetails(fullPath = Path("SubSubPhotos"), id = 1),
                         DefaultNetworkDirectoryDetails(fullPath = Path("Peeng3.png"), id = 2),
                         DefaultNetworkDirectoryDetails(fullPath = Path("Jaypeg3.jpg"), id = 3),
                         DefaultNetworkDirectoryDetails(fullPath = Path("textFile3.txt"), id = 4),
+                    ),
+            Path("Photos\\SubPhotos\\SubSubPhotos") to
+                    listOf<NetworkDirectoryDetails>(
+                        DefaultNetworkDirectoryDetails(fullPath = Path("Peeng4.png"), id = 2),
                     ),
         )
 

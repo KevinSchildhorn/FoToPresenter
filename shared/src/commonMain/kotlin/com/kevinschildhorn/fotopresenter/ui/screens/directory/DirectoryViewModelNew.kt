@@ -51,7 +51,7 @@ class DirectoryViewModelNew(
                     directoryGridUIState = directoryContents.asDirectoryGridUIState(
                         directoryNavigator.currentPath
                     ),
-                    state = UiState.SUCCESS,
+                    state = if (uiState.state is UiState.ERROR) uiState.state else UiState.SUCCESS,
                 )
             }
             .combine(imagePreviewNavigator.imagePreviewState) { uiState, imagePreview ->
@@ -139,6 +139,7 @@ class DirectoryViewModelNew(
                             directoryUiState = directoryUiState,
                             directory = directory,
                         ),
+                    state = UiState.SUCCESS,
                 )
             } else {
                 uiState.copy(state = UiState.ERROR("Selected Directory Error"))
