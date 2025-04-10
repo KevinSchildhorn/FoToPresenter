@@ -12,11 +12,11 @@ class StringTest {
     fun `Add_Path`() {
         var path = Path.EMPTY
         path = path.addPath("Public")
-        assertEquals("Public", path.toString())
+        assertEquals(expected = "Public", actual = path.toString())
         path = path.addPath("Subfolder")
-        assertEquals("Public\\Subfolder", path.toString())
+        assertEquals(expected = "Public\\Subfolder", actual = path.toString())
         path = path.addPath("")
-        assertEquals("Public", path.toString())
+        assertEquals(expected = "Public", actual = path.toString())
     }
 
     @Test
@@ -25,26 +25,32 @@ class StringTest {
         path = path.addPath("Public")
         path = path.addPath("Subfolder")
         path = path.addPath("SuperSubfolder")
-        assertEquals("Public\\Subfolder\\SuperSubfolder", path.toString())
+        assertEquals(expected = "Public\\Subfolder\\SuperSubfolder", actual = path.toString())
         path = path.navigateBackToPathAtIndex(1)
-        assertEquals("Public\\Subfolder", path.toString())
+        assertEquals(expected = "Public\\Subfolder", actual = path.toString())
 
         path = path.addPath("Public")
         path = path.addPath("Subfolder")
         path = path.addPath("SuperSubfolder")
-        assertEquals("Public\\Subfolder\\Public\\Subfolder\\SuperSubfolder", path.toString())
+        assertEquals(
+            expected = "Public\\Subfolder\\Public\\Subfolder\\SuperSubfolder",
+            actual = path.toString()
+        )
         path = path.navigateBackToPathAtIndex(3)
-        assertEquals("Public\\Subfolder\\Public\\Subfolder", path.toString())
+        assertEquals(expected = "Public\\Subfolder\\Public\\Subfolder", actual = path.toString())
 
         path = path.navigateBackToPathAtIndex(0)
-        assertEquals("Public", path.toString())
+        assertEquals(expected = "Public", actual = path.toString())
 
         path = path.addPath("Public")
         path = path.addPath("Subfolder")
         path = path.addPath("SuperSubfolder")
-        assertEquals("Public\\Public\\Subfolder\\SuperSubfolder", path.toString())
+        assertEquals(
+            expected = "Public\\Public\\Subfolder\\SuperSubfolder",
+            actual = path.toString()
+        )
 
         path = path.navigateBackToPathAtIndex(-1)
-        assertEquals("/", path.toString())
+        assertEquals(expected = "/", actual = path.toString())
     }
 }

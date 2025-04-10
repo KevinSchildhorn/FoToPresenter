@@ -103,7 +103,7 @@ class DirectoryScreenTestActions : KoinTest {
         assert(directories.isEmpty())
         onNodeWithTag(TestTags.ACTION_SHEET_ITEM(ActionSheetAction.START_SLIDESHOW)).assertExists().performClick()
         waitForIdle()
-        assertEquals(2, directories.count())
+        assertEquals(expected = 2, actual = directories.count())
         assertTrue(slideshowStarted)
     }
 

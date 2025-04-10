@@ -18,6 +18,7 @@ import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
+import kotlin.math.exp
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
@@ -36,8 +37,14 @@ class ImageViewModelTest : KoinTest {
             ImageDirectory(DefaultNetworkDirectoryDetails(Path("Jaypeg.jpg"), 2), null),
             ImageDirectory(DefaultNetworkDirectoryDetails(Path("Photos/Peeng2.png"), 3), null),
             ImageDirectory(DefaultNetworkDirectoryDetails(Path("Photos/Jaypeg2.jpg"), 4), null),
-            ImageDirectory(DefaultNetworkDirectoryDetails(Path("Photos/SubPhotos/Peeng3.png"), 5), null),
-            ImageDirectory(DefaultNetworkDirectoryDetails(Path("Photos/SubPhotos/Jaypeg3.jpg"), 6), null),
+            ImageDirectory(
+                DefaultNetworkDirectoryDetails(Path("Photos/SubPhotos/Peeng3.png"), 5),
+                null
+            ),
+            ImageDirectory(
+                DefaultNetworkDirectoryDetails(Path("Photos/SubPhotos/Jaypeg3.jpg"), 6),
+                null
+            ),
         )
 
     @BeforeTest
@@ -68,7 +75,10 @@ class ImageViewModelTest : KoinTest {
                 while (state.imageDirectories.isEmpty()) {
                     state = awaitItem()
                 }
-                assertEquals(directories.count(), state.imageDirectories.count())
+                assertEquals(
+                    expected = directories.count(),
+                    actual = state.imageDirectories.count()
+                )
             }
         }
 
@@ -82,16 +92,16 @@ class ImageViewModelTest : KoinTest {
                 while (state.imageDirectories.isEmpty()) {
                     state = awaitItem()
                 }
-                assertEquals(directories.count(), state.imageDirectories.count())
+                assertEquals(expected = directories.count(), actual = state.imageDirectories.count())
                 viewModel.setSelectedImage(1)
                 state = awaitItem()
-                assertEquals(1, state.selectedImageIndex)
+                assertEquals(expected = 1, actual = state.selectedImageIndex)
                 viewModel.showPreviousImage()
                 state = awaitItem()
-                assertEquals(0, state.selectedImageIndex)
+                assertEquals(expected = 0, actual = state.selectedImageIndex)
                 viewModel.showPreviousImage()
                 state = awaitItem()
-                assertEquals(5, state.selectedImageIndex)
+                assertEquals(expected = 5, actual = state.selectedImageIndex)
             }
         }
 
@@ -105,16 +115,16 @@ class ImageViewModelTest : KoinTest {
                 while (state.imageDirectories.isEmpty()) {
                     state = awaitItem()
                 }
-                assertEquals(directories.count(), state.imageDirectories.count())
+                assertEquals(expected = directories.count(), actual = state.imageDirectories.count())
                 viewModel.setSelectedImage(4)
                 state = awaitItem()
-                assertEquals(4, state.selectedImageIndex)
+                assertEquals(expected = 4, actual = state.selectedImageIndex)
                 viewModel.showNextImage()
                 state = awaitItem()
-                assertEquals(5, state.selectedImageIndex)
+                assertEquals(expected = 5, actual = state.selectedImageIndex)
                 viewModel.showNextImage()
                 state = awaitItem()
-                assertEquals(0, state.selectedImageIndex)
+                assertEquals(expected = 0, actual = state.selectedImageIndex)
             }
         }
 

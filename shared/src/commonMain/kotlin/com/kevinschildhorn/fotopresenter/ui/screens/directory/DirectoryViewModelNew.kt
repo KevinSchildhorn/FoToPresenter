@@ -117,7 +117,6 @@ class DirectoryViewModelNew(
         logger.i { "Current overlay state: ${_uiState.value.overlayUiState}" }
     }
 
-
     fun setSortType(sortingType: SortingType) =
         viewModelScope.launch(Dispatchers.Default) {
             logger.i { "Setting Sort Type" }
@@ -152,7 +151,6 @@ class DirectoryViewModelNew(
             networkHandler.disconnect()
             credentialsRepository.clearAutoConnect()
         }
-
 
     //region Navigation
 

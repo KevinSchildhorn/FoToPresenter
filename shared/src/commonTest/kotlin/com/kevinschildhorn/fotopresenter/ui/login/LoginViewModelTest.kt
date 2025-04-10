@@ -46,12 +46,12 @@ class LoginViewModelTest : KoinTest {
                 modules(testingModule(settings = emptySettings))
             }
             with(viewModel.uiState.value) {
-                assertEquals(hostname, "")
-                assertEquals(username, "")
-                assertEquals(password, "")
-                assertEquals(sharedFolder, "")
-                assertEquals(shouldAutoConnect, false)
-                assertEquals(state, UiState.IDLE)
+                assertEquals(expected = "", actual = hostname)
+                assertEquals(expected = "", actual = username)
+                assertEquals(expected = "", actual = password)
+                assertEquals(expected = "", actual = sharedFolder)
+                assertEquals(expected = false, actual = shouldAutoConnect)
+                assertEquals(expected = UiState.IDLE, actual = state)
             }
 
             viewModel.updateHost("google.com")
@@ -61,12 +61,12 @@ class LoginViewModelTest : KoinTest {
             viewModel.updateShouldAutoConnect(true)
 
             with(viewModel.uiState.value) {
-                assertEquals(hostname, "google.com")
-                assertEquals(username, "John")
-                assertEquals(password, "Secret")
-                assertEquals(sharedFolder, "Public")
-                assertEquals(shouldAutoConnect, true)
-                assertEquals(state, UiState.IDLE)
+                assertEquals(expected = "google.com", actual = hostname)
+                assertEquals(expected = "John", actual = username)
+                assertEquals(expected = "Secret", actual = password)
+                assertEquals(expected = "Public", actual = sharedFolder)
+                assertEquals(expected = true, actual = shouldAutoConnect)
+                assertEquals(expected = UiState.IDLE, actual = state)
             }
         }
 

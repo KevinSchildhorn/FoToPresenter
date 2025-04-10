@@ -43,16 +43,16 @@ class DirectoryRepositoryTest : KoinTest {
     fun `retrieve_Directory_Contents_Success`() =
         runBlocking {
             val result = repository.getDirectoryContents(Path.EMPTY)
-            assertEquals(2, result.folders.count())
-            assertEquals(2, result.images.count())
+            assertEquals(expected = 2, actual = result.folders.count())
+            assertEquals(expected = 2, actual = result.images.count())
         }
 
     @Test
     fun `retrieve_Directory_Contents_Failure`() =
         runBlocking {
             val result = repository.getDirectoryContents(Path("nonExistant"))
-            assertEquals(0, result.folders.count())
-            assertEquals(0, result.images.count())
+            assertEquals(expected = 0, actual = result.folders.count())
+            assertEquals(expected = 0, actual = result.images.count())
         }
 
     @Test
@@ -63,7 +63,10 @@ class DirectoryRepositoryTest : KoinTest {
                 val result = repository.getDirectoryContents(Path(""))
                 fail("Should Throw Exception")
             } catch (e: NetworkHandlerException) {
-                assertEquals(e.message, NetworkHandlerError.NOT_CONNECTED.message)
+                assertEquals(
+                    expected = NetworkHandlerError.NOT_CONNECTED.message,
+                    actual = e.message
+                )
             }
         }
 }

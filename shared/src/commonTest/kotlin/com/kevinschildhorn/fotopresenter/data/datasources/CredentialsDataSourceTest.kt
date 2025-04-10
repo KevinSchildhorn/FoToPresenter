@@ -22,10 +22,10 @@ class CredentialsDataSourceTest {
 
     @Test
     fun `updateCredentials`() {
-        assertEquals("google.com", dataSource.hostname)
-        assertEquals("John", dataSource.username)
-        assertEquals("secret", dataSource.password)
-        assertEquals("Public", dataSource.sharedFolder)
+        assertEquals(expected = "google.com", actual = dataSource.hostname)
+        assertEquals(expected = "John", actual = dataSource.username)
+        assertEquals(expected = "secret", actual = dataSource.password)
+        assertEquals(expected = "Public", actual = dataSource.sharedFolder)
 
         val newHostname = "sample.com"
         val newUsername = "Will"
@@ -39,16 +39,16 @@ class CredentialsDataSourceTest {
             sharedFolder = newSharedFolder
             shouldAutoConnect = newShouldAutoConnect
         }
-        assertEquals(newHostname, dataSource.hostname)
-        assertEquals(newSharedFolder, dataSource.sharedFolder)
-        assertEquals(newUsername, dataSource.username)
-        assertEquals(newPassword, dataSource.password)
+        assertEquals(expected = newHostname, actual = dataSource.hostname)
+        assertEquals(expected = newSharedFolder, actual = dataSource.sharedFolder)
+        assertEquals(expected = newUsername, actual = dataSource.username)
+        assertEquals(expected = newPassword, actual = dataSource.password)
 
-        assertEquals(newHostname, settings[KEY_HOSTNAME])
-        assertEquals(newSharedFolder, settings[KEY_SHAREDFOLDER])
-        assertEquals(newUsername, settings[KEY_USERNAME])
-        assertEquals(newPassword, settings[KEY_PASSWORD])
-        assertEquals(newShouldAutoConnect, settings[KEY_AUTOCONNECT])
+        assertEquals(expected = newHostname, actual = settings[KEY_HOSTNAME])
+        assertEquals(expected = newSharedFolder, actual = settings[KEY_SHAREDFOLDER])
+        assertEquals(expected = newUsername, actual = settings[KEY_USERNAME])
+        assertEquals(expected = newPassword, actual = settings[KEY_PASSWORD])
+        assertEquals(expected = newShouldAutoConnect, actual = settings[KEY_AUTOCONNECT])
     }
 
     companion object {

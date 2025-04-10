@@ -43,7 +43,7 @@ class ChangeDirectoryUseCaseTest : KoinTest {
     fun `change_directory_success`() =
         runBlocking {
             val result = useCase(Path("Photos"))
-            assertEquals(Path("Photos"), result)
+            assertEquals(expected = Path("Photos"), actual = result)
         }
 
     @Test
@@ -53,7 +53,7 @@ class ChangeDirectoryUseCaseTest : KoinTest {
                 val result = useCase(Path("nonExistant"))
                 fail("Should've thrown")
             } catch (e: NetworkHandlerException) {
-                assertEquals(NetworkHandlerError.DIRECTORY_NOT_FOUND.message, e.message)
+                assertEquals(expected = NetworkHandlerError.DIRECTORY_NOT_FOUND.message, actual = e.message)
             }
         }
 
@@ -65,7 +65,7 @@ class ChangeDirectoryUseCaseTest : KoinTest {
                 val result = useCase(Path("Photos"))
                 fail("Should've thrown")
             } catch (e: NetworkHandlerException) {
-                assertEquals(NetworkHandlerError.NOT_CONNECTED.message, e.message)
+                assertEquals(expected = NetworkHandlerError.NOT_CONNECTED.message, actual = e.message)
             }
         }
 }
