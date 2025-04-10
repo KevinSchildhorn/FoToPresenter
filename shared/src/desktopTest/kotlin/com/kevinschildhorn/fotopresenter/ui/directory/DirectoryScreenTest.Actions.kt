@@ -75,7 +75,6 @@ class DirectoryScreenTestActions : KoinTest {
         onNodeWithTag(TestTags.Directory.IMAGE_PREVIEW("Jaypeg")).assertDoesNotExist()
     }
 
-    // TODO: Implement Test
     @Test
     fun startingSlideshow() = runComposeUiTest {
         Dispatchers.setMain(Dispatchers.IO)

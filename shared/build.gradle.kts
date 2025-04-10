@@ -192,6 +192,7 @@ kover {
                 packages("com.kevinschildhorn.fotopresenter.ui.screens.common.composables")
                 packages("com.kevinschildhorn.fotopresenter.ui.atoms")
                 packages("com.kevinschildhorn.fotopresenter.ui.composables")
+                classes("ImageMetadataDataSource") // Uses Image Metadata library
                 // Auto Generated SQLDelight
                 classes("PlaylistDatabaseImpl")
             }

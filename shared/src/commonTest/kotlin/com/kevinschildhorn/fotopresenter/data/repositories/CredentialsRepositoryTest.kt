@@ -71,12 +71,12 @@ class CredentialsRepositoryTest : KoinTest {
     }
 
     @Test
-    fun `get_credentials`() {
-        // Implementation needed
-    }
-
-    @Test
-    fun `delete_credentials`() {
-        // Implementation needed
+    fun `get_credentials_empty`() {
+        val credentials = repository.fetchCredentials()
+        assertEquals(expected = "", actual = credentials.hostname)
+        assertEquals(expected = "", actual = credentials.sharedFolder)
+        assertEquals(expected = "", actual = credentials.username)
+        assertEquals(expected = "", actual = credentials.password)
+        assertEquals(expected = false, actual = credentials.shouldAutoConnect)
     }
 }

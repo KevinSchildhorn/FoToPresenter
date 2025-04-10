@@ -62,7 +62,6 @@ class DirectoryViewModelNewTest : KoinTest {
             Dispatchers.resetMain()
         }
 
-    // TODO
     @Test
     fun onSearch() = runTest(testDispatcher) {
         val viewModel: DirectoryViewModelNew by inject()
@@ -321,7 +320,8 @@ class DirectoryViewModelNewTest : KoinTest {
         assertNotNull(item)
         assertEquals(
             expected = name,
-            actual = item.directoryGridUIState.currentPath.fileName
+            actual = item.directoryGridUIState.currentPath.fileName,
+            message = "Was expecting $name but got '${item.directoryGridUIState.currentPath.fileName}'"
         )
         return item
     }
