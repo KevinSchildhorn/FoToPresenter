@@ -46,6 +46,7 @@ class DirectoryNavigatorTest : KoinTest {
         MockNetworkHandler.connectSuccessfully()
         directoryNavigator.currentDirectoryContents.test {
             directoryNavigator.refreshDirectoryContents()
+            awaitItem()
             val contents = awaitItem()
             
             assertEquals(2, contents.folders.size)
@@ -122,6 +123,7 @@ class DirectoryNavigatorTest : KoinTest {
         MockNetworkHandler.connectSuccessfully()
         directoryNavigator.currentDirectoryContents.test {
             directoryNavigator.refreshDirectoryContents()
+            awaitItem()
             awaitItem() // Initial state
             
             // Search for "pe"
