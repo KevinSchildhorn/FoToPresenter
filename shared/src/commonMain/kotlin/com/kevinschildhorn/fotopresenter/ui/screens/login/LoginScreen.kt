@@ -52,16 +52,24 @@ fun LoginScreen(
             loginButtonClicked = { viewModel.login() },
         )
         Text(
-            text = buildAnnotatedString {
-                withLink(LinkAnnotation.Url(url = "https://www.qnap.com/en/how-to/faq/article/how-to-map-network-drive-in-windows-os-by-qfinder")) {
-                    append("Setting up a QNAP NAS")
-                }
-            },
+            text =
+                buildAnnotatedString {
+                    withLink(
+                        LinkAnnotation.Url(
+                            url =
+                                "https://www.qnap.com/en/how-to/faq/article/" +
+                                    "how-to-map-network-drive-in-windows-os-by-qfinder",
+                        ),
+                    ) {
+                        append("Setting up a QNAP NAS")
+                    }
+                },
             style = TextStyle(textAlign = TextAlign.Center),
-            modifier = Modifier
-                .padding(top = Padding.STANDARD.dp)
-                .fillMaxWidth()
-                .testTag(TestTags.Login.LINK)
+            modifier =
+                Modifier
+                    .padding(top = Padding.STANDARD.dp)
+                    .fillMaxWidth()
+                    .testTag(TestTags.Login.LINK),
         )
     }
 }

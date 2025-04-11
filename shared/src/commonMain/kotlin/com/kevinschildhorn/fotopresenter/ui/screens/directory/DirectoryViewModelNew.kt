@@ -233,7 +233,7 @@ class DirectoryViewModelNew(
         try {
             block()
         } catch (e: Exception) {
-            _uiState.update { it.copy(state = UiState.ERROR(e.localizedMessage)) }
+            _uiState.update { it.copy(state = UiState.ERROR(e.localizedMessage ?: "")) }
         }
 
     private fun DirectoryContents.asDirectoryGridUIState(path: Path): DirectoryGridUIState =
