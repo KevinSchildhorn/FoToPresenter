@@ -32,7 +32,7 @@ data class ImageDirectory(
     override fun toString(): String = "(I:${details.fullPath}:${details.id})"
 }
 
-fun List<Directory>.sorted(sortingType: SortingType): List<Directory> =
+fun <T : Directory> List<T>.sorted(sortingType: SortingType): List<T> =
     when (sortingType) {
         SortingType.NAME_ASC -> this.sortedBy { it.name }
         SortingType.NAME_DESC -> this.sortedByDescending { it.name }
@@ -40,4 +40,4 @@ fun List<Directory>.sorted(sortingType: SortingType): List<Directory> =
         SortingType.TIME_DESC -> this.sortedByDescending { it.details.dateMillis }
     }
 
-fun List<Directory>.filtered(string: String): List<Directory> = this.filter { it.name.lowercase().contains(string.lowercase()) }
+fun <T : Directory> List<T>.filtered(string: String): List<T> = this.filter { it.name.lowercase().contains(string.lowercase()) }

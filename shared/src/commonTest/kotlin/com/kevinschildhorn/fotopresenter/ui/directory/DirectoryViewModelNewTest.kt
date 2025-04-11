@@ -66,47 +66,44 @@ class DirectoryViewModelNewTest : KoinTest {
 
             viewModel.uiState.test {
                 viewModel.refreshScreen()
-                var item = awaitItem()
-                while(item.directoryGridUIState.imageStates.isEmpty()) {
-                    item = awaitItem()
-                }
+                var item = awaitUntilHasDirectories()
 
-                assertTrue(item.directoryGridUIState.imageStates.any { it.name == "Peeng" })
-                assertTrue(item.directoryGridUIState.imageStates.any { it.name == "Jaypeg" })
-                assertTrue(item.directoryGridUIState.folderStates.any { it.name == "Photos" })
-                assertTrue(item.directoryGridUIState.folderStates.any { it.name == "NewDirectory" })
+                assertTrue(item.hasImage("Peeng"))
+                assertTrue(item.hasImage("Jaypeg"))
+                assertTrue(item.hasFolder("Photos"))
+                assertTrue(item.hasFolder("NewDirectory"))
 
                 // Searching "P"
                 viewModel.onSearch("p")
                 item = awaitItem()
-                while(item.searchText != "p") {
+                while (item.searchText != "p") {
                     item = awaitItem()
                 }
                 // Should only have one folder
-                while(item.directoryGridUIState.folderStates.size == 2) {
+                while (item.hasFolders(2)) {
                     item = awaitItem()
                 }
 
-                assertTrue(item.directoryGridUIState.imageStates.any { it.name == "Peeng" })
-                assertTrue(item.directoryGridUIState.imageStates.any { it.name == "Jaypeg" })
-                assertTrue(item.directoryGridUIState.folderStates.any { it.name == "Photos" })
-                assertFalse(item.directoryGridUIState.folderStates.any { it.name == "NewDirectory" })
+                assertTrue(item.hasImage("Peeng"))
+                assertTrue(item.hasImage("Jaypeg"))
+                assertTrue(item.hasFolder("Photos"))
+                assertFalse(item.hasFolder("NewDirectory"))
 
                 // Searching "Pe"
                 viewModel.onSearch("pe")
                 item = awaitItem()
-                while(item.searchText != "pe") {
+                while (item.searchText != "pe") {
                     item = awaitItem()
                 }
                 // Should not have any folders at this point
-                while(item.directoryGridUIState.folderStates.isNotEmpty()) {
+                while (!item.hasNoFolders()) {
                     item = awaitItem()
                 }
 
-                assertTrue(item.directoryGridUIState.imageStates.any { it.name == "Peeng" })
-                assertTrue(item.directoryGridUIState.imageStates.any { it.name == "Jaypeg" })
-                assertFalse(item.directoryGridUIState.folderStates.any { it.name == "Photos" })
-                assertFalse(item.directoryGridUIState.folderStates.any { it.name == "NewDirectory" })
+                assertTrue(item.hasImage("Peeng"))
+                assertTrue(item.hasImage("Jaypeg"))
+                assertFalse(item.hasFolder("Photos"))
+                assertFalse(item.hasFolder("NewDirectory"))
             }
         }
 
@@ -116,10 +113,8 @@ class DirectoryViewModelNewTest : KoinTest {
             val viewModel: DirectoryViewModelNew by inject()
 
             viewModel.uiState.test {
-                awaitItem()
-                awaitItem()
                 viewModel.refreshScreen()
-                var item = awaitItem()
+                var item = awaitUntilHasDirectories()
                 assertTrue(item.overlayUiState is DirectoryOverlayUiState.None)
 
                 // Show Sort
@@ -148,32 +143,26 @@ class DirectoryViewModelNewTest : KoinTest {
             val viewModel: DirectoryViewModelNew by inject()
 
             viewModel.uiState.test {
-                awaitItem()
-                awaitItem()
                 viewModel.refreshScreen()
-                var item = awaitItem()
+                var item = awaitUntilHasDirectories()
 
                 // Assert starting in Name Ascending
-                var firstImageName = item.directoryGridUIState.imageStates.first().name
-                assertEquals(expected = "Jaypeg", actual = firstImageName)
+                assertEquals(expected = "Jaypeg", actual = item.firstImageName)
 
                 // Change Sorting to Name Descending
                 viewModel.setSortType(SortingType.NAME_DESC)
                 item = awaitItem()
-                firstImageName = item.directoryGridUIState.imageStates.first().name
-                assertEquals(expected = "Peeng", actual = firstImageName)
+                assertEquals(expected = "Peeng", actual = item.firstImageName)
 
                 // Change Sorting to Time Descending
                 viewModel.setSortType(SortingType.TIME_ASC)
                 item = awaitItem()
-                firstImageName = item.directoryGridUIState.imageStates.first().name
-                assertEquals(expected = "Jaypeg", actual = firstImageName)
+                assertEquals(expected = "Jaypeg", actual = item.firstImageName)
 
                 // Change Sorting to Time Ascending
                 viewModel.setSortType(SortingType.TIME_DESC)
                 item = awaitItem()
-                firstImageName = item.directoryGridUIState.imageStates.first().name
-                assertEquals(expected = "Peeng", actual = firstImageName)
+                assertEquals(expected = "Peeng", actual = item.firstImageName)
             }
         }
 
@@ -183,12 +172,11 @@ class DirectoryViewModelNewTest : KoinTest {
             val viewModel: DirectoryViewModelNew by inject()
 
             viewModel.uiState.test {
-                awaitItem()
-                awaitItem()
                 viewModel.refreshScreen()
-                awaitItem()
+                var item = awaitUntilHasDirectories()
+
                 viewModel.setSelectedDirectory(null)
-                var item = awaitItem()
+                item = awaitItem()
                 assertTrue(item.state is UiState.ERROR)
                 assertEquals(
                     expected = "Selected Directory Error",
@@ -222,8 +210,7 @@ class DirectoryViewModelNewTest : KoinTest {
 
             viewModel.uiState.test {
                 viewModel.refreshScreen()
-                awaitItem()
-                var item = awaitItem()
+                var item = awaitUntilHasDirectories()
                 assertEquals(expected = UiState.SUCCESS, actual = item.state)
                 assertNotEquals(item.directoryGridUIState.allStates.count(), actual = 0)
             }
@@ -238,26 +225,26 @@ class DirectoryViewModelNewTest : KoinTest {
 
             viewModel.uiState.test {
                 viewModel.refreshScreen()
-                awaitItem()
-                var item = awaitItem()
+                var item = awaitUntilHasDirectories()
                 assertEquals(expected = UiState.SUCCESS, actual = item.state)
 
                 // Navigate To Photos
-                val photoDirectory =
-                    item.directoryGridUIState.folderStates.find { it.name == photosName }
+                val photoDirectory = item.findDirectory(photosName)
                 assertNotNull(photoDirectory)
                 val currentState = item.directoryGridUIState
                 viewModel.navigateIntoDirectory(photoDirectory.id)
-                awaitItem()
                 item = awaitItem()
+                while (!item.isPath(photosName)) {
+                    item = awaitItem()
+                }
+                while (!item.hasFolder(subPhotosName)) {
+                    item = awaitItem()
+                }
                 assertNotEquals(illegal = currentState, actual = item.directoryGridUIState)
-                assertEquals(
-                    expected = photosName,
-                    actual = item.directoryGridUIState.currentPath.fileName,
-                )
-                assertEquals(
-                    expected = subPhotosName,
-                    actual = item.directoryGridUIState.folderStates.first().name,
+                assertEquals(expected = photosName, actual = item.pathName)
+                assertTrue(
+                    item.hasFolder(subPhotosName),
+                    message = item.directoryGridUIState.folderStates.joinToString(","),
                 )
 
                 // Navigate To SubPhotos
@@ -266,9 +253,13 @@ class DirectoryViewModelNewTest : KoinTest {
                 assertNotNull(subPhotoDirectory)
                 viewModel.navigateIntoDirectory(subPhotoDirectory.id)
                 item = awaitItem()
+                while (!item.isPath(subPhotosName)) {
+                    item = awaitItem()
+                }
+
                 assertEquals(
                     expected = subPhotosName,
-                    actual = item.directoryGridUIState.currentPath.fileName,
+                    actual = item.pathName,
                 )
             }
         }
@@ -284,10 +275,8 @@ class DirectoryViewModelNewTest : KoinTest {
 
             viewModel.uiState.test {
                 logger.i { "Refreshing Screen" }
-                var item = awaitItem()
-                logger.i { "Got Initial Empty State" }
                 viewModel.refreshScreen()
-                item = awaitItem()
+                var item = awaitUntilHasDirectories()
                 logger.i { "Got Initial State With Screen Data" }
 
                 // Navigate To Photos
@@ -308,7 +297,7 @@ class DirectoryViewModelNewTest : KoinTest {
                 item = awaitItem()
                 assertEquals(
                     expected = subPhotosName,
-                    actual = item.directoryGridUIState.currentPath.fileName,
+                    actual = item.pathName,
                 )
 
                 // Navigate To SubSubPhotos
@@ -320,7 +309,7 @@ class DirectoryViewModelNewTest : KoinTest {
                 item = awaitItem()
                 assertEquals(
                     expected = photosName,
-                    actual = item.directoryGridUIState.currentPath.fileName,
+                    actual = item.pathName,
                 )
                 // Navigate To SubSubPhotos
                 item = navigateToFolder(name = subPhotosName, viewModel, uiState = item)
@@ -331,10 +320,18 @@ class DirectoryViewModelNewTest : KoinTest {
                 item = awaitItem()
                 assertEquals(
                     expected = "",
-                    actual = item.directoryGridUIState.currentPath.fileName,
+                    actual = item.pathName,
                 )
             }
         }
+
+    private suspend fun TurbineTestContext<DirectoryScreenUIState>.awaitUntilHasDirectories(): DirectoryScreenUIState {
+        var item = awaitItem()
+        while (item.hasNoDirectories()) {
+            item = awaitItem()
+        }
+        return item
+    }
 
     private suspend fun TurbineTestContext<DirectoryScreenUIState>.navigateToFolder(
         name: String,
@@ -342,8 +339,7 @@ class DirectoryViewModelNewTest : KoinTest {
         uiState: DirectoryScreenUIState,
     ): DirectoryScreenUIState {
         logger.i { "navigateToFolder: $name from state:\n$uiState" }
-        val newDirectory =
-            uiState.directoryGridUIState.folderStates.find { it.name == name }
+        val newDirectory = uiState.findDirectory(name)
         logger.d { "newDirectory: $newDirectory" }
         assertNotNull(newDirectory)
 
@@ -354,15 +350,44 @@ class DirectoryViewModelNewTest : KoinTest {
             logger.d { "Awaiting Again" }
             item = awaitItem()
         }
+        if (item.isSame(uiState)) {
+            logger.d { "Awaiting Again" }
+            item = awaitItem()
+        }
+
         logger.d { "Updated UiState: \n$item" }
         assertNotNull(item)
-        logger.d { "asserting: '${item.directoryGridUIState.currentPath.fileName}' == '$name'" }
+        logger.d { "asserting: '${item.pathName}' == '$name'" }
         assertEquals(
             expected = name,
-            actual = item.directoryGridUIState.currentPath.fileName,
-            message = "Was expecting $name but got '${item.directoryGridUIState.currentPath.fileName}'",
+            actual = item.pathName,
+            message = "Was expecting $name but got '${item.pathName}'",
         )
         logger.d { "Returning Item" }
         return item
     }
+
+    private val DirectoryScreenUIState.pathName: String
+        get() = this.directoryGridUIState.currentPath.fileName
+
+    private val DirectoryScreenUIState.firstImageName: String
+        get() = this.directoryGridUIState.imageStates.first().name
+
+    private fun DirectoryScreenUIState.isPath(path: String) = this.pathName == path
+
+    private fun DirectoryScreenUIState.hasFolder(folderName: String) = this.directoryGridUIState.folderStates.any { it.name == folderName }
+
+    private fun DirectoryScreenUIState.hasImage(imageName: String) = this.directoryGridUIState.imageStates.any { it.name == imageName }
+
+    private fun DirectoryScreenUIState.hasFolders(count: Int) = this.directoryGridUIState.folderStates.count() == count
+
+    private fun DirectoryScreenUIState.hasNoFolders() = this.directoryGridUIState.folderStates.isEmpty()
+
+    private fun DirectoryScreenUIState.hasNoDirectories() = this.directoryGridUIState.allStates.isEmpty()
+
+    private fun DirectoryScreenUIState.findDirectory(name: String) = this.directoryGridUIState.folderStates.find { it.name == name }
+
+    private fun DirectoryScreenUIState.isSame(state: DirectoryScreenUIState) =
+        this.directoryGridUIState.allStates.map { it.name }
+            .containsAll(state.directoryGridUIState.allStates.map { it.name })
 }
