@@ -22,7 +22,7 @@ import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 import com.kevinschildhorn.fotopresenter.extension.LOGGER_TAG_SUFFIX
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
@@ -77,7 +77,7 @@ val commonModule =
         factory { SaveMetadataForPathUseCase(get()) }
         // UI
         single { LoginViewModel(getLoggerWithTag("LoginViewModel$LOGGER_TAG_SUFFIX"), get(), get()) }
-        single { DirectoryViewModelNew(get(), get(), get(), get(), get(), getLoggerWithTag("DirectoryViewModelNew$LOGGER_TAG_SUFFIX")) }
+        single { DirectoryViewModel(get(), get(), get(), get(), get(), getLoggerWithTag("DirectoryViewModelNew$LOGGER_TAG_SUFFIX")) }
         single { SlideshowViewModel(getLoggerWithTag("SlideshowViewModel$LOGGER_TAG_SUFFIX")) }
         single { PlaylistViewModel(get(), getLoggerWithTag("PlaylistViewModel$LOGGER_TAG_SUFFIX")) }
     }

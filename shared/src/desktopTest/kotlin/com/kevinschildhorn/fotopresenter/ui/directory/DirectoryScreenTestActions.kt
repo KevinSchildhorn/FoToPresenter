@@ -13,7 +13,7 @@ import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.TestTags.OVERLAY_SHADOW
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -36,7 +36,7 @@ Gets data from [MockNetworkHandler]
  **/
 @OptIn(ExperimentalTestApi::class, ExperimentalCoroutinesApi::class)
 class DirectoryScreenTestActions : KoinTest {
-    private val viewModel: DirectoryViewModelNew by inject()
+    private val viewModel: DirectoryViewModel by inject()
 
     @Before
     fun startTest() {

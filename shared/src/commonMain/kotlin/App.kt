@@ -11,7 +11,7 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoShapes
 import com.kevinschildhorn.fotopresenter.ui.screens.common.Screen
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistScreen
@@ -22,7 +22,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
 @Composable
 fun App(
     loginViewModel: LoginViewModel,
-    directoryViewModel: DirectoryViewModelNew,
+    directoryViewModel: DirectoryViewModel,
     slideshowViewModel: SlideshowViewModel,
     playlistViewModel: PlaylistViewModel,
     navController: NavHostController = rememberNavController(),

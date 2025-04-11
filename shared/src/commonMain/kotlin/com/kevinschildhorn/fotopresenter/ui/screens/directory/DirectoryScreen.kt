@@ -37,7 +37,7 @@ enum class DirectoryOverlayType {
 
 @Composable
 fun DirectoryScreen(
-    viewModel: DirectoryViewModelNew,
+    viewModel: DirectoryViewModel,
     onLogout: () -> Unit,
     onStartSlideshow: (ImageSlideshowDetails) -> Unit,
     onShowPlaylists: () -> Unit,

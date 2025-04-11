@@ -12,7 +12,7 @@ import com.kevinschildhorn.fotopresenter.testingModule
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -32,7 +32,7 @@ Gets data from [MockNetworkHandler]
  **/
 @OptIn(ExperimentalTestApi::class, ExperimentalCoroutinesApi::class)
 class DirectoryScreenTestNav : KoinTest {
-    private val viewModel: DirectoryViewModelNew by inject()
+    private val viewModel: DirectoryViewModel by inject()
     private val logger = Logger.withTag("DirectoryScreenTestNav")
 
     @Before

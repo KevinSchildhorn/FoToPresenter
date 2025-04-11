@@ -27,7 +27,7 @@ import org.koin.core.component.KoinComponent
 /*
  * ViewModel for Directory Screen
  */
-class DirectoryViewModelNew(
+class DirectoryViewModel(
     private val directoryNavigator: DirectoryNavigator,
     private val imagePreviewNavigator: ImagePreviewNavigator,
     // Used for logging

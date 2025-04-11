@@ -10,7 +10,7 @@ import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryOverlayType
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryOverlayUiState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreenUIState
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -33,10 +33,10 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
-Testing [DirectoryViewModelNew]
+Testing [DirectoryViewModel]
  **/
 @OptIn(ExperimentalCoroutinesApi::class)
-class DirectoryViewModelNewTest : KoinTest {
+class DirectoryViewModelTest : KoinTest {
     private val testDispatcher = StandardTestDispatcher()
 
     private val logger = Logger.withTag("DirectoryViewModelNewTest")
@@ -62,7 +62,7 @@ class DirectoryViewModelNewTest : KoinTest {
     @Test
     fun onSearch() =
         runTest(testDispatcher) {
-            val viewModel: DirectoryViewModelNew by inject()
+            val viewModel: DirectoryViewModel by inject()
 
             viewModel.uiState.test {
                 viewModel.refreshScreen()
@@ -110,7 +110,7 @@ class DirectoryViewModelNewTest : KoinTest {
     @Test
     fun showOverlay() =
         runTest(testDispatcher) {
-            val viewModel: DirectoryViewModelNew by inject()
+            val viewModel: DirectoryViewModel by inject()
 
             viewModel.uiState.test {
                 viewModel.refreshScreen()
@@ -140,7 +140,7 @@ class DirectoryViewModelNewTest : KoinTest {
             /**
              View [MockNetworkHandler]
              **/
-            val viewModel: DirectoryViewModelNew by inject()
+            val viewModel: DirectoryViewModel by inject()
 
             viewModel.uiState.test {
                 viewModel.refreshScreen()
@@ -169,7 +169,7 @@ class DirectoryViewModelNewTest : KoinTest {
     @Test
     fun setSelectedDirectory() =
         runTest(testDispatcher) {
-            val viewModel: DirectoryViewModelNew by inject()
+            val viewModel: DirectoryViewModel by inject()
 
             viewModel.uiState.test {
                 viewModel.refreshScreen()
@@ -195,7 +195,7 @@ class DirectoryViewModelNewTest : KoinTest {
     @Test
     fun logout() =
         runTest(testDispatcher) {
-            val viewModel: DirectoryViewModelNew by inject()
+            val viewModel: DirectoryViewModel by inject()
 
             assertTrue(MockNetworkHandler.isConnected)
             viewModel.logout()
@@ -206,7 +206,7 @@ class DirectoryViewModelNewTest : KoinTest {
     @Test
     fun refreshScreen() =
         runTest {
-            val viewModel: DirectoryViewModelNew by inject()
+            val viewModel: DirectoryViewModel by inject()
 
             viewModel.uiState.test {
                 viewModel.refreshScreen()
@@ -219,7 +219,7 @@ class DirectoryViewModelNewTest : KoinTest {
     @Test
     fun navigateIntoDirectory() =
         runTest(testDispatcher) {
-            val viewModel: DirectoryViewModelNew by inject()
+            val viewModel: DirectoryViewModel by inject()
             val photosName = "Photos"
             val subPhotosName = "SubPhotos"
 
@@ -268,7 +268,7 @@ class DirectoryViewModelNewTest : KoinTest {
     fun navigateBackToDirectory() =
         runTest(testDispatcher) {
             logger.i { "navigateBackToDirectory" }
-            val viewModel: DirectoryViewModelNew by inject()
+            val viewModel: DirectoryViewModel by inject()
             val photosName = "Photos"
             val subPhotosName = "SubPhotos"
             val subSubPhotosName = "SubSubPhotos"
@@ -335,7 +335,7 @@ class DirectoryViewModelNewTest : KoinTest {
 
     private suspend fun TurbineTestContext<DirectoryScreenUIState>.navigateToFolder(
         name: String,
-        viewModel: DirectoryViewModelNew,
+        viewModel: DirectoryViewModel,
         uiState: DirectoryScreenUIState,
     ): DirectoryScreenUIState {
         logger.i { "navigateToFolder: $name from state:\n$uiState" }

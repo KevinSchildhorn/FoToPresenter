@@ -17,7 +17,6 @@ import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
 import com.kevinschildhorn.fotopresenter.ui.SMBJFetcher
 import com.kevinschildhorn.fotopresenter.ui.SharedImageFetcher
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
@@ -50,7 +49,7 @@ object KoinPurse {
     val directoryNavigator = DirectoryNavigator(directoryRepository)
     val imagePreviewNavigator = ImagePreviewNavigator(baseLogger.withTag("ImagePreviewNavigator"))
     val directoryViewModelNew =
-        DirectoryViewModelNew(
+        DirectoryViewModel(
             directoryNavigator = directoryNavigator,
             imagePreviewNavigator = imagePreviewNavigator,
             credentialsRepository = credentialsRepository,
