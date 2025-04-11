@@ -37,26 +37,22 @@ object KoinPurse {
             baseLogger.withTag("LoginViewModel"), UseCaseFactory.credentialsRepository,
             SMBJHandler
         )
-    val directoryViewModel =
-        DirectoryViewModel(
-            UseCaseFactory.playlistRepository,
-            baseLogger.withTag("DirectoryViewModel")
-        )
+
     val imageMetadataDataSource = ImageMetadataDataSource(
         logger = baseLogger.withTag("ImageMetadataDataSource"),
         SMBJHandler,
     )
-    val directoryNavigator = DirectoryNavigator(directoryRepository)
+    val directoryNavigator = DirectoryNavigator(directoryRepository, baseLogger.withTag("DirectoryNavigator"))
     val imagePreviewNavigator = ImagePreviewNavigator(baseLogger.withTag("ImagePreviewNavigator"))
-    val directoryViewModelNew =
-        DirectoryViewModel(
-            directoryNavigator = directoryNavigator,
-            imagePreviewNavigator = imagePreviewNavigator,
-            credentialsRepository = credentialsRepository,
-            networkHandler = SMBJHandler,
-            dataSource = imageMetadataDataSource,
-            logger = baseLogger.withTag("DirectoryViewModelNew")
-        )
+    val directoryViewModel = DirectoryViewModel(
+        directoryNavigator = directoryNavigator,
+        imagePreviewNavigator = imagePreviewNavigator,
+        credentialsRepository = credentialsRepository,
+        networkHandler = SMBJHandler,
+        dataSource = imageMetadataDataSource,
+        logger = baseLogger.withTag("DirectoryViewModelNew")
+    )
+
     val slideshowViewModel = SlideshowViewModel(baseLogger.withTag("SlideshowViewModel"))
     val playlistViewModel =
         PlaylistViewModel(
@@ -87,7 +83,7 @@ fun main() = application {
 
         MainView(
             KoinPurse.loginViewModel,
-            KoinPurse.directoryViewModelNew,
+            KoinPurse.directoryViewModel,
             KoinPurse.slideshowViewModel,
             KoinPurse.playlistViewModel,
         )
