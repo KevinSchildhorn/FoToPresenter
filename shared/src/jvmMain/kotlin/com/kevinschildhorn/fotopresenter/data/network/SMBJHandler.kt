@@ -106,7 +106,9 @@ object SMBJHandler : NetworkHandler {
             file.close()
             val sharedImage = SharedImage(byteArray)
             sharedImage
-        } ?: run { null }
+        } ?: run {
+            null
+        }
 
     @Throws
     override suspend fun setSharedImage(
