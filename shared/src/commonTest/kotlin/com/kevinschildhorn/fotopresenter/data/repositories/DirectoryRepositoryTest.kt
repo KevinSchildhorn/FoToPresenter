@@ -65,7 +65,7 @@ class DirectoryRepositoryTest : KoinTest {
             } catch (e: NetworkHandlerException) {
                 assertEquals(
                     expected = NetworkHandlerError.NOT_CONNECTED.message,
-                    actual = e.message
+                    actual = e.message,
                 )
             }
         }

@@ -17,6 +17,7 @@ object TestTags {
     val DISMISS = TestTagImpl("Dismiss")
     val OVERLAY_SHADOW = TestTagImpl("OverlayShadow")
     val ACTION_SHEET = TestTagImpl("ActionSheet")
+
     fun ACTION_SHEET_ITEM(action: ActionSheetAction) = TestTagImpl("ActionSheetItem-${action.name}")
 
     enum class Login(override val value: String) : TestTag {
@@ -31,8 +32,13 @@ object TestTags {
     }
 
     object Directory {
-        fun DIRECTORY(index: Int, name: String) = TestTagImpl("Directory-index$index-$name")
+        fun DIRECTORY(
+            index: Int,
+            name: String,
+        ) = TestTagImpl("Directory-index$index-$name")
+
         fun IMAGE_PREVIEW(imageName: String) = TestTagImpl("ImagePreview-$imageName")
+
         val NAVIGATION_BAR = TestTagImpl("NavigationBar")
 
         enum class Sort(override val value: String) : TestTag {

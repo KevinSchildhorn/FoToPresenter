@@ -34,7 +34,7 @@ class StringTest {
         path = path.addPath("SuperSubfolder")
         assertEquals(
             expected = "Public\\Subfolder\\Public\\Subfolder\\SuperSubfolder",
-            actual = path.toString()
+            actual = path.toString(),
         )
         path = path.navigateBackToPathAtIndex(3)
         assertEquals(expected = "Public\\Subfolder\\Public\\Subfolder", actual = path.toString())
@@ -47,7 +47,7 @@ class StringTest {
         path = path.addPath("SuperSubfolder")
         assertEquals(
             expected = "Public\\Public\\Subfolder\\SuperSubfolder",
-            actual = path.toString()
+            actual = path.toString(),
         )
 
         path = path.navigateBackToPathAtIndex(-1)

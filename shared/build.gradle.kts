@@ -173,6 +173,11 @@ tasks.withType<Copy> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+ktlint {
+    filter {
+    }
+}
+
 kover {
     currentProject {
         createVariant("custom") {

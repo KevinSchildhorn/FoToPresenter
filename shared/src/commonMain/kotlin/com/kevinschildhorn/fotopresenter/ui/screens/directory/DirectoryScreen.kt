@@ -89,8 +89,9 @@ fun DirectoryScreen(
                 directories = uiState.currentPathList,
                 onHome = { viewModel.navigateBackToDirectory(-1) },
                 onItem = { viewModel.navigateBackToDirectory(it) },
-                modifier = Modifier.padding(Padding.SMALL.dp)
-                    .testTag(TestTags.Directory.NAVIGATION_BAR),
+                modifier =
+                    Modifier.padding(Padding.SMALL.dp)
+                        .testTag(TestTags.Directory.NAVIGATION_BAR),
             )
             // Grid
             DirectoryGrid(

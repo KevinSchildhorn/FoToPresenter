@@ -18,7 +18,6 @@ import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
-import kotlin.math.exp
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
@@ -39,11 +38,11 @@ class ImageViewModelTest : KoinTest {
             ImageDirectory(DefaultNetworkDirectoryDetails(Path("Photos/Jaypeg2.jpg"), 4), null),
             ImageDirectory(
                 DefaultNetworkDirectoryDetails(Path("Photos/SubPhotos/Peeng3.png"), 5),
-                null
+                null,
             ),
             ImageDirectory(
                 DefaultNetworkDirectoryDetails(Path("Photos/SubPhotos/Jaypeg3.jpg"), 6),
-                null
+                null,
             ),
         )
 
@@ -77,7 +76,7 @@ class ImageViewModelTest : KoinTest {
                 }
                 assertEquals(
                     expected = directories.count(),
-                    actual = state.imageDirectories.count()
+                    actual = state.imageDirectories.count(),
                 )
             }
         }

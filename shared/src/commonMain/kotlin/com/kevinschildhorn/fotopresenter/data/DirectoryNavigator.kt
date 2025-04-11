@@ -49,7 +49,7 @@ class DirectoryNavigator(private val directoryRepository: DirectoryRepository) {
         refreshDirectoryContents()
     }
 
-    fun getDirectoryFromId(id: Long):Directory? = currentDirectoryContents.value.allDirectories.find { it.id == id }
+    fun getDirectoryFromId(id: Long): Directory? = currentDirectoryContents.value.allDirectories.find { it.id == id }
 
     // Emits from to the Flow the current directories contents.
     // Used when the DirectoryScreen is first shown

@@ -49,7 +49,7 @@ class DirectoryDataSourceTest {
             } catch (e: NetworkHandlerException) {
                 assertEquals(
                     expected = NetworkHandlerError.DIRECTORY_NOT_FOUND.message,
-                    actual = e.message
+                    actual = e.message,
                 )
             }
         }
@@ -64,7 +64,7 @@ class DirectoryDataSourceTest {
             } catch (e: NetworkHandlerException) {
                 assertEquals(
                     expected = NetworkHandlerError.NOT_CONNECTED.message,
-                    actual = e.message
+                    actual = e.message,
                 )
             }
         }

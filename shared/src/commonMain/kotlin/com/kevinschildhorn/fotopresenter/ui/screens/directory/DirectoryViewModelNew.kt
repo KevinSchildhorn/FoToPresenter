@@ -37,7 +37,6 @@ class DirectoryViewModelNew(
     private val dataSource: ImageMetadataDataSource,
     private val logger: Logger,
 ) : ViewModel(), KoinComponent {
-
     /*
      * UI State
      */
@@ -48,9 +47,10 @@ class DirectoryViewModelNew(
             .combine(directoryNavigator.currentDirectoryContents) { uiState, directoryContents ->
                 imagePreviewNavigator.setFolderContents(directoryContents.images)
                 uiState.copy(
-                    directoryGridUIState = directoryContents.asDirectoryGridUIState(
-                        directoryNavigator.currentPath
-                    ),
+                    directoryGridUIState =
+                        directoryContents.asDirectoryGridUIState(
+                            directoryNavigator.currentPath,
+                        ),
                     state = if (uiState.state is UiState.ERROR) uiState.state else UiState.SUCCESS,
                 )
             }
@@ -60,7 +60,7 @@ class DirectoryViewModelNew(
                 when (uiState.overlayUiState) {
                     is DirectoryOverlayUiState.ImagePreview,
                     DirectoryOverlayUiState.None,
-                        -> {
+                    -> {
                         val selectionState =
                             if (imagePreview != null) {
                                 DirectoryOverlayUiState.ImagePreview(imagePreview)
@@ -80,11 +80,12 @@ class DirectoryViewModelNew(
                 initialValue = DirectoryScreenUIState(),
             )
 
-    fun onSearch(searchText: String) = viewModelScope.launch(Dispatchers.Default) {
-        logger.i { "Setting Search Text" }
-        _uiState.update { it.copy(searchText = searchText) }
-        directoryNavigator.setSearch(searchText)
-    }
+    fun onSearch(searchText: String) =
+        viewModelScope.launch(Dispatchers.Default) {
+            logger.i { "Setting Search Text" }
+            _uiState.update { it.copy(searchText = searchText) }
+            directoryNavigator.setSearch(searchText)
+        }
 
     fun showOverlay(state: DirectoryOverlayType) {
         logger.i { "Showing overlay: $state" }
@@ -176,8 +177,7 @@ class DirectoryViewModelNew(
 
     //region Image Preview
 
-    fun setSelectedImageById(imageId: Long?) =
-        imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
+    fun setSelectedImageById(imageId: Long?) = imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
 
     fun clearPresentedImage() = imagePreviewNavigator.setImageIndex(null)
 
@@ -189,12 +189,13 @@ class DirectoryViewModelNew(
 
     //region Actions
 
-    fun startSlideShow(directory: Directory) = viewModelScope.launch(Dispatchers.Default) {
-        val images = directoryNavigator.getDirectoryContents(directory.details.fullPath).images
-        _uiState.update {
-            it.copy(slideshowDetails = ImageSlideshowDetails(images))
+    fun startSlideShow(directory: Directory) =
+        viewModelScope.launch(Dispatchers.Default) {
+            val images = directoryNavigator.getDirectoryContents(directory.details.fullPath).images
+            _uiState.update {
+                it.copy(slideshowDetails = ImageSlideshowDetails(images))
+            }
         }
-    }
 
     fun addLocationToPlaylist(dynamic: Boolean) {} // TODO
 
@@ -240,6 +241,7 @@ class DirectoryViewModelNew(
             currentPath = path,
             folderStates =
                 folders.map {
+                    logger.i { "Folder Map: ${it.name} : ${it.id}" }
                     DirectoryGridCellUIState.Folder(it.name, it.id)
                 },
             imageStates =

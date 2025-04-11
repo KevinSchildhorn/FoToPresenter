@@ -1,22 +1,15 @@
 package com.kevinschildhorn.fotopresenter.domain
 
-import com.kevinschildhorn.fotopresenter.data.Path
-import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
-import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerError
-import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.testingModule
 import kotlinx.coroutines.runBlocking
-import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
-import kotlin.test.assertEquals
-import kotlin.test.fail
 
 /**
 Testing [RetrieveImageDirectoriesUseCase]

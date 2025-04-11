@@ -27,7 +27,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ScreenState
  **/
 data class DirectoryScreenUIState(
     override val state: UiState = UiState.IDLE,
-    val searchText:String = "",
+    val searchText: String = "",
     var directoryGridUIState: DirectoryGridUIState =
         DirectoryGridUIState(
             Path.EMPTY,
@@ -41,6 +41,14 @@ data class DirectoryScreenUIState(
 
     val currentPathList: List<Path>
         get() = directoryGridUIState.currentPath.pathList
+
+    override fun toString(): String =
+        """
+        state:$state
+        directoryGridUIState: $directoryGridUIState
+        overlayUiState: $overlayUiState
+        slideshowDetails: $slideshowDetails
+        """.trimIndent()
 }
 
 /**
@@ -63,6 +71,7 @@ data class DirectoryGridUIState(
     override fun toString(): String =
         """
         Directory Grid State:
+        currentPath: '$currentPath'
         Folders: ${folderStates.count()}
             ${folderStates.joinToString(", ") { it.toString() }}
         Images: ${imageStates.count()}

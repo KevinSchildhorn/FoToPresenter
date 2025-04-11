@@ -54,12 +54,13 @@ fun ActionSheet(
         ) {
             Spacer(modifier = Modifier.fillMaxWidth())
             Column(
-                modifier = Modifier
-                    .clip(shape = RoundedCornerShape(15.dp))
-                    .fillMaxWidth()
-                    .padding(10.dp)
-                    .weight(1f, false)
-                    .background(fotoColors.secondary),
+                modifier =
+                    Modifier
+                        .clip(shape = RoundedCornerShape(15.dp))
+                        .fillMaxWidth()
+                        .padding(10.dp)
+                        .weight(1f, false)
+                        .background(fotoColors.secondary),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 LazyColumn {
