@@ -18,6 +18,7 @@ object TestTags {
     val OVERLAY_SHADOW = TestTagImpl("OverlayShadow")
     val ACTION_SHEET = TestTagImpl("ActionSheet")
 
+    @Suppress("ktlint:standard:function-naming")
     fun ACTION_SHEET_ITEM(action: ActionSheetAction) = TestTagImpl("ActionSheetItem-${action.name}")
 
     enum class Login(override val value: String) : TestTag {
@@ -32,11 +33,13 @@ object TestTags {
     }
 
     object Directory {
+        @Suppress("ktlint:standard:function-naming")
         fun DIRECTORY(
             index: Int,
             name: String,
         ) = TestTagImpl("Directory-index$index-$name")
 
+        @Suppress("ktlint:standard:function-naming")
         fun IMAGE_PREVIEW(imageName: String) = TestTagImpl("ImagePreview-$imageName")
 
         val NAVIGATION_BAR = TestTagImpl("NavigationBar")

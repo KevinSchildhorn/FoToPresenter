@@ -29,7 +29,8 @@ import com.kevinschildhorn.fotopresenter.ui.testTag
 
 @Composable
 fun ActionSheet(
-    visible: Boolean, // TODO: Not always being used
+    // TODO: "Visible" Not always being used
+    visible: Boolean,
     offset: Int,
     values: List<ActionSheetContext>,
     onClick: (ActionSheetContext) -> Unit,
