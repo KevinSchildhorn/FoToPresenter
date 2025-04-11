@@ -174,8 +174,7 @@ tasks.withType<Copy> {
 }
 
 ktlint {
-    filter {
-    }
+    enableExperimentalRules.set(true)
 }
 
 kover {
