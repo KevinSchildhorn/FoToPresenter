@@ -37,7 +37,7 @@ fun DirectoryGrid(
         columns = GridCells.Fixed(gridSize),
         modifier = modifier.zIndex(0f),
     ) {
-        itemsIndexed(directoryContent.allStates, key = { _, item -> item.id }) { index, state ->
+        itemsIndexed(directoryContent.allStates) { index, state ->
             val directoryItemModifier =
                 Modifier
                     .testTag(TestTags.Directory.DIRECTORY(index, state.name))

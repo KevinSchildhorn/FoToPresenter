@@ -5,9 +5,11 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
+import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.onNodeWithTag
 import com.kevinschildhorn.fotopresenter.testingModule
+import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryScreen
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
@@ -31,6 +33,7 @@ Gets data from [MockNetworkHandler]
 @OptIn(ExperimentalTestApi::class, ExperimentalCoroutinesApi::class)
 class DirectoryScreenTestNav : KoinTest {
     private val viewModel: DirectoryViewModelNew by inject()
+    private val logger = Logger.withTag("DirectoryScreenTestNav")
 
     @Before
     fun startTest() {
@@ -50,6 +53,7 @@ class DirectoryScreenTestNav : KoinTest {
     @Test
     fun navigation() =
         runComposeUiTest {
+            logger.i { "navigation test" }
             Dispatchers.setMain(Dispatchers.IO)
 
             setContent {
@@ -60,14 +64,17 @@ class DirectoryScreenTestNav : KoinTest {
                     onShowPlaylists = {},
                 )
             }
+            viewModel.setSortType(SortingType.NAME_ASC)
 
             // Initial State
+            logger.i { "Asserting initial UI State" }
             onNodeWithTag(TestTags.Directory.NAVIGATION_BAR).assertExists()
             onNodeWithTag(TestTags.Directory.TopBar.TOP_BAR).assertExists()
             onNodeWithTag(TestTags.Directory.NavigationRail.NAVIGATION_RAIL).assertExists()
             onNodeWithTag("NavItemHome").assertExists()
 
             /** See [MockNetworkHandler.networkContents] */
+            logger.i { "Asserting initial Directory UI State" }
             onNodeWithTag(TestTags.Directory.DIRECTORY(0, "NewDirectory")).assertExists()
             onNodeWithTag(TestTags.Directory.DIRECTORY(1, "Photos")).assertExists()
             onNodeWithTag(TestTags.Directory.DIRECTORY(2, "Jaypeg")).assertExists()
@@ -75,6 +82,7 @@ class DirectoryScreenTestNav : KoinTest {
             onNodeWithTag(TestTags.Directory.DIRECTORY(4, "textFile")).assertDoesNotExist()
 
             // Going Forward
+            logger.i { "Clicking on Photos" }
             val directory = "Photos"
             onNodeWithTag(TestTags.Directory.DIRECTORY(1, directory)).performClick()
             waitForIdle()
@@ -84,14 +92,17 @@ class DirectoryScreenTestNav : KoinTest {
             onNodeWithTag(TestTags.Directory.DIRECTORY(3, "textFile2")).assertDoesNotExist()
 
             // Going Forward Again
+            logger.i { "Clicking on SubPhotos" }
             val subDirectory = "SubPhotos"
             onNodeWithTag(TestTags.Directory.DIRECTORY(0, subDirectory)).performClick()
             waitForIdle()
             onNodeWithTag("NavItem$directory").assertExists()
             onNodeWithTag("NavItem$subDirectory").assertExists()
-            onNodeWithTag(TestTags.Directory.DIRECTORY(1, "Peeng3")).assertExists()
+            val directoryName = TestTags.Directory.DIRECTORY(2, "Peeng3")
+            onNodeWithTag(directoryName).assertExists()
 
             // Going Backward
+            logger.i { "Clicking back to $directory on NavItem" }
             onNodeWithTag("NavItem$directory").performClick()
             waitForIdle()
             onNodeWithTag("NavItem$directory").assertExists()

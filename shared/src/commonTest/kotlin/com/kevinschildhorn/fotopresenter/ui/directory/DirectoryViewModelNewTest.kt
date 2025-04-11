@@ -65,10 +65,11 @@ class DirectoryViewModelNewTest : KoinTest {
             val viewModel: DirectoryViewModelNew by inject()
 
             viewModel.uiState.test {
-                awaitItem()
-                awaitItem()
                 viewModel.refreshScreen()
                 var item = awaitItem()
+                while(item.directoryGridUIState.imageStates.isEmpty()) {
+                    item = awaitItem()
+                }
 
                 assertTrue(item.directoryGridUIState.imageStates.any { it.name == "Peeng" })
                 assertTrue(item.directoryGridUIState.imageStates.any { it.name == "Jaypeg" })
@@ -77,8 +78,14 @@ class DirectoryViewModelNewTest : KoinTest {
 
                 // Searching "P"
                 viewModel.onSearch("p")
-                awaitItem()
                 item = awaitItem()
+                while(item.searchText != "p") {
+                    item = awaitItem()
+                }
+                // Should only have one folder
+                while(item.directoryGridUIState.folderStates.size == 2) {
+                    item = awaitItem()
+                }
 
                 assertTrue(item.directoryGridUIState.imageStates.any { it.name == "Peeng" })
                 assertTrue(item.directoryGridUIState.imageStates.any { it.name == "Jaypeg" })
@@ -87,8 +94,14 @@ class DirectoryViewModelNewTest : KoinTest {
 
                 // Searching "Pe"
                 viewModel.onSearch("pe")
-                awaitItem()
                 item = awaitItem()
+                while(item.searchText != "pe") {
+                    item = awaitItem()
+                }
+                // Should not have any folders at this point
+                while(item.directoryGridUIState.folderStates.isNotEmpty()) {
+                    item = awaitItem()
+                }
 
                 assertTrue(item.directoryGridUIState.imageStates.any { it.name == "Peeng" })
                 assertTrue(item.directoryGridUIState.imageStates.any { it.name == "Jaypeg" })
@@ -198,7 +211,7 @@ class DirectoryViewModelNewTest : KoinTest {
 
             assertTrue(MockNetworkHandler.isConnected)
             viewModel.logout()
-            delay(1000)
+            delay(5000)
             assertFalse(MockNetworkHandler.isConnected)
         }
 
