@@ -20,8 +20,8 @@ These are handled using short clicks and long clicks on mobile, and left and rig
 - [X] UI
 - [X] ViewModel
 - [X] Use Cases Work
-- [ ] Unit Tests
-- [ ] UI Tests
+- [X] Unit Tests
+- [X] UI Tests
 
 ## Use Cases
 * [Edit Image Metadata Use Case](UseCases/EditImageMetadataUseCase.md)
