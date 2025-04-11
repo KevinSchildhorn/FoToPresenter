@@ -94,6 +94,7 @@ kotlin {
                 api(libs.core.ktx)
                 implementation(libs.atomik)
                 implementation(libs.android.driver)
+                implementation(libs.accompanist.systemuicontroller)
             }
         }
         /*

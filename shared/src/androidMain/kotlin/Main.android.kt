@@ -1,4 +1,7 @@
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
@@ -12,4 +15,15 @@ fun MainView(
     directoryViewModel: DirectoryViewModel,
     slideshowViewModel: SlideshowViewModel,
     playlistViewModel: PlaylistViewModel,
-) = App(loginViewModel, directoryViewModel, slideshowViewModel, playlistViewModel)
+) {
+    val systemUiController = rememberSystemUiController()
+    SideEffect {
+        // Update all of the system bar colors to be transparent, and use
+        // dark icons if we're use a light theme
+        systemUiController.setSystemBarsColor(
+            color = Color.Transparent,
+            darkIcons = true
+        )
+    }
+    App(loginViewModel, directoryViewModel, slideshowViewModel, playlistViewModel)
+}

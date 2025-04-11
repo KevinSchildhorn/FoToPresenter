@@ -1,7 +1,10 @@
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -35,7 +38,7 @@ fun App(
         NavHost(
             navController = navController,
             startDestination = Screen.LOGIN.name,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().safeDrawingPadding(),
         ) {
             composable(route = Screen.LOGIN.name) {
                 LoginScreen(loginViewModel) {

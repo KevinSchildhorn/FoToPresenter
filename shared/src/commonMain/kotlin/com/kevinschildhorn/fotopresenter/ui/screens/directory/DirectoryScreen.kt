@@ -82,8 +82,8 @@ fun DirectoryScreen(
                 onPlaylists = onShowPlaylists,
             )
         },
-    ) {
-        Column {
+    ) { paddingValues ->
+        Column(modifier = Modifier.padding(paddingValues)) {
             // Error View
             (uiState.state as? UiState.ERROR)?.let {
                 ErrorView(
