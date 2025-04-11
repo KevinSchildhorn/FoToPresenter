@@ -20,6 +20,11 @@ interface NetworkHandler {
 
     suspend fun getSharedImage(path: Path): SharedImage?
 
+    suspend fun setSharedImage(
+        path: Path,
+        sharedImage: SharedImage,
+    ): Boolean
+
     suspend fun folderExists(path: Path): Boolean?
 
     suspend fun savePlaylist(

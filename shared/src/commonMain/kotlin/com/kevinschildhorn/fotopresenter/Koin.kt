@@ -39,7 +39,7 @@ val commonModule =
         single { CredentialsDataSource(get()) }
         single { CredentialsRepository(get()) }
         single { DirectoryDataSource(get(), getLoggerWithTag("DirectoryDataSource$LOGGER_TAG_SUFFIX")) }
-        single { DirectoryRepository(get(), get(), getLoggerWithTag("DirectoryRepository$LOGGER_TAG_SUFFIX")) }
+        single { DirectoryRepository(get(), getLoggerWithTag("DirectoryRepository$LOGGER_TAG_SUFFIX")) }
         // single { CachedImageDataSource(get(), getLoggerWithTag("ImageCacheDataSource$LoggerTagSuffix")) }
         single { PlaylistFileDataSource(getLoggerWithTag("PlaylistDataSource$LOGGER_TAG_SUFFIX"), get()) }
         single { PlaylistSQLDataSource(get(), getLoggerWithTag("PlaylistDataSource$LOGGER_TAG_SUFFIX")) }

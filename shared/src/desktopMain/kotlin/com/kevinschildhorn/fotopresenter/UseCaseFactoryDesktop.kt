@@ -49,7 +49,6 @@ actual object UseCaseFactory {
     val directoryRepository =
         DirectoryRepository(
             directoryDataSource,
-            imageMetadataDataSource,
             logger = baseLogger.withTag("DirectoryRepository"),
         )
     private val playlistSQLDataSource =

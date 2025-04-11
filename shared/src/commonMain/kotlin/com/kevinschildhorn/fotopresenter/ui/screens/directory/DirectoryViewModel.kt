@@ -217,13 +217,13 @@ class DirectoryViewModel(
         }
 
     fun saveMetadata(metadata: String) =
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             uiState.value.overlayUiState.castTo<DirectoryOverlayUiState.Actions>()
                 ?.let { actionState ->
                     dataSource.writeMetadataToFile(metadata, actionState.directory.details.fullPath)
                     clearOverlay()
                 }
-        } // TODO
+        }
 
     fun clearOverlay() = _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
 

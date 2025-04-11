@@ -22,7 +22,7 @@ fun MainView(
         // dark icons if we're use a light theme
         systemUiController.setSystemBarsColor(
             color = Color.Transparent,
-            darkIcons = true
+            darkIcons = true,
         )
     }
     App(loginViewModel, directoryViewModel, slideshowViewModel, playlistViewModel)

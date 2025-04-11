@@ -108,6 +108,12 @@ object SMBJHandler : NetworkHandler {
             sharedImage
         } ?: run { null }
 
+    @Throws
+    override suspend fun setSharedImage(
+        path: Path,
+        sharedImage: SharedImage,
+    ): Boolean = writeFile(fileName = path.toString(), contents = sharedImage.byteArray)
+
     override suspend fun folderExists(path: Path): Boolean? {
         return share?.folderExists(path.toString())
     }
@@ -124,7 +130,7 @@ object SMBJHandler : NetworkHandler {
     override suspend fun savePlaylist(
         playlistName: String,
         json: String,
-    ): Boolean = writeFile(fileName = "$playlistName.playlist.json", contents = json)
+    ): Boolean = writeFile(fileName = "$playlistName.playlist.json", contents = json.toByteArray())
 
     override suspend fun getPlaylists(): List<String> =
         getDirectoryContents(Path.EMPTY)
@@ -159,7 +165,7 @@ object SMBJHandler : NetworkHandler {
 
     private fun writeFile(
         fileName: String,
-        contents: String,
+        contents: ByteArray,
     ): Boolean {
         logger.i { "Writing File" }
         val fileAttributes: MutableSet<FileAttributes> = HashSet()
@@ -181,7 +187,7 @@ object SMBJHandler : NetworkHandler {
             file?.let {
                 logger.i { "Got the file, writing contents" }
                 val oStream: OutputStream = it.outputStream
-                oStream.write(contents.toByteArray())
+                oStream.write(contents)
                 oStream.flush()
                 oStream.close()
                 logger.i { "Got the file, writing contents" }
