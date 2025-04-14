@@ -15,8 +15,15 @@ data class DirectoryContents(
 
     fun sorted(sortingType: SortingType): DirectoryContents {
         return DirectoryContents(
-            folders = folders.sorted(sortingType) as List<FolderDirectory>,
-            images = images.sorted(sortingType) as List<ImageDirectory>,
+            folders = folders.sorted(sortingType),
+            images = images.sorted(sortingType),
+        )
+    }
+
+    fun filtered(string: String): DirectoryContents {
+        return DirectoryContents(
+            folders = folders.filtered(string),
+            images = images.filtered(string),
         )
     }
 

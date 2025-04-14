@@ -41,6 +41,11 @@ Alex decides now that they want to see what **Libraries** they have set up. They
 
 Alex wants to select a **Library** to browse from the **Grid View**. They look at the **Libraries** *names* and *photo counts* to decide on what library they want to view. They decide on one **Library** and tap on it to ***open*** to a **Grid View** of the **Photos** in the **Library**[[7]](#Details).
 
+### Logging Out
+
+#### Use Case: Log Out
+
+Alex is done browsing and wants to logout. They open the side bar and click the logout button.
 
 
 ### Details

@@ -68,7 +68,8 @@ fun LoginScreenForm(
                 title = "Should autoConnect",
                 checked = uiState.shouldAutoConnect,
                 onCheckedChange = onShouldAutoConnectChange,
-                modifier = Modifier.fillMaxWidth().testTag(TestTags.Login.AUTO_CONNECT),
+                modifier = Modifier.fillMaxWidth(),
+                checkBoxModifier = Modifier.testTag(TestTags.Login.AUTO_CONNECT),
             )
             PrimaryTextButton(
                 title = "Log In",

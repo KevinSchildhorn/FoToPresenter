@@ -6,14 +6,12 @@ import com.kevinschildhorn.fotopresenter.data.FolderDirectory
 import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
-import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import kotlinx.coroutines.CancellationException
 
 class DirectoryRepository(
     private val directoryDataSource: DirectoryDataSource,
-    private val metadataDataSource: ImageMetadataDataSource,
     private val logger: Logger,
 ) {
     @Throws(NetworkHandlerException::class, CancellationException::class)
@@ -31,8 +29,6 @@ class DirectoryRepository(
             directoryDataSource.getFolderDirectories(path)
         val imageDirectories: List<NetworkDirectoryDetails> =
             directoryDataSource.getImageDirectories(path)
-
-        // val metaData = metadataDataSource.importMetaData()
 
         return DirectoryContents(
             folders = folderDirectories.map { FolderDirectory(it) },

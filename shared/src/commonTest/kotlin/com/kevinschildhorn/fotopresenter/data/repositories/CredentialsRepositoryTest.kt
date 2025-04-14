@@ -45,11 +45,11 @@ class CredentialsRepositoryTest : KoinTest {
             shouldAutoConnect = shouldAutoConnect,
         )
         val credentials = repository.fetchCredentials()
-        assertEquals(hostname, credentials.hostname)
-        assertEquals(sharedFolder, credentials.sharedFolder)
-        assertEquals(username, credentials.username)
-        assertEquals(password, credentials.password)
-        assertEquals(shouldAutoConnect, credentials.shouldAutoConnect)
+        assertEquals(expected = hostname, actual = credentials.hostname)
+        assertEquals(expected = sharedFolder, actual = credentials.sharedFolder)
+        assertEquals(expected = username, actual = credentials.username)
+        assertEquals(expected = password, actual = credentials.password)
+        assertEquals(expected = shouldAutoConnect, actual = credentials.shouldAutoConnect)
     }
 
     @Test
@@ -62,21 +62,21 @@ class CredentialsRepositoryTest : KoinTest {
             shouldAutoConnect = true,
         )
         var credentials = repository.fetchCredentials()
-        assertEquals(true, credentials.shouldAutoConnect)
+        assertEquals(expected = true, actual = credentials.shouldAutoConnect)
 
         repository.clearAutoConnect()
         credentials = repository.fetchCredentials()
 
-        assertEquals(false, credentials.shouldAutoConnect)
+        assertEquals(expected = false, actual = credentials.shouldAutoConnect)
     }
 
     @Test
-    fun `get_credentials`() {
-        // Implementation needed
-    }
-
-    @Test
-    fun `delete_credentials`() {
-        // Implementation needed
+    fun `get_credentials_empty`() {
+        val credentials = repository.fetchCredentials()
+        assertEquals(expected = "", actual = credentials.hostname)
+        assertEquals(expected = "", actual = credentials.sharedFolder)
+        assertEquals(expected = "", actual = credentials.username)
+        assertEquals(expected = "", actual = credentials.password)
+        assertEquals(expected = false, actual = credentials.shouldAutoConnect)
     }
 }

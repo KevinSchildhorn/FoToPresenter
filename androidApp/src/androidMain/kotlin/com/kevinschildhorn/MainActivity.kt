@@ -16,7 +16,6 @@ import com.kevinschildhorn.fotopresenter.startKoin
 import com.kevinschildhorn.fotopresenter.ui.SharedImageFetcher
 import com.kevinschildhorn.fotopresenter.ui.SMBJFetcher
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModel
-import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryViewModelNew
 import com.kevinschildhorn.fotopresenter.ui.screens.login.LoginViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistViewModel
 import com.kevinschildhorn.fotopresenter.ui.screens.slideshow.SlideshowViewModel
@@ -27,7 +26,7 @@ import org.koin.core.component.inject
 class MainActivity : AppCompatActivity(), KoinComponent {
 
     private val loginViewModel by viewModel<LoginViewModel>()
-    private val directoryViewModel by viewModel<DirectoryViewModelNew>()
+    private val directoryViewModel by viewModel<DirectoryViewModel>()
     private val slideshowViewModel by viewModel<SlideshowViewModel>()
     private val playlistViewModel by viewModel<PlaylistViewModel>()
     private val imageRepository: ImageRepository by inject()

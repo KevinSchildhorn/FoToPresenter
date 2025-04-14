@@ -16,7 +16,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
+import com.kevinschildhorn.fotopresenter.ui.testTag
 
 @Composable
 fun FotoDialog(
@@ -31,7 +33,8 @@ fun FotoDialog(
             modifier =
                 Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(16.dp)
+                    .testTag(TestTags.FOTO_DIALOG),
             shape = RoundedCornerShape(16.dp),
         ) {
             Column(
@@ -56,12 +59,12 @@ fun FotoDialog(
                         onClick = {
                             onDismissRequest()
                         },
-                        modifier = Modifier.padding(Padding.SMALL.dp),
+                        modifier = Modifier.padding(Padding.SMALL.dp).testTag(TestTags.DISMISS),
                     ) {
                         DialogButtonText("Dismiss")
                     }
                     onConfirmation?.let {
-                        PrimaryTextButton("Confirm") {
+                        PrimaryTextButton("Confirm", modifier = Modifier.testTag(TestTags.CONFIRM)) {
                             it()
                         }
                     }

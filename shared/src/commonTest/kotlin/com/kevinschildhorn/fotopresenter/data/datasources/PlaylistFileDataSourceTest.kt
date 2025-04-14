@@ -59,8 +59,8 @@ class PlaylistFileDataSourceTest {
 
             val existingPlaylist = playlists.firstOrNull()
             assertNotNull(existingPlaylist)
-            assertEquals("Existing", existingPlaylist.name)
-            assertEquals(2, existingPlaylist.items.count())
+            assertEquals(expected = "Existing", actual = existingPlaylist.name)
+            assertEquals(expected = 2, actual = existingPlaylist.items.count())
         }
 
     @Test
@@ -68,7 +68,7 @@ class PlaylistFileDataSourceTest {
         runBlocking {
             val dataSource = PlaylistFileDataSource(null, networkHandler)
             var playlists = dataSource.importPlaylists().toMutableList()
-            assertEquals(1, playlists.count())
+            assertEquals(expected = 1, actual = playlists.count())
 
             val result = dataSource.exportPlaylist(newPlaylist)
             assertTrue(result)
@@ -91,6 +91,6 @@ class PlaylistFileDataSourceTest {
             dataSource.deletePlaylist(searchedPlaylist)
 
             playlists = dataSource.importPlaylists()
-            assertEquals(1, playlists.count())
+            assertEquals(expected = 1, actual = playlists.count())
         }
 }

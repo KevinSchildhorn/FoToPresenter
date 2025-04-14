@@ -56,6 +56,7 @@ kotlin {
                 implementation(libs.multiplatform.settings)
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.kim)
+                implementation(libs.lifecycle.viewmodel.compose)
                 api(libs.coil)
                 implementation(libs.file.kache)
                 implementation(libs.compose.shimmer)
@@ -93,6 +94,7 @@ kotlin {
                 api(libs.core.ktx)
                 implementation(libs.atomik)
                 implementation(libs.android.driver)
+                implementation(libs.accompanist.systemuicontroller)
             }
         }
         /*
@@ -172,6 +174,10 @@ tasks.withType<Copy> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+ktlint {
+    enableExperimentalRules.set(true)
+}
+
 kover {
     currentProject {
         createVariant("custom") {
@@ -191,6 +197,7 @@ kover {
                 packages("com.kevinschildhorn.fotopresenter.ui.screens.common.composables")
                 packages("com.kevinschildhorn.fotopresenter.ui.atoms")
                 packages("com.kevinschildhorn.fotopresenter.ui.composables")
+                classes("ImageMetadataDataSource") // Uses Image Metadata library
                 // Auto Generated SQLDelight
                 classes("PlaylistDatabaseImpl")
             }

@@ -36,7 +36,7 @@ class DirectoryDataSourceTest {
     fun `change_Directory_Success`() =
         runBlocking {
             val success = dataSource.changeDirectory(Path("Photos"))
-            assertEquals(Path("Photos"), success)
+            assertEquals(expected = Path("Photos"), actual = success)
         }
 
     @Test
@@ -47,7 +47,10 @@ class DirectoryDataSourceTest {
                 dataSource.changeDirectory(Path("NonExistant"))
                 fail("Should've thrown exception")
             } catch (e: NetworkHandlerException) {
-                assertEquals(e.message, NetworkHandlerError.DIRECTORY_NOT_FOUND.message)
+                assertEquals(
+                    expected = NetworkHandlerError.DIRECTORY_NOT_FOUND.message,
+                    actual = e.message,
+                )
             }
         }
 
@@ -59,7 +62,10 @@ class DirectoryDataSourceTest {
                 dataSource.changeDirectory(Path(""))
                 fail("Should have thrown exception")
             } catch (e: NetworkHandlerException) {
-                assertEquals(e.message, NetworkHandlerError.NOT_CONNECTED.message)
+                assertEquals(
+                    expected = NetworkHandlerError.NOT_CONNECTED.message,
+                    actual = e.message,
+                )
             }
         }
 
@@ -71,21 +77,21 @@ class DirectoryDataSourceTest {
     fun `get_Directory_Contents_Success`() =
         runBlocking {
             val directories = dataSource.getFolderDirectories(Path("Directories"))
-            assertEquals(2, directories.count())
+            assertEquals(expected = 2, actual = directories.count())
         }
 
     @Test
     fun `get_Directory_Contents_Mixed`() =
         runBlocking {
             val directories = dataSource.getFolderDirectories(Path(""))
-            assertEquals(2, directories.count())
+            assertEquals(expected = 2, actual = directories.count())
         }
 
     @Test
     fun `get_Directory_Contents_Empty`() =
         runBlocking {
             val directories = dataSource.getFolderDirectories(Path("Photos"))
-            assertEquals(1, directories.count())
+            assertEquals(expected = 1, actual = directories.count())
         }
 
     //endregion
@@ -96,21 +102,21 @@ class DirectoryDataSourceTest {
     fun `get_Directory_Images_Success`() =
         runBlocking {
             val directories = dataSource.getImageDirectories(Path("Photos"))
-            assertEquals(2, directories.count())
+            assertEquals(expected = 2, actual = directories.count())
         }
 
     @Test
     fun `get_Directory_Images_Mixed`() =
         runBlocking {
             val directories = dataSource.getImageDirectories(Path(""))
-            assertEquals(2, directories.count())
+            assertEquals(expected = 2, actual = directories.count())
         }
 
     @Test
     fun `get_Directory_Images_Empty`() =
         runBlocking {
             val directories = dataSource.getImageDirectories(Path("Directories"))
-            assertEquals(0, directories.count())
+            assertEquals(expected = 0, actual = directories.count())
         }
 
     //endregion

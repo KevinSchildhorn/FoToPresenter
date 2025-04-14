@@ -51,16 +51,16 @@ class PlaylistSQLDataSourceTest {
     fun `Create_Playlist_Success`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val playlist = dataSource.createPlaylist("Playlist1")
-        assertEquals("Playlist1", playlist?.name)
-        assertEquals(1, playlist?.id)
+        assertEquals(expected = "Playlist1", actual = playlist?.name)
+        assertEquals(expected = 1, actual = playlist?.id)
     }
 
     @Test
     fun `Create_Playlist_Large`() {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         val playlist = dataSource.createPlaylist("Playlist1", imageDirectoryList)
-        assertEquals("Playlist1", playlist?.name)
-        assertEquals(1, playlist?.id)
+        assertEquals(expected = "Playlist1", actual = playlist?.name)
+        assertEquals(expected = 1, actual = playlist?.id)
         imageDirectoryList.forEach {
             val image = dataSource.getPlaylistImage(playlist?.id!!, it.details.fullPath)
             assertNotNull(image)
@@ -81,8 +81,8 @@ class PlaylistSQLDataSourceTest {
         val dataSource = PlaylistSQLDataSource(createInMemorySqlDriver())
         dataSource.createPlaylist("Playlist1")?.let { playlist ->
             val image = dataSource.insertPlaylistImage(playlist.id, imageDirectory)
-            assertEquals(playlist.id, image?.playlistId)
-            assertEquals(imageDirectory.details.fullPath, image?.directoryPath)
+            assertEquals(expected = playlist.id, actual = image?.playlistId)
+            assertEquals(expected = imageDirectory.details.fullPath, actual = image?.directoryPath)
         } ?: run {
             fail("Didn't Create Playlist")
         }
@@ -107,8 +107,8 @@ class PlaylistSQLDataSourceTest {
         val playlistName = "Playlist1"
         val playlist = dataSource.createPlaylist(playlistName)
         val selectedPlaylist = dataSource.getPlaylistByName(playlistName)
-        assertEquals(playlist?.name, selectedPlaylist?.name)
-        assertEquals(playlist?.id, selectedPlaylist?.id)
+        assertEquals(expected = playlist?.name, actual = selectedPlaylist?.name)
+        assertEquals(expected = playlist?.id, actual = selectedPlaylist?.id)
     }
 
     @Test
@@ -124,8 +124,8 @@ class PlaylistSQLDataSourceTest {
         val playlistName = "Playlist1"
         val playlist = dataSource.createPlaylist(playlistName)
         val selectedPlaylist = dataSource.getPlaylistById(playlist?.id ?: -1)
-        assertEquals(playlist?.name, selectedPlaylist?.name)
-        assertEquals(playlist?.id, selectedPlaylist?.id)
+        assertEquals(expected = playlist?.name, actual = selectedPlaylist?.name)
+        assertEquals(expected = playlist?.id, actual = selectedPlaylist?.id)
     }
 
     @Test
@@ -143,9 +143,9 @@ class PlaylistSQLDataSourceTest {
             val image2 = dataSource.getPlaylistImage(playlist.id, imageDirectory.details.fullPath)
             assertNotNull(image1)
             assertNotNull(image2)
-            assertEquals(image1.playlistId, image2.playlistId)
-            assertEquals(image1.id, image2.id)
-            assertEquals(image1.directoryPath, image2.directoryPath)
+            assertEquals(expected = image1.playlistId, actual = image2.playlistId)
+            assertEquals(expected = image1.id, actual = image2.id)
+            assertEquals(expected = image1.directoryPath, actual = image2.directoryPath)
         } ?: run {
             fail("Didn't Create Playlist")
         }

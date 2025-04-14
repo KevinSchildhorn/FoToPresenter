@@ -1,4 +1,8 @@
-# Directory Screen and ViewModel
+# Directory System Documentation
+
+This document describes the directory system implementation in the FoToPresenter application, which allows users to navigate an FTP/SMB servers.
+
+## Overview
 
 While the Directory Screen initially sounds like a straightforward screen, there's actually a lot going on here. This doc will cover what happens and how.
 
@@ -11,6 +15,18 @@ This Screen handles:
 * TODO: Starting a Slideshow from a Folder
 
 These are handled using short clicks and long clicks on mobile, and left and right clicks on desktop.
+
+### Status
+- [X] UI
+- [X] ViewModel
+- [X] Use Cases Work
+- [X] Unit Tests
+- [X] UI Tests
+
+## Use Cases
+* [Edit Image Metadata Use Case](UseCases/EditImageMetadataUseCase.md)
+* [Navigate Directories Use Case](UseCases/NavigateDirectoriesUseCase.md)
+* [Preview Image Use Case](UseCases/PreviewImageUseCase.md)
 
 ## Directory Navigation
 
@@ -27,7 +43,6 @@ This handles clicking on Folders (and the navigation bar), while clicking on ima
 
 Image previews appear if the user clicks on an image, which is shown in an overlay. This overlay shows an image and supports moving to next and previous image.
 The state of the preview is handled by the `ImagePreviewNavigator`. This handles the current image the user is looking at, and handles changes in which image is shown.
-
 
 ## Editing Image Metadata
 

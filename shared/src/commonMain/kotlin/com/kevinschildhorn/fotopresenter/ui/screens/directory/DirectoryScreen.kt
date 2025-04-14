@@ -8,13 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
+import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
@@ -26,6 +25,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.SortDialo
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationBar
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.AppNavigationRail
+import com.kevinschildhorn.fotopresenter.ui.testTag
 import kotlinx.coroutines.launch
 
 enum class DirectoryOverlayType {
@@ -38,7 +38,7 @@ enum class DirectoryOverlayType {
 
 @Composable
 fun DirectoryScreen(
-    viewModel: DirectoryViewModelNew,
+    viewModel: DirectoryViewModel,
     onLogout: () -> Unit,
     onStartSlideshow: (ImageSlideshowDetails) -> Unit,
     onShowPlaylists: () -> Unit,
@@ -47,28 +47,38 @@ fun DirectoryScreen(
         viewModel.refreshScreen()
     }
     val uiState by viewModel.uiState.collectAsState()
-    var overlayVisible by remember { mutableStateOf(DirectoryOverlayType.NONE) }
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val focusManager = LocalFocusManager.current
+
+    uiState.slideshowDetails?.let {
+        onStartSlideshow(it)
+    }
 
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
             DirectoryTopBar(
+                searchText = uiState.searchText,
                 showMenu = { scope.launch { scaffoldState.drawerState.open() } },
-                showOverlay = { overlayVisible = it },
+                onSearchChanged = { viewModel.onSearch(it) },
+                showOverlay = { viewModel.showOverlay(it) },
             )
         },
         drawerContent = { // TODO: Too wide
             AppNavigationRail(
-                onLogout = { overlayVisible = DirectoryOverlayType.LOGOUT_CONFIRMATION },
+                onLogout = {
+                    scope.launch {
+                        scaffoldState.drawerState.close()
+                    }
+                    viewModel.showOverlay(DirectoryOverlayType.LOGOUT_CONFIRMATION)
+                },
                 onPlaylists = onShowPlaylists,
             )
         },
-    ) {
-        // Content
-        Column {
+    ) { paddingValues ->
+        Column(modifier = Modifier.padding(paddingValues)) {
             // Error View
             (uiState.state as? UiState.ERROR)?.let {
                 ErrorView(
@@ -85,19 +95,26 @@ fun DirectoryScreen(
                 directories = uiState.currentPathList,
                 onHome = { viewModel.navigateBackToDirectory(-1) },
                 onItem = { viewModel.navigateBackToDirectory(it) },
-                modifier = Modifier.padding(Padding.SMALL.dp).testTag("DirectoryNavigationBar"),
+                modifier =
+                    Modifier.padding(Padding.SMALL.dp)
+                        .testTag(TestTags.Directory.NAVIGATION_BAR),
             )
             // Grid
             DirectoryGrid(
                 uiState.directoryGridUIState,
-                onFolderPressed = { folderId -> viewModel.navigateIntoDirectory(folderId) },
+                onFolderPressed = { folderId ->
+                    focusManager.clearFocus()
+                    viewModel.navigateIntoDirectory(folderId)
+                },
                 onImageDirectoryPressed = { imageDirectoryId ->
+                    focusManager.clearFocus()
                     viewModel.setSelectedImageById(imageDirectoryId)
-                    overlayVisible = DirectoryOverlayType.IMAGE
+                    viewModel.showOverlay(DirectoryOverlayType.IMAGE)
                 },
                 onActionSheet = { directoryUiState ->
+                    focusManager.clearFocus()
                     viewModel.setSelectedDirectory(directoryUiState)
-                    overlayVisible = DirectoryOverlayType.ACTION_SHEET
+                    viewModel.showOverlay(DirectoryOverlayType.ACTION_SHEET)
                 },
             )
         }
@@ -120,7 +137,10 @@ fun DirectoryScreen(
                     selectionState,
                     onAction = {
                         when (it) {
-                            ActionSheetAction.START_SLIDESHOW -> viewModel.startSlideShow()
+                            ActionSheetAction.START_SLIDESHOW -> {
+                                viewModel.startSlideShow(selectionState.directory)
+                            }
+
                             ActionSheetAction.ADD_STATIC_LOCATION ->
                                 viewModel.addLocationToPlaylist(dynamic = false)
 
@@ -145,17 +165,19 @@ fun DirectoryScreen(
                     onConfirmation = {
                         viewModel.logout()
                         onLogout()
-                        overlayVisible = DirectoryOverlayType.NONE
+                        viewModel.showOverlay(DirectoryOverlayType.NONE)
                     },
                 )
             }
+
             is DirectoryOverlayUiState.Sort -> {
+                println("Rendering Sort Dialog")
                 SortDialog(
                     "Sort Images by",
                     onDismissRequest = { viewModel.clearOverlay() },
                     onConfirmation = {
                         viewModel.setSortType(it)
-                        overlayVisible = DirectoryOverlayType.NONE
+                        viewModel.showOverlay(DirectoryOverlayType.NONE)
                     },
                 )
             }

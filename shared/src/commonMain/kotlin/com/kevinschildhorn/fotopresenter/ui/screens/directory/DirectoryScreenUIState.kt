@@ -27,6 +27,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ScreenState
  **/
 data class DirectoryScreenUIState(
     override val state: UiState = UiState.IDLE,
+    val searchText: String = "",
     var directoryGridUIState: DirectoryGridUIState =
         DirectoryGridUIState(
             Path.EMPTY,
@@ -34,12 +35,20 @@ data class DirectoryScreenUIState(
             mutableListOf(),
         ),
     val overlayUiState: DirectoryOverlayUiState = DirectoryOverlayUiState.None,
-    val slideshowDetails: ImageSlideshowDetails? = null, // TODO: Assess
+    val slideshowDetails: ImageSlideshowDetails? = null,
 ) : ScreenState {
     fun getImageIndexFromId(id: Long?): Int = directoryGridUIState.imageStates.indexOfFirst { it.id == id }
 
     val currentPathList: List<Path>
         get() = directoryGridUIState.currentPath.pathList
+
+    override fun toString(): String =
+        """
+        state:$state
+        directoryGridUIState: $directoryGridUIState
+        overlayUiState: $overlayUiState
+        slideshowDetails: $slideshowDetails
+        """.trimIndent()
 }
 
 /**
@@ -47,11 +56,8 @@ data class DirectoryScreenUIState(
  *
  * The UiState of Directory Grid, containing contents of the current directory
  *
- *
  * **currentPath** -    The current path in the FTP Server that is displayed
- *
  * **folderStates** -   The states for each folder displayed on screen
- *
  * **imageStates** -    The states for each image displayed on screen
  **/
 data class DirectoryGridUIState(
@@ -65,6 +71,7 @@ data class DirectoryGridUIState(
     override fun toString(): String =
         """
         Directory Grid State:
+        currentPath: '$currentPath'
         Folders: ${folderStates.count()}
             ${folderStates.joinToString(", ") { it.toString() }}
         Images: ${imageStates.count()}

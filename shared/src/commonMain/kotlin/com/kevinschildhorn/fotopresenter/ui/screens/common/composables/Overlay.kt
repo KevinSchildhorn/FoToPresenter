@@ -15,7 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.zIndex
+import com.kevinschildhorn.fotopresenter.ui.TestTags.OVERLAY_SHADOW
 import com.kevinschildhorn.fotopresenter.ui.atoms.shadow
+import com.kevinschildhorn.fotopresenter.ui.testTag
 
 @Composable
 fun Overlay(
@@ -67,6 +69,7 @@ fun OverlayShadow(
                     .zIndex(z)
                     .fillMaxSize()
                     .background(shadow)
+                    .testTag(OVERLAY_SHADOW)
                     .clickable(
                         interactionSource = interactionSource,
                         indication = null,

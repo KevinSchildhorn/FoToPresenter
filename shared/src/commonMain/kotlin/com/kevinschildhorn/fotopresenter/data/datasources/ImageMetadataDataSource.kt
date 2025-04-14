@@ -3,28 +3,26 @@ package com.kevinschildhorn.fotopresenter.data.datasources
 import co.touchlab.kermit.Logger
 import com.ashampoo.kim.Kim
 import com.ashampoo.kim.common.convertToPhotoMetadata
-import com.ashampoo.kim.format.tiff.constants.ExifTag
+import com.ashampoo.kim.model.MetadataUpdate
 import com.kevinschildhorn.fotopresenter.data.MetadataFileDetails
 import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
+import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 class ImageMetadataDataSource(
     private val logger: Logger?,
     private val networkHandler: NetworkHandler,
 ) {
     suspend fun readMetadataFromFile(filePath: Path): MetadataFileDetails? {
+        logger?.i { "readMetadataFromFile" }
         networkHandler.getSharedImage(filePath)?.let { sharedImage ->
+            logger?.i { "Reading MetaData" }
             val metadata = Kim.readMetadata(sharedImage.byteArray)
-            println(metadata)
-
-            val comments = metadata?.findStringValue(ExifTag.EXIF_TAG_USER_COMMENT)
-            val keywords = comments?.split(",") ?: emptyList()
-
-            val takenDate = metadata?.findStringValue(ExifTag.EXIF_TAG_DATE_TIME_ORIGINAL)
-            println("Taken date: $takenDate")
+            logger?.v { metadata.toString() }
 
             val photoMetadata = metadata?.convertToPhotoMetadata()
-            photoMetadata?.orientation
+            val keywords = photoMetadata?.keywords ?: emptySet()
+            logger?.v { keywords.toString() }
 
             return MetadataFileDetails(
                 filePath = filePath,
@@ -34,29 +32,27 @@ class ImageMetadataDataSource(
         return null
     }
 
-    // TODO
     suspend fun writeMetadataToFile(
         metadata: String,
         filePath: Path,
-    ): MetadataFileDetails? {
+    ): Boolean {
+        logger?.i { "writeMetadataToFile" }
+        logger?.v { "Getting Shared Image" }
         networkHandler.getSharedImage(filePath)?.let { sharedImage ->
-            val metadata = Kim.readMetadata(sharedImage.byteArray)
-            println(metadata)
+            try {
+                val set = metadata.split(",").toSet()
+                logger?.i { "Metadata: $set" }
+                val newByteArray = Kim.update(sharedImage.byteArray, MetadataUpdate.Keywords(set))
+                logger?.i { "Metadata Updated" }
 
-            val comments = metadata?.findStringValue(ExifTag.EXIF_TAG_USER_COMMENT)
-            val keywords = comments?.split(",") ?: emptyList()
-
-            val takenDate = metadata?.findStringValue(ExifTag.EXIF_TAG_DATE_TIME_ORIGINAL)
-            println("Taken date: $takenDate")
-
-            val photoMetadata = metadata?.convertToPhotoMetadata()
-            photoMetadata?.orientation
-
-            return MetadataFileDetails(
-                filePath = filePath,
-                tags = keywords.toSet(),
-            )
+                networkHandler.setSharedImage(filePath, SharedImage(byteArray = newByteArray))
+                logger?.i { "Shared Image Set" }
+                return true
+            } catch (e: Exception) {
+                logger?.e(e) { "Error Updating Metadata" }
+                return false
+            }
         }
-        return null
+        return false
     }
 }

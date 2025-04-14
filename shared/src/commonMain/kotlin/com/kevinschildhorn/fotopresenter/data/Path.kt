@@ -51,6 +51,13 @@ value class Path(private val pathString: String) {
             if (index < -1) {
                 ""
             } else {
+                val count = pathString.split("\\").count()
+                if (index > count) {
+                    throw Exception(
+                        "Index was out of bounds. There are $count directories and you tried to navigate to $index",
+                    )
+                }
+
                 pathString
                     .split("\\")
                     .joinToString("\\", limit = index + 1, truncated = "")

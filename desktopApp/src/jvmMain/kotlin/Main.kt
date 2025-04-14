@@ -5,6 +5,11 @@ import co.touchlab.kermit.Logger
 import coil3.ImageLoader
 import coil3.compose.setSingletonImageLoaderFactory
 import com.kevinschildhorn.fotopresenter.UseCaseFactory
+import com.kevinschildhorn.fotopresenter.UseCaseFactory.credentialsRepository
+import com.kevinschildhorn.fotopresenter.UseCaseFactory.directoryRepository
+import com.kevinschildhorn.fotopresenter.data.DirectoryNavigator
+import com.kevinschildhorn.fotopresenter.data.ImagePreviewNavigator
+import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.image.CachedImageDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.image.NetworkImageDataSource
 import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
@@ -28,12 +33,26 @@ object KoinPurse {
         )
 
     val loginViewModel =
-        LoginViewModel(baseLogger.withTag("LoginViewModel"), UseCaseFactory.credentialsRepository)
-    val directoryViewModel =
-        DirectoryViewModel(
-            UseCaseFactory.playlistRepository,
-            baseLogger.withTag("DirectoryViewModel")
+        LoginViewModel(
+            baseLogger.withTag("LoginViewModel"), UseCaseFactory.credentialsRepository,
+            SMBJHandler
         )
+
+    val imageMetadataDataSource = ImageMetadataDataSource(
+        logger = baseLogger.withTag("ImageMetadataDataSource"),
+        SMBJHandler,
+    )
+    val directoryNavigator = DirectoryNavigator(directoryRepository, baseLogger.withTag("DirectoryNavigator"))
+    val imagePreviewNavigator = ImagePreviewNavigator(baseLogger.withTag("ImagePreviewNavigator"))
+    val directoryViewModel = DirectoryViewModel(
+        directoryNavigator = directoryNavigator,
+        imagePreviewNavigator = imagePreviewNavigator,
+        credentialsRepository = credentialsRepository,
+        networkHandler = SMBJHandler,
+        dataSource = imageMetadataDataSource,
+        logger = baseLogger.withTag("DirectoryViewModelNew")
+    )
+
     val slideshowViewModel = SlideshowViewModel(baseLogger.withTag("SlideshowViewModel"))
     val playlistViewModel =
         PlaylistViewModel(
@@ -43,7 +62,6 @@ object KoinPurse {
     val imageRepository =
         ImageRepository(
             remoteImageDataSource,
-            localImageDataSource,
             baseLogger.withTag("ImageRepository")
         )
 }
