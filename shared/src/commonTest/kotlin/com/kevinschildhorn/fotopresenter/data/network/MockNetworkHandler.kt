@@ -163,6 +163,10 @@ object MockNetworkHandler : NetworkHandler {
         return null
     }
 
+    override suspend fun setSharedImage(path: Path, sharedImage: SharedImage): Boolean {
+        return true
+    }
+
     override suspend fun folderExists(path: Path): Boolean? =
         if (path == Path.EMPTY) {
             null

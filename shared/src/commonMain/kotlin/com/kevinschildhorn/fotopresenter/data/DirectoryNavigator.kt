@@ -60,7 +60,7 @@ class DirectoryNavigator(private val directoryRepository: DirectoryRepository, p
         _currentDirectoryContents.update { newDirectoryContents.sorted(sortType).filtered(searchText) }
     }
 
-    suspend fun getDirectoryContents(path: Path) = directoryRepository.getDirectoryContents(currentPath)
+    suspend fun getDirectoryContents(path: Path) = directoryRepository.getDirectoryContents(path)
 
     private suspend fun changeDirectoryToPath(path: Path) {
         currentPath = directoryRepository.changeDirectory(path)

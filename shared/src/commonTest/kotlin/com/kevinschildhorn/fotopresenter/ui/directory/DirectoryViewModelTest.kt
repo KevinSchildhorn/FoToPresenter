@@ -3,7 +3,11 @@ package com.kevinschildhorn.fotopresenter.ui.directory
 import app.cash.turbine.TurbineTestContext
 import app.cash.turbine.test
 import co.touchlab.kermit.Logger
+import com.kevinschildhorn.fotopresenter.data.FolderDirectory
+import com.kevinschildhorn.fotopresenter.data.Path
+import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
+import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.testingModule
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.UiState
@@ -324,6 +328,31 @@ class DirectoryViewModelTest : KoinTest {
                 )
             }
         }
+
+
+    @Test
+    fun startSlideShow() = runTest(testDispatcher) {
+        logger.i { "startSlideShow" }
+        val viewModel: DirectoryViewModel by inject()
+
+        viewModel.uiState.test {
+            logger.i { "Refreshing Screen" }
+            viewModel.refreshScreen()
+            var item = awaitUntilHasDirectories()
+            logger.i { "Got Initial State With Screen Data" }
+
+            val directory = FolderDirectory(DefaultNetworkDirectoryDetails(Path("Photos"),1L))
+            viewModel.startSlideShow(directory)
+
+            while(item.slideshowDetails == null) {
+                item = awaitItem()
+            }
+            assertNotNull(item.slideshowDetails)
+            assertEquals(2, item.slideshowDetails?.directories?.count())
+            assertTrue(item.slideshowDetails?.directories?.any { it.name == "Peeng2" } ?: false)
+            println(item)
+        }
+    }
 
     private suspend fun TurbineTestContext<DirectoryScreenUIState>.awaitUntilHasDirectories(): DirectoryScreenUIState {
         var item = awaitItem()
