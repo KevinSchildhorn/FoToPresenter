@@ -1,5 +1,6 @@
 @file:OptIn(ExperimentalKotlinGradlePluginApi::class)
 
+import com.codingfeline.buildkonfig.compiler.FieldSpec
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
@@ -12,6 +13,7 @@ plugins {
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.serialization)
     alias(libs.plugins.kover)
+    alias(libs.plugins.build.konfig)
 }
 
 kotlin {
@@ -82,6 +84,8 @@ kotlin {
                 implementation(libs.smbj)
                 implementation(compose.uiTooling)
                 implementation(libs.sqlite.driver)
+                api(libs.coil.network.okhttp)
+
             }
         }
 
@@ -202,5 +206,16 @@ kover {
                 classes("PlaylistDatabaseImpl")
             }
         }
+    }
+}
+
+buildkonfig {
+    packageName = "com.kevinschildhorn.fotopresenter"
+    defaultConfigs {
+        buildConfigField(
+            FieldSpec.Type.BOOLEAN,
+            "NETWORK_TESTING",
+            project.properties["network_testing"] as? String ?: ""
+        )
     }
 }

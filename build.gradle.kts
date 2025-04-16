@@ -9,4 +9,5 @@ plugins {
     alias(libs.plugins.sqldelight).apply(false)
     alias(libs.plugins.serialization).apply(false)
     alias(libs.plugins.kotlinMultiplatform).apply(false)
+    alias(libs.plugins.build.konfig).apply(false)
 }

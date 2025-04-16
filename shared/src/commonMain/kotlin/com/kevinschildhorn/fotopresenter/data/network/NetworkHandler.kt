@@ -1,8 +1,10 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
+import com.kevinschildhorn.fotopresenter.BuildKonfig
 import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
+
 
 interface NetworkHandler {
     val isConnected: Boolean

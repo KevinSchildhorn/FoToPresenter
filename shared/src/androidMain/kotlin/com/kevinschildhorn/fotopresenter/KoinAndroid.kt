@@ -9,7 +9,7 @@ import co.touchlab.kermit.Logger
 import co.touchlab.kermit.koin.kermitLoggerModule
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
-import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
+import com.kevinschildhorn.fotopresenter.data.network.defaultNetworkHandler
 import com.kevinschildhorn.fotopresenter.ui.shared.DriverFactory
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
@@ -46,12 +46,9 @@ internal actual val platformModule: Module =
             )
         }
         single<NetworkHandler> {
-            SMBJHandler
+            defaultNetworkHandler
         }
         single<SqlDriver> { DriverFactory(context = get()).createDriver() }
-        single<NetworkHandler> {
-            SMBJHandler
-        }
         single<SqlDriver> { DriverFactory(context = get()).createDriver() }
         /*
         single<CacheInterface> {

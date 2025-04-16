@@ -10,7 +10,7 @@ import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistFileDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistSQLDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.image.CachedImageDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
-import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
+import com.kevinschildhorn.fotopresenter.data.network.defaultNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
@@ -32,7 +32,7 @@ actual object UseCaseFactory {
 
     private val preferences: Preferences = Preferences.userRoot()
     private val settings = PreferencesSettings(preferences)
-    private val networkHandler: NetworkHandler = SMBJHandler
+    private val networkHandler: NetworkHandler = defaultNetworkHandler
     private val directoryDataSource =
         DirectoryDataSource(
             networkHandler,

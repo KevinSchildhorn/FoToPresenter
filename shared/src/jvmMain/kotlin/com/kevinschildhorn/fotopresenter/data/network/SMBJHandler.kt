@@ -12,10 +12,13 @@ import com.hierynomus.smbj.connection.Connection
 import com.hierynomus.smbj.session.Session
 import com.hierynomus.smbj.share.DiskShare
 import com.hierynomus.smbj.share.File
+import com.kevinschildhorn.fotopresenter.BuildKonfig
 import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import java.io.OutputStream
+
+val defaultNetworkHandler = if(BuildKonfig.NETWORK_TESTING) TestingHTTPHandler else SMBJHandler
 
 object SMBJHandler : NetworkHandler {
     private val client = SMBClient()

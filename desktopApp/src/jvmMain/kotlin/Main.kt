@@ -12,7 +12,7 @@ import com.kevinschildhorn.fotopresenter.data.ImagePreviewNavigator
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.image.CachedImageDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.image.NetworkImageDataSource
-import com.kevinschildhorn.fotopresenter.data.network.SMBJHandler
+import com.kevinschildhorn.fotopresenter.data.network.defaultNetworkHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
 import com.kevinschildhorn.fotopresenter.ui.SMBJFetcher
 import com.kevinschildhorn.fotopresenter.ui.SharedImageFetcher
@@ -25,7 +25,7 @@ import com.kevinschildhorn.fotopresenter.ui.shared.SharedFileCache
 
 object KoinPurse {
     val baseLogger = Logger
-    private val remoteImageDataSource: NetworkImageDataSource = NetworkImageDataSource(SMBJHandler)
+    private val remoteImageDataSource: NetworkImageDataSource = NetworkImageDataSource(defaultNetworkHandler)
     private val localImageDataSource: CachedImageDataSource =
         CachedImageDataSource(
             SharedFileCache("cache", baseLogger.withTag("SharedFileCache")),
@@ -35,12 +35,12 @@ object KoinPurse {
     val loginViewModel =
         LoginViewModel(
             baseLogger.withTag("LoginViewModel"), UseCaseFactory.credentialsRepository,
-            SMBJHandler
+            defaultNetworkHandler
         )
 
     val imageMetadataDataSource = ImageMetadataDataSource(
         logger = baseLogger.withTag("ImageMetadataDataSource"),
-        SMBJHandler,
+        defaultNetworkHandler,
     )
     val directoryNavigator = DirectoryNavigator(directoryRepository, baseLogger.withTag("DirectoryNavigator"))
     val imagePreviewNavigator = ImagePreviewNavigator(baseLogger.withTag("ImagePreviewNavigator"))
@@ -48,7 +48,7 @@ object KoinPurse {
         directoryNavigator = directoryNavigator,
         imagePreviewNavigator = imagePreviewNavigator,
         credentialsRepository = credentialsRepository,
-        networkHandler = SMBJHandler,
+        networkHandler = defaultNetworkHandler,
         dataSource = imageMetadataDataSource,
         logger = baseLogger.withTag("DirectoryViewModelNew")
     )
