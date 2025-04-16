@@ -53,6 +53,7 @@ fun DirectoryScreen(
     val focusManager = LocalFocusManager.current
 
     uiState.slideshowDetails?.let {
+        viewModel.clearOverlay()
         onStartSlideshow(it)
     }
 

@@ -18,7 +18,7 @@ class ImagePreviewNavigator(
     private var directories: List<ImageDirectory> = emptyList()
     private var index: Int = 0
 
-    val _imagePreviewState = MutableStateFlow<NetworkDirectoryDetails?>(null)
+    private val _imagePreviewState = MutableStateFlow<NetworkDirectoryDetails?>(null)
     val imagePreviewState: StateFlow<NetworkDirectoryDetails?> = _imagePreviewState.asStateFlow()
 
     fun setFolderContents(directories: List<ImageDirectory>) {

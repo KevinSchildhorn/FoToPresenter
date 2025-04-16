@@ -36,7 +36,7 @@ class SlideshowViewModel(
         }
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.Eagerly,//(5_000),
+            started = SharingStarted.WhileSubscribed(50_000),
             initialValue = SlideshowScreenUiState.Loading(0),
         )
 

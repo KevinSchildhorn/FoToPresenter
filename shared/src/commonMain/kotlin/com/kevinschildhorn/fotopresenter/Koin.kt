@@ -47,7 +47,7 @@ val commonModule =
         single { ImageRepository(get(), getLoggerWithTag("ImageRepository$LOGGER_TAG_SUFFIX")) }
         single<CacheInterface> { SharedInMemoryCache }
         single { DirectoryNavigator(get(), getLoggerWithTag("DirectoryNavigator$LOGGER_TAG_SUFFIX")) }
-        single { ImagePreviewNavigator(getLoggerWithTag("ImagePreviewNavigator$LOGGER_TAG_SUFFIX")) }
+        factory { ImagePreviewNavigator(getLoggerWithTag("ImagePreviewNavigator$LOGGER_TAG_SUFFIX")) }
 
         // Domain
         factory { ChangeDirectoryUseCase(get(), getLoggerWithTag("ChangeDirectoryUseCase$LOGGER_TAG_SUFFIX")) }
