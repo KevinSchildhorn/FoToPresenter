@@ -79,7 +79,7 @@ object TestingHTTPHandler : NetworkHandler {
     }
 
     override suspend fun getSharedImage(path: Path): SharedImage? =
-        SharedImage(ByteArray(0), path.fileName)
+        SharedImage(ByteArray(0))
 
 
     override suspend fun setSharedImage(
