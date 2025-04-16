@@ -18,7 +18,6 @@ import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
-import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 import com.kevinschildhorn.fotopresenter.extension.LOGGER_TAG_SUFFIX
@@ -73,12 +72,11 @@ val commonModule =
                 getLoggerWithTag("RetrieveDirectoryContentsUseCase$LOGGER_TAG_SUFFIX"),
             )
         }
-        factory { RetrieveImageUseCase(get(), getLoggerWithTag("RetrieveImageUseCase$LOGGER_TAG_SUFFIX")) }
         factory { SaveMetadataForPathUseCase(get()) }
         // UI
         single { LoginViewModel(getLoggerWithTag("LoginViewModel$LOGGER_TAG_SUFFIX"), get(), get()) }
         single { DirectoryViewModel(get(), get(), get(), get(), get(), getLoggerWithTag("DirectoryViewModelNew$LOGGER_TAG_SUFFIX")) }
-        single { SlideshowViewModel(getLoggerWithTag("SlideshowViewModel$LOGGER_TAG_SUFFIX")) }
+        single { SlideshowViewModel(get(), getLoggerWithTag("SlideshowViewModel$LOGGER_TAG_SUFFIX")) }
         single { PlaylistViewModel(get(), getLoggerWithTag("PlaylistViewModel$LOGGER_TAG_SUFFIX")) }
     }
 

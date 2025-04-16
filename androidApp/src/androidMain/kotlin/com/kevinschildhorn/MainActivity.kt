@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), KoinComponent {
                 ImageLoader.Builder(context)
                     .components {
                         add(SMBJFetcher.Factory(imageRepository, Logger))
-                        add(SharedImageFetcher.Factory(Logger))
+                        //add(SharedImageFetcher.Factory(Logger))
                         add(
                             OkHttpNetworkFetcherFactory(
                                 callFactory = {

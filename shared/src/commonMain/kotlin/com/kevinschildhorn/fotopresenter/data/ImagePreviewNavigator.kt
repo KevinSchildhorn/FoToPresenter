@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter.data
 
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,9 +18,8 @@ class ImagePreviewNavigator(
     private var directories: List<ImageDirectory> = emptyList()
     private var index: Int = 0
 
-    private val _imagePreviewState = MutableStateFlow<NetworkDirectoryDetails?>(null)
-    val imagePreviewState: StateFlow<NetworkDirectoryDetails?> =
-        _imagePreviewState.asStateFlow()
+    val _imagePreviewState = MutableStateFlow<NetworkDirectoryDetails?>(null)
+    val imagePreviewState: StateFlow<NetworkDirectoryDetails?> = _imagePreviewState.asStateFlow()
 
     fun setFolderContents(directories: List<ImageDirectory>) {
         logger.i { "Setting Directory Contents" }

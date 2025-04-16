@@ -23,7 +23,7 @@ object TestingHTTPHandler : NetworkHandler {
             Path("Photos") to
                     listOf<NetworkDirectoryDetails>(
                         DefaultNetworkDirectoryDetails(
-                            fullPath = Path("Photos"),
+                            fullPath = Path("SubPhotos"),
                             id = 1,
                         ),
                         DefaultNetworkDirectoryDetails(

@@ -60,7 +60,7 @@ class DirectoryViewModel(
                 when (uiState.overlayUiState) {
                     is DirectoryOverlayUiState.ImagePreview,
                     DirectoryOverlayUiState.None,
-                    -> {
+                        -> {
                         val selectionState =
                             if (imagePreview != null) {
                                 DirectoryOverlayUiState.ImagePreview(imagePreview)
@@ -177,7 +177,8 @@ class DirectoryViewModel(
 
     //region Image Preview
 
-    fun setSelectedImageById(imageId: Long?) = imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
+    fun setSelectedImageById(imageId: Long?) =
+        imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
 
     fun clearPresentedImage() = imagePreviewNavigator.setImageIndex(null)
 
@@ -196,6 +197,12 @@ class DirectoryViewModel(
                 it.copy(slideshowDetails = ImageSlideshowDetails(images))
             }
         }
+
+    fun clearSlideshow() {
+        _uiState.update {
+            it.copy(slideshowDetails = null)
+        }
+    }
 
     fun addLocationToPlaylist(dynamic: Boolean) {} // TODO
 

@@ -46,9 +46,7 @@ fun SlideshowScreen(
     viewModel: SlideshowViewModel,
     onDismiss: () -> Unit,
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-    val imageState by viewModel.imageUiState.collectAsState()
-
+    val imageState by viewModel.uiState.collectAsState()
     var show by remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
@@ -59,24 +57,25 @@ fun SlideshowScreen(
     }
 
     Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
-        imageState.selectedImage?.let { sharedImage ->
-            Crossfade(imageState.selectedImageIndex, animationSpec = tween(500)) {
-                AsyncImage(
-                    model = sharedImage,
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize(),
-                )
+        val details = imageState
+        when (details) {
+            is SlideshowScreenUiState.Loading -> LoadingOverlay()
+            is SlideshowScreenUiState.Ready -> {
+                Crossfade(imageState.selectedImageIndex, animationSpec = tween(500)) {
+                    AsyncImage(
+                        model = details.selectedImageDirectory.fullPath.fileName,
+                        contentDescription = null,
+                        modifier = Modifier.fillMaxSize(),
+                    )
+                }
             }
-        } ?: kotlin.run {
-            LoadingOverlay()
         }
     }
 
     Overlay(
         5f,
         visible = true,
-        onDismiss = {
-        },
+        onDismiss = {},
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),

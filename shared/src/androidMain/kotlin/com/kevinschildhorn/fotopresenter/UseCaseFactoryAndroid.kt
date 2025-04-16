@@ -7,7 +7,6 @@ import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
-import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 import org.koin.core.component.KoinComponent
@@ -42,11 +41,6 @@ actual object UseCaseFactory : KoinComponent {
     actual val retrieveDirectoryContentsUseCase: RetrieveDirectoryContentsUseCase
         get() {
             val useCase: RetrieveDirectoryContentsUseCase by inject()
-            return useCase
-        }
-    actual val retrieveImageUseCase: RetrieveImageUseCase
-        get() {
-            val useCase: RetrieveImageUseCase by inject()
             return useCase
         }
     actual val saveMetadataForPathUseCase: SaveMetadataForPathUseCase
