@@ -138,9 +138,11 @@ fun DirectoryScreen(
                     selectionState,
                     onAction = {
                         when (it) {
-                            ActionSheetAction.START_SLIDESHOW -> {
+                            ActionSheetAction.START_SLIDESHOW ->
                                 viewModel.startSlideShow(selectionState.directory)
-                            }
+
+                            ActionSheetAction.START_SLIDESHOW_WITH_SUBFOLDERS ->
+                                viewModel.startSlideShow(selectionState.directory)
 
                             ActionSheetAction.ADD_STATIC_LOCATION ->
                                 viewModel.addLocationToPlaylist(dynamic = false)

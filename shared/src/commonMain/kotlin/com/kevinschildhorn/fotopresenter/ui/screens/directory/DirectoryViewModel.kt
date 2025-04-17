@@ -190,8 +190,9 @@ class DirectoryViewModel(
 
     //region Actions
 
-    fun startSlideShow(directory: Directory) =
+    fun startSlideShow(directory: Directory, withSubPhotos: Boolean) =
         viewModelScope.launch(Dispatchers.Default) {
+            // TODO
             val images = directoryNavigator.getDirectoryContents(directory.details.fullPath).images
             _uiState.update {
                 it.copy(slideshowDetails = ImageSlideshowDetails(images))
