@@ -16,7 +16,7 @@ fun ImageDirectoryGridCell(
 ) {
     DirectoryGridCell(modifier) {
         LoadingAsyncImage(
-            model = imageContent.directoryDetails,
+            model = imageContent.directoryDetails.model,
             contentDescription = imageContent.name,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize().background(fotoColors.surface),

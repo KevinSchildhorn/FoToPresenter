@@ -40,7 +40,7 @@ fun ImagePreviewOverlay(
             contentAlignment = Alignment.BottomCenter,
         ) {
             LoadingAsyncImage(
-                model = image,
+                model = image.model,
                 contentDescription = null,
                 contentScale = ContentScale.Fit,
                 modifier =

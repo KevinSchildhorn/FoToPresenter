@@ -63,7 +63,7 @@ fun SlideshowScreen(
             is SlideshowScreenUiState.Ready -> {
                 Crossfade(imageState.selectedImageIndex, animationSpec = tween(500)) {
                     AsyncImage(
-                        model = details.selectedImageDirectory.fullPath.fileName,
+                        model = details.selectedImageDirectory.model,
                         contentDescription = null,
                         modifier = Modifier.fillMaxSize(),
                     )

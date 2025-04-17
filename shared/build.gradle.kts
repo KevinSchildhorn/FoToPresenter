@@ -214,7 +214,7 @@ buildkonfig {
     defaultConfigs {
         buildConfigField(
             FieldSpec.Type.BOOLEAN,
-            "NETWORK_TESTING",
+            "USE_HTTP_IMAGES",
             project.properties["network_testing"] as? String ?: ""
         )
     }

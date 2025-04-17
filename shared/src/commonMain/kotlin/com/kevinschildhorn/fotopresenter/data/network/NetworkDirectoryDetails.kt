@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.data.network
 
+import com.kevinschildhorn.fotopresenter.BuildKonfig
 import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.supportedImageTypes
 import kotlinx.datetime.Clock
@@ -22,6 +23,9 @@ interface NetworkDirectoryDetails {
 
     val isAnImage: Boolean
         get() = supportedImageTypes.contains(fileExtension)
+
+    val model: Any
+        get() = if(BuildKonfig.USE_HTTP_IMAGES) fullPath.fileName else this
 }
 
 class DefaultNetworkDirectoryDetails(
