@@ -23,11 +23,11 @@ object TestingHTTPHandler : NetworkHandler {
             Path("Photos") to
                     listOf<NetworkDirectoryDetails>(
                         DefaultNetworkDirectoryDetails(
-                            fullPath = Path("Games"),
+                            fullPath = Path("Photos\\Games"),
                             id = 1,
                         ),
                         DefaultNetworkDirectoryDetails(
-                            fullPath = Path("Foxes"),
+                            fullPath = Path("Photos\\Foxes"),
                             id = 2,
                         ),
                         DefaultNetworkDirectoryDetails(
@@ -53,7 +53,7 @@ object TestingHTTPHandler : NetworkHandler {
             Path("Photos\\Foxes") to
                     listOf<NetworkDirectoryDetails>(
                         DefaultNetworkDirectoryDetails(
-                            fullPath = Path("Fennec"),
+                            fullPath = Path("Photos\\Foxes\\Fennec"),
                             id = 1,
                         ),
                         DefaultNetworkDirectoryDetails(fullPath = Path("https://upload.wikimedia.org/wikipedia/commons/3/30/Vulpes_vulpes_ssp_fulvus.jpg"), id = 2),

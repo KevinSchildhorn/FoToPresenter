@@ -342,7 +342,31 @@ class DirectoryViewModelTest : KoinTest {
             logger.i { "Got Initial State With Screen Data" }
 
             val directory = FolderDirectory(DefaultNetworkDirectoryDetails(Path("Photos"),1L))
-            viewModel.startSlideShow(directory)
+            viewModel.startSlideShow(directory, withSubPhotos = false)
+
+            while(item.slideshowDetails == null) {
+                item = awaitItem()
+            }
+            assertNotNull(item.slideshowDetails)
+            assertEquals(2, item.slideshowDetails?.directories?.count())
+            assertTrue(item.slideshowDetails?.directories?.any { it.name == "Peeng2" } ?: false)
+            println(item)
+        }
+    }
+
+    @Test
+    fun startSlideShowWithSubPhotos() = runTest(testDispatcher) {
+        logger.i { "startSlideShow" }
+        val viewModel: DirectoryViewModel by inject()
+
+        viewModel.uiState.test {
+            logger.i { "Refreshing Screen" }
+            viewModel.refreshScreen()
+            var item = awaitUntilHasDirectories()
+            logger.i { "Got Initial State With Screen Data" }
+
+            val directory = FolderDirectory(DefaultNetworkDirectoryDetails(Path("Photos"),1L))
+            viewModel.startSlideShow(directory, withSubPhotos = true)
 
             while(item.slideshowDetails == null) {
                 item = awaitItem()

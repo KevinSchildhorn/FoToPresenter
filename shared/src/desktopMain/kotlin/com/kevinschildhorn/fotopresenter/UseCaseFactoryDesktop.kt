@@ -19,11 +19,9 @@ import com.kevinschildhorn.fotopresenter.domain.connection.AutoConnectUseCase
 import com.kevinschildhorn.fotopresenter.domain.connection.DisconnectFromServerUseCase
 import com.kevinschildhorn.fotopresenter.domain.directory.ChangeDirectoryUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
-import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.RetrieveSlideshowFromPlaylistUseCase
 import com.kevinschildhorn.fotopresenter.domain.image.SaveMetadataForPathUseCase
 import com.kevinschildhorn.fotopresenter.ui.shared.DriverFactory
-import com.kevinschildhorn.fotopresenter.ui.shared.SharedInMemoryCache
 import com.russhwolf.settings.PreferencesSettings
 import java.util.prefs.Preferences
 
@@ -104,16 +102,6 @@ actual object UseCaseFactory {
             RetrieveDirectoryContentsUseCase(
                 directoryRepository = directoryRepository,
                 logger = baseLogger.withTag("RetrieveDirectoryContentsUseCase"),
-            )
-    actual val retrieveImageUseCase: RetrieveImageUseCase
-        get() =
-            RetrieveImageUseCase(
-                cachedImageDataSource =
-                    CachedImageDataSource(
-                        cache = SharedInMemoryCache,
-                        logger = baseLogger.withTag("ImageCacheDataSource"),
-                    ),
-                logger = baseLogger.withTag("RetrieveImageUseCase"),
             )
     actual val saveMetadataForPathUseCase: SaveMetadataForPathUseCase
         get() = SaveMetadataForPathUseCase(dataSource = imageMetadataDataSource)
