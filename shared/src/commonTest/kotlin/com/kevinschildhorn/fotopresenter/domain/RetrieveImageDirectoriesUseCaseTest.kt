@@ -1,7 +1,6 @@
 package com.kevinschildhorn.fotopresenter.domain
 
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
-import com.kevinschildhorn.fotopresenter.domain.image.RetrieveImageDirectoriesUseCase
 import com.kevinschildhorn.fotopresenter.testingModule
 import kotlinx.coroutines.runBlocking
 import org.koin.core.context.startKoin

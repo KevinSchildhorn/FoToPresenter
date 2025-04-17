@@ -1,6 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data
 
 import co.touchlab.kermit.Logger
+import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import com.kevinschildhorn.fotopresenter.ui.SortingType
@@ -16,7 +17,7 @@ import kotlinx.coroutines.flow.update
  */
 class DirectoryNavigator(
     private val directoryRepository: DirectoryRepository,
-    private val logger: Logger
+    private val logger: Logger,
 ) {
     private val _currentDirectoryContents = MutableStateFlow(DirectoryContents())
     val currentDirectoryContents: StateFlow<DirectoryContents> =
@@ -53,22 +54,19 @@ class DirectoryNavigator(
         refreshDirectoryContents()
     }
 
-    fun getDirectoryFromId(id: Long): Directory? =
-        currentDirectoryContents.value.allDirectories.find { it.id == id }
+    fun getDirectoryFromId(id: Long): Directory? = currentDirectoryContents.value.allDirectories.find { it.id == id }
 
     // Emits from to the Flow the current directories contents.
     // Used when the DirectoryScreen is first shown
     suspend fun refreshDirectoryContents() {
-        val newDirectoryContents = getDirectoryContents(currentPath)
+        val newDirectoryContents =
+            UseCaseFactory.retrieveDirectoryContentsUseCase(currentPath, false)
+
         logger.v { "Refreshing Contents With Sort Type: $sortType and filter: $searchText." }
         _currentDirectoryContents.update {
             newDirectoryContents.sorted(sortType).filtered(searchText)
         }
     }
-
-    suspend fun getDirectoryContents(path: Path, withSubPhotos: Boolean = false) =
-        if (withSubPhotos) directoryRepository.getDirectoryContentsRecursive(path)
-        else directoryRepository.getDirectoryContents(path)
 
     private suspend fun changeDirectoryToPath(path: Path) {
         currentPath = directoryRepository.changeDirectory(path)

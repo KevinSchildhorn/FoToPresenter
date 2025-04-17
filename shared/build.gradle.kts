@@ -85,7 +85,6 @@ kotlin {
                 implementation(compose.uiTooling)
                 implementation(libs.sqlite.driver)
                 api(libs.coil.network.okhttp)
-
             }
         }
 
@@ -215,7 +214,7 @@ buildkonfig {
         buildConfigField(
             FieldSpec.Type.BOOLEAN,
             "USE_HTTP_IMAGES",
-            project.properties["network_testing"] as? String ?: ""
+            project.properties["network_testing"] as? String ?: "",
         )
     }
 }

@@ -141,13 +141,13 @@ fun DirectoryScreen(
                             ActionSheetAction.START_SLIDESHOW ->
                                 viewModel.startSlideShow(
                                     selectionState.directory,
-                                    withSubPhotos = false
+                                    withSubPhotos = false,
                                 )
 
                             ActionSheetAction.START_SLIDESHOW_WITH_SUBFOLDERS ->
                                 viewModel.startSlideShow(
                                     selectionState.directory,
-                                    withSubPhotos = true
+                                    withSubPhotos = true,
                                 )
 
                             ActionSheetAction.ADD_STATIC_LOCATION ->

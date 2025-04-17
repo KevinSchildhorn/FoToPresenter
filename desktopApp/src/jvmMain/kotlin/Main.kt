@@ -25,7 +25,8 @@ import com.kevinschildhorn.fotopresenter.ui.shared.SharedFileCache
 
 object KoinPurse {
     val baseLogger = Logger
-    private val remoteImageDataSource: NetworkImageDataSource = NetworkImageDataSource(defaultNetworkHandler)
+    private val remoteImageDataSource: NetworkImageDataSource =
+        NetworkImageDataSource(defaultNetworkHandler)
     private val localImageDataSource: CachedImageDataSource =
         CachedImageDataSource(
             SharedFileCache("cache", baseLogger.withTag("SharedFileCache")),
@@ -38,12 +39,13 @@ object KoinPurse {
             defaultNetworkHandler
         )
 
-    val imageMetadataDataSource = ImageMetadataDataSource(
+    private val imageMetadataDataSource = ImageMetadataDataSource(
         logger = baseLogger.withTag("ImageMetadataDataSource"),
         defaultNetworkHandler,
     )
-    val directoryNavigator = DirectoryNavigator(directoryRepository, baseLogger.withTag("DirectoryNavigator"))
-    val imagePreviewNavigator = ImagePreviewNavigator(baseLogger.withTag("ImagePreviewNavigator"))
+    private val directoryNavigator =
+        DirectoryNavigator(directoryRepository, baseLogger.withTag("DirectoryNavigator"))
+    private val imagePreviewNavigator = ImagePreviewNavigator(baseLogger.withTag("ImagePreviewNavigator"))
     val directoryViewModel = DirectoryViewModel(
         directoryNavigator = directoryNavigator,
         imagePreviewNavigator = imagePreviewNavigator,
@@ -53,7 +55,8 @@ object KoinPurse {
         logger = baseLogger.withTag("DirectoryViewModelNew")
     )
 
-    val slideshowViewModel = SlideshowViewModel(baseLogger.withTag("SlideshowViewModel"))
+    val slideshowViewModel =
+        SlideshowViewModel(imagePreviewNavigator, baseLogger.withTag("SlideshowViewModel"))
     val playlistViewModel =
         PlaylistViewModel(
             UseCaseFactory.playlistRepository,

@@ -12,8 +12,15 @@ class RetrieveDirectoryContentsUseCase(
     private val directoryRepository: DirectoryRepository,
     private val logger: Logger,
 ) {
-    suspend operator fun invoke(path: Path): DirectoryContents {
+    suspend operator fun invoke(
+        path: Path,
+        recursively: Boolean,
+    ): DirectoryContents {
         logger.d { "Getting directory Contents at path '$path'" }
-        return directoryRepository.getDirectoryContents(path)
+        return if (recursively) {
+            directoryRepository.getDirectoryContentsRecursive(path)
+        } else {
+            directoryRepository.getDirectoryContents(path)
+        }
     }
 }

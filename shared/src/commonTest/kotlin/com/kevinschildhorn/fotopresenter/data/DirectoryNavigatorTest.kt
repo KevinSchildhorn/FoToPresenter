@@ -42,7 +42,7 @@ class DirectoryNavigatorTest : KoinTest {
     }
 
     @Test
-    fun `refresh_directory_contents_success`() =
+    fun refresh_directory_contents_success() =
         runTest(testDispatcher) {
             MockNetworkHandler.connectSuccessfully()
             directoryNavigator.currentDirectoryContents.test {
@@ -50,15 +50,15 @@ class DirectoryNavigatorTest : KoinTest {
                 awaitItem()
                 val contents = awaitItem()
 
-                assertEquals(2, contents.folders.size)
-                assertEquals(2, contents.images.size)
-                assertEquals(4, contents.allDirectories.size)
+                assertEquals(2, contents.folders.size, message = contents.folders.nameString)
+                assertEquals(2, contents.images.size, message = contents.images.nameString)
+                assertEquals(4, contents.allDirectories.size, message = contents.allDirectories.nameString)
             }
             MockNetworkHandler.disconnect()
         }
 
     @Test
-    fun `navigate_into_directory_success`() =
+    fun navigate_into_directory_success() =
         runTest(testDispatcher) {
             MockNetworkHandler.connectSuccessfully()
             directoryNavigator.currentDirectoryContents.test {
@@ -71,14 +71,22 @@ class DirectoryNavigatorTest : KoinTest {
                 directoryNavigator.navigateIntoDirectory(photosDirectory.id)
                 val contents = awaitItem()
 
-                assertEquals(1, contents.folders.size) // SubPhotos folder
-                assertEquals(2, contents.images.size) // Peeng2.png, Jaypeg2.jpg
+                assertEquals(
+                    1,
+                    contents.folders.size,
+                    message = contents.folders.nameString
+                ) // SubPhotos folder
+                assertEquals(
+                    2,
+                    contents.images.size,
+                    message = contents.images.nameString
+                ) // Peeng2.png, Jaypeg2.jpg
             }
             MockNetworkHandler.disconnect()
         }
 
     @Test
-    fun `navigate_back_to_directory_success`() =
+    fun navigate_back_to_directory_success() =
         runTest(testDispatcher) {
             MockNetworkHandler.connectSuccessfully()
             directoryNavigator.currentDirectoryContents.test {
@@ -95,14 +103,14 @@ class DirectoryNavigatorTest : KoinTest {
                 directoryNavigator.navigateBackToDirectory(-1)
                 val contents = awaitItem()
 
-                assertEquals(2, contents.folders.size)
-                assertEquals(2, contents.images.size)
+                assertEquals(2, contents.folders.size, message = contents.folders.nameString)
+                assertEquals(2, contents.images.size, message = contents.images.nameString)
             }
             MockNetworkHandler.disconnect()
         }
 
     @Test
-    fun `set_sort_type_success`() =
+    fun set_sort_type_success() =
         runTest(testDispatcher) {
             MockNetworkHandler.connectSuccessfully()
             directoryNavigator.currentDirectoryContents.test {
@@ -123,7 +131,7 @@ class DirectoryNavigatorTest : KoinTest {
         }
 
     @Test
-    fun `set_search_success`() =
+    fun set_search_success() =
         runTest(testDispatcher) {
             MockNetworkHandler.connectSuccessfully()
             directoryNavigator.currentDirectoryContents.test {
@@ -134,18 +142,26 @@ class DirectoryNavigatorTest : KoinTest {
                 // Search for "pe"
                 directoryNavigator.setSearch("pe")
                 val filteredContents = awaitItem()
-                assertEquals(2, filteredContents.allDirectories.size) // Should only show Peeng.png and Jaypeg.jpg
+                assertEquals(
+                    2,
+                    filteredContents.allDirectories.size,
+                    message = filteredContents.allDirectories.nameString,
+                ) // Should only show Peeng.png and Jaypeg.jpg
 
                 // Clear search
                 directoryNavigator.setSearch("")
                 val unfilteredContents = awaitItem()
-                assertEquals(4, unfilteredContents.allDirectories.size) // Should show all items again
+                assertEquals(
+                    4,
+                    unfilteredContents.allDirectories.size,
+                    message = unfilteredContents.allDirectories.nameString,
+                ) // Should show all items again
             }
             MockNetworkHandler.disconnect()
         }
 
     @Test
-    fun `get_directory_from_id_success`() =
+    fun get_directory_from_id_success() =
         runTest(testDispatcher) {
             MockNetworkHandler.connectSuccessfully()
             directoryNavigator.currentDirectoryContents.test {
@@ -163,7 +179,7 @@ class DirectoryNavigatorTest : KoinTest {
         }
 
     @Test
-    fun `navigate_into_directory_failure`() =
+    fun navigate_into_directory_failure() =
         runTest(testDispatcher) {
             MockNetworkHandler.connectSuccessfully()
             directoryNavigator.currentDirectoryContents.test {
@@ -181,7 +197,7 @@ class DirectoryNavigatorTest : KoinTest {
         }
 
     @Test
-    fun `navigate_back_to_directory_failure`() =
+    fun navigate_back_to_directory_failure() =
         runTest(testDispatcher) {
             MockNetworkHandler.connectSuccessfully()
             directoryNavigator.currentDirectoryContents.test {
@@ -200,7 +216,7 @@ class DirectoryNavigatorTest : KoinTest {
         }
 
     @Test
-    fun `disconnected_network_failure`() =
+    fun disconnected_network_failure() =
         runTest(testDispatcher) {
             MockNetworkHandler.disconnect()
 
@@ -211,4 +227,7 @@ class DirectoryNavigatorTest : KoinTest {
                 assertEquals(NetworkHandlerError.NOT_CONNECTED.message, e.message)
             }
         }
+
+    private val List<Directory>.nameString: String
+        get() = "Directories Found: ${this.map { it.name }.joinToString(", ")}."
 }

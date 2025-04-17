@@ -25,7 +25,7 @@ interface NetworkDirectoryDetails {
         get() = supportedImageTypes.contains(fileExtension)
 
     val model: Any
-        get() = if(BuildKonfig.USE_HTTP_IMAGES) fullPath.fileName else this
+        get() = if (BuildKonfig.USE_HTTP_IMAGES) fullPath.fileName else this
 }
 
 class DefaultNetworkDirectoryDetails(

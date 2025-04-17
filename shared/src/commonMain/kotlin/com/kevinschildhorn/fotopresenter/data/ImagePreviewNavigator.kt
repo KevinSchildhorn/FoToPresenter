@@ -2,7 +2,6 @@ package com.kevinschildhorn.fotopresenter.data
 
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

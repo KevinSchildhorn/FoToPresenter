@@ -3,6 +3,7 @@ package com.kevinschildhorn.fotopresenter.ui.screens.directory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
+import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.DirectoryNavigator
@@ -60,7 +61,7 @@ class DirectoryViewModel(
                 when (uiState.overlayUiState) {
                     is DirectoryOverlayUiState.ImagePreview,
                     DirectoryOverlayUiState.None,
-                        -> {
+                    -> {
                         val selectionState =
                             if (imagePreview != null) {
                                 DirectoryOverlayUiState.ImagePreview(imagePreview)
@@ -177,8 +178,7 @@ class DirectoryViewModel(
 
     //region Image Preview
 
-    fun setSelectedImageById(imageId: Long?) =
-        imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
+    fun setSelectedImageById(imageId: Long?) = imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
 
     fun clearPresentedImage() = imagePreviewNavigator.setImageIndex(null)
 
@@ -190,16 +190,19 @@ class DirectoryViewModel(
 
     //region Actions
 
-    fun startSlideShow(directory: Directory, withSubPhotos: Boolean) =
-        viewModelScope.launch(Dispatchers.Default) {
-            val images = directoryNavigator.getDirectoryContents(
-                directory.details.fullPath,
-                withSubPhotos = withSubPhotos
-            ).images
-            _uiState.update {
-                it.copy(slideshowDetails = ImageSlideshowDetails(images))
-            }
+    fun startSlideShow(
+        directory: Directory,
+        withSubPhotos: Boolean,
+    ) = viewModelScope.launch(Dispatchers.Default) {
+        val images =
+            UseCaseFactory.retrieveImageDirectoriesUseCase(
+                directoryDetails = directory.details,
+                recursively = withSubPhotos,
+            )
+        _uiState.update {
+            it.copy(slideshowDetails = ImageSlideshowDetails(images))
         }
+    }
 
     fun clearSlideshow() {
         _uiState.update {
