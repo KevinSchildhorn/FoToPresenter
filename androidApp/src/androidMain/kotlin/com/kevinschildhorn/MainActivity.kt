@@ -11,6 +11,7 @@ import coil3.disk.DiskCache
 import coil3.disk.directory
 import coil3.memory.MemoryCache
 import coil3.network.okhttp.OkHttpNetworkFetcherFactory
+import com.kevinschildhorn.fotopresenter.data.network.useHttpImages
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
 import com.kevinschildhorn.fotopresenter.extension.logLargeTitle
 import com.kevinschildhorn.fotopresenter.startKoin
@@ -45,14 +46,15 @@ class MainActivity : AppCompatActivity(), KoinComponent {
                 ImageLoader.Builder(context)
                     .components {
                         add(SMBJFetcher.Factory(imageRepository, Logger))
-                        //add(SharedImageFetcher.Factory(Logger))
-                        add(
-                            OkHttpNetworkFetcherFactory(
-                                callFactory = {
-                                    OkHttpClient()
-                                }
+                        if (useHttpImages)
+                            add(
+                                OkHttpNetworkFetcherFactory(
+                                    callFactory = {
+                                        OkHttpClient()
+                                    }
+                                )
                             )
-                        )
+                        else add(SharedImageFetcher.Factory(Logger))
                     }
                     .memoryCache {
                         MemoryCache.Builder()

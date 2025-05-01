@@ -199,10 +199,12 @@ class DirectoryViewModelTest : KoinTest {
     fun logout() =
         runTest(testDispatcher) {
             val viewModel: DirectoryViewModel by inject()
-
+            logger.i { "Checking if connected" }
             assertTrue(MockNetworkHandler.isConnected)
+            logger.i { "Logging out" }
             viewModel.logout()
             delay(5000)
+            logger.i { "Assert Disconnected" }
             assertFalse(MockNetworkHandler.isConnected)
         }
 

@@ -131,6 +131,12 @@ kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
     }
+
+    afterEvaluate {
+        tasks.named("check") {
+            dependsOn(tasks.getByName("ktlintCheck"))
+        }
+    }
 }
 
 android {
@@ -177,10 +183,6 @@ tasks.withType<Copy> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
-ktlint {
-    enableExperimentalRules.set(true)
-}
-
 kover {
     currentProject {
         createVariant("custom") {
@@ -216,5 +218,14 @@ buildkonfig {
             "USE_HTTP_IMAGES",
             project.properties["network_testing"] as? String ?: "",
         )
+    }
+}
+
+ktlint {
+    version.set("1.4.0")
+    enableExperimentalRules.set(true)
+    verbose.set(true)
+    filter {
+        exclude { it.file.path.contains("build/") }
     }
 }

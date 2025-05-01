@@ -18,6 +18,7 @@ import com.kevinschildhorn.fotopresenter.data.login.LoginCredentials
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 import java.io.OutputStream
 
+val useHttpImages = BuildKonfig.USE_HTTP_IMAGES
 val defaultNetworkHandler = if (BuildKonfig.USE_HTTP_IMAGES) TestingHTTPHandler else SMBJHandler
 
 object SMBJHandler : NetworkHandler {
