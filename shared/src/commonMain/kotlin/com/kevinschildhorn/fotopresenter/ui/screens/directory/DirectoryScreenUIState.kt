@@ -101,7 +101,8 @@ sealed class DirectoryGridCellUIState(
         id,
         listOf(
             ActionSheetContext(ActionSheetAction.START_SLIDESHOW, 1),
-            ActionSheetContext(ActionSheetAction.ADD_DYNAMIC_LOCATION, 2),
+            ActionSheetContext(ActionSheetAction.START_SLIDESHOW_WITH_SUBFOLDERS, 2),
+            ActionSheetContext(ActionSheetAction.ADD_DYNAMIC_LOCATION, 3),
         ),
     )
 

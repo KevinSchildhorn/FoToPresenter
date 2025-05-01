@@ -1,6 +1,7 @@
 package com.kevinschildhorn.fotopresenter.data
 
 import co.touchlab.kermit.Logger
+import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandlerException
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import com.kevinschildhorn.fotopresenter.ui.SortingType
@@ -14,7 +15,10 @@ import kotlinx.coroutines.flow.update
  * Handles Navigating up and down an FTP Path of Directories including going forward and backwards in the path,
  * and emits a flow of the current directories contents.
  */
-class DirectoryNavigator(private val directoryRepository: DirectoryRepository, private val logger: Logger) {
+class DirectoryNavigator(
+    private val directoryRepository: DirectoryRepository,
+    private val logger: Logger,
+) {
     private val _currentDirectoryContents = MutableStateFlow(DirectoryContents())
     val currentDirectoryContents: StateFlow<DirectoryContents> =
         _currentDirectoryContents.asStateFlow()
@@ -55,12 +59,14 @@ class DirectoryNavigator(private val directoryRepository: DirectoryRepository, p
     // Emits from to the Flow the current directories contents.
     // Used when the DirectoryScreen is first shown
     suspend fun refreshDirectoryContents() {
-        val newDirectoryContents = getDirectoryContents(currentPath)
-        logger.v { "Refreshing Contents With Sort Type: $sortType and filter: $searchText." }
-        _currentDirectoryContents.update { newDirectoryContents.sorted(sortType).filtered(searchText) }
-    }
+        val newDirectoryContents =
+            UseCaseFactory.retrieveDirectoryContentsUseCase(currentPath, false)
 
-    suspend fun getDirectoryContents(path: Path) = directoryRepository.getDirectoryContents(path)
+        logger.v { "Refreshing Contents With Sort Type: $sortType and filter: $searchText." }
+        _currentDirectoryContents.update {
+            newDirectoryContents.sorted(sortType).filtered(searchText)
+        }
+    }
 
     private suspend fun changeDirectoryToPath(path: Path) {
         currentPath = directoryRepository.changeDirectory(path)

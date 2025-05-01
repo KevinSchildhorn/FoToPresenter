@@ -17,7 +17,7 @@ class ImageRepository(
     ): FetchResult? {
         val image = getImage(directoryDetails)
         if (image == null) logger?.e { "Shared Image was not retrieved from directory :${directoryDetails.fullPath}" }
-        if(image == null){
+        if (image == null) {
             println("")
         }
         return image?.getFetchResult(logger)

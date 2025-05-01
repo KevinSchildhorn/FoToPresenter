@@ -163,7 +163,10 @@ object MockNetworkHandler : NetworkHandler {
         return null
     }
 
-    override suspend fun setSharedImage(path: Path, sharedImage: SharedImage): Boolean {
+    override suspend fun setSharedImage(
+        path: Path,
+        sharedImage: SharedImage,
+    ): Boolean {
         return true
     }
 

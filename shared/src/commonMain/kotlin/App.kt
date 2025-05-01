@@ -51,8 +51,8 @@ fun App(
                         navController.navigate(Screen.LOGIN.name)
                     },
                     onStartSlideshow = {
-                        slideshowViewModel.setSlideshow(it)
-                        // directoryViewModel.clearSlideshow() TODO
+                        slideshowViewModel.startSlideshow(it)
+                        directoryViewModel.clearSlideshow()
                         navController.navigate(Screen.SLIDESHOW.name)
                     },
                     onShowPlaylists = {

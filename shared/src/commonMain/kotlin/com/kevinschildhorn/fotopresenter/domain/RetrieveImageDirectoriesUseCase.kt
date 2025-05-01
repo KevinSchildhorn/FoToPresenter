@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.domain.image
+package com.kevinschildhorn.fotopresenter.domain
 
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.UseCaseFactory
@@ -18,22 +18,7 @@ class RetrieveImageDirectoriesUseCase(
     ): List<ImageDirectory> {
         logger.i { "Retrieving images from directory ${directoryDetails.fullPath}" }
         val retrieveContentsUseCase = UseCaseFactory.retrieveDirectoryContentsUseCase
-        val contents = retrieveContentsUseCase(directoryDetails.fullPath)
-
-        logger.i { "Retrieved Contents: $contents" }
-        val folders =
-            contents.folders.filter {
-                logger.i { "Filtering (${it.name})" }
-                it.isValid
-            }
-        val images = contents.images.toMutableList()
-
-        if (recursively) {
-            logger.i { "Recursively getting Images from sub-folder" }
-            folders.forEach {
-                images.addAll(invoke(it.details))
-            }
-        }
-        return images
+        val contents = retrieveContentsUseCase(directoryDetails.fullPath, recursively)
+        return contents.images
     }
 }

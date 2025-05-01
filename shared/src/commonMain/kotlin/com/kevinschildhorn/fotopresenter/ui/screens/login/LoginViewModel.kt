@@ -3,7 +3,6 @@ package com.kevinschildhorn.fotopresenter.ui.screens.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
-import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.ui.UiState
@@ -106,9 +105,22 @@ class LoginViewModel(
     private fun attemptAutoLogin() {
         logger.i { "Attempting To Auto Login" }
         viewModelScope.launch(Dispatchers.Default) {
-            val autoConnectUseCase = UseCaseFactory.autoConnectUseCase
-            if (autoConnectUseCase()) {
+            try {
+                logger.d { "Fetching Auto-Connect Credentials" }
+                val credentials = credentialsRepository.fetchCredentials()
+                logger.d { "Connecting to the client with auto-connect:${credentials.shouldAutoConnect}" }
+                networkHandler.connect(credentials)
                 _uiState.update { it.copy(state = UiState.SUCCESS) }
+            } catch (e: Exception) {
+                logger.e(e) { "Could not connect" }
+                _uiState.update {
+                    it.copy(
+                        state =
+                            UiState.ERROR(
+                                e.message ?: "Couldn't Auto Login",
+                            ),
+                    )
+                }
             }
         }
     }

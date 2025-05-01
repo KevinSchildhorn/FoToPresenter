@@ -3,6 +3,7 @@ package com.kevinschildhorn.fotopresenter.ui.screens.directory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
+import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.DirectoryNavigator
@@ -189,13 +190,25 @@ class DirectoryViewModel(
 
     //region Actions
 
-    fun startSlideShow(directory: Directory) =
-        viewModelScope.launch(Dispatchers.Default) {
-            val images = directoryNavigator.getDirectoryContents(directory.details.fullPath).images
-            _uiState.update {
-                it.copy(slideshowDetails = ImageSlideshowDetails(images))
-            }
+    fun startSlideShow(
+        directory: Directory,
+        withSubPhotos: Boolean,
+    ) = viewModelScope.launch(Dispatchers.Default) {
+        val images =
+            UseCaseFactory.retrieveImageDirectoriesUseCase(
+                directoryDetails = directory.details,
+                recursively = withSubPhotos,
+            )
+        _uiState.update {
+            it.copy(slideshowDetails = ImageSlideshowDetails(images))
         }
+    }
+
+    fun clearSlideshow() {
+        _uiState.update {
+            it.copy(slideshowDetails = null)
+        }
+    }
 
     fun addLocationToPlaylist(dynamic: Boolean) {} // TODO
 

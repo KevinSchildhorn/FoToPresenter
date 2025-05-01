@@ -29,6 +29,7 @@ fun DirectoryActionsOverlay(
                 onDismiss = onDismiss,
             )
         }
+
         is DirectoryOverlayUiState.Actions.EditMetaData -> {
             MetadataOverlay(
                 initialValue = overlayState.metadata?.tagsString,
@@ -36,17 +37,7 @@ fun DirectoryActionsOverlay(
                 onConfirmation = onSaveMetadata,
             )
         }
-        is DirectoryOverlayUiState.Actions.AddToPlaylist -> {
-            /* TODO
-            PlaylistScreen(
-                viewModel,
-                overlaid = true,
-                onDismiss = onDismiss,
-            ) { playlist ->
-                viewModel.addSelectedDirectoryToPlaylist(playlist)
-                overlayVisible = DirectoryOverlay.NONE
-                viewModel.setSelectedDirectory(null)
-            }*/
-        }
+
+        is DirectoryOverlayUiState.Actions.AddToPlaylist -> {}
     }
 }

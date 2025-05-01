@@ -1,5 +1,6 @@
 @file:OptIn(ExperimentalKotlinGradlePluginApi::class)
 
+import com.codingfeline.buildkonfig.compiler.FieldSpec
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
@@ -12,6 +13,7 @@ plugins {
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.serialization)
     alias(libs.plugins.kover)
+    alias(libs.plugins.build.konfig)
 }
 
 kotlin {
@@ -82,6 +84,7 @@ kotlin {
                 implementation(libs.smbj)
                 implementation(compose.uiTooling)
                 implementation(libs.sqlite.driver)
+                api(libs.coil.network.okhttp)
             }
         }
 
@@ -127,6 +130,12 @@ kotlin {
 
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
+
+    afterEvaluate {
+        tasks.named("check") {
+            dependsOn(tasks.getByName("ktlintCheck"))
+        }
     }
 }
 
@@ -174,10 +183,6 @@ tasks.withType<Copy> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
-ktlint {
-    enableExperimentalRules.set(true)
-}
-
 kover {
     currentProject {
         createVariant("custom") {
@@ -202,5 +207,25 @@ kover {
                 classes("PlaylistDatabaseImpl")
             }
         }
+    }
+}
+
+buildkonfig {
+    packageName = "com.kevinschildhorn.fotopresenter"
+    defaultConfigs {
+        buildConfigField(
+            FieldSpec.Type.BOOLEAN,
+            "USE_HTTP_IMAGES",
+            project.properties["network_testing"] as? String ?: "",
+        )
+    }
+}
+
+ktlint {
+    version.set("1.4.0")
+    enableExperimentalRules.set(true)
+    verbose.set(true)
+    filter {
+        exclude { it.file.path.contains("build/") }
     }
 }

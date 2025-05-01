@@ -42,4 +42,31 @@ class DirectoryRepository(
                 },
         )
     }
+
+    suspend fun getDirectoryContentsRecursive(path: Path): DirectoryContents {
+        val currentContents = getDirectoryContents(path)
+
+        // Recursively get contents of all subfolders
+        val subFolderContents =
+            currentContents.folders.flatMap { folder ->
+                try {
+                    val subPath = folder.details.fullPath
+                    if (subPath.fileName.endsWith("..")) {
+                        emptyList()
+                    } else {
+                        val subContents = getDirectoryContentsRecursive(subPath)
+                        subContents.images
+                    }
+                } catch (e: Exception) {
+                    logger.e(e) { "Error getting recursive contents for folder ${folder.details.fullPath}" }
+                    emptyList()
+                }
+            }
+
+        // Combine current directory images with all subfolder images
+        return DirectoryContents(
+            folders = currentContents.folders,
+            images = currentContents.images + subFolderContents,
+        )
+    }
 }

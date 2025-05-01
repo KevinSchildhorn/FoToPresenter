@@ -53,6 +53,7 @@ fun DirectoryScreen(
     val focusManager = LocalFocusManager.current
 
     uiState.slideshowDetails?.let {
+        viewModel.clearOverlay()
         onStartSlideshow(it)
     }
 
@@ -137,9 +138,17 @@ fun DirectoryScreen(
                     selectionState,
                     onAction = {
                         when (it) {
-                            ActionSheetAction.START_SLIDESHOW -> {
-                                viewModel.startSlideShow(selectionState.directory)
-                            }
+                            ActionSheetAction.START_SLIDESHOW ->
+                                viewModel.startSlideShow(
+                                    selectionState.directory,
+                                    withSubPhotos = false,
+                                )
+
+                            ActionSheetAction.START_SLIDESHOW_WITH_SUBFOLDERS ->
+                                viewModel.startSlideShow(
+                                    selectionState.directory,
+                                    withSubPhotos = true,
+                                )
 
                             ActionSheetAction.ADD_STATIC_LOCATION ->
                                 viewModel.addLocationToPlaylist(dynamic = false)

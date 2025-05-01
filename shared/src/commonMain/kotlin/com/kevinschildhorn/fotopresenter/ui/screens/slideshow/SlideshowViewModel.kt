@@ -3,80 +3,112 @@ package com.kevinschildhorn.fotopresenter.ui.screens.slideshow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
-import com.kevinschildhorn.fotopresenter.UseCaseFactory
+import com.kevinschildhorn.fotopresenter.data.ImagePreviewNavigator
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
-import com.kevinschildhorn.fotopresenter.ui.screens.common.DefaultImageViewModel
-import com.kevinschildhorn.fotopresenter.ui.screens.common.ImageViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import java.util.Timer
 import kotlin.concurrent.fixedRateTimer
 
 class SlideshowViewModel(
+    private val imagePreviewNavigator: ImagePreviewNavigator,
     private val logger: Logger,
-) : ViewModel(),
-    ImageViewModel by DefaultImageViewModel(logger),
-    KoinComponent {
-    private val _uiState = MutableStateFlow(SlideshowScreenState())
-    val uiState: StateFlow<SlideshowScreenState> = _uiState.asStateFlow()
-    private var timer: Timer? = null
+) : ViewModel(), KoinComponent {
+    private val _uiState = MutableStateFlow(SlideshowScreenUiState.Loading())
+    val uiState: StateFlow<SlideshowScreenUiState> =
+        _uiState
+            .combine(imagePreviewNavigator.imagePreviewState) { uiState, imagePreview ->
+                logger.v { "New Image Preview State: $imagePreview" }
+                if (imagePreview != null) {
+                    return@combine SlideshowScreenUiState.Ready(
+                        selectedImageDirectory = imagePreview,
+                        selectedImageIndex = uiState.selectedImageIndex,
+                    )
+                }
+                return@combine SlideshowScreenUiState.Loading(selectedImageIndex = uiState.selectedImageIndex)
+            }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(50_000),
+                initialValue = SlideshowScreenUiState.Loading(0),
+            )
 
-    init {
-        setImageScope(viewModelScope)
-    }
+    private var timer: Timer? = null
 
     fun setSlideshowFromPlaylist(playlistDetails: PlaylistDetails) {
         logger.i { "Starting playlist $playlistDetails" }
-        val useCase = UseCaseFactory.retrieveSlideshowFromPlaylistUseCase
+
+        logger.i { "Starting to get details from playlist ${playlistDetails.name}" }
+        /* TODO
+        val directories: List<ImageDirectory> =
+            playlistDetails.items.map { item ->
+                val directoryDetails =
+                    DefaultNetworkDirectoryDetails(
+                        id = item.directoryId,
+                        fullPath = item.directoryPath,
+                    )
+                if (item.directoryPath.isImagePath) {
+                    listOf(
+                        ImageDirectory(
+                            directoryDetails,
+                            null,
+                        ),
+                    )
+                } else {
+                    val useCase = UseCaseFactory.retrieveDirectoryContentsUseCase
+                    useCase.invoke(
+                        directoryDetails = directoryDetails,
+                        recursively = true,
+                    )
+                }
+            }.flatten()
+
+        val slideshow = ImageSlideshowDetails(directories)
+
         viewModelScope.launch(Dispatchers.Default) {
-            val slideshow = useCase(playlistDetails)
-            setSlideshow(slideshow)
-        }
+            startSlideshow(slideshow)
+        }*/
     }
 
-    fun setSlideshow(details: ImageSlideshowDetails) {
-        _uiState.update { it.copy(slideshowDetails = details) }
-        setImageDirectories(details.directories)
-        setSelectedImage(0)
+    fun startSlideshow(details: ImageSlideshowDetails) {
+        imagePreviewNavigator.setFolderContents(details.directories)
+        imagePreviewNavigator.setImageIndex(0)
         viewModelScope.launch(Dispatchers.Default) {
-            while (imageUiState.value.selectedImage == null) {
-                delay(250)
-            }
             startImageTimer()
         }
     }
 
     fun skipForward() {
         stopImageTimer()
-        showNextImage()
+        imagePreviewNavigator.showNextImage()
         startImageTimer()
     }
 
     fun skipBackwards() {
         stopImageTimer()
-        showPreviousImage()
+        imagePreviewNavigator.showPreviousImage()
         startImageTimer()
     }
 
     fun stopSlideshow() {
         stopImageTimer()
-        clearPresentedImage()
-        setImageDirectories(emptyList())
-        _uiState.update { it.copy(slideshowDetails = ImageSlideshowDetails()) }
+        imagePreviewNavigator.setFolderContents(emptyList())
     }
 
     private fun startImageTimer(seconds: Long = 5L) {
         val time = seconds * 1000
         timer =
             fixedRateTimer(period = time, initialDelay = time) {
-                showNextImage()
+                viewModelScope.launch(Dispatchers.Main) {
+                    imagePreviewNavigator.showNextImage()
+                }
             }
     }
 
