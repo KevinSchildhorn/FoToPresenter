@@ -26,6 +26,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.LoadingOv
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.SortDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationBar
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectorySearchNavigationBar
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.AppNavigationRail
 import com.kevinschildhorn.fotopresenter.ui.testTag
 import kotlinx.coroutines.launch
@@ -96,14 +97,30 @@ fun DirectoryScreen(
                 )
             }
             // Navigation Bar
-            DirectoryNavigationBar(
-                directories = uiState.currentPathList,
-                onHome = { viewModel.navigateBackToDirectory(-1) },
-                onItem = { viewModel.navigateBackToDirectory(it) },
-                modifier =
-                    Modifier.padding(Padding.SMALL.dp)
-                        .testTag(TestTags.Directory.NAVIGATION_BAR),
-            )
+            when (val searchState = uiState.directoryAdvancedSearchUIState) {
+                is DirectoryAdvancedSearchUIState.SUCCESS -> {
+                    DirectorySearchNavigationBar(
+                        tags = searchState.tags,
+                        allTags = searchState.allTags,
+                        itemCount = searchState.itemCount,
+                    ) {
+                        viewModel.clearSearch()
+                    }
+                }
+
+                DirectoryAdvancedSearchUIState.IDLE -> {
+                    DirectoryNavigationBar(
+                        directories = uiState.currentPathList,
+                        onHome = { viewModel.navigateBackToDirectory(-1) },
+                        onItem = { viewModel.navigateBackToDirectory(it) },
+                        modifier =
+                            Modifier.padding(Padding.SMALL.dp)
+                                .testTag(TestTags.Directory.NAVIGATION_BAR),
+                    )
+                }
+
+                else -> {}
+            }
             // Grid
             DirectoryGrid(
                 uiState.directoryGridUIState,
@@ -129,6 +146,7 @@ fun DirectoryScreen(
             DirectoryOverlayUiState.None -> {
                 Logger.i("KEVINS - None")
             }
+
             is DirectoryOverlayUiState.ImagePreview -> {
                 Logger.i("KEVINS - ShowImagePreview")
                 ImagePreviewOverlay(
@@ -198,6 +216,7 @@ fun DirectoryScreen(
                     },
                 )
             }
+
             is DirectoryOverlayUiState.AdvancedSearch -> {
                 Logger.i("KEVINS - Advanced Search")
                 AdvancedSearchDialog(
@@ -211,7 +230,9 @@ fun DirectoryScreen(
         }
         //endregion
 
-        if (uiState.state is UiState.LOADING) {
+        if (uiState.state is UiState.LOADING ||
+            uiState.directoryAdvancedSearchUIState == DirectoryAdvancedSearchUIState.LOADING
+        ) {
             LoadingOverlay()
         }
     }

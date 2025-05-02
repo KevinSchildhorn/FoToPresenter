@@ -18,6 +18,7 @@ fun FotoRadioButton(
     onRadioChanged: () -> Unit,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.End,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     checkBoxModifier: Modifier = Modifier,
 ) {
     Row(
@@ -30,6 +31,7 @@ fun FotoRadioButton(
             selected = selected,
             onClick = onRadioChanged,
             modifier = checkBoxModifier,
+            enabled = enabled,
         )
         if(horizontalArrangement != Arrangement.End) FotoRadioText(title)
     }

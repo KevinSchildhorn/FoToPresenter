@@ -36,8 +36,10 @@ data class DirectoryScreenUIState(
         ),
     val overlayUiState: DirectoryOverlayUiState = DirectoryOverlayUiState.None,
     val slideshowDetails: ImageSlideshowDetails? = null,
+    val directoryAdvancedSearchUIState: DirectoryAdvancedSearchUIState = DirectoryAdvancedSearchUIState.IDLE,
 ) : ScreenState {
-    fun getImageIndexFromId(id: Long?): Int = directoryGridUIState.imageStates.indexOfFirst { it.id == id }
+    fun getImageIndexFromId(id: Long?): Int =
+        directoryGridUIState.imageStates.indexOfFirst { it.id == id }
 
     val currentPathList: List<Path>
         get() = directoryGridUIState.currentPath.pathList
@@ -171,4 +173,16 @@ sealed class DirectoryOverlayUiState {
 
     @Suppress("UNCHECKED_CAST")
     fun <T : DirectoryOverlayUiState> castTo(): T? = this as? T
+}
+
+sealed class DirectoryAdvancedSearchUIState {
+    class SUCCESS(
+        val tags: List<String>,
+        val allTags: Boolean,
+        val itemCount: Int,
+        val loading: Boolean = false
+    ) : DirectoryAdvancedSearchUIState()
+
+    data object LOADING : DirectoryAdvancedSearchUIState()
+    data object IDLE : DirectoryAdvancedSearchUIState()
 }

@@ -48,14 +48,29 @@ class DirectoryViewModel(
     val uiState: StateFlow<DirectoryScreenUIState> =
         _uiState
             .combine(directoryNavigator.currentDirectoryContents) { uiState, directoryContents ->
-                imagePreviewNavigator.setFolderContents(directoryContents.images)
-                uiState.copy(
-                    directoryGridUIState =
-                        directoryContents.asDirectoryGridUIState(
-                            directoryNavigator.currentPath,
-                        ),
-                    state = if (uiState.state is UiState.ERROR) uiState.state else UiState.SUCCESS,
+
+                if (uiState.directoryAdvancedSearchUIState != DirectoryAdvancedSearchUIState.IDLE)
+                    uiState.copy(
+                    state = when (uiState.state) {
+                        //UiState.LOADING -> uiState.state
+                        is UiState.ERROR -> uiState.state
+                        else -> UiState.SUCCESS
+                    }
                 )
+                else {
+                    imagePreviewNavigator.setFolderContents(directoryContents.images)
+                    uiState.copy(
+                        directoryGridUIState =
+                            directoryContents.asDirectoryGridUIState(
+                                directoryNavigator.currentPath,
+                            ),
+                        state = when (uiState.state) {
+                            //UiState.LOADING -> uiState.state
+                            is UiState.ERROR -> uiState.state
+                            else -> UiState.SUCCESS
+                        }
+                    )
+                }
             }
             .combine(imagePreviewNavigator.imagePreviewState) { uiState, imagePreview ->
                 logger.v { "New Image Preview State: $imagePreview" }
@@ -129,15 +144,34 @@ class DirectoryViewModel(
         }
 
     fun setAdvancedSearch(tags: List<String>, searchType: TagSearchType, recursive: Boolean) {
+        val path = uiState.value.directoryGridUIState.currentPath
         viewModelScope.launch(Dispatchers.Default) {
+            _uiState.update {
+                it.copy(
+                    directoryAdvancedSearchUIState = DirectoryAdvancedSearchUIState.LOADING
+                )
+            }
+
+
             val images = UseCaseFactory.retrieveImageDirectoriesUseCase(
-                path = _uiState.value.directoryGridUIState.currentPath,
+                path = path,
                 recursively = recursive,
                 tags = tags,
                 inclusiveTags = searchType == TagSearchType.ALL_TAGS,
             )
-            println(images)
-            // TODO
+            val newState = DirectoryContents(
+                images = images,
+            ).asDirectoryGridUIState(path)
+            _uiState.update {
+                it.copy(
+                    directoryAdvancedSearchUIState = DirectoryAdvancedSearchUIState.SUCCESS(
+                        tags = tags,
+                        allTags = searchType == TagSearchType.ALL_TAGS,
+                        itemCount = images.size,
+                    ),
+                    directoryGridUIState = newState,
+                )
+            }
         }
     }
 
@@ -257,6 +291,10 @@ class DirectoryViewModel(
 
     fun clearOverlay() = _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
 
+    fun clearSearch() {
+        _uiState.update { it.copy(directoryAdvancedSearchUIState = DirectoryAdvancedSearchUIState.IDLE) }
+        refreshScreen()
+    }
     //endregion
 
 
