@@ -12,6 +12,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.UiState
@@ -122,8 +123,11 @@ fun DirectoryScreen(
 
         // Overlays
         when (val selectionState = uiState.overlayUiState) {
-            DirectoryOverlayUiState.None -> {}
+            DirectoryOverlayUiState.None -> {
+                Logger.i("KEVINS - None")
+            }
             is DirectoryOverlayUiState.ImagePreview -> {
+                Logger.i("KEVINS - ShowImagePreview")
                 ImagePreviewOverlay(
                     selectionState.imageDirectory,
                     visible = true,
@@ -134,6 +138,7 @@ fun DirectoryScreen(
             }
 
             is DirectoryOverlayUiState.Actions -> {
+                Logger.i("KEVINS - ACTIONS")
                 DirectoryActionsOverlay(
                     selectionState,
                     onAction = {
@@ -180,7 +185,7 @@ fun DirectoryScreen(
             }
 
             is DirectoryOverlayUiState.Sort -> {
-                println("Rendering Sort Dialog")
+                Logger.i("KEVINS - Rendering Sort Dialog")
                 SortDialog(
                     "Sort Images by",
                     onDismissRequest = { viewModel.clearOverlay() },

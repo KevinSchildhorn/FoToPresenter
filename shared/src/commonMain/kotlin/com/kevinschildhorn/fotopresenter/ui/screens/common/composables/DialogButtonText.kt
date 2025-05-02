@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,7 +14,7 @@ fun DialogButtonText(
 ) {
     Text(
         text,
-        style = FotoTypography().button,
+        style = MaterialTheme.typography.button,
         color = fotoColors.onSurface,
         modifier = modifier,
     )

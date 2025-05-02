@@ -1,6 +1,7 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -10,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.TestTags
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.testTag
 
@@ -37,7 +37,7 @@ fun SortDialog(
             )
             Text(
                 text = "File Name A-Z",
-                style = FotoTypography().button,
+                style = MaterialTheme.typography.button,
                 color = fotoColors.onSurface,
             )
         }
@@ -49,7 +49,7 @@ fun SortDialog(
             )
             Text(
                 text = "File Name Z-A",
-                style = FotoTypography().button,
+                style = MaterialTheme.typography.button,
                 color = fotoColors.onSurface,
             )
         }
@@ -61,7 +61,7 @@ fun SortDialog(
             )
             Text(
                 text = "Time Created Ascending",
-                style = FotoTypography().button,
+                style = MaterialTheme.typography.button,
                 color = fotoColors.onSurface,
             )
         }
@@ -73,9 +73,18 @@ fun SortDialog(
             )
             Text(
                 text = "Time Created Descending",
-                style = FotoTypography().button,
+                style = MaterialTheme.typography.button,
                 color = fotoColors.onSurface,
             )
         }
     }
+}
+
+@Composable
+private fun SortDialogPreview() {
+    SortDialog(
+        dialogTitle = "Sort By",
+        onDismissRequest = {},
+        onConfirmation = {},
+    )
 }

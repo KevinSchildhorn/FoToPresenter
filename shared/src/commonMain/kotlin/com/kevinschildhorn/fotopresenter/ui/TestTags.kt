@@ -51,9 +51,16 @@ object TestTags {
             SORT_TIME_CREATED_DES("SortTimeDescending"),
         }
 
+        enum class TagSearch(override val value: String) : TestTag {
+            ANY_TAGS("AnyTags"),
+            ALL_TAGS("AllTags"),
+        }
+
         enum class TopBar(override val value: String) : TestTag {
             TOP_BAR("DirectoryTopBar"),
             SEARCH_BAR("DirectorySearchBar"),
+            MORE("DirectoryTopBarMore"),
+            TAG_SEARCH("DirectoryTopBarTagSearch"),
             OPTIONS("DirectoryTopBarOptions"),
             MENU("DirectoryTopBarMenu"),
         }

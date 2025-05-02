@@ -12,7 +12,9 @@ import com.kevinschildhorn.fotopresenter.ui.testTag
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.Menu
+import compose.icons.evaicons.fill.MoreVertical
 import compose.icons.evaicons.fill.Options
+import compose.icons.evaicons.fill.Pricetags
 
 @Composable
 fun DirectoryTopBar(
@@ -33,7 +35,13 @@ fun DirectoryTopBar(
         actions = {
             // Search Bar
             DirectorySearchBar(searchText, onSearch = onSearchChanged)
+            DirectoryTitleBarButton(EvaIcons.Fill.Pricetags, modifier = Modifier.testTag(TestTags.Directory.TopBar.TAG_SEARCH)) {
+                showOverlay(DirectoryOverlayType.SORT)
+            }
             DirectoryTitleBarButton(EvaIcons.Fill.Options, modifier = Modifier.testTag(TestTags.Directory.TopBar.OPTIONS)) {
+                showOverlay(DirectoryOverlayType.SORT)
+            }
+            DirectoryTitleBarButton(EvaIcons.Fill.MoreVertical, modifier = Modifier.testTag(TestTags.Directory.TopBar.MORE)) {
                 showOverlay(DirectoryOverlayType.SORT)
             }
         },

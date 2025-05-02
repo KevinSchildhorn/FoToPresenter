@@ -32,8 +32,7 @@ fun DirectorySearchBar(
             onSearch(it)
         },
         modifier =
-            modifier
-                .testTag(TestTags.Directory.TopBar.SEARCH_BAR),
+            modifier.testTag(TestTags.Directory.TopBar.SEARCH_BAR),
         placeholder = { Text("Search directories...") },
         leadingIcon = {
             Icon(

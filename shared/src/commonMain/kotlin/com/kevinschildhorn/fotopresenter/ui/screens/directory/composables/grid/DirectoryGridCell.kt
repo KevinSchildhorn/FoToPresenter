@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -39,7 +40,7 @@ fun DirectoryGridCellText(
 ) {
     Text(
         text = text,
-        style = FotoTypography().button,
+        style = MaterialTheme.typography.button,
         color = fotoColors.onSurface,
         textAlign = TextAlign.Center,
         modifier =

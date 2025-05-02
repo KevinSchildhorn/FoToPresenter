@@ -58,21 +58,12 @@ class DirectoryViewModel(
             .combine(imagePreviewNavigator.imagePreviewState) { uiState, imagePreview ->
                 logger.v { "New Image Preview State: $imagePreview" }
 
-                when (uiState.overlayUiState) {
-                    is DirectoryOverlayUiState.ImagePreview,
-                    DirectoryOverlayUiState.None,
-                    -> {
-                        val selectionState =
-                            if (imagePreview != null) {
-                                DirectoryOverlayUiState.ImagePreview(imagePreview)
-                            } else {
-                                DirectoryOverlayUiState.None
-                            }
-
-                        uiState.copy(overlayUiState = selectionState)
-                    }
-
-                    else -> uiState
+                if (imagePreview != null && uiState.overlayUiState is DirectoryOverlayUiState.None) {
+                    uiState.copy(overlayUiState = DirectoryOverlayUiState.ImagePreview(imagePreview))
+                } else if (imagePreview == null && uiState.overlayUiState is DirectoryOverlayUiState.ImagePreview) {
+                    uiState.copy(overlayUiState = DirectoryOverlayUiState.None)
+                } else {
+                    uiState
                 }
             }
             .stateIn(
@@ -178,7 +169,8 @@ class DirectoryViewModel(
 
     //region Image Preview
 
-    fun setSelectedImageById(imageId: Long?) = imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
+    fun setSelectedImageById(imageId: Long?) =
+        imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
 
     fun clearPresentedImage() = imagePreviewNavigator.setImageIndex(null)
 
