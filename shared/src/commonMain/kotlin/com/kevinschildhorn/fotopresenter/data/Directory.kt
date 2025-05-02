@@ -43,10 +43,12 @@ fun <T : Directory> List<T>.sorted(sortingType: SortingType): List<T> =
 fun <T : Directory> List<T>.filteredByName(string: String): List<T> =
     this.filter { it.name.lowercase().contains(string.lowercase()) }
 
-fun <T : ImageDirectory> List<T>.filteredByTags(tags: List<String>, allTags: Boolean): List<T> =
+fun List<ImageDirectory>.filteredByTags(tags: List<String>, allTags: Boolean): List<ImageDirectory> =
     this.filter {
-        if(allTags)
-        it.metaData?.tags?.containsAll(tags)
-    else
-        it.metaData?.tags?.contains()
-        it.name.lowercase().contains(string.lowercase()) }
+        val imageTags = it.metaData?.tags ?: emptySet()
+        if (allTags)
+            imageTags.containsAll(tags)
+         else
+            tags.any { tag -> imageTags.contains(tag) }
+
+    }
