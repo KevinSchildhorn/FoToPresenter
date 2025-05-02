@@ -13,6 +13,7 @@ import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
+import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.TagSearchType
 import com.kevinschildhorn.fotopresenter.ui.UiState
@@ -152,7 +153,6 @@ class DirectoryViewModel(
                 )
             }
 
-
             val images = UseCaseFactory.retrieveImageDirectoriesUseCase(
                 path = path,
                 recursively = recursive,
@@ -172,6 +172,7 @@ class DirectoryViewModel(
                     directoryGridUIState = newState,
                 )
             }
+            imagePreviewNavigator.setFolderContents(images)
         }
     }
 
