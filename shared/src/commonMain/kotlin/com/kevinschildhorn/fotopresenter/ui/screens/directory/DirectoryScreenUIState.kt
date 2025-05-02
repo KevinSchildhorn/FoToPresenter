@@ -163,6 +163,8 @@ sealed class DirectoryOverlayUiState {
 
     data object Sort : DirectoryOverlayUiState()
 
+    data object AdvancedSearch : DirectoryOverlayUiState()
+
     data object LogoutConfirmation : DirectoryOverlayUiState()
 
     data object None : DirectoryOverlayUiState()

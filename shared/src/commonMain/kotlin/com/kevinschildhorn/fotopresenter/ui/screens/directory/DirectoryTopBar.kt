@@ -36,13 +36,13 @@ fun DirectoryTopBar(
             // Search Bar
             DirectorySearchBar(searchText, onSearch = onSearchChanged)
             DirectoryTitleBarButton(EvaIcons.Fill.Pricetags, modifier = Modifier.testTag(TestTags.Directory.TopBar.TAG_SEARCH)) {
-                showOverlay(DirectoryOverlayType.SORT)
+                showOverlay(DirectoryOverlayType.ADVANCED_SEARCH)
             }
-            DirectoryTitleBarButton(EvaIcons.Fill.Options, modifier = Modifier.testTag(TestTags.Directory.TopBar.OPTIONS)) {
+            DirectoryTitleBarButton(EvaIcons.Fill.Options, modifier = Modifier.testTag(TestTags.Directory.TopBar.SORT)) {
                 showOverlay(DirectoryOverlayType.SORT)
             }
             DirectoryTitleBarButton(EvaIcons.Fill.MoreVertical, modifier = Modifier.testTag(TestTags.Directory.TopBar.MORE)) {
-                showOverlay(DirectoryOverlayType.SORT)
+                showOverlay(DirectoryOverlayType.DIRECTORY_ACTION_SHEET)
             }
         },
         title = {

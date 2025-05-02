@@ -18,6 +18,7 @@ import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AdvancedSearchDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ConfirmationDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ImagePreviewOverlay
@@ -34,6 +35,8 @@ enum class DirectoryOverlayType {
     IMAGE,
     LOGOUT_CONFIRMATION,
     SORT,
+    ADVANCED_SEARCH,
+    DIRECTORY_ACTION_SHEET,
     NONE,
 }
 
@@ -179,7 +182,7 @@ fun DirectoryScreen(
                     onConfirmation = {
                         viewModel.logout()
                         onLogout()
-                        viewModel.showOverlay(DirectoryOverlayType.NONE)
+                        viewModel.clearOverlay()
                     },
                 )
             }
@@ -191,8 +194,18 @@ fun DirectoryScreen(
                     onDismissRequest = { viewModel.clearOverlay() },
                     onConfirmation = {
                         viewModel.setSortType(it)
-                        viewModel.showOverlay(DirectoryOverlayType.NONE)
+                        viewModel.clearOverlay()
                     },
+                )
+            }
+            is DirectoryOverlayUiState.AdvancedSearch -> {
+                Logger.i("KEVINS - Advanced Search")
+                AdvancedSearchDialog(
+                    onDismissRequest = { viewModel.clearOverlay() },
+                    onConfirmation = {
+                        //viewModel.setAdvancedSearch(it)
+                        viewModel.clearOverlay()
+                    }
                 )
             }
         }

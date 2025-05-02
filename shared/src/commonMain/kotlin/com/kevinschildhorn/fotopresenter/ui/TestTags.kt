@@ -61,7 +61,7 @@ object TestTags {
             SEARCH_BAR("DirectorySearchBar"),
             MORE("DirectoryTopBarMore"),
             TAG_SEARCH("DirectoryTopBarTagSearch"),
-            OPTIONS("DirectoryTopBarOptions"),
+            SORT("DirectoryTopBarSort"),
             MENU("DirectoryTopBarMenu"),
         }
 

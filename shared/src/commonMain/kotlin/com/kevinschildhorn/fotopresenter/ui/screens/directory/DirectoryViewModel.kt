@@ -106,6 +106,15 @@ class DirectoryViewModel(
                 logger.i { "Clearing overlay" }
                 _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
             }
+
+            DirectoryOverlayType.ADVANCED_SEARCH -> {
+                logger.i { "Advanced Search" }
+                _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.AdvancedSearch) }
+            }
+            DirectoryOverlayType.DIRECTORY_ACTION_SHEET -> {
+                logger.i { "Directory Action Sheet" }
+                //_uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
+            }
         }
         logger.i { "Current overlay state: ${_uiState.value.overlayUiState}" }
     }

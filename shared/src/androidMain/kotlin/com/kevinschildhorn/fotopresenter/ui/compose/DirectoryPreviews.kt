@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectoryDetails
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AdvancedSearchDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellUIState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridUIState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
@@ -73,5 +74,14 @@ fun DirectoryNavigationBarPreview() {
             ).map { Path(it) },
         {},
         {},
+    )
+}
+
+@Preview
+@Composable
+private fun SortDialogPreview() {
+    AdvancedSearchDialog(
+        onDismissRequest = {},
+        onConfirmation = {},
     )
 }
