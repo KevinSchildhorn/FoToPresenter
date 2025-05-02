@@ -113,6 +113,7 @@ class DirectoryViewModel(
                 logger.i { "Advanced Search" }
                 _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.AdvancedSearch) }
             }
+
             DirectoryOverlayType.DIRECTORY_ACTION_SHEET -> {
                 logger.i { "Directory Action Sheet" }
                 //_uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
@@ -127,8 +128,17 @@ class DirectoryViewModel(
             directoryNavigator.setSortType(sortingType)
         }
 
-    fun setAdvancedSearch(tags: List<String>, searchType: TagSearchType){
-
+    fun setAdvancedSearch(tags: List<String>, searchType: TagSearchType, recursive: Boolean) {
+        viewModelScope.launch(Dispatchers.Default) {
+            val images = UseCaseFactory.retrieveImageDirectoriesUseCase(
+                path = _uiState.value.directoryGridUIState.currentPath,
+                recursively = recursive,
+                tags = tags,
+                inclusiveTags = searchType == TagSearchType.ALL_TAGS,
+            )
+            println(images)
+            // TODO
+        }
     }
 
     /*
@@ -203,7 +213,7 @@ class DirectoryViewModel(
     ) = viewModelScope.launch(Dispatchers.Default) {
         val images =
             UseCaseFactory.retrieveImageDirectoriesUseCase(
-                directoryDetails = directory.details,
+                path = directory.details.fullPath,
                 recursively = withSubPhotos,
             )
         _uiState.update {

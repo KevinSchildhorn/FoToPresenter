@@ -82,6 +82,6 @@ fun DirectoryNavigationBarPreview() {
 private fun SortDialogPreview() {
     AdvancedSearchDialog(
         onDismissRequest = {},
-        onConfirmation = { _,_ -> },
+        onConfirmation = { _,_,_ -> },
     )
 }

@@ -51,7 +51,7 @@ class DirectoryRepository(
             currentContents.folders.flatMap { folder ->
                 try {
                     val subPath = folder.details.fullPath
-                    if (subPath.fileName.endsWith("..")) {
+                    if (ignoredPaths.contains(subPath.fileName)) {
                         emptyList()
                     } else {
                         val subContents = getDirectoryContentsRecursive(subPath)
@@ -69,4 +69,7 @@ class DirectoryRepository(
             images = currentContents.images + subFolderContents,
         )
     }
+
+    private val ignoredPaths: List<String> =
+        listOf("..", "@Recycle", "@Recently-Snapshot", "HDStation_download")
 }

@@ -49,6 +49,7 @@ val commonModule =
         factory {
             RetrieveDirectoryContentsUseCase(
                 get(),
+                get(),
                 getLoggerWithTag("RetrieveDirectoryContentsUseCase$LOGGER_TAG_SUFFIX"),
             )
         }

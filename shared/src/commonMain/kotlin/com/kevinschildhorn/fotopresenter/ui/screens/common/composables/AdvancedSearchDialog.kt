@@ -1,5 +1,6 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -15,16 +16,18 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.TagSearchType
 import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import com.kevinschildhorn.fotopresenter.ui.composables.FotoCheckbox
+import com.kevinschildhorn.fotopresenter.ui.composables.FotoRadioButton
 import com.kevinschildhorn.fotopresenter.ui.testTag
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline
@@ -34,16 +37,17 @@ import compose.icons.evaicons.outline.PlusCircle
 @Composable
 fun AdvancedSearchDialog(
     onDismissRequest: () -> Unit,
-    onConfirmation: (List<String>, TagSearchType) -> Unit,
+    onConfirmation: (List<String>, TagSearchType, Boolean) -> Unit,
 ) {
     val selectedOption = remember { mutableStateOf(TagSearchType.ALL_TAGS) }
+    val recursive = remember { mutableStateOf(true) }
     val tags = remember { mutableStateListOf("") }
 
     FotoDialog(
         "Tag Search",
         onDismissRequest = onDismissRequest,
         onConfirmation = {
-            onConfirmation(tags.toList(), selectedOption.value)
+            onConfirmation(tags.toList(), selectedOption.value, recursive.value)
         },
     ) {
         LazyColumn {
@@ -83,29 +87,26 @@ fun AdvancedSearchDialog(
                 }
             }
         }
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            RadioButton(
-                selected = selectedOption.value == TagSearchType.ALL_TAGS,
-                onClick = { selectedOption.value = TagSearchType.ALL_TAGS },
-                modifier = Modifier.testTag(TestTags.Directory.TagSearch.ALL_TAGS),
-            )
-            Text(
-                text = "All of the Tags",
-                style = MaterialTheme.typography.button,
-                color = fotoColors.onSurface,
-            )
-        }
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            RadioButton(
-                selected = selectedOption.value == TagSearchType.ANY_TAGS,
-                onClick = { selectedOption.value = TagSearchType.ANY_TAGS },
-                modifier = Modifier.testTag(TestTags.Directory.TagSearch.ANY_TAGS),
-            )
-            Text(
-                text = "Any of the Tags",
-                style = MaterialTheme.typography.button,
-                color = fotoColors.onSurface,
-            )
-        }
+        FotoRadioButton(
+            title = "All of the Tags",
+            selected = selectedOption.value == TagSearchType.ALL_TAGS,
+            onRadioChanged = { selectedOption.value = TagSearchType.ALL_TAGS },
+            modifier = Modifier.testTag(TestTags.Directory.TagSearch.ALL_TAGS),
+            horizontalArrangement = Arrangement.Start,
+        )
+        FotoRadioButton(
+            title = "Any of the Tags",
+            selected = selectedOption.value == TagSearchType.ANY_TAGS,
+            onRadioChanged = { selectedOption.value = TagSearchType.ANY_TAGS },
+            modifier = Modifier.testTag(TestTags.Directory.TagSearch.ANY_TAGS),
+            horizontalArrangement = Arrangement.Start,
+        )
+        FotoCheckbox(
+            title = "Search Subfolders",
+            checked = recursive.value,
+            onCheckedChange = { recursive.value = it },
+            modifier = Modifier.testTag(TestTags.Directory.TagSearch.RECURSIVE),
+            horizontalArrangement = Arrangement.Start,
+        )
     }
 }

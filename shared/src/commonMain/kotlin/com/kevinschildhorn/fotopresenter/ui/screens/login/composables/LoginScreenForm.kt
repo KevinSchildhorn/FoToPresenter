@@ -10,6 +10,7 @@ import com.kevinschildhorn.fotopresenter.extension.required
 import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
+import com.kevinschildhorn.fotopresenter.ui.composables.FotoCheckbox
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.FormColumn
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryTextButton
@@ -64,7 +65,7 @@ fun LoginScreenForm(
         FormColumn(
             verticalPadding = Padding.NONE,
         ) {
-            LoginCheckbox(
+            FotoCheckbox(
                 title = "Should autoConnect",
                 checked = uiState.shouldAutoConnect,
                 onCheckedChange = onShouldAutoConnectChange,

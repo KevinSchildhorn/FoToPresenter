@@ -54,6 +54,7 @@ object TestTags {
         enum class TagSearch(override val value: String) : TestTag {
             ANY_TAGS("AnyTags"),
             ALL_TAGS("AllTags"),
+            RECURSIVE("Recursive"),
         }
 
         enum class TopBar(override val value: String) : TestTag {
