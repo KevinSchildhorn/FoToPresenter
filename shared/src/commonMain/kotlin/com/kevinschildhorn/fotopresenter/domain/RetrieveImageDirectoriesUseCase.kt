@@ -15,10 +15,17 @@ class RetrieveImageDirectoriesUseCase(
     suspend operator fun invoke(
         directoryDetails: NetworkDirectoryDetails,
         recursively: Boolean = true,
+        tags: List<String> = emptyList(),
+        inclusiveTags: Boolean = false,
     ): List<ImageDirectory> {
         logger.i { "Retrieving images from directory ${directoryDetails.fullPath}" }
         val retrieveContentsUseCase = UseCaseFactory.retrieveDirectoryContentsUseCase
-        val contents = retrieveContentsUseCase(directoryDetails.fullPath, recursively)
+        val contents = retrieveContentsUseCase(
+            directoryDetails.fullPath,
+            recursively = recursively,
+            tags,
+            inclusiveTags
+        )
         return contents.images
     }
 }

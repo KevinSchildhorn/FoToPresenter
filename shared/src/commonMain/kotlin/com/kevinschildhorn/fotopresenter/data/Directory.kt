@@ -21,8 +21,8 @@ data class FolderDirectory(
     val isValid: Boolean
         get() =
             name != ".." &&
-                name.isNotEmpty() &&
-                name.isNotBlank()
+                    name.isNotEmpty() &&
+                    name.isNotBlank()
 }
 
 data class ImageDirectory(
@@ -40,4 +40,13 @@ fun <T : Directory> List<T>.sorted(sortingType: SortingType): List<T> =
         SortingType.TIME_DESC -> this.sortedByDescending { it.details.dateMillis }
     }
 
-fun <T : Directory> List<T>.filtered(string: String): List<T> = this.filter { it.name.lowercase().contains(string.lowercase()) }
+fun <T : Directory> List<T>.filteredByName(string: String): List<T> =
+    this.filter { it.name.lowercase().contains(string.lowercase()) }
+
+fun <T : ImageDirectory> List<T>.filteredByTags(tags: List<String>, allTags: Boolean): List<T> =
+    this.filter {
+        if(allTags)
+        it.metaData?.tags?.containsAll(tags)
+    else
+        it.metaData?.tags?.contains()
+        it.name.lowercase().contains(string.lowercase()) }

@@ -202,8 +202,8 @@ fun DirectoryScreen(
                 Logger.i("KEVINS - Advanced Search")
                 AdvancedSearchDialog(
                     onDismissRequest = { viewModel.clearOverlay() },
-                    onConfirmation = {
-                        //viewModel.setAdvancedSearch(it)
+                    onConfirmation = { tags, type ->
+                        viewModel.setAdvancedSearch(tags, type)
                         viewModel.clearOverlay()
                     }
                 )

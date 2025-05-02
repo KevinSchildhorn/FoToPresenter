@@ -20,10 +20,17 @@ data class DirectoryContents(
         )
     }
 
-    fun filtered(string: String): DirectoryContents {
+    fun filteredByName(string: String): DirectoryContents {
         return DirectoryContents(
-            folders = folders.filtered(string),
-            images = images.filtered(string),
+            folders = folders.filteredByName(string),
+            images = images.filteredByName(string),
+        )
+    }
+
+    fun filteredByTags(tags:List<String>, allTags: Boolean): DirectoryContents {
+        return DirectoryContents(
+            folders = emptyList(),
+            images = images.filteredByTags(tags, allTags),
         )
     }
 

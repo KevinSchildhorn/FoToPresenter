@@ -15,12 +15,17 @@ class RetrieveDirectoryContentsUseCase(
     suspend operator fun invoke(
         path: Path,
         recursively: Boolean,
+        tags: List<String> = emptyList(),
+        inclusiveTags: Boolean = false,
     ): DirectoryContents {
         logger.d { "Getting directory Contents at path '$path'" }
-        return if (recursively) {
+        var directoryContents = if (recursively)
             directoryRepository.getDirectoryContentsRecursive(path)
-        } else {
+        else
             directoryRepository.getDirectoryContents(path)
-        }
+
+        directoryContents.copy()
+
+        return directoryContents
     }
 }

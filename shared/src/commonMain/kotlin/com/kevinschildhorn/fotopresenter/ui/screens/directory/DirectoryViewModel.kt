@@ -14,6 +14,7 @@ import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSourc
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.ui.SortingType
+import com.kevinschildhorn.fotopresenter.ui.TagSearchType
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,6 +39,7 @@ class DirectoryViewModel(
     private val dataSource: ImageMetadataDataSource,
     private val logger: Logger,
 ) : ViewModel(), KoinComponent {
+
     /*
      * UI State
      */
@@ -124,6 +126,10 @@ class DirectoryViewModel(
             logger.i { "Setting Sort Type" }
             directoryNavigator.setSortType(sortingType)
         }
+
+    fun setAdvancedSearch(tags: List<String>, searchType: TagSearchType){
+
+    }
 
     /*
      * Sets the selected directory to display the possible actions that can be taken on it.
@@ -242,6 +248,7 @@ class DirectoryViewModel(
     fun clearOverlay() = _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
 
     //endregion
+
 
     private suspend fun tryCatch(block: suspend () -> Unit) =
         try {

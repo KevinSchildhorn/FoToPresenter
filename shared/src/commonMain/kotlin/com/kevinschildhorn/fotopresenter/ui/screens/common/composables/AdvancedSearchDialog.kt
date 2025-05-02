@@ -1,6 +1,5 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -17,11 +16,11 @@ import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.ui.TagSearchType
 import com.kevinschildhorn.fotopresenter.ui.TestTags
@@ -35,20 +34,20 @@ import compose.icons.evaicons.outline.PlusCircle
 @Composable
 fun AdvancedSearchDialog(
     onDismissRequest: () -> Unit,
-    onConfirmation: (TagSearchType) -> Unit,
+    onConfirmation: (List<String>, TagSearchType) -> Unit,
 ) {
     val selectedOption = remember { mutableStateOf(TagSearchType.ALL_TAGS) }
-    val tags = remember { mutableStateOf(mutableListOf("")) }
+    val tags = remember { mutableStateListOf("") }
 
     FotoDialog(
         "Tag Search",
         onDismissRequest = onDismissRequest,
         onConfirmation = {
-            onConfirmation(selectedOption.value)
+            onConfirmation(tags.toList(), selectedOption.value)
         },
     ) {
         LazyColumn {
-            itemsIndexed(tags.value) { index, tag ->
+            itemsIndexed(tags) { index, tag ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.height(IntrinsicSize.Min)
@@ -56,23 +55,23 @@ fun AdvancedSearchDialog(
                     OutlinedTextField(
                         value = tag,
                         onValueChange = { newValue ->
-                            tags.apply { this[index] = newValue }
+                            tags[index] = newValue
                         },
                         label = { Text("Tag") },
                         modifier = Modifier.weight(1f),
                     )
                     IconButton(
                         onClick = {
-                            if (index == tags.value.size - 1) {
-                                tags.value = tags.apply { add("") }
+                            if (index == tags.size - 1) {
+                                tags.add("")
                             } else {
-                                tags.value = tags.apply { removeAt(index) }
+                                tags.removeAt(index)
                             }
                         },
                         modifier = Modifier.padding(top = 8.dp).width(44.dp)
                     ) {
                         val imageVector =
-                            if (index == tags.value.size - 1) EvaIcons.Outline.PlusCircle
+                            if (index == tags.size - 1) EvaIcons.Outline.PlusCircle
                             else EvaIcons.Outline.Close
                         Icon(
                             imageVector = imageVector,
@@ -110,6 +109,3 @@ fun AdvancedSearchDialog(
         }
     }
 }
-
-private fun MutableState<MutableList<String>>.apply(block: MutableList<String>.() -> Unit) =
-    this.value.toMutableList().apply(block)

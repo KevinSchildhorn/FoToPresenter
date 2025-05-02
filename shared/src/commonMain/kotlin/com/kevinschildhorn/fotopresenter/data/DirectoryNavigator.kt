@@ -54,17 +54,18 @@ class DirectoryNavigator(
         refreshDirectoryContents()
     }
 
-    fun getDirectoryFromId(id: Long): Directory? = currentDirectoryContents.value.allDirectories.find { it.id == id }
+    fun getDirectoryFromId(id: Long): Directory? =
+        currentDirectoryContents.value.allDirectories.find { it.id == id }
 
     // Emits from to the Flow the current directories contents.
     // Used when the DirectoryScreen is first shown
     suspend fun refreshDirectoryContents() {
         val newDirectoryContents =
-            UseCaseFactory.retrieveDirectoryContentsUseCase(currentPath, false)
+            UseCaseFactory.retrieveDirectoryContentsUseCase(currentPath, recursively = false)
 
         logger.v { "Refreshing Contents With Sort Type: $sortType and filter: $searchText." }
         _currentDirectoryContents.update {
-            newDirectoryContents.sorted(sortType).filtered(searchText)
+            newDirectoryContents.sorted(sortType).filteredByName(searchText)
         }
     }
 
