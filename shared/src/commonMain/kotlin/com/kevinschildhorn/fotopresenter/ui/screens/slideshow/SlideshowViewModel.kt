@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -21,24 +22,22 @@ class SlideshowViewModel(
     private val imagePreviewNavigator: ImagePreviewNavigator,
     private val logger: Logger,
 ) : ViewModel(), KoinComponent {
-    private val _uiState = MutableStateFlow(SlideshowScreenUiState.Loading())
+
     val uiState: StateFlow<SlideshowScreenUiState> =
-        _uiState
-            .combine(imagePreviewNavigator.imagePreviewState) { uiState, imagePreview ->
-                logger.v { "New Image Preview State: $imagePreview" }
-                if (imagePreview != null) {
-                    return@combine SlideshowScreenUiState.Ready(
-                        selectedImageDirectory = imagePreview,
-                        selectedImageIndex = uiState.selectedImageIndex,
-                    )
-                }
-                return@combine SlideshowScreenUiState.Loading(selectedImageIndex = uiState.selectedImageIndex)
+        imagePreviewNavigator.imagePreviewState.map { imagePreview ->
+            if (imagePreview != null) {
+                SlideshowScreenUiState.Ready(selectedImageDirectory = imagePreview)
+            } else {
+                SlideshowScreenUiState.Loading
             }
+        }
             .stateIn(
                 scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(50_000),
-                initialValue = SlideshowScreenUiState.Loading(0),
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = SlideshowScreenUiState.Loading,
             )
+
+    var onGoFullScreen: () -> Unit = {}
 
     private var timer: Timer? = null
 
@@ -78,6 +77,7 @@ class SlideshowViewModel(
     }
 
     fun startSlideshow(details: ImageSlideshowDetails) {
+        onGoFullScreen()
         imagePreviewNavigator.setFolderContents(details.directories)
         imagePreviewNavigator.setImageIndex(0)
         viewModelScope.launch(Dispatchers.Default) {
@@ -86,12 +86,14 @@ class SlideshowViewModel(
     }
 
     fun skipForward() {
+        onGoFullScreen()
         stopImageTimer()
         imagePreviewNavigator.showNextImage()
         startImageTimer()
     }
 
     fun skipBackwards() {
+        onGoFullScreen()
         stopImageTimer()
         imagePreviewNavigator.showPreviousImage()
         startImageTimer()
