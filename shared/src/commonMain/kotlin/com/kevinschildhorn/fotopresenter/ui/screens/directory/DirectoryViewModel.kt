@@ -13,7 +13,7 @@ import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
-import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
+import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.TagSearchType
 import com.kevinschildhorn.fotopresenter.ui.UiState
@@ -38,6 +38,7 @@ class DirectoryViewModel(
     private val networkHandler: NetworkHandler,
     // Used for MetaData
     private val dataSource: ImageMetadataDataSource,
+    private val playlistRepository: PlaylistRepository,
     private val logger: Logger,
 ) : ViewModel(), KoinComponent {
 
@@ -52,12 +53,12 @@ class DirectoryViewModel(
 
                 if (uiState.directoryAdvancedSearchUIState != DirectoryAdvancedSearchUIState.IDLE)
                     uiState.copy(
-                    state = when (uiState.state) {
-                        //UiState.LOADING -> uiState.state
-                        is UiState.ERROR -> uiState.state
-                        else -> UiState.SUCCESS
-                    }
-                )
+                        state = when (uiState.state) {
+                            //UiState.LOADING -> uiState.state
+                            is UiState.ERROR -> uiState.state
+                            else -> UiState.SUCCESS
+                        }
+                    )
                 else {
                     imagePreviewNavigator.setFolderContents(directoryContents.images)
                     uiState.copy(
@@ -262,9 +263,32 @@ class DirectoryViewModel(
         }
     }
 
-    fun addLocationToPlaylist(dynamic: Boolean) {} // TODO
+    fun showPlaylistOverlay(dynamic: Boolean) {
+        viewModelScope.launch(Dispatchers.Default) {
+            uiState.value.overlayUiState.castTo<DirectoryOverlayUiState.Actions>()
+                ?.let { actionState ->
+                    _uiState.update {
+                        it.copy(
+                            overlayUiState =
+                                DirectoryOverlayUiState.Actions.AddToPlaylist(
+                                    playlists = playlistRepository.getAllPlaylists(),
+                                    directoryUiState = actionState.directoryUiState,
+                                    directory = actionState.directory,
+                                ),
+                        )
+                    }
+                }
+        }
+    }
 
-    fun startEditingMetadata() =
+    fun addItemToPlaylist(playlistId: Long, directory: Directory) {
+        viewModelScope.launch(Dispatchers.Default) {
+            playlistRepository.insertPlaylistImage(playlistId, directory = directory)
+            _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
+        }
+    }
+
+        fun startEditingMetadata() =
         viewModelScope.launch(Dispatchers.Default) {
             uiState.value.overlayUiState.castTo<DirectoryOverlayUiState.Actions>()
                 ?.let { actionState ->

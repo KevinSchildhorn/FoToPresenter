@@ -11,7 +11,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.ui.TestTags
@@ -177,17 +176,20 @@ fun DirectoryScreen(
                                 )
 
                             ActionSheetAction.ADD_STATIC_LOCATION ->
-                                viewModel.addLocationToPlaylist(dynamic = false)
+                                viewModel.showPlaylistOverlay(dynamic = false)
 
                             ActionSheetAction.SET_METADATA -> viewModel.startEditingMetadata()
                             ActionSheetAction.ADD_DYNAMIC_LOCATION ->
-                                viewModel.addLocationToPlaylist(dynamic = true)
+                                viewModel.showPlaylistOverlay(dynamic = true)
 
                             ActionSheetAction.NONE -> viewModel.clearOverlay()
                         }
                     },
                     onSaveMetadata = { viewModel.saveMetadata(it) },
                     changeOverlay = {},
+                    onAddToPlaylist = { playlistId, directory ->
+                        viewModel.addItemToPlaylist(playlistId, directory)
+                    },
                     onDismiss = { viewModel.clearOverlay() },
                 )
             }

@@ -1,9 +1,12 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
 import androidx.compose.runtime.Composable
+import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay.MetadataOverlay
+import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistDialog
+import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.PlaylistOverlay
 
 /**
  * **DirectoryActionsOverlay**
@@ -16,6 +19,7 @@ fun DirectoryActionsOverlay(
     overlayState: DirectoryOverlayUiState.Actions,
     onAction: (ActionSheetAction) -> Unit,
     onSaveMetadata: (String) -> Unit,
+    onAddToPlaylist: (Long, Directory) -> Unit,
     changeOverlay: (DirectoryOverlayType) -> Unit,
     onDismiss: () -> Unit,
 ) {
@@ -38,6 +42,19 @@ fun DirectoryActionsOverlay(
             )
         }
 
-        is DirectoryOverlayUiState.Actions.AddToPlaylist -> {}
+        is DirectoryOverlayUiState.Actions.AddToPlaylist -> {
+            PlaylistOverlay(
+                overlayState.playlists,
+                overlaid = true,
+                onClick = { id ->
+                    onAddToPlaylist(id, overlayState.directory)
+                },
+                onDetails = { }, // TODO
+                onDelete = { },
+                onEdit = { },
+                onCreate = { },
+                onDismiss = onDismiss,
+            )
+        }
     }
 }

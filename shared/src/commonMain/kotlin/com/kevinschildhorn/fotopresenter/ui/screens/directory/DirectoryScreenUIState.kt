@@ -147,6 +147,7 @@ sealed class DirectoryOverlayUiState {
         val directory: Directory,
     ) : DirectoryOverlayUiState() {
         class AddToPlaylist(
+            val playlists: List<com.kevinschildhorn.fotopresenter.data.PlaylistDetails>,
             directoryUiState: DirectoryGridCellUIState,
             directory: Directory,
         ) : Actions(directoryUiState, directory)

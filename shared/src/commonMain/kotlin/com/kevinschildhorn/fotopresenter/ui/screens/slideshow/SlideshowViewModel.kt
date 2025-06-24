@@ -3,9 +3,12 @@ package com.kevinschildhorn.fotopresenter.ui.screens.slideshow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
+import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.ImagePreviewNavigator
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
+import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
+import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,6 +23,7 @@ import kotlin.concurrent.fixedRateTimer
 
 class SlideshowViewModel(
     private val imagePreviewNavigator: ImagePreviewNavigator,
+    private val directoryRepository: DirectoryRepository,
     private val logger: Logger,
 ) : ViewModel(), KoinComponent {
 
@@ -45,35 +49,34 @@ class SlideshowViewModel(
         logger.i { "Starting playlist $playlistDetails" }
 
         logger.i { "Starting to get details from playlist ${playlistDetails.name}" }
-        /* TODO
-        val directories: List<ImageDirectory> =
-            playlistDetails.items.map { item ->
-                val directoryDetails =
-                    DefaultNetworkDirectoryDetails(
-                        id = item.directoryId,
-                        fullPath = item.directoryPath,
-                    )
-                if (item.directoryPath.isImagePath) {
-                    listOf(
-                        ImageDirectory(
-                            directoryDetails,
-                            null,
-                        ),
-                    )
-                } else {
-                    val useCase = UseCaseFactory.retrieveDirectoryContentsUseCase
-                    useCase.invoke(
-                        directoryDetails = directoryDetails,
-                        recursively = true,
-                    )
-                }
-            }.flatten()
-
-        val slideshow = ImageSlideshowDetails(directories)
 
         viewModelScope.launch(Dispatchers.Default) {
-            startSlideshow(slideshow)
-        }*/
+            val directories: List<ImageDirectory> =
+                playlistDetails.items.map { item ->
+                    val directoryDetails =
+                        DefaultNetworkDirectoryDetails(
+                            id = item.directoryId,
+                            fullPath = item.directoryPath,
+                        )
+                    if (item.directoryPath.isImagePath) {
+                        listOf(
+                            ImageDirectory(
+                                directoryDetails,
+                                null,
+                            ),
+                        )
+                    } else {
+                        val contents = directoryRepository.getDirectoryContents(directoryDetails.fullPath)
+                        contents.images
+                    }
+                }.flatten()
+
+            val slideshow = ImageSlideshowDetails(directories)
+
+            viewModelScope.launch(Dispatchers.Default) {
+                startSlideshow(slideshow)
+            }
+        }
     }
 
     fun startSlideshow(details: ImageSlideshowDetails) {
