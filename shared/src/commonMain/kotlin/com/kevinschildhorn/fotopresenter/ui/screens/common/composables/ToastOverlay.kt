@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import androidx.compose.material.MaterialTheme
 import kotlinx.coroutines.delay
 
 @Composable
@@ -57,7 +57,7 @@ fun ToastOverlay(
                         modifier =
                             Modifier
                                 .clip(RoundedCornerShape(25.dp))
-                                .background(fotoColors.secondary),
+                                .background(MaterialTheme.colors.secondary),
                     ) {
                         ToastMessage(
                             text,

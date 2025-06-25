@@ -7,13 +7,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.ui.atoms.disabled
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.Home
@@ -25,13 +25,13 @@ fun DirectoryNavigationHome(onClick: () -> Unit) {
         modifier = Modifier.height(44.dp).width(44.dp).clip(RoundedCornerShape(10.dp)).testTag("NavItemHome"),
         colors =
             ButtonDefaults.buttonColors(
-                backgroundColor = fotoColors.secondary,
+                backgroundColor = MaterialTheme.colors.secondary,
                 disabledBackgroundColor = disabled,
             ),
     ) {
         Icon(
             imageVector = EvaIcons.Fill.Home,
-            tint = fotoColors.onSecondary,
+            tint = MaterialTheme.colors.onSecondary,
             contentDescription = "Home",
             modifier = Modifier.size(44.dp),
         )

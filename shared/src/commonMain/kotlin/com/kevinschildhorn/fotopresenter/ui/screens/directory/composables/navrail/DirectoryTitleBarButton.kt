@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import androidx.compose.material.MaterialTheme
 
 @Composable
 fun DirectoryTitleBarButton(
@@ -22,7 +22,7 @@ fun DirectoryTitleBarButton(
         Icon(
             imageVector,
             contentDescription = "Menu",
-            tint = fotoColors.onBackground,
+            tint = MaterialTheme.colors.onBackground,
         )
     }
 }

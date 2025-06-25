@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import androidx.compose.material.MaterialTheme
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.DialogButtonText
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline
@@ -49,7 +49,7 @@ fun PlaylistScreenPlaylistRow(
             ) {
                 Icon(
                     EvaIcons.Outline.Info,
-                    tint = fotoColors.onSecondary,
+                    tint = MaterialTheme.colors.onSecondary,
                     contentDescription = "Details",
                 )
             }
@@ -59,7 +59,7 @@ fun PlaylistScreenPlaylistRow(
             ) {
                 Icon(
                     EvaIcons.Outline.Edit,
-                    tint = fotoColors.onSecondary,
+                    tint = MaterialTheme.colors.onSecondary,
                     contentDescription = "Edit",
                 )
             }
@@ -69,7 +69,7 @@ fun PlaylistScreenPlaylistRow(
             ) {
                 Icon(
                     EvaIcons.Outline.Trash,
-                    tint = fotoColors.onSecondary,
+                    tint = MaterialTheme.colors.onSecondary,
                     contentDescription = "Trash",
                 )
             }

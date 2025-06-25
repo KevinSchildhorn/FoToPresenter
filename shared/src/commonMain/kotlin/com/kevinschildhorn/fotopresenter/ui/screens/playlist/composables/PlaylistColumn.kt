@@ -14,7 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import androidx.compose.material.MaterialTheme
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.DialogButtonText
 
 @Composable
@@ -32,7 +32,7 @@ fun PlaylistColumn(
             .fillMaxWidth()
             .padding(Padding.STANDARD.dp)
             .clip(RoundedCornerShape(10.dp))
-            .background(fotoColors.secondary),
+            .background(MaterialTheme.colors.secondary),
     ) {
         Column(Modifier.fillMaxWidth().padding(Padding.MEDIUM.dp)) {
             DialogButtonText("Playlists")
@@ -56,7 +56,7 @@ fun PlaylistColumn(
                     Divider(
                         startIndent = 0.dp,
                         thickness = 1.dp,
-                        color = fotoColors.onSecondary,
+                        color = MaterialTheme.colors.onSecondary,
                     )
                 }
             }

@@ -5,7 +5,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 
 @Composable
 fun DialogButtonText(
@@ -15,7 +14,7 @@ fun DialogButtonText(
     Text(
         text,
         style = MaterialTheme.typography.button,
-        color = fotoColors.onSurface,
+        color = MaterialTheme.colors.onSurface,
         modifier = modifier,
     )
 }
@@ -27,8 +26,8 @@ fun DialogTitle(
 ) {
     Text(
         text,
-        style = FotoTypography().h4,
-        color = fotoColors.onSecondary,
+        style = MaterialTheme.typography.h4,
+        color = MaterialTheme.colors.onSecondary,
         modifier = modifier,
     )
 }
@@ -40,8 +39,8 @@ fun DialogMessage(
 ) {
     Text(
         text,
-        style = FotoTypography().body1,
-        color = fotoColors.onSurface,
+        style = MaterialTheme.typography.body1,
+        color = MaterialTheme.colors.onSurface,
         modifier = modifier,
     )
 }
@@ -53,8 +52,8 @@ fun ToastMessage(
 ) {
     Text(
         text,
-        style = FotoTypography().body1,
-        color = fotoColors.onPrimary,
+        style = MaterialTheme.typography.body1,
+        color = MaterialTheme.colors.onPrimary,
         modifier = modifier,
     )
 }

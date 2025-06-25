@@ -7,7 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.kevinschildhorn.fotopresenter.ui.TestTags
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import androidx.compose.material.MaterialTheme
 import com.kevinschildhorn.fotopresenter.ui.testTag
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
@@ -21,19 +21,19 @@ fun AppNavigationRail(
     onLogout: () -> Unit,
 ) {
     NavigationRail(
-        backgroundColor = fotoColors.surface,
+        backgroundColor = MaterialTheme.colors.surface,
         modifier = Modifier.testTag(TestTags.Directory.NavigationRail.NAVIGATION_RAIL),
     ) {
         NavigationRailItem(
             modifier = Modifier.testTag(TestTags.Directory.NavigationRail.ITEM_PLAYLIST),
             label = {
-                Text("Playlists", color = fotoColors.onSurface)
+                Text("Playlists", color = MaterialTheme.colors.onSurface)
             },
             icon = {
                 Icon(
                     EvaIcons.Outline.Monitor,
                     contentDescription = "Playlists",
-                    tint = fotoColors.onSurface,
+                    tint = MaterialTheme.colors.onSurface,
                 )
             },
             selected = true,
@@ -42,13 +42,13 @@ fun AppNavigationRail(
         NavigationRailItem(
             modifier = Modifier.testTag(TestTags.Directory.NavigationRail.ITEM_LOGOUT),
             label = {
-                Text("Logout", color = fotoColors.onSurface)
+                Text("Logout", color = MaterialTheme.colors.onSurface)
             },
             icon = {
                 Icon(
                     EvaIcons.Fill.LogOut,
                     contentDescription = "Logout",
-                    tint = fotoColors.onSurface,
+                    tint = MaterialTheme.colors.onSurface,
                 )
             },
             selected = true,

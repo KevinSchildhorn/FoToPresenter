@@ -9,8 +9,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 
 @Composable
 fun FotoCheckbox(
@@ -43,6 +41,6 @@ private fun FotoCheckboxText(title: String) {
     Text(
         text = title,
         style = MaterialTheme.typography.button,
-        color = fotoColors.onSurface,
+        color = MaterialTheme.colors.onSurface,
     )
 }

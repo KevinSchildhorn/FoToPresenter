@@ -4,8 +4,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 
 @Composable
 fun PrimaryTextButton(
@@ -18,7 +16,7 @@ fun PrimaryTextButton(
         Text(
             title,
             style = MaterialTheme.typography.button,
-            color = fotoColors.onPrimary,
+            color = MaterialTheme.colors.onPrimary,
         )
     }
 }

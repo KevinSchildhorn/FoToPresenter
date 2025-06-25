@@ -14,13 +14,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 
 @Composable
 fun DirectoryGridCell(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = fotoColors.surface,
+    backgroundColor: Color = MaterialTheme.colors.surface,
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
@@ -41,7 +39,7 @@ fun DirectoryGridCellText(
     Text(
         text = text,
         style = MaterialTheme.typography.button,
-        color = fotoColors.onSurface,
+        color = MaterialTheme.colors.onSurface,
         textAlign = TextAlign.Center,
         modifier =
             modifier

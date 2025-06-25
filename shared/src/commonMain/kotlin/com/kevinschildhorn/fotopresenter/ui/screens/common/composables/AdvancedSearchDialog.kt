@@ -27,7 +27,7 @@ import com.kevinschildhorn.fotopresenter.data.dropdownYears
 import com.kevinschildhorn.fotopresenter.ui.TagSearchType
 import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.atoms.disabled
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import androidx.compose.material.MaterialTheme
 import com.kevinschildhorn.fotopresenter.ui.composables.FotoCheckbox
 import com.kevinschildhorn.fotopresenter.ui.composables.FotoDropdown
 import com.kevinschildhorn.fotopresenter.ui.composables.FotoRadioButton
@@ -107,7 +107,7 @@ fun AdvancedSearchDialog(
                             Icon(
                                 imageVector = imageVector,
                                 contentDescription = "Add Tag",
-                                tint = fotoColors.onSurface,
+                                tint = MaterialTheme.colors.onSurface,
                                 modifier = Modifier.fillMaxHeight().width(30.dp)
                             )
                         }
@@ -155,7 +155,7 @@ fun AdvancedSearchDialog(
                             "Start",
                             modifier = Modifier.weight(1f),
                             textAlign = TextAlign.End,
-                            color = if (dateEnabled.value) fotoColors.onSurface else disabled
+                            color = if (dateEnabled.value) MaterialTheme.colors.onSurface else disabled
                         )
                         FotoDropdown(
                             dropdownMonths,
@@ -181,7 +181,7 @@ fun AdvancedSearchDialog(
                             "End",
                             modifier = Modifier.weight(1f),
                             textAlign = TextAlign.End,
-                            color = if (dateEnabled.value) fotoColors.onSurface else disabled
+                            color = if (dateEnabled.value) MaterialTheme.colors.onSurface else disabled
                         )
                         FotoDropdown(
                             dropdownMonths, label = "Month",

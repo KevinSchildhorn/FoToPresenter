@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import com.kevinschildhorn.fotopresenter.ui.TestTags
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
+import androidx.compose.material.MaterialTheme
 import com.kevinschildhorn.fotopresenter.ui.testTag
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
@@ -38,7 +38,7 @@ fun DirectorySearchBar(
             Icon(
                 imageVector = EvaIcons.Fill.Search,
                 contentDescription = "Search",
-                tint = fotoColors.onSurface,
+                tint = MaterialTheme.colors.onSurface,
             )
         },
         trailingIcon = {
@@ -52,7 +52,7 @@ fun DirectorySearchBar(
                     Icon(
                         imageVector = EvaIcons.Fill.Close,
                         contentDescription = "Clear search",
-                        tint = fotoColors.onSurface,
+                        tint = MaterialTheme.colors.onSurface,
                     )
                 }
             }
@@ -60,10 +60,10 @@ fun DirectorySearchBar(
         singleLine = true,
         colors =
             androidx.compose.material.TextFieldDefaults.outlinedTextFieldColors(
-                textColor = fotoColors.onSurface,
-                cursorColor = fotoColors.primary,
-                focusedBorderColor = fotoColors.primary,
-                unfocusedBorderColor = fotoColors.onSurface,
+                textColor = MaterialTheme.colors.onSurface,
+                cursorColor = MaterialTheme.colors.primary,
+                focusedBorderColor = MaterialTheme.colors.primary,
+                unfocusedBorderColor = MaterialTheme.colors.onSurface,
             ),
     )
 }
