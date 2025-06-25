@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDate
 import org.koin.core.component.KoinComponent
 
 /*
@@ -145,7 +146,13 @@ class DirectoryViewModel(
             directoryNavigator.setSortType(sortingType)
         }
 
-    fun setAdvancedSearch(tags: List<String>, searchType: TagSearchType, recursive: Boolean) {
+    fun setAdvancedSearch(
+        tags: List<String>,
+        searchType: TagSearchType,
+        recursive: Boolean,
+        startDate: LocalDate,
+        endDate: LocalDate
+    ) {
         val path = uiState.value.directoryGridUIState.currentPath
         viewModelScope.launch(Dispatchers.Default) {
             _uiState.update {
@@ -288,7 +295,7 @@ class DirectoryViewModel(
         }
     }
 
-        fun startEditingMetadata() =
+    fun startEditingMetadata() =
         viewModelScope.launch(Dispatchers.Default) {
             uiState.value.overlayUiState.castTo<DirectoryOverlayUiState.Actions>()
                 ?.let { actionState ->

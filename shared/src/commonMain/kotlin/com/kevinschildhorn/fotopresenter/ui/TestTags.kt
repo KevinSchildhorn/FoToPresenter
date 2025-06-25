@@ -55,6 +55,7 @@ object TestTags {
             ANY_TAGS("AnyTags"),
             ALL_TAGS("AllTags"),
             RECURSIVE("Recursive"),
+            DATE("Date"),
         }
 
         enum class TopBar(override val value: String) : TestTag {
