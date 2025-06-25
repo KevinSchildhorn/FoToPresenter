@@ -8,7 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import co.touchlab.kermit.Logger
@@ -51,6 +54,7 @@ fun DirectoryScreen(
         viewModel.refreshScreen()
     }
     val uiState by viewModel.uiState.collectAsState()
+    var gridSize by remember { mutableIntStateOf(5) }
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -68,6 +72,13 @@ fun DirectoryScreen(
                 searchText = uiState.searchText,
                 showMenu = { scope.launch { scaffoldState.drawerState.open() } },
                 onSearchChanged = { viewModel.onSearch(it) },
+                onGridSizeChanged = { increase ->
+                    if (increase) {
+                        gridSize += 1
+                    } else {
+                        gridSize -= 1
+                    }
+                },
                 showOverlay = { viewModel.showOverlay(it) },
             )
         },
@@ -124,7 +135,8 @@ fun DirectoryScreen(
             }
             // Grid
             DirectoryGrid(
-                uiState.directoryGridUIState,
+                directoryContent = uiState.directoryGridUIState,
+                gridSize = gridSize,
                 onFolderPressed = { folderId ->
                     focusManager.clearFocus()
                     viewModel.navigateIntoDirectory(folderId)
@@ -166,16 +178,7 @@ fun DirectoryScreen(
                     onAction = {
                         when (it) {
                             ActionSheetAction.START_SLIDESHOW ->
-                                viewModel.startSlideShow(
-                                    selectionState.directory,
-                                    withSubPhotos = false,
-                                )
-
-                            ActionSheetAction.START_SLIDESHOW_WITH_SUBFOLDERS ->
-                                viewModel.startSlideShow(
-                                    selectionState.directory,
-                                    withSubPhotos = true,
-                                )
+                                viewModel.showSlideshowOverlay()
 
                             ActionSheetAction.ADD_STATIC_LOCATION ->
                                 viewModel.showPlaylistOverlay(dynamic = false)
@@ -191,6 +194,13 @@ fun DirectoryScreen(
                     changeOverlay = {},
                     onAddToPlaylist = { playlistId, directory ->
                         viewModel.addItemToPlaylist(playlistId, directory)
+                    },
+                    onShowSlideshow = { directory, subfolders, shuffleType ->
+                        viewModel.startSlideShow(
+                            directory = directory,
+                            withSubPhotos = subfolders,
+                            shuffleType = shuffleType,
+                        )
                     },
                     onDismiss = { viewModel.clearOverlay() },
                 )

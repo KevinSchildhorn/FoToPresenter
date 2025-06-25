@@ -1,10 +1,9 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -20,6 +19,8 @@ import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline
 import compose.icons.evaicons.outline.Edit
 import compose.icons.evaicons.outline.Info
+import compose.icons.evaicons.outline.PlayCircle
+import compose.icons.evaicons.outline.Shuffle
 import compose.icons.evaicons.outline.Trash
 
 @Composable
@@ -29,18 +30,16 @@ fun PlaylistScreenPlaylistRow(
     onDetails: () -> Unit,
     onEdit: () -> Unit,
     onDelete: () -> Unit,
+    onPlay: () -> Unit,
+    onPlayShuffled: () -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth().height(55.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        TextButton(
-            onClick = onClick,
-            modifier = Modifier.fillMaxSize(0.7f),
-        ) {
-            DialogButtonText(title)
-            Spacer(Modifier.fillMaxWidth())
+        TextButton(onClick = onClick, modifier = Modifier.weight(1f)) {
+            DialogButtonText(title, modifier = Modifier.fillMaxWidth())
         }
         Row(modifier = Modifier.fillMaxHeight()) {
             TextButton(
@@ -71,6 +70,27 @@ fun PlaylistScreenPlaylistRow(
                     EvaIcons.Outline.Trash,
                     tint = MaterialTheme.colors.onSecondary,
                     contentDescription = "Trash",
+                )
+            }
+            Box(Modifier.width(44.dp))
+            TextButton(
+                modifier = Modifier.width(44.dp),
+                onClick = onPlayShuffled,
+            ) {
+                Icon(
+                    EvaIcons.Outline.Shuffle,
+                    tint = MaterialTheme.colors.onSecondary,
+                    contentDescription = "Shuffle",
+                )
+            }
+            TextButton(
+                modifier = Modifier.width(44.dp),
+                onClick = onPlay,
+            ) {
+                Icon(
+                    EvaIcons.Outline.PlayCircle,
+                    tint = MaterialTheme.colors.onSecondary,
+                    contentDescription = "Play",
                 )
             }
         }

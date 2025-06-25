@@ -57,14 +57,17 @@ fun ActionSheet(
             Column(
                 modifier =
                     Modifier
-                        .clip(shape = RoundedCornerShape(15.dp))
                         .fillMaxWidth()
                         .padding(10.dp)
+                        .clip(shape = RoundedCornerShape(10.dp))
                         .weight(1f, false)
                         .background(MaterialTheme.colors.secondary),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                LazyColumn {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.padding(vertical = 10.dp),
+                ) {
                     items(values) {
                         TextButton(
                             modifier =
@@ -81,6 +84,7 @@ fun ActionSheet(
                                 it.action.title,
                                 color = MaterialTheme.colors.onSecondary,
                                 textAlign = TextAlign.Start,
+                                style = MaterialTheme.typography.h4,
                                 modifier = Modifier.fillMaxWidth(),
                             )
                         }

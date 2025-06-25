@@ -2,9 +2,11 @@ package com.kevinschildhorn.fotopresenter.ui.screens.directory
 
 import androidx.compose.runtime.Composable
 import com.kevinschildhorn.fotopresenter.data.Directory
+import com.kevinschildhorn.fotopresenter.ui.ShuffleType
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay.MetadataOverlay
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay.SlideshowOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.PlaylistOverlay
 
 /**
@@ -19,6 +21,7 @@ fun DirectoryActionsOverlay(
     onAction: (ActionSheetAction) -> Unit,
     onSaveMetadata: (String) -> Unit,
     onAddToPlaylist: (Long, Directory) -> Unit,
+    onShowSlideshow: (Directory, Boolean, ShuffleType) -> Unit,
     changeOverlay: (DirectoryOverlayType) -> Unit,
     onDismiss: () -> Unit,
 ) {
@@ -45,15 +48,20 @@ fun DirectoryActionsOverlay(
             PlaylistOverlay(
                 overlayState.playlists,
                 overlaid = true,
-                onClick = { id ->
-                    onAddToPlaylist(id, overlayState.directory)
-                },
+                onClick = { id -> onAddToPlaylist(id, overlayState.directory) },
                 onDetails = { }, // TODO
                 onDelete = { },
                 onEdit = { },
                 onCreate = { },
                 onDismiss = onDismiss,
+                onPlay = { _, _ -> },
             )
+        }
+
+        is DirectoryOverlayUiState.Actions.StartSlideshow -> {
+            SlideshowOverlay(onConfirmation = { subfolders, shuffleType ->
+                onShowSlideshow(overlayState.directory, subfolders, shuffleType)
+            }, onDismiss = onDismiss)
         }
     }
 }

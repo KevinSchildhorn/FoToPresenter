@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.kevinschildhorn.fotopresenter.ui.atoms.disabled
 
 @Composable
 fun FotoRadioButton(
@@ -25,22 +26,25 @@ fun FotoRadioButton(
         horizontalArrangement = horizontalArrangement,
         modifier = modifier.fillMaxWidth(),
     ) {
-        if (horizontalArrangement == Arrangement.End) FotoRadioText(title)
+        if (horizontalArrangement == Arrangement.End) FotoRadioText(title, enabled)
         RadioButton(
             selected = selected,
             onClick = onRadioChanged,
             modifier = checkBoxModifier,
             enabled = enabled,
         )
-        if (horizontalArrangement != Arrangement.End) FotoRadioText(title)
+        if (horizontalArrangement != Arrangement.End) FotoRadioText(title, enabled)
     }
 }
 
 @Composable
-private fun FotoRadioText(title: String) {
+private fun FotoRadioText(
+    title: String,
+    enabled: Boolean,
+) {
     Text(
         text = title,
         style = MaterialTheme.typography.button,
-        color = MaterialTheme.colors.onSurface,
+        color = if (enabled) MaterialTheme.colors.onSurface else disabled,
     )
 }

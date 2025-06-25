@@ -105,8 +105,7 @@ sealed class DirectoryGridCellUIState(
             id,
             listOf(
                 ActionSheetContext(ActionSheetAction.START_SLIDESHOW, 1),
-                ActionSheetContext(ActionSheetAction.START_SLIDESHOW_WITH_SUBFOLDERS, 2),
-                ActionSheetContext(ActionSheetAction.ADD_DYNAMIC_LOCATION, 3),
+                ActionSheetContext(ActionSheetAction.ADD_DYNAMIC_LOCATION, 2),
             ),
         )
 
@@ -155,6 +154,11 @@ sealed class DirectoryOverlayUiState {
     ) : DirectoryOverlayUiState() {
         class AddToPlaylist(
             val playlists: List<com.kevinschildhorn.fotopresenter.data.PlaylistDetails>,
+            directoryUiState: DirectoryGridCellUIState,
+            directory: Directory,
+        ) : Actions(directoryUiState, directory)
+
+        class StartSlideshow(
             directoryUiState: DirectoryGridCellUIState,
             directory: Directory,
         ) : Actions(directoryUiState, directory)

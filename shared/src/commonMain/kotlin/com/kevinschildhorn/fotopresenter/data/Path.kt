@@ -10,6 +10,9 @@ value class Path(
     val fileName: String
         get() = pathString.split("\\").last()
 
+    val folderPath: String
+        get() = removeLastPath.pathString
+
     val isRoot: Boolean
         get() = pathString.isEmpty()
 

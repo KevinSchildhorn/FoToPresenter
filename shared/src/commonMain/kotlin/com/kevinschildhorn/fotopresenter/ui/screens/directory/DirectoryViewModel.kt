@@ -7,6 +7,7 @@ import com.kevinschildhorn.fotopresenter.UseCaseFactory
 import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.DirectoryNavigator
+import com.kevinschildhorn.fotopresenter.data.ImageDirectory
 import com.kevinschildhorn.fotopresenter.data.ImagePreviewNavigator
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.data.Path
@@ -14,6 +15,7 @@ import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSourc
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
+import com.kevinschildhorn.fotopresenter.ui.ShuffleType
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.TagSearchType
 import com.kevinschildhorn.fotopresenter.ui.UiState
@@ -257,12 +259,45 @@ class DirectoryViewModel(
     fun startSlideShow(
         directory: Directory,
         withSubPhotos: Boolean,
+        shuffleType: ShuffleType,
     ) = viewModelScope.launch(Dispatchers.Default) {
-        val images =
+        var images =
             UseCaseFactory.retrieveImageDirectoriesUseCase(
                 path = directory.details.fullPath,
                 recursively = withSubPhotos,
             )
+
+        val groupedImages: Map<String, List<ImageDirectory>> =
+            images.groupBy {
+                it.details.fullPath.folderPath
+            }
+
+        when (shuffleType) {
+            ShuffleType.SHUFFLE_ALL -> images = images.shuffled()
+            ShuffleType.SHUFFLE_IMAGES_IN_FOLDERS -> {
+                images = groupedImages.flatMap { it.value.shuffled() }
+            }
+
+            ShuffleType.SHUFFLE_FOLDERS -> {
+                images =
+                    groupedImages.values
+                        .toList()
+                        .shuffled()
+                        .flatten()
+            }
+
+            ShuffleType.SHUFFLE_ALL_KEEPING_GROUPING -> {
+                images =
+                    groupedImages
+                        .mapValues { it.value.shuffled() }
+                        .values
+                        .toList()
+                        .shuffled()
+                        .flatten()
+            }
+
+            ShuffleType.NONE -> images
+        }
         _uiState.update {
             it.copy(slideshowDetails = ImageSlideshowDetails(images))
         }
@@ -284,6 +319,24 @@ class DirectoryViewModel(
                             overlayUiState =
                                 DirectoryOverlayUiState.Actions.AddToPlaylist(
                                     playlists = playlistRepository.getAllPlaylists(),
+                                    directoryUiState = actionState.directoryUiState,
+                                    directory = actionState.directory,
+                                ),
+                        )
+                    }
+                }
+        }
+    }
+
+    fun showSlideshowOverlay() {
+        viewModelScope.launch(Dispatchers.Default) {
+            uiState.value.overlayUiState
+                .castTo<DirectoryOverlayUiState.Actions>()
+                ?.let { actionState ->
+                    _uiState.update {
+                        it.copy(
+                            overlayUiState =
+                                DirectoryOverlayUiState.Actions.StartSlideshow(
                                     directoryUiState = actionState.directoryUiState,
                                     directory = actionState.directory,
                                 ),

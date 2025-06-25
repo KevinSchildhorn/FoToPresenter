@@ -38,11 +38,7 @@ fun PlaylistScreen(
     PlaylistOverlay(
         uiState.playlists,
         overlaid = overlaid,
-        onClick = { id ->
-            viewModel.getPlaylist(id)?.let {
-                onPlaylistSelected(it)
-            }
-        },
+        onClick = { },
         onDetails = {
             dialogOpen = PlaylistDialog.DETAILS
             viewModel.setSelectedPlaylist(it)
@@ -61,6 +57,15 @@ fun PlaylistScreen(
         onDismiss = {
             if (onDismiss != null) {
                 onDismiss()
+            }
+        },
+        onPlay = { id, shuffle ->
+            viewModel.getPlaylist(id)?.let {
+                if (shuffle) {
+                    onPlaylistSelected(it.copy(items = it.items.shuffled()))
+                } else {
+                    onPlaylistSelected(it)
+                }
             }
         },
     )

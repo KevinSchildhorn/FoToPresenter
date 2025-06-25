@@ -25,11 +25,12 @@ fun PlaylistColumn(
     onDetails: (Long) -> Unit,
     onEdit: (Long) -> Unit,
     onDelete: (Long) -> Unit,
+    onPlay: (Long, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier
-            .fillMaxWidth()
+            .fillMaxWidth(0.75f)
             .padding(Padding.STANDARD.dp)
             .clip(RoundedCornerShape(10.dp))
             .background(MaterialTheme.colors.secondary),
@@ -51,6 +52,12 @@ fun PlaylistColumn(
                         },
                         onDelete = {
                             onDelete(it.id)
+                        },
+                        onPlay = {
+                            onPlay(it.id, false)
+                        },
+                        onPlayShuffled = {
+                            onPlay(it.id, true)
                         },
                     )
                     Divider(
