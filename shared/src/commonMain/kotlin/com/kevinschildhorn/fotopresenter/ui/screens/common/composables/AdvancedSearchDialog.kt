@@ -36,32 +36,36 @@ import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline
 import compose.icons.evaicons.outline.Close
 import compose.icons.evaicons.outline.PlusCircle
+import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 
 @Composable
 fun AdvancedSearchDialog(
     onDismissRequest: () -> Unit,
-    onConfirmation: (List<String>, TagSearchType, Boolean, LocalDate, LocalDate) -> Unit,
+    onConfirmation: (List<String>, TagSearchType, Boolean, LocalDate?, LocalDate?) -> Unit,
 ) {
     val selectedOption = remember { mutableStateOf(TagSearchType.ALL_TAGS) }
     val recursive = remember { mutableStateOf(true) }
     val tags = remember { mutableStateListOf("") }
 
+    val currentYear = Clock.System.todayIn(TimeZone.currentSystemDefault()).year
 
     val dateEnabled = remember { mutableStateOf(false) }
-    val startMonth = remember { mutableStateOf("") }
-    val startYear = remember { mutableStateOf(0) }
-    val endMonth = remember { mutableStateOf("") }
-    val endYear = remember { mutableStateOf(0) }
+    val startMonth = remember { mutableStateOf("January") }
+    val startYear = remember { mutableStateOf(currentYear) }
+    val endMonth = remember { mutableStateOf("January") }
+    val endYear = remember { mutableStateOf(currentYear) }
 
     Box {
         FotoDialog(
             "Tag Search",
             onDismissRequest = onDismissRequest,
             onConfirmation = {
-                val startDate =
+                val startDate = if(!dateEnabled.value) null else
                     LocalDate(startYear.value, dropdownMonths.indexOf(startMonth.value), 1)
-                val endDate =
+                val endDate = if (!dateEnabled.value) null else
                     LocalDate(endYear.value, dropdownMonths.indexOf(endMonth.value), 1)
 
                 onConfirmation(

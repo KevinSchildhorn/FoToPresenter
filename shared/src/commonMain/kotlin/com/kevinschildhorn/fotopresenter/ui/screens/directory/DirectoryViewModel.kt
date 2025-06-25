@@ -150,8 +150,8 @@ class DirectoryViewModel(
         tags: List<String>,
         searchType: TagSearchType,
         recursive: Boolean,
-        startDate: LocalDate,
-        endDate: LocalDate
+        startDate: LocalDate?,
+        endDate: LocalDate?
     ) {
         val path = uiState.value.directoryGridUIState.currentPath
         viewModelScope.launch(Dispatchers.Default) {
@@ -166,6 +166,8 @@ class DirectoryViewModel(
                 recursively = recursive,
                 tags = tags,
                 inclusiveTags = searchType == TagSearchType.ALL_TAGS,
+                startDate = startDate,
+                endDate = endDate,
             )
             val newState = DirectoryContents(
                 images = images,

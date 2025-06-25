@@ -5,6 +5,8 @@ import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
+import kotlinx.datetime.LocalDate
+import nl.adaptivity.xmlutil.core.impl.multiplatform.Locale
 
 /**
 Retrieving Directory Contents from Path TODO: REMOVE
@@ -19,20 +21,27 @@ class RetrieveDirectoryContentsUseCase(
         recursively: Boolean,
         tags: List<String> = emptyList(),
         inclusiveTags: Boolean = false,
+        startDate: LocalDate? = null,
+        endDate: LocalDate? = null,
     ): DirectoryContents {
         logger.d { "Getting directory Contents at path '$path'" }
-        val directoryContents = if (recursively)
+        var directoryContents = if (recursively)
             directoryRepository.getDirectoryContentsRecursive(path)
         else
             directoryRepository.getDirectoryContents(path)
 
-        return if (tags.isNotEmpty()) {
+        if (tags.isNotEmpty()) {
             val newImages = directoryContents.images.map {
                 val metaData = imageMetadataDataSource.readMetadataFromFile(it.details.fullPath)
                 it.copy(metaData = metaData)
             }
-            directoryContents.copy(images = newImages).filteredByTags(tags, inclusiveTags)
+            directoryContents = directoryContents.copy(images = newImages)
+                .filteredByTags(tags, inclusiveTags)
         }
-        else directoryContents
+        if(startDate != null && endDate != null){
+            directoryContents = directoryContents.filteredByDate(startDate, endDate)
+        }
+
+        return directoryContents
     }
 }

@@ -83,7 +83,7 @@ object SMBJHandler : NetworkHandler {
         logger.d { "Getting Directory Contents for '$path'" }
         return share?.list(path.toString())?.map {
             SMBJNetworkDirectoryDetails(
-                it,
+                information = it,
                 fullPath = path.addPath(it.fileName),
             )
         } ?: emptyList()
