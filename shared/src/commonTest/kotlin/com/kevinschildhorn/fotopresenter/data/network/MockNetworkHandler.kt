@@ -23,7 +23,7 @@ object MockNetworkHandler : NetworkHandler {
     private val playlists =
         mutableMapOf(
             "Existing" to
-                    """
+                """
                 {
                     "id" : 1,
                     "name" : "Existing",
@@ -47,58 +47,62 @@ object MockNetworkHandler : NetworkHandler {
     private val networkContents =
         mapOf(
             Path.EMPTY to
-                    listOf<NetworkDirectoryDetails>(
-                        DefaultNetworkDirectoryDetails(
-                            fullPath = Path("Photos"),
-                            id = PHOTO_DIRECTORY_ID,
-                            dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 1),
-                        ),
-                        DefaultNetworkDirectoryDetails(
-                            fullPath = Path("NewDirectory"), id = 1,
-                            dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 23),
-                        ),
-                        DefaultNetworkDirectoryDetails(
-                            fullPath = Path("Peeng.png"), id = 75,
-                            dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 20),
-                        ),
-                        DefaultNetworkDirectoryDetails(
-                            fullPath = Path("Jaypeg.jpg"), id = 3,
-                            dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 10),
-                        ),
-                        DefaultNetworkDirectoryDetails(
-                            fullPath = Path("textFile.txt"), id = 4,
-                            dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 1),
-                        ),
+                listOf<NetworkDirectoryDetails>(
+                    DefaultNetworkDirectoryDetails(
+                        fullPath = Path("Photos"),
+                        id = PHOTO_DIRECTORY_ID,
+                        dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 1),
                     ),
+                    DefaultNetworkDirectoryDetails(
+                        fullPath = Path("NewDirectory"),
+                        id = 1,
+                        dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 23),
+                    ),
+                    DefaultNetworkDirectoryDetails(
+                        fullPath = Path("Peeng.png"),
+                        id = 75,
+                        dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 20),
+                    ),
+                    DefaultNetworkDirectoryDetails(
+                        fullPath = Path("Jaypeg.jpg"),
+                        id = 3,
+                        dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 10),
+                    ),
+                    DefaultNetworkDirectoryDetails(
+                        fullPath = Path("textFile.txt"),
+                        id = 4,
+                        dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 1),
+                    ),
+                ),
             Path("Directories") to
-                    listOf<NetworkDirectoryDetails>(
-                        DefaultNetworkDirectoryDetails(
-                            fullPath = Path("Directories/NewDirectory"),
-                            id = 1,
-                        ),
-                        DefaultNetworkDirectoryDetails(
-                            fullPath = Path("Directories/NewDirectory2"),
-                            id = 2,
-                        ),
+                listOf<NetworkDirectoryDetails>(
+                    DefaultNetworkDirectoryDetails(
+                        fullPath = Path("Directories/NewDirectory"),
+                        id = 1,
                     ),
+                    DefaultNetworkDirectoryDetails(
+                        fullPath = Path("Directories/NewDirectory2"),
+                        id = 2,
+                    ),
+                ),
             Path("Photos") to
-                    listOf<NetworkDirectoryDetails>(
-                        DefaultNetworkDirectoryDetails(fullPath = Path("Peeng2.png"), id = 2),
-                        DefaultNetworkDirectoryDetails(fullPath = Path("Jaypeg2.jpg"), id = 3),
-                        DefaultNetworkDirectoryDetails(fullPath = Path("textFile2.txt"), id = 4),
-                        DefaultNetworkDirectoryDetails(fullPath = Path("SubPhotos"), id = 5),
-                    ),
+                listOf<NetworkDirectoryDetails>(
+                    DefaultNetworkDirectoryDetails(fullPath = Path("Peeng2.png"), id = 2),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("Jaypeg2.jpg"), id = 3),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("textFile2.txt"), id = 4),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("SubPhotos"), id = 5),
+                ),
             Path("Photos\\SubPhotos") to
-                    listOf<NetworkDirectoryDetails>(
-                        DefaultNetworkDirectoryDetails(fullPath = Path("SubSubPhotos"), id = 1),
-                        DefaultNetworkDirectoryDetails(fullPath = Path("Peeng3.png"), id = 2),
-                        DefaultNetworkDirectoryDetails(fullPath = Path("Jaypeg3.jpg"), id = 3),
-                        DefaultNetworkDirectoryDetails(fullPath = Path("textFile3.txt"), id = 4),
-                    ),
+                listOf<NetworkDirectoryDetails>(
+                    DefaultNetworkDirectoryDetails(fullPath = Path("SubSubPhotos"), id = 1),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("Peeng3.png"), id = 2),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("Jaypeg3.jpg"), id = 3),
+                    DefaultNetworkDirectoryDetails(fullPath = Path("textFile3.txt"), id = 4),
+                ),
             Path("Photos\\SubPhotos\\SubSubPhotos") to
-                    listOf<NetworkDirectoryDetails>(
-                        DefaultNetworkDirectoryDetails(fullPath = Path("Peeng4.png"), id = 2),
-                    ),
+                listOf<NetworkDirectoryDetails>(
+                    DefaultNetworkDirectoryDetails(fullPath = Path("Peeng4.png"), id = 2),
+                ),
         )
 
     private val successImageName: Path = Path("Photos/Success.png")
@@ -132,11 +136,12 @@ object MockNetworkHandler : NetworkHandler {
 
     override suspend fun getDirectoryDetails(path: Path): NetworkDirectoryDetails? {
         networkContents.values.forEach { details ->
-            details.find { detail ->
-                detail.fullPath == path
-            }?.let {
-                return it
-            }
+            details
+                .find { detail ->
+                    detail.fullPath == path
+                }?.let {
+                    return it
+                }
         }
         return null
     }
@@ -166,9 +171,7 @@ object MockNetworkHandler : NetworkHandler {
     override suspend fun setSharedImage(
         path: Path,
         sharedImage: SharedImage,
-    ): Boolean {
-        return true
-    }
+    ): Boolean = true
 
     override suspend fun folderExists(path: Path): Boolean? =
         if (path == Path.EMPTY) {

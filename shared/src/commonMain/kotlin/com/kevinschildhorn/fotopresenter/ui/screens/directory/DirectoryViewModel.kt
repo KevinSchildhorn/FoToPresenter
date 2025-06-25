@@ -41,8 +41,8 @@ class DirectoryViewModel(
     private val dataSource: ImageMetadataDataSource,
     private val playlistRepository: PlaylistRepository,
     private val logger: Logger,
-) : ViewModel(), KoinComponent {
-
+) : ViewModel(),
+    KoinComponent {
     /*
      * UI State
      */
@@ -52,30 +52,31 @@ class DirectoryViewModel(
         _uiState
             .combine(directoryNavigator.currentDirectoryContents) { uiState, directoryContents ->
 
-                if (uiState.directoryAdvancedSearchUIState != DirectoryAdvancedSearchUIState.IDLE)
+                if (uiState.directoryAdvancedSearchUIState != DirectoryAdvancedSearchUIState.IDLE) {
                     uiState.copy(
-                        state = when (uiState.state) {
-                            //UiState.LOADING -> uiState.state
-                            is UiState.ERROR -> uiState.state
-                            else -> UiState.SUCCESS
-                        }
+                        state =
+                            when (uiState.state) {
+                                // UiState.LOADING -> uiState.state
+                                is UiState.ERROR -> uiState.state
+                                else -> UiState.SUCCESS
+                            },
                     )
-                else {
+                } else {
                     imagePreviewNavigator.setFolderContents(directoryContents.images)
                     uiState.copy(
                         directoryGridUIState =
                             directoryContents.asDirectoryGridUIState(
                                 directoryNavigator.currentPath,
                             ),
-                        state = when (uiState.state) {
-                            //UiState.LOADING -> uiState.state
-                            is UiState.ERROR -> uiState.state
-                            else -> UiState.SUCCESS
-                        }
+                        state =
+                            when (uiState.state) {
+                                // UiState.LOADING -> uiState.state
+                                is UiState.ERROR -> uiState.state
+                                else -> UiState.SUCCESS
+                            },
                     )
                 }
-            }
-            .combine(imagePreviewNavigator.imagePreviewState) { uiState, imagePreview ->
+            }.combine(imagePreviewNavigator.imagePreviewState) { uiState, imagePreview ->
                 logger.v { "New Image Preview State: $imagePreview" }
 
                 if (imagePreview != null && uiState.overlayUiState is DirectoryOverlayUiState.None) {
@@ -85,8 +86,7 @@ class DirectoryViewModel(
                 } else {
                     uiState
                 }
-            }
-            .stateIn(
+            }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = DirectoryScreenUIState(),
@@ -134,7 +134,7 @@ class DirectoryViewModel(
 
             DirectoryOverlayType.DIRECTORY_ACTION_SHEET -> {
                 logger.i { "Directory Action Sheet" }
-                //_uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
+                // _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
             }
         }
         logger.i { "Current overlay state: ${_uiState.value.overlayUiState}" }
@@ -151,34 +151,37 @@ class DirectoryViewModel(
         searchType: TagSearchType,
         recursive: Boolean,
         startDate: LocalDate?,
-        endDate: LocalDate?
+        endDate: LocalDate?,
     ) {
         val path = uiState.value.directoryGridUIState.currentPath
         viewModelScope.launch(Dispatchers.Default) {
             _uiState.update {
                 it.copy(
-                    directoryAdvancedSearchUIState = DirectoryAdvancedSearchUIState.LOADING
+                    directoryAdvancedSearchUIState = DirectoryAdvancedSearchUIState.LOADING,
                 )
             }
 
-            val images = UseCaseFactory.retrieveImageDirectoriesUseCase(
-                path = path,
-                recursively = recursive,
-                tags = tags,
-                inclusiveTags = searchType == TagSearchType.ALL_TAGS,
-                startDate = startDate,
-                endDate = endDate,
-            )
-            val newState = DirectoryContents(
-                images = images,
-            ).asDirectoryGridUIState(path)
+            val images =
+                UseCaseFactory.retrieveImageDirectoriesUseCase(
+                    path = path,
+                    recursively = recursive,
+                    tags = tags,
+                    inclusiveTags = searchType == TagSearchType.ALL_TAGS,
+                    startDate = startDate,
+                    endDate = endDate,
+                )
+            val newState =
+                DirectoryContents(
+                    images = images,
+                ).asDirectoryGridUIState(path)
             _uiState.update {
                 it.copy(
-                    directoryAdvancedSearchUIState = DirectoryAdvancedSearchUIState.SUCCESS(
-                        tags = tags,
-                        allTags = searchType == TagSearchType.ALL_TAGS,
-                        itemCount = images.size,
-                    ),
+                    directoryAdvancedSearchUIState =
+                        DirectoryAdvancedSearchUIState.SUCCESS(
+                            tags = tags,
+                            allTags = searchType == TagSearchType.ALL_TAGS,
+                            itemCount = images.size,
+                        ),
                     directoryGridUIState = newState,
                 )
             }
@@ -239,8 +242,7 @@ class DirectoryViewModel(
 
     //region Image Preview
 
-    fun setSelectedImageById(imageId: Long?) =
-        imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
+    fun setSelectedImageById(imageId: Long?) = imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
 
     fun clearPresentedImage() = imagePreviewNavigator.setImageIndex(null)
 
@@ -274,7 +276,8 @@ class DirectoryViewModel(
 
     fun showPlaylistOverlay(dynamic: Boolean) {
         viewModelScope.launch(Dispatchers.Default) {
-            uiState.value.overlayUiState.castTo<DirectoryOverlayUiState.Actions>()
+            uiState.value.overlayUiState
+                .castTo<DirectoryOverlayUiState.Actions>()
                 ?.let { actionState ->
                     _uiState.update {
                         it.copy(
@@ -290,7 +293,10 @@ class DirectoryViewModel(
         }
     }
 
-    fun addItemToPlaylist(playlistId: Long, directory: Directory) {
+    fun addItemToPlaylist(
+        playlistId: Long,
+        directory: Directory,
+    ) {
         viewModelScope.launch(Dispatchers.Default) {
             playlistRepository.insertPlaylistImage(playlistId, directory = directory)
             _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
@@ -299,7 +305,8 @@ class DirectoryViewModel(
 
     fun startEditingMetadata() =
         viewModelScope.launch(Dispatchers.Default) {
-            uiState.value.overlayUiState.castTo<DirectoryOverlayUiState.Actions>()
+            uiState.value.overlayUiState
+                .castTo<DirectoryOverlayUiState.Actions>()
                 ?.let { actionState ->
                     _uiState.update {
                         it.copy(
@@ -316,7 +323,8 @@ class DirectoryViewModel(
 
     fun saveMetadata(metadata: String) =
         viewModelScope.launch(Dispatchers.IO) {
-            uiState.value.overlayUiState.castTo<DirectoryOverlayUiState.Actions>()
+            uiState.value.overlayUiState
+                .castTo<DirectoryOverlayUiState.Actions>()
                 ?.let { actionState ->
                     dataSource.writeMetadataToFile(metadata, actionState.directory.details.fullPath)
                     clearOverlay()
@@ -330,7 +338,6 @@ class DirectoryViewModel(
         refreshScreen()
     }
     //endregion
-
 
     private suspend fun tryCatch(block: suspend () -> Unit) =
         try {
@@ -348,9 +355,10 @@ class DirectoryViewModel(
                     DirectoryGridCellUIState.Folder(it.name, it.id)
                 },
             imageStates =
-                images.map {
-                    logger.i { "Image Map: ${it.name} : ${it.id}" }
-                    DirectoryGridCellUIState.Image(it.details, it.name, it.id)
-                }.toMutableList(),
+                images
+                    .map {
+                        logger.i { "Image Map: ${it.name} : ${it.id}" }
+                        DirectoryGridCellUIState.Image(it.details, it.name, it.id)
+                    }.toMutableList(),
         )
 }

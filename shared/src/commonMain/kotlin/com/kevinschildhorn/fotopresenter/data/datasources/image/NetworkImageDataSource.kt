@@ -4,7 +4,9 @@ import com.kevinschildhorn.fotopresenter.data.network.NetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
-class NetworkImageDataSource(private val networkHandler: NetworkHandler) {
+class NetworkImageDataSource(
+    private val networkHandler: NetworkHandler,
+) {
     suspend fun getImage(directory: NetworkDirectoryDetails): SharedImage? =
         if (networkHandler.isConnected) {
             networkHandler.getSharedImage(path = directory.fullPath)

@@ -16,49 +16,51 @@ data class DirectoryContents(
     val allDirectories: List<Directory>
         get() = folders + images
 
-    fun sorted(sortingType: SortingType): DirectoryContents {
-        return DirectoryContents(
+    fun sorted(sortingType: SortingType): DirectoryContents =
+        DirectoryContents(
             folders = folders.sorted(sortingType),
             images = images.sorted(sortingType),
         )
-    }
 
-    fun filteredByName(string: String): DirectoryContents {
-        return DirectoryContents(
+    fun filteredByName(string: String): DirectoryContents =
+        DirectoryContents(
             folders = folders.filteredByName(string),
             images = images.filteredByName(string),
         )
-    }
 
-    fun filteredByTags(tags: List<String>, allTags: Boolean): DirectoryContents {
-        return DirectoryContents(
+    fun filteredByTags(
+        tags: List<String>,
+        allTags: Boolean,
+    ): DirectoryContents =
+        DirectoryContents(
             folders = emptyList(),
             images = images.filteredByTags(tags, allTags),
         )
-    }
 
-    fun filteredByDate(startDate: LocalDate, endDate: LocalDate): DirectoryContents {
-        return DirectoryContents(
+    fun filteredByDate(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ): DirectoryContents =
+        DirectoryContents(
             folders = emptyList(),
-            images = images.filter { directory ->
-                val startMillis =
-                    startDate.atStartOfDayIn(TimeZone.currentSystemDefault()).toEpochMilliseconds()
-                val endMillis =
-                    endDate.atStartOfDayIn(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+            images =
+                images.filter { directory ->
+                    val startMillis =
+                        startDate.atStartOfDayIn(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+                    val endMillis =
+                        endDate.atStartOfDayIn(TimeZone.currentSystemDefault()).toEpochMilliseconds()
 
-                startMillis < directory.details.dateMillis &&
-                directory.details.dateMillis < endMillis
-            },
+                    startMillis < directory.details.dateMillis &&
+                        directory.details.dateMillis < endMillis
+                },
         )
-    }
 
-    override fun toString(): String {
-        return """
+    override fun toString(): String =
+        """
         DirectoryContents:
         Folders: ${folders.count()}
             ${folders.map { it.toString() }.joinToString(", ")}
         Images: ${images.count()}
             ${images.map { it.toString() }.joinToString(", ")}
         """
-    }
 }

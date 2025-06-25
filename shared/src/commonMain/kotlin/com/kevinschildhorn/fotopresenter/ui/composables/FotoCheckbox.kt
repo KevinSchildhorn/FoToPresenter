@@ -25,14 +25,14 @@ fun FotoCheckbox(
         horizontalArrangement = horizontalArrangement,
         modifier = modifier.fillMaxWidth(),
     ) {
-        if(horizontalArrangement == Arrangement.End) FotoCheckboxText(title)
+        if (horizontalArrangement == Arrangement.End) FotoCheckboxText(title)
         Checkbox(
             checked = checked,
             modifier = checkBoxModifier,
             onCheckedChange = onCheckedChange,
             enabled = enabled,
         )
-        if(horizontalArrangement != Arrangement.End) FotoCheckboxText(title)
+        if (horizontalArrangement != Arrangement.End) FotoCheckboxText(title)
     }
 }
 

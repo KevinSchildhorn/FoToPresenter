@@ -21,8 +21,8 @@ class PlaylistSQLDataSource(
     fun createPlaylist(
         name: String,
         directories: List<ImageDirectory> = emptyList(),
-    ): Playlist? {
-        return try {
+    ): Playlist? =
+        try {
             logger?.i { "Creating Playlist $name with images: ${directories.count()}" }
             database.playlistQueries.insertPlaylist(name)
             val playlist = database.playlistQueries.selectPlaylistByName(name).executeAsOne()
@@ -35,10 +35,9 @@ class PlaylistSQLDataSource(
         } catch (e: Exception) {
             null
         }
-    }
 
-    fun getAllPlaylists(): List<PlaylistDetails> {
-        return try {
+    fun getAllPlaylists(): List<PlaylistDetails> =
+        try {
             database.playlistQueries.selectAllPlaylists().executeAsList().map { playlist ->
                 val images =
                     database.playlistItemsQueries.selectPlaylistImages(playlist.id).executeAsList()
@@ -47,10 +46,9 @@ class PlaylistSQLDataSource(
         } catch (e: Exception) {
             emptyList()
         }
-    }
 
-    fun getPlaylistByName(name: String): PlaylistDetails? {
-        return try {
+    fun getPlaylistByName(name: String): PlaylistDetails? =
+        try {
             logger?.i { "Selecting playlist by name $name" }
             val playList: Playlist =
                 database.playlistQueries.selectPlaylistByName(name).executeAsOne()
@@ -61,10 +59,9 @@ class PlaylistSQLDataSource(
         } catch (e: Exception) {
             null
         }
-    }
 
-    fun getPlaylistById(id: Long): PlaylistDetails? {
-        return try {
+    fun getPlaylistById(id: Long): PlaylistDetails? =
+        try {
             logger?.i { "Selecting playlist by id $id" }
             val playList: Playlist =
                 database.playlistQueries.selectPlaylistById(id).executeAsOne()
@@ -75,7 +72,6 @@ class PlaylistSQLDataSource(
         } catch (e: Exception) {
             null
         }
-    }
 
     fun insertPlaylistImage(
         playlistId: Long,
@@ -93,21 +89,21 @@ class PlaylistSQLDataSource(
     fun getPlaylistImage(
         playlistId: Long,
         directoryPath: Path,
-    ): PlaylistItem? {
-        return try {
+    ): PlaylistItem? =
+        try {
             logger?.i { "Selecting Playlist Image $playlistId" }
             val image: PlaylistItems =
-                database.playlistItemsQueries.selectPlaylistImage(playlistId, directoryPath.toString())
+                database.playlistItemsQueries
+                    .selectPlaylistImage(playlistId, directoryPath.toString())
                     .executeAsOne()
             logger?.i { "Selecting Playlist Image" }
             PlaylistItem(image)
         } catch (e: Exception) {
             null
         }
-    }
 
-    fun deletePlaylist(id: Long): Boolean {
-        return try {
+    fun deletePlaylist(id: Long): Boolean =
+        try {
             val playlist = database.playlistQueries.selectPlaylistById(id).executeAsOne()
             database.playlistQueries.deletePlaylist(playlist.name)
             database.playlistItemsQueries.deletePlaylist(playlist.id)
@@ -115,5 +111,4 @@ class PlaylistSQLDataSource(
         } catch (e: Exception) {
             false
         }
-    }
 }

@@ -10,10 +10,8 @@ import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -25,17 +23,17 @@ class SlideshowViewModel(
     private val imagePreviewNavigator: ImagePreviewNavigator,
     private val directoryRepository: DirectoryRepository,
     private val logger: Logger,
-) : ViewModel(), KoinComponent {
-
+) : ViewModel(),
+    KoinComponent {
     val uiState: StateFlow<SlideshowScreenUiState> =
-        imagePreviewNavigator.imagePreviewState.map { imagePreview ->
-            if (imagePreview != null) {
-                SlideshowScreenUiState.Ready(selectedImageDirectory = imagePreview)
-            } else {
-                SlideshowScreenUiState.Loading
-            }
-        }
-            .stateIn(
+        imagePreviewNavigator.imagePreviewState
+            .map { imagePreview ->
+                if (imagePreview != null) {
+                    SlideshowScreenUiState.Ready(selectedImageDirectory = imagePreview)
+                } else {
+                    SlideshowScreenUiState.Loading
+                }
+            }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = SlideshowScreenUiState.Loading,
@@ -52,24 +50,25 @@ class SlideshowViewModel(
 
         viewModelScope.launch(Dispatchers.Default) {
             val directories: List<ImageDirectory> =
-                playlistDetails.items.map { item ->
-                    val directoryDetails =
-                        DefaultNetworkDirectoryDetails(
-                            id = item.directoryId,
-                            fullPath = item.directoryPath,
-                        )
-                    if (item.directoryPath.isImagePath) {
-                        listOf(
-                            ImageDirectory(
-                                directoryDetails,
-                                null,
-                            ),
-                        )
-                    } else {
-                        val contents = directoryRepository.getDirectoryContents(directoryDetails.fullPath)
-                        contents.images
-                    }
-                }.flatten()
+                playlistDetails.items
+                    .map { item ->
+                        val directoryDetails =
+                            DefaultNetworkDirectoryDetails(
+                                id = item.directoryId,
+                                fullPath = item.directoryPath,
+                            )
+                        if (item.directoryPath.isImagePath) {
+                            listOf(
+                                ImageDirectory(
+                                    directoryDetails,
+                                    null,
+                                ),
+                            )
+                        } else {
+                            val contents = directoryRepository.getDirectoryContents(directoryDetails.fullPath)
+                            contents.images
+                        }
+                    }.flatten()
 
             val slideshow = ImageSlideshowDetails(directories)
 

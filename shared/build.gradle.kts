@@ -140,14 +140,20 @@ kotlin {
 }
 
 android {
-    compileSdk = libs.versions.compileSdk.get().toInt()
+    compileSdk =
+        libs.versions.compileSdk
+            .get()
+            .toInt()
     namespace = "com.kevinschildhorn.common"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/commonMain/resources")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
     defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
+        minSdk =
+            libs.versions.minSdk
+                .get()
+                .toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -155,7 +161,11 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
     kotlin {
-        jvmToolchain(libs.versions.java.get().toInt())
+        jvmToolchain(
+            libs.versions.java
+                .get()
+                .toInt(),
+        )
     }
 }
 

@@ -4,7 +4,9 @@ import kotlinx.serialization.Serializable
 
 @JvmInline
 @Serializable
-value class Path(private val pathString: String) {
+value class Path(
+    private val pathString: String,
+) {
     val fileName: String
         get() = pathString.split("\\").last()
 

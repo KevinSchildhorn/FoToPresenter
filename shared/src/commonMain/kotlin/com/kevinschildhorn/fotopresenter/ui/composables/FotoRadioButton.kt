@@ -25,14 +25,14 @@ fun FotoRadioButton(
         horizontalArrangement = horizontalArrangement,
         modifier = modifier.fillMaxWidth(),
     ) {
-        if(horizontalArrangement == Arrangement.End) FotoRadioText(title)
+        if (horizontalArrangement == Arrangement.End) FotoRadioText(title)
         RadioButton(
             selected = selected,
             onClick = onRadioChanged,
             modifier = checkBoxModifier,
             enabled = enabled,
         )
-        if(horizontalArrangement != Arrangement.End) FotoRadioText(title)
+        if (horizontalArrangement != Arrangement.End) FotoRadioText(title)
     }
 }
 

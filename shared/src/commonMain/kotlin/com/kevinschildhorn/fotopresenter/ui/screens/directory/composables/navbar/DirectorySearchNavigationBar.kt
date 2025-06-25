@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -22,11 +21,16 @@ import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.Close
 
 @Composable
-fun DirectorySearchNavigationBar(tags: List<String>, allTags: Boolean, itemCount: Int, onClose: () -> Unit) {
+fun DirectorySearchNavigationBar(
+    tags: List<String>,
+    allTags: Boolean,
+    itemCount: Int,
+    onClose: () -> Unit,
+) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         LazyRow(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             item {
                 SearchText("Tags: ", modifier = Modifier.padding(start = 10.dp))
@@ -42,7 +46,7 @@ fun DirectorySearchNavigationBar(tags: List<String>, allTags: Boolean, itemCount
             }
             item {
                 FotoRadioButton(
-                    title = if(allTags) "All of the Tags" else "Any of the Tags",
+                    title = if (allTags) "All of the Tags" else "Any of the Tags",
                     selected = true,
                     onRadioChanged = { },
                     enabled = false,
@@ -65,7 +69,11 @@ fun DirectorySearchNavigationBar(tags: List<String>, allTags: Boolean, itemCount
         }
     }
 }
+
 @Composable
-private fun SearchText(text: String, modifier: Modifier = Modifier){
+private fun SearchText(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
     Text(text, style = MaterialTheme.typography.subtitle1, modifier = modifier)
 }

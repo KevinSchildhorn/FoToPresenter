@@ -71,7 +71,8 @@ fun DirectoryScreen(
                 showOverlay = { viewModel.showOverlay(it) },
             )
         },
-        drawerContent = { // TODO: Too wide
+        drawerContent = {
+            // TODO: Too wide
             AppNavigationRail(
                 onLogout = {
                     scope.launch {
@@ -113,7 +114,8 @@ fun DirectoryScreen(
                         onHome = { viewModel.navigateBackToDirectory(-1) },
                         onItem = { viewModel.navigateBackToDirectory(it) },
                         modifier =
-                            Modifier.padding(Padding.SMALL.dp)
+                            Modifier
+                                .padding(Padding.SMALL.dp)
                                 .testTag(TestTags.Directory.NAVIGATION_BAR),
                     )
                 }
@@ -226,7 +228,7 @@ fun DirectoryScreen(
                     onConfirmation = { tags, type, recursive, startDate, endDate ->
                         viewModel.setAdvancedSearch(tags, type, recursive, startDate, endDate)
                         viewModel.clearOverlay()
-                    }
+                    },
                 )
             }
         }

@@ -29,6 +29,4 @@ fun testingModule(settings: MapSettings = MapSettings()) =
                 PlaylistDatabase.Schema.create(driver)
                 driver
             }
-
-
         }

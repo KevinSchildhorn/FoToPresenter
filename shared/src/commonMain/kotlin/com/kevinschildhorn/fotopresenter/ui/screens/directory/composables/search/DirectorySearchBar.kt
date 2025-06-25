@@ -2,6 +2,7 @@ package com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.searc
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -11,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import com.kevinschildhorn.fotopresenter.ui.TestTags
-import androidx.compose.material.MaterialTheme
 import com.kevinschildhorn.fotopresenter.ui.testTag
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill

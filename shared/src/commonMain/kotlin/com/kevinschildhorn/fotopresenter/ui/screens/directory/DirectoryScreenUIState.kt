@@ -38,8 +38,7 @@ data class DirectoryScreenUIState(
     val slideshowDetails: ImageSlideshowDetails? = null,
     val directoryAdvancedSearchUIState: DirectoryAdvancedSearchUIState = DirectoryAdvancedSearchUIState.IDLE,
 ) : ScreenState {
-    fun getImageIndexFromId(id: Long?): Int =
-        directoryGridUIState.imageStates.indexOfFirst { it.id == id }
+    fun getImageIndexFromId(id: Long?): Int = directoryGridUIState.imageStates.indexOfFirst { it.id == id }
 
     val currentPathList: List<Path>
         get() = directoryGridUIState.currentPath.pathList
@@ -98,18 +97,24 @@ sealed class DirectoryGridCellUIState(
     val id: Long,
     val actionSheetContexts: List<ActionSheetContext>,
 ) {
-    class Folder(name: String, id: Long) : DirectoryGridCellUIState(
-        name,
-        id,
-        listOf(
-            ActionSheetContext(ActionSheetAction.START_SLIDESHOW, 1),
-            ActionSheetContext(ActionSheetAction.START_SLIDESHOW_WITH_SUBFOLDERS, 2),
-            ActionSheetContext(ActionSheetAction.ADD_DYNAMIC_LOCATION, 3),
-        ),
-    )
+    class Folder(
+        name: String,
+        id: Long,
+    ) : DirectoryGridCellUIState(
+            name,
+            id,
+            listOf(
+                ActionSheetContext(ActionSheetAction.START_SLIDESHOW, 1),
+                ActionSheetContext(ActionSheetAction.START_SLIDESHOW_WITH_SUBFOLDERS, 2),
+                ActionSheetContext(ActionSheetAction.ADD_DYNAMIC_LOCATION, 3),
+            ),
+        )
 
-    class Image(val directoryDetails: NetworkDirectoryDetails, name: String, id: Long) :
-        DirectoryGridCellUIState(
+    class Image(
+        val directoryDetails: NetworkDirectoryDetails,
+        name: String,
+        id: Long,
+    ) : DirectoryGridCellUIState(
             name,
             id,
             listOf(
@@ -134,7 +139,9 @@ sealed class DirectoryOverlayUiState {
      *
      * **imageDirectory** - The image directory to display during the preview
      **/
-    data class ImagePreview(val imageDirectory: NetworkDirectoryDetails) : DirectoryOverlayUiState()
+    data class ImagePreview(
+        val imageDirectory: NetworkDirectoryDetails,
+    ) : DirectoryOverlayUiState()
 
     /**
      * **Actions**
@@ -181,9 +188,10 @@ sealed class DirectoryAdvancedSearchUIState {
         val tags: List<String>,
         val allTags: Boolean,
         val itemCount: Int,
-        val loading: Boolean = false
+        val loading: Boolean = false,
     ) : DirectoryAdvancedSearchUIState()
 
     data object LOADING : DirectoryAdvancedSearchUIState()
+
     data object IDLE : DirectoryAdvancedSearchUIState()
 }

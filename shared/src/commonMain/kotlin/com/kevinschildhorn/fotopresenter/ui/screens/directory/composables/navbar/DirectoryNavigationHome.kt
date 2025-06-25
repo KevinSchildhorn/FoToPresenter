@@ -22,7 +22,12 @@ import compose.icons.evaicons.fill.Home
 fun DirectoryNavigationHome(onClick: () -> Unit) {
     Button(
         onClick = onClick,
-        modifier = Modifier.height(44.dp).width(44.dp).clip(RoundedCornerShape(10.dp)).testTag("NavItemHome"),
+        modifier =
+            Modifier
+                .height(44.dp)
+                .width(44.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .testTag("NavItemHome"),
         colors =
             ButtonDefaults.buttonColors(
                 backgroundColor = MaterialTheme.colors.secondary,

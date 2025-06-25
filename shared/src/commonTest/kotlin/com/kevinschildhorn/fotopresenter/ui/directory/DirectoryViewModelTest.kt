@@ -115,54 +115,54 @@ class DirectoryViewModelTest : KoinTest {
         }
 
     @Test
-    fun advancedSearchDate() = runTest(testDispatcher) {
-        val viewModel: DirectoryViewModel by inject()
+    fun advancedSearchDate() =
+        runTest(testDispatcher) {
+            val viewModel: DirectoryViewModel by inject()
 
-        viewModel.uiState.test {
-            viewModel.refreshScreen()
-            var item = awaitUntilHasDirectories()
+            viewModel.uiState.test {
+                viewModel.refreshScreen()
+                var item = awaitUntilHasDirectories()
 
-            assertEquals(2, item.directoryGridUIState.imageStates.count())
-            assertTrue(item.hasImage("Peeng"))
-            assertTrue(item.hasImage("Jaypeg"))
+                assertEquals(2, item.directoryGridUIState.imageStates.count())
+                assertTrue(item.hasImage("Peeng"))
+                assertTrue(item.hasImage("Jaypeg"))
 
-            // No Search
-            viewModel.setAdvancedSearch(
-                tags = emptyList(),
-                searchType = TagSearchType.ALL_TAGS,
-                recursive = false,
-                startDate = null,
-                endDate = null,
-            )
-            item = awaitItem()
-            while (item.directoryAdvancedSearchUIState is DirectoryAdvancedSearchUIState.LOADING) {
+                // No Search
+                viewModel.setAdvancedSearch(
+                    tags = emptyList(),
+                    searchType = TagSearchType.ALL_TAGS,
+                    recursive = false,
+                    startDate = null,
+                    endDate = null,
+                )
                 item = awaitItem()
-            }
-            // Should only have one folder
-            assertTrue(item.directoryAdvancedSearchUIState is DirectoryAdvancedSearchUIState.SUCCESS)
-            var searchState = item.directoryAdvancedSearchUIState
-            assertEquals(2, searchState.itemCount)
+                while (item.directoryAdvancedSearchUIState is DirectoryAdvancedSearchUIState.LOADING) {
+                    item = awaitItem()
+                }
+                // Should only have one folder
+                assertTrue(item.directoryAdvancedSearchUIState is DirectoryAdvancedSearchUIState.SUCCESS)
+                var searchState = item.directoryAdvancedSearchUIState
+                assertEquals(2, searchState.itemCount)
 
-
-
-            // Searching Range
-            viewModel.setAdvancedSearch(
-                tags = emptyList(),
-                searchType = TagSearchType.ALL_TAGS,
-                recursive = false,
-                startDate = LocalDate(2020, 1, 1),
-                endDate = LocalDate(2024, 5, 15),
-            )
-            item = awaitItem()
-            while (item.directoryAdvancedSearchUIState is DirectoryAdvancedSearchUIState.LOADING) {
+                // Searching Range
+                viewModel.setAdvancedSearch(
+                    tags = emptyList(),
+                    searchType = TagSearchType.ALL_TAGS,
+                    recursive = false,
+                    startDate = LocalDate(2020, 1, 1),
+                    endDate = LocalDate(2024, 5, 15),
+                )
                 item = awaitItem()
+                while (item.directoryAdvancedSearchUIState is DirectoryAdvancedSearchUIState.LOADING) {
+                    item = awaitItem()
+                }
+                // Should only have one folder
+                assertTrue(item.directoryAdvancedSearchUIState is DirectoryAdvancedSearchUIState.SUCCESS)
+                searchState = item.directoryAdvancedSearchUIState
+                assertEquals(1, searchState.itemCount)
             }
-            // Should only have one folder
-            assertTrue(item.directoryAdvancedSearchUIState is DirectoryAdvancedSearchUIState.SUCCESS)
-            searchState = item.directoryAdvancedSearchUIState
-            assertEquals(1, searchState.itemCount)
         }
-    }
+
     @Test
     fun showOverlay() =
         runTest(testDispatcher) {
@@ -479,7 +479,10 @@ class DirectoryViewModelTest : KoinTest {
         get() = this.directoryGridUIState.currentPath.fileName
 
     private val DirectoryScreenUIState.firstImageName: String
-        get() = this.directoryGridUIState.imageStates.first().name
+        get() =
+            this.directoryGridUIState.imageStates
+                .first()
+                .name
 
     private fun DirectoryScreenUIState.isPath(path: String) = this.pathName == path
 
@@ -496,6 +499,7 @@ class DirectoryViewModelTest : KoinTest {
     private fun DirectoryScreenUIState.findDirectory(name: String) = this.directoryGridUIState.folderStates.find { it.name == name }
 
     private fun DirectoryScreenUIState.isSame(state: DirectoryScreenUIState) =
-        this.directoryGridUIState.allStates.map { it.name }
+        this.directoryGridUIState.allStates
+            .map { it.name }
             .containsAll(state.directoryGridUIState.allStates.map { it.name })
 }

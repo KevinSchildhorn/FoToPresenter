@@ -17,15 +17,14 @@ data class LoginCredentials(
                 password.isNotBlank() &&
                 sharedFolder.isNotBlank()
 
-    override fun toString(): String {
-        return """
-            LoginCredentials(
-                hostname: $hostname
-                username: $username
-                password: $password
-                sharedFolder: $sharedFolder
-                shouldAutoConnect: $shouldAutoConnect
-            )
-            """.trimIndent()
-    }
+    override fun toString(): String =
+        """
+        LoginCredentials(
+            hostname: $hostname
+            username: $username
+            password: $password
+            sharedFolder: $sharedFolder
+            shouldAutoConnect: $shouldAutoConnect
+        )
+        """.trimIndent()
 }

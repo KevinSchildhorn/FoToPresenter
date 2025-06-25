@@ -28,25 +28,25 @@ fun SortDialog(
             title = "File Name A-Z",
             selected = selectedOption.value == SortingType.NAME_ASC,
             onRadioChanged = { selectedOption.value = SortingType.NAME_ASC },
-            modifier = Modifier.testTag(TestTags.Directory.Sort.SORT_A_TO_Z)
+            modifier = Modifier.testTag(TestTags.Directory.Sort.SORT_A_TO_Z),
         )
         FotoRadioButton(
             title = "File Name Z-A",
             selected = selectedOption.value == SortingType.NAME_DESC,
             onRadioChanged = { selectedOption.value = SortingType.NAME_DESC },
-            modifier = Modifier.testTag(TestTags.Directory.Sort.SORT_Z_TO_A)
+            modifier = Modifier.testTag(TestTags.Directory.Sort.SORT_Z_TO_A),
         )
         FotoRadioButton(
             title = "Time Created Ascending",
             selected = selectedOption.value == SortingType.TIME_ASC,
             onRadioChanged = { selectedOption.value = SortingType.TIME_ASC },
-            modifier = Modifier.testTag(TestTags.Directory.Sort.SORT_TIME_CREATED_ASC)
+            modifier = Modifier.testTag(TestTags.Directory.Sort.SORT_TIME_CREATED_ASC),
         )
         FotoRadioButton(
             title = "Time Created Descending",
             selected = selectedOption.value == SortingType.TIME_DESC,
             onRadioChanged = { selectedOption.value = SortingType.TIME_DESC },
-            modifier = Modifier.testTag(TestTags.Directory.Sort.SORT_TIME_CREATED_DES)
+            modifier = Modifier.testTag(TestTags.Directory.Sort.SORT_TIME_CREATED_DES),
         )
     }
 }

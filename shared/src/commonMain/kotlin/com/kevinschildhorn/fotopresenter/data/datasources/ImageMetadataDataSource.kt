@@ -11,7 +11,11 @@ import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
 interface ImageMetadataDataSource {
     suspend fun readMetadataFromFile(filePath: Path): MetadataFileDetails?
-    suspend fun writeMetadataToFile(metadata: String, filePath: Path, ): Boolean
+
+    suspend fun writeMetadataToFile(
+        metadata: String,
+        filePath: Path,
+    ): Boolean
 }
 
 class NetworkImageMetadataDataSource(

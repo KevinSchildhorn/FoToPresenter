@@ -8,30 +8,29 @@ class MockMetadataDataSource : ImageMetadataDataSource {
     private val metadataMap: MutableMap<Path, MetadataFileDetails> =
         mutableMapOf<Path, MetadataFileDetails>(
             Path("Peeng.png") to
-                    MetadataFileDetails(
-                        filePath = Path("Peeng.png"),
-                        tags = setOf("P", "png"),
-                    ),
+                MetadataFileDetails(
+                    filePath = Path("Peeng.png"),
+                    tags = setOf("P", "png"),
+                ),
             Path("Jaypeg.jpg") to
-                    MetadataFileDetails(
-                        filePath = Path("Jaypeg.jpg"),
-                        tags = setOf("J", "jpg"),
-                    ),
+                MetadataFileDetails(
+                    filePath = Path("Jaypeg.jpg"),
+                    tags = setOf("J", "jpg"),
+                ),
         )
 
-    override suspend fun readMetadataFromFile(filePath: Path): MetadataFileDetails? {
-        return metadataMap[filePath]
-    }
+    override suspend fun readMetadataFromFile(filePath: Path): MetadataFileDetails? = metadataMap[filePath]
 
     override suspend fun writeMetadataToFile(
         metadata: String,
-        filePath: Path
+        filePath: Path,
     ): Boolean {
         metadataMap.put(
-            filePath, MetadataFileDetails(
+            filePath,
+            MetadataFileDetails(
                 filePath = filePath,
-                tags = emptySet<String>()
-            )
+                tags = emptySet<String>(),
+            ),
         )
         return true
     }

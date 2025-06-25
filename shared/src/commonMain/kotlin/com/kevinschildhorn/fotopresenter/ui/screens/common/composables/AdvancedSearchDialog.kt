@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -27,7 +28,6 @@ import com.kevinschildhorn.fotopresenter.data.dropdownYears
 import com.kevinschildhorn.fotopresenter.ui.TagSearchType
 import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.atoms.disabled
-import androidx.compose.material.MaterialTheme
 import com.kevinschildhorn.fotopresenter.ui.composables.FotoCheckbox
 import com.kevinschildhorn.fotopresenter.ui.composables.FotoDropdown
 import com.kevinschildhorn.fotopresenter.ui.composables.FotoRadioButton
@@ -63,17 +63,25 @@ fun AdvancedSearchDialog(
             "Tag Search",
             onDismissRequest = onDismissRequest,
             onConfirmation = {
-                val startDate = if(!dateEnabled.value) null else
-                    LocalDate(startYear.value, dropdownMonths.indexOf(startMonth.value), 1)
-                val endDate = if (!dateEnabled.value) null else
-                    LocalDate(endYear.value, dropdownMonths.indexOf(endMonth.value), 1)
+                val startDate =
+                    if (!dateEnabled.value) {
+                        null
+                    } else {
+                        LocalDate(startYear.value, dropdownMonths.indexOf(startMonth.value), 1)
+                    }
+                val endDate =
+                    if (!dateEnabled.value) {
+                        null
+                    } else {
+                        LocalDate(endYear.value, dropdownMonths.indexOf(endMonth.value), 1)
+                    }
 
                 onConfirmation(
                     tags.toList(),
                     selectedOption.value,
                     recursive.value,
                     startDate,
-                    endDate
+                    endDate,
                 )
             },
         ) {
@@ -81,7 +89,7 @@ fun AdvancedSearchDialog(
                 itemsIndexed(tags) { index, tag ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.height(IntrinsicSize.Min)
+                        modifier = Modifier.height(IntrinsicSize.Min),
                     ) {
                         OutlinedTextField(
                             value = tag,
@@ -99,16 +107,19 @@ fun AdvancedSearchDialog(
                                     tags.removeAt(index)
                                 }
                             },
-                            modifier = Modifier.padding(top = 8.dp).width(44.dp)
+                            modifier = Modifier.padding(top = 8.dp).width(44.dp),
                         ) {
                             val imageVector =
-                                if (index == tags.size - 1) EvaIcons.Outline.PlusCircle
-                                else EvaIcons.Outline.Close
+                                if (index == tags.size - 1) {
+                                    EvaIcons.Outline.PlusCircle
+                                } else {
+                                    EvaIcons.Outline.Close
+                                }
                             Icon(
                                 imageVector = imageVector,
                                 contentDescription = "Add Tag",
                                 tint = MaterialTheme.colors.onSurface,
-                                modifier = Modifier.fillMaxHeight().width(30.dp)
+                                modifier = Modifier.fillMaxHeight().width(30.dp),
                             )
                         }
                     }
@@ -155,13 +166,13 @@ fun AdvancedSearchDialog(
                             "Start",
                             modifier = Modifier.weight(1f),
                             textAlign = TextAlign.End,
-                            color = if (dateEnabled.value) MaterialTheme.colors.onSurface else disabled
+                            color = if (dateEnabled.value) MaterialTheme.colors.onSurface else disabled,
                         )
                         FotoDropdown(
                             dropdownMonths,
                             label = "Month",
                             enabled = dateEnabled.value,
-                            modifier = Modifier.weight(2f)
+                            modifier = Modifier.weight(2f),
                         ) {
                             startMonth.value = it
                         }
@@ -169,7 +180,7 @@ fun AdvancedSearchDialog(
                             dropdownYears,
                             label = "Year",
                             enabled = dateEnabled.value,
-                            modifier = Modifier.weight(2f)
+                            modifier = Modifier.weight(2f),
                         ) {
                             startYear.value = it
                         }
@@ -181,17 +192,21 @@ fun AdvancedSearchDialog(
                             "End",
                             modifier = Modifier.weight(1f),
                             textAlign = TextAlign.End,
-                            color = if (dateEnabled.value) MaterialTheme.colors.onSurface else disabled
+                            color = if (dateEnabled.value) MaterialTheme.colors.onSurface else disabled,
                         )
                         FotoDropdown(
-                            dropdownMonths, label = "Month",
-                            enabled = dateEnabled.value, modifier = Modifier.weight(2f)
+                            dropdownMonths,
+                            label = "Month",
+                            enabled = dateEnabled.value,
+                            modifier = Modifier.weight(2f),
                         ) {
                             endMonth.value = it
                         }
                         FotoDropdown(
-                            dropdownYears, label = "Year",
-                            enabled = dateEnabled.value, modifier = Modifier.weight(2f)
+                            dropdownYears,
+                            label = "Year",
+                            enabled = dateEnabled.value,
+                            modifier = Modifier.weight(2f),
                         ) {
                             endYear.value = it
                         }

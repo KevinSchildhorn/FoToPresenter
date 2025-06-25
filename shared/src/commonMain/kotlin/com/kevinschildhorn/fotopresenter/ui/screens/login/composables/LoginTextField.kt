@@ -8,7 +8,6 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.VisualTransformation
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
 import com.kevinschildhorn.fotopresenter.ui.atoms.disabled
 
 @Composable

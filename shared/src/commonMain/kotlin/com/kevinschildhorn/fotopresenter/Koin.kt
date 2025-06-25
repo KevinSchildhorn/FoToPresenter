@@ -36,39 +36,39 @@ val commonModule =
         single {
             DirectoryDataSource(
                 get(),
-                getLoggerWithTag("DirectoryDataSource$LOGGER_TAG_SUFFIX")
+                getLoggerWithTag("DirectoryDataSource$LOGGER_TAG_SUFFIX"),
             )
         }
         single {
             DirectoryRepository(
                 get(),
-                getLoggerWithTag("DirectoryRepository$LOGGER_TAG_SUFFIX")
+                getLoggerWithTag("DirectoryRepository$LOGGER_TAG_SUFFIX"),
             )
         }
         // single { CachedImageDataSource(get(), getLoggerWithTag("ImageCacheDataSource$LoggerTagSuffix")) }
         single {
             PlaylistFileDataSource(
                 getLoggerWithTag("PlaylistDataSource$LOGGER_TAG_SUFFIX"),
-                get()
+                get(),
             )
         }
         single {
             PlaylistSQLDataSource(
                 get(),
-                getLoggerWithTag("PlaylistDataSource$LOGGER_TAG_SUFFIX")
+                getLoggerWithTag("PlaylistDataSource$LOGGER_TAG_SUFFIX"),
             )
         }
         single {
             PlaylistRepository(
                 get(),
                 get(),
-                getLoggerWithTag("PlaylistRepository$LOGGER_TAG_SUFFIX")
+                getLoggerWithTag("PlaylistRepository$LOGGER_TAG_SUFFIX"),
             )
         }
         single<ImageMetadataDataSource> {
             NetworkImageMetadataDataSource(
                 getLoggerWithTag("ImageMetadataDataSource$LOGGER_TAG_SUFFIX"),
-                get()
+                get(),
             )
         }
         single { ImageRepository(get(), getLoggerWithTag("ImageRepository$LOGGER_TAG_SUFFIX")) }
@@ -76,7 +76,7 @@ val commonModule =
         single {
             DirectoryNavigator(
                 get(),
-                getLoggerWithTag("DirectoryNavigator$LOGGER_TAG_SUFFIX")
+                getLoggerWithTag("DirectoryNavigator$LOGGER_TAG_SUFFIX"),
             )
         }
         factory { ImagePreviewNavigator(getLoggerWithTag("ImagePreviewNavigator$LOGGER_TAG_SUFFIX")) }
@@ -95,7 +95,7 @@ val commonModule =
             LoginViewModel(
                 getLoggerWithTag("LoginViewModel$LOGGER_TAG_SUFFIX"),
                 get(),
-                get()
+                get(),
             )
         }
         single {
@@ -106,14 +106,14 @@ val commonModule =
                 get(),
                 get(),
                 get(),
-                getLoggerWithTag("DirectoryViewModelNew$LOGGER_TAG_SUFFIX")
+                getLoggerWithTag("DirectoryViewModelNew$LOGGER_TAG_SUFFIX"),
             )
         }
         single {
             SlideshowViewModel(
                 get(),
                 get(),
-                getLoggerWithTag("SlideshowViewModel$LOGGER_TAG_SUFFIX")
+                getLoggerWithTag("SlideshowViewModel$LOGGER_TAG_SUFFIX"),
             )
         }
         single { PlaylistViewModel(get(), getLoggerWithTag("PlaylistViewModel$LOGGER_TAG_SUFFIX")) }

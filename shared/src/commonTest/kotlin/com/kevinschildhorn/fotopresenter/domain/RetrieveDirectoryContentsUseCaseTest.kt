@@ -9,12 +9,10 @@ import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
-import kotlin.String
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -46,8 +44,16 @@ class RetrieveDirectoryContentsUseCaseTest : KoinTest {
     fun receiveDirectoryContentSuccess() =
         runBlocking {
             val result = useCase(Path(""), recursively = false)
-            assertTrue(result.images.first().details.isAnImage)
-            assertTrue(result.folders.first().details.isDirectory)
+            assertTrue(
+                result.images
+                    .first()
+                    .details.isAnImage,
+            )
+            assertTrue(
+                result.folders
+                    .first()
+                    .details.isDirectory,
+            )
             assertEquals(2, result.folders.count())
             assertEquals(2, result.images.count())
             assertEquals(4, result.allDirectories.count())
@@ -93,20 +99,22 @@ class RetrieveDirectoryContentsUseCaseTest : KoinTest {
             fullPath = Path("Jaypeg.jpg"), id = 3,
             dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 10),
              */
-            var result = useCase(
-                path = Path(""),
-                recursively = false,
-                startDate = null,
-                endDate = null,
-            )
+            var result =
+                useCase(
+                    path = Path(""),
+                    recursively = false,
+                    startDate = null,
+                    endDate = null,
+                )
             assertEquals(2, result.images.count())
 
-            result = useCase(
-                path = Path(""),
-                recursively = false,
-                startDate = LocalDate(2020, 5, 1),
-                endDate = LocalDate(2024, 5, 15),
-            )
+            result =
+                useCase(
+                    path = Path(""),
+                    recursively = false,
+                    startDate = LocalDate(2020, 5, 1),
+                    endDate = LocalDate(2024, 5, 15),
+                )
             assertEquals(1, result.images.count())
         }
 
@@ -120,37 +128,40 @@ class RetrieveDirectoryContentsUseCaseTest : KoinTest {
             fullPath = Path("Jaypeg.jpg"), id = 3,
             dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 10),
              */
-            var result = useCase(
-                path = Path(""),
-                recursively = false,
-                tags = emptyList(),
-                inclusiveTags = false,
-            )
+            var result =
+                useCase(
+                    path = Path(""),
+                    recursively = false,
+                    tags = emptyList(),
+                    inclusiveTags = false,
+                )
             assertEquals(2, result.images.count())
 
-            result = useCase(
-                path = Path(""),
-                recursively = false,
-                tags = listOf("P"),
-                inclusiveTags = false,
-            )
+            result =
+                useCase(
+                    path = Path(""),
+                    recursively = false,
+                    tags = listOf("P"),
+                    inclusiveTags = false,
+                )
             assertEquals(1, result.images.count())
 
-            result = useCase(
-                path = Path(""),
-                recursively = false,
-                tags = listOf("P", "J"),
-                inclusiveTags = true,
-            )
+            result =
+                useCase(
+                    path = Path(""),
+                    recursively = false,
+                    tags = listOf("P", "J"),
+                    inclusiveTags = true,
+                )
             assertEquals(0, result.images.count())
 
-            result = useCase(
-                path = Path(""),
-                recursively = false,
-                tags = listOf("P", "png"),
-                inclusiveTags = true,
-            )
+            result =
+                useCase(
+                    path = Path(""),
+                    recursively = false,
+                    tags = listOf("P", "png"),
+                    inclusiveTags = true,
+                )
             assertEquals(1, result.images.count())
         }
-
 }

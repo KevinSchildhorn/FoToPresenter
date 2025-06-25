@@ -1,13 +1,13 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail
 
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.NavigationRail
 import androidx.compose.material.NavigationRailItem
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.kevinschildhorn.fotopresenter.ui.TestTags
-import androidx.compose.material.MaterialTheme
 import com.kevinschildhorn.fotopresenter.ui.testTag
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill

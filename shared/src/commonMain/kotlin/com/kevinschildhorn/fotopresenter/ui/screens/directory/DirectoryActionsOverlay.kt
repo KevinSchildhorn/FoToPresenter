@@ -5,7 +5,6 @@ import com.kevinschildhorn.fotopresenter.data.Directory
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay.MetadataOverlay
-import com.kevinschildhorn.fotopresenter.ui.screens.playlist.PlaylistDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.PlaylistOverlay
 
 /**

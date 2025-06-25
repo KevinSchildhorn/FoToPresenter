@@ -1,7 +1,6 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.slideshow
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -65,15 +64,17 @@ fun SlideshowScreen(
         when (details) {
             is SlideshowScreenUiState.Loading -> LoadingOverlay()
             is SlideshowScreenUiState.Ready -> {
-                    AsyncImage(
-                        model = ImageRequest.Builder(platformContext)
+                AsyncImage(
+                    model =
+                        ImageRequest
+                            .Builder(platformContext)
                             .data(details.selectedImageDirectory.model)
                             .crossfade(true)
                             .crossfade(500)
                             .build(),
-                        contentDescription = null,
-                        modifier = Modifier.fillMaxSize(),
-                    )
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                )
             }
         }
     }

@@ -17,8 +17,9 @@ import org.koin.core.component.KoinComponent
 open class PlaylistViewModel(
     private val playlistRepository: PlaylistRepository,
     private val logger: Logger,
-) : ViewModel(), KoinComponent {
-    @Suppress("ktlint:standard:property-naming")
+) : ViewModel(),
+    KoinComponent {
+    @Suppress("ktlint:standard:backing-property-naming")
     private val _uiState = MutableStateFlow(PlaylistScreenState())
     val playlistState: StateFlow<PlaylistScreenState> = _uiState.asStateFlow()
 
@@ -53,12 +54,13 @@ open class PlaylistViewModel(
     ) {
         logger.i { "Inserting Playlist Image ${playlist.id} as ${directory.name}" }
         viewModelScope.launch(Dispatchers.Default) {
-            playlistRepository.insertPlaylistImage(
-                playlistId = playlist.id,
-                directory = directory,
-            )?.let {
-                logger.i { "Successfully inserted playlist image" }
-            } ?: run {
+            playlistRepository
+                .insertPlaylistImage(
+                    playlistId = playlist.id,
+                    directory = directory,
+                )?.let {
+                    logger.i { "Successfully inserted playlist image" }
+                } ?: run {
                 logger.w { "Failed to insert playlist image" }
             }
         }
