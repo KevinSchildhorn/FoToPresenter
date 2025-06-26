@@ -30,6 +30,12 @@ class DirectoryDataSource(
         throw NetworkHandlerException(NetworkHandlerError.DIRECTORY_NOT_FOUND)
     }
 
+    suspend fun getDirectoryForPath(path: Path): NetworkDirectoryDetails? {
+        logger?.v { "Getting Directory for path '$path'" }
+        if (!networkHandler.isConnected) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
+        return networkHandler.getDirectoryDetails(path)
+    }
+
     suspend fun getFolderDirectories(path: Path): List<NetworkDirectoryDetails> {
         logger?.v { "Getting Folder Directories at path '$path'" }
         if (!networkHandler.isConnected) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)

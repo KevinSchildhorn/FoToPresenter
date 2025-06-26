@@ -20,16 +20,17 @@ import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AdvancedSearchDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ConfirmationDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ImagePreviewOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.LoadingOverlay
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.SortDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationBar
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectorySearchNavigationBar
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.AppNavigationRail
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay.AdvancedSearchDialog
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay.DirectoryOptionsOverlay
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay.SortDialog
 import com.kevinschildhorn.fotopresenter.ui.testTag
 import kotlinx.coroutines.launch
 
@@ -161,7 +162,6 @@ fun DirectoryScreen(
             }
 
             is DirectoryOverlayUiState.ImagePreview -> {
-                Logger.i("KEVINS - ShowImagePreview")
                 ImagePreviewOverlay(
                     selectionState.imageDirectory,
                     visible = true,
@@ -172,7 +172,6 @@ fun DirectoryScreen(
             }
 
             is DirectoryOverlayUiState.Actions -> {
-                Logger.i("KEVINS - ACTIONS")
                 DirectoryActionsOverlay(
                     selectionState,
                     onAction = {
@@ -188,10 +187,10 @@ fun DirectoryScreen(
                                 viewModel.showPlaylistOverlay(dynamic = true)
 
                             ActionSheetAction.NONE -> viewModel.clearOverlay()
+                            ActionSheetAction.ADD_ALL_LOCATION -> TODO()
                         }
                     },
                     onSaveMetadata = { viewModel.saveMetadata(it) },
-                    changeOverlay = {},
                     onAddToPlaylist = { playlistId, directory ->
                         viewModel.addItemToPlaylist(playlistId, directory)
                     },
@@ -220,7 +219,6 @@ fun DirectoryScreen(
             }
 
             is DirectoryOverlayUiState.Sort -> {
-                Logger.i("KEVINS - Rendering Sort Dialog")
                 SortDialog(
                     "Sort Images by",
                     onDismissRequest = { viewModel.clearOverlay() },
@@ -232,12 +230,28 @@ fun DirectoryScreen(
             }
 
             is DirectoryOverlayUiState.AdvancedSearch -> {
-                Logger.i("KEVINS - Advanced Search")
                 AdvancedSearchDialog(
                     onDismissRequest = { viewModel.clearOverlay() },
                     onConfirmation = { tags, type, recursive, startDate, endDate ->
                         viewModel.setAdvancedSearch(tags, type, recursive, startDate, endDate)
                         viewModel.clearOverlay()
+                    },
+                )
+            }
+
+            is DirectoryOverlayUiState.DirectoryOptions -> {
+                DirectoryOptionsOverlay(
+                    onDismiss = { viewModel.clearOverlay() },
+                    onAction = { action ->
+                        when (action) {
+                            ActionSheetAction.START_SLIDESHOW -> {
+                                viewModel.clearOverlay()
+                                onStartSlideshow(ImageSlideshowDetails(viewModel.getAllImagesOnScreen()))
+                            }
+
+                            ActionSheetAction.ADD_ALL_LOCATION -> TODO()
+                            else -> viewModel.clearOverlay()
+                        }
                     },
                 )
             }

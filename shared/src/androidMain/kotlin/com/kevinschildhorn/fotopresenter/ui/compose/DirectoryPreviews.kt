@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkDirectoryDetails
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.AdvancedSearchDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridCellUIState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.DirectoryGridUIState
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
@@ -14,6 +13,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.F
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationBar
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationItem
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectorySearchNavigationBar
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay.AdvancedSearchDialog
 
 @Preview
 @Composable
@@ -38,6 +38,7 @@ fun DirectoryGridPreview() {
         directoryContent =
             DirectoryGridUIState(
                 currentPath = Path.EMPTY,
+                currentState = DirectoryGridCellUIState.Folder("Hello", 0),
                 folderStates =
                     listOf(
                         DirectoryGridCellUIState.Folder("Hello", 0),

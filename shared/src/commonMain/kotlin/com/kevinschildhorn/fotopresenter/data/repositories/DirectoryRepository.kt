@@ -30,7 +30,10 @@ class DirectoryRepository(
         val imageDirectories: List<NetworkDirectoryDetails> =
             directoryDataSource.getImageDirectories(path)
 
+        val currentDirectoryDetails = directoryDataSource.getDirectoryForPath(path)
+        val currentDirectory = if (currentDirectoryDetails != null) FolderDirectory(currentDirectoryDetails) else null
         return DirectoryContents(
+            currentDirectory = currentDirectory,
             folders = folderDirectories.map { FolderDirectory(it) },
             images =
                 imageDirectories.map { networkDetails ->
@@ -65,6 +68,7 @@ class DirectoryRepository(
 
         // Combine current directory images with all subfolder images
         return DirectoryContents(
+            currentDirectory = currentContents.currentDirectory,
             folders = currentContents.folders,
             images = currentContents.images + subFolderContents,
         )

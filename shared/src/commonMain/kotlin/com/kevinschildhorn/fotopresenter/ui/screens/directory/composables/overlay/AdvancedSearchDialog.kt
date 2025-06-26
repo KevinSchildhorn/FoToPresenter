@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
+package com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,6 +31,7 @@ import com.kevinschildhorn.fotopresenter.ui.atoms.disabled
 import com.kevinschildhorn.fotopresenter.ui.composables.FotoCheckbox
 import com.kevinschildhorn.fotopresenter.ui.composables.FotoDropdown
 import com.kevinschildhorn.fotopresenter.ui.composables.FotoRadioButton
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.FotoDialog
 import com.kevinschildhorn.fotopresenter.ui.testTag
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline

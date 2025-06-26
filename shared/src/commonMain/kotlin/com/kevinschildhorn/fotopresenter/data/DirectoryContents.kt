@@ -10,6 +10,7 @@ import kotlinx.datetime.atStartOfDayIn
  * Contains folders and images each of which has DirectoryDetails
  */
 data class DirectoryContents(
+    val currentDirectory: FolderDirectory? = null,
     val folders: List<FolderDirectory> = emptyList(),
     val images: List<ImageDirectory> = emptyList(),
 ) {
@@ -18,12 +19,14 @@ data class DirectoryContents(
 
     fun sorted(sortingType: SortingType): DirectoryContents =
         DirectoryContents(
+            currentDirectory = currentDirectory,
             folders = folders.sorted(sortingType),
             images = images.sorted(sortingType),
         )
 
     fun filteredByName(string: String): DirectoryContents =
         DirectoryContents(
+            currentDirectory = currentDirectory,
             folders = folders.filteredByName(string),
             images = images.filteredByName(string),
         )
@@ -33,6 +36,7 @@ data class DirectoryContents(
         allTags: Boolean,
     ): DirectoryContents =
         DirectoryContents(
+            currentDirectory = currentDirectory,
             folders = emptyList(),
             images = images.filteredByTags(tags, allTags),
         )
@@ -42,13 +46,18 @@ data class DirectoryContents(
         endDate: LocalDate,
     ): DirectoryContents =
         DirectoryContents(
+            currentDirectory = currentDirectory,
             folders = emptyList(),
             images =
                 images.filter { directory ->
                     val startMillis =
-                        startDate.atStartOfDayIn(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+                        startDate
+                            .atStartOfDayIn(TimeZone.currentSystemDefault())
+                            .toEpochMilliseconds()
                     val endMillis =
-                        endDate.atStartOfDayIn(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+                        endDate
+                            .atStartOfDayIn(TimeZone.currentSystemDefault())
+                            .toEpochMilliseconds()
 
                     startMillis < directory.details.dateMillis &&
                         directory.details.dateMillis < endMillis
@@ -58,6 +67,7 @@ data class DirectoryContents(
     override fun toString(): String =
         """
         DirectoryContents:
+        Current Directory: ${currentDirectory?.name}
         Folders: ${folders.count()}
             ${folders.map { it.toString() }.joinToString(", ")}
         Images: ${images.count()}

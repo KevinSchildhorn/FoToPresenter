@@ -22,7 +22,6 @@ fun DirectoryActionsOverlay(
     onSaveMetadata: (String) -> Unit,
     onAddToPlaylist: (Long, Directory) -> Unit,
     onShowSlideshow: (Directory, Boolean, ShuffleType) -> Unit,
-    changeOverlay: (DirectoryOverlayType) -> Unit,
     onDismiss: () -> Unit,
 ) {
     when (overlayState) {

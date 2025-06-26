@@ -118,6 +118,7 @@ kotlin {
                 resources.srcDirs("src/commonMain/resources")
                 implementation(compose.preview)
                 implementation(compose.desktop.common)
+                implementation(libs.kotlinx.coroutines.swing)
             }
         }
         val desktopTest by getting {

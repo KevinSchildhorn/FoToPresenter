@@ -6,6 +6,7 @@ enum class ActionSheetAction(
     START_SLIDESHOW("Start A Slideshow"),
     ADD_STATIC_LOCATION("Add to a Playlist"),
     ADD_DYNAMIC_LOCATION("Add dynamically to a Playlist"),
+    ADD_ALL_LOCATION("Add all images to a Playlist"),
     SET_METADATA("Set image metadata"),
     NONE("Nothing"), // TEMP
 }

@@ -1,4 +1,4 @@
-package com.kevinschildhorn.fotopresenter.ui.screens.common.composables
+package com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.composables.FotoRadioButton
+import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.FotoDialog
 import com.kevinschildhorn.fotopresenter.ui.testTag
 
 @Composable

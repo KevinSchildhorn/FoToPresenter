@@ -40,7 +40,7 @@ class DirectoryViewModel(
     private val credentialsRepository: CredentialsRepository,
     private val networkHandler: NetworkHandler,
     // Used for MetaData
-    private val dataSource: ImageMetadataDataSource,
+    private val imageMetadataDataSource: ImageMetadataDataSource,
     private val playlistRepository: PlaylistRepository,
     private val logger: Logger,
 ) : ViewModel(),
@@ -136,7 +136,7 @@ class DirectoryViewModel(
 
             DirectoryOverlayType.DIRECTORY_ACTION_SHEET -> {
                 logger.i { "Directory Action Sheet" }
-                // _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
+                _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.DirectoryOptions) }
             }
         }
         logger.i { "Current overlay state: ${_uiState.value.overlayUiState}" }
@@ -239,6 +239,10 @@ class DirectoryViewModel(
             _uiState.update { it.copy(state = UiState.LOADING, searchText = "") }
             tryCatch { directoryNavigator.navigateIntoDirectory(id) }
         }
+
+    fun getAllImagesOnScreen(): List<ImageDirectory> =
+        directoryNavigator.currentDirectoryContents.value.images
+            .toMutableList()
 
     //endregion
 
@@ -365,7 +369,10 @@ class DirectoryViewModel(
                         it.copy(
                             overlayUiState =
                                 DirectoryOverlayUiState.Actions.EditMetaData(
-                                    metadata = dataSource.readMetadataFromFile(actionState.directory.details.fullPath),
+                                    metadata =
+                                        imageMetadataDataSource.readMetadataFromFile(
+                                            actionState.directory.details.fullPath,
+                                        ),
                                     directoryUiState = actionState.directoryUiState,
                                     directory = actionState.directory,
                                 ),
@@ -379,7 +386,10 @@ class DirectoryViewModel(
             uiState.value.overlayUiState
                 .castTo<DirectoryOverlayUiState.Actions>()
                 ?.let { actionState ->
-                    dataSource.writeMetadataToFile(metadata, actionState.directory.details.fullPath)
+                    imageMetadataDataSource.writeMetadataToFile(
+                        metadata,
+                        actionState.directory.details.fullPath,
+                    )
                     clearOverlay()
                 }
         }
@@ -399,19 +409,35 @@ class DirectoryViewModel(
             _uiState.update { it.copy(state = UiState.ERROR(e.localizedMessage ?: "")) }
         }
 
-    private fun DirectoryContents.asDirectoryGridUIState(path: Path): DirectoryGridUIState =
-        DirectoryGridUIState(
-            currentPath = path,
-            folderStates =
-                folders.map {
-                    logger.i { "Folder Map: ${it.name} : ${it.id}" }
-                    DirectoryGridCellUIState.Folder(it.name, it.id)
-                },
-            imageStates =
-                images
-                    .map {
-                        logger.i { "Image Map: ${it.name} : ${it.id}" }
-                        DirectoryGridCellUIState.Image(it.details, it.name, it.id)
-                    }.toMutableList(),
-        )
+    private fun DirectoryContents.asDirectoryGridUIState(path: Path): DirectoryGridUIState {
+        val newState =
+            DirectoryGridUIState(
+                currentPath = path,
+                currentState =
+                    if (currentDirectory != null) {
+                        DirectoryGridCellUIState.Folder(
+                            currentDirectory.name,
+                            currentDirectory.id,
+                        )
+                    } else {
+                        print("Error")
+                        null
+                    },
+                folderStates =
+                    folders.map {
+                        logger.i { "Folder Map: ${it.name} : ${it.id}" }
+                        DirectoryGridCellUIState.Folder(it.name, it.id)
+                    },
+                imageStates =
+                    images
+                        .map {
+                            logger.i { "Image Map: ${it.name} : ${it.id}" }
+                            DirectoryGridCellUIState.Image(it.details, it.name, it.id)
+                        }.toMutableList(),
+            )
+        if (currentDirectory == null || newState.currentState == null) {
+            Logger.i { "KEVIN ERROR" }
+        }
+        return newState
+    }
 }

@@ -24,6 +24,11 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ScreenState
  *
  * **overlayUiState** -         The state of any views overlaying the directory screen. Can be for
  *                              actions or image preview (Comes From Image Preview Navigator).
+ *
+ * **slideshowDetails** -       The list of images to show in a preview. Used when starting a slideshow
+ *                              from a directory
+ *
+ * **directoryAdvancedSearchUIState** - The State from an advanced search, i.e. searching for tags
  **/
 data class DirectoryScreenUIState(
     override val state: UiState = UiState.IDLE,
@@ -31,6 +36,7 @@ data class DirectoryScreenUIState(
     var directoryGridUIState: DirectoryGridUIState =
         DirectoryGridUIState(
             Path.EMPTY,
+            null,
             emptyList(),
             mutableListOf(),
         ),
@@ -63,6 +69,7 @@ data class DirectoryScreenUIState(
  **/
 data class DirectoryGridUIState(
     val currentPath: Path,
+    val currentState: DirectoryGridCellUIState.Folder?,
     val folderStates: List<DirectoryGridCellUIState.Folder>,
     val imageStates: List<DirectoryGridCellUIState.Image>,
 ) {
@@ -178,6 +185,8 @@ sealed class DirectoryOverlayUiState {
     data object Sort : DirectoryOverlayUiState()
 
     data object AdvancedSearch : DirectoryOverlayUiState()
+
+    data object DirectoryOptions : DirectoryOverlayUiState()
 
     data object LogoutConfirmation : DirectoryOverlayUiState()
 
