@@ -9,14 +9,13 @@ data class PlaylistDetails(
     val name: String,
     val items: List<PlaylistItem> = emptyList(),
 ) {
-    override fun toString(): String {
-        return """
+    override fun toString(): String =
+        """
             Playlist Details:
             id: $id
             name: $name
             images: ${items.count()}
         """
-    }
 }
 
 @Serializable

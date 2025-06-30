@@ -24,6 +24,11 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ScreenState
  *
  * **overlayUiState** -         The state of any views overlaying the directory screen. Can be for
  *                              actions or image preview (Comes From Image Preview Navigator).
+ *
+ * **slideshowDetails** -       The list of images to show in a preview. Used when starting a slideshow
+ *                              from a directory
+ *
+ * **directoryAdvancedSearchUIState** - The State from an advanced search, i.e. searching for tags
  **/
 data class DirectoryScreenUIState(
     override val state: UiState = UiState.IDLE,
@@ -31,11 +36,13 @@ data class DirectoryScreenUIState(
     var directoryGridUIState: DirectoryGridUIState =
         DirectoryGridUIState(
             Path.EMPTY,
+            null,
             emptyList(),
             mutableListOf(),
         ),
     val overlayUiState: DirectoryOverlayUiState = DirectoryOverlayUiState.None,
     val slideshowDetails: ImageSlideshowDetails? = null,
+    val directoryAdvancedSearchUIState: DirectoryAdvancedSearchUIState = DirectoryAdvancedSearchUIState.IDLE,
 ) : ScreenState {
     fun getImageIndexFromId(id: Long?): Int = directoryGridUIState.imageStates.indexOfFirst { it.id == id }
 
@@ -62,6 +69,7 @@ data class DirectoryScreenUIState(
  **/
 data class DirectoryGridUIState(
     val currentPath: Path,
+    val currentState: DirectoryGridCellUIState.Folder?,
     val folderStates: List<DirectoryGridCellUIState.Folder>,
     val imageStates: List<DirectoryGridCellUIState.Image>,
 ) {
@@ -96,18 +104,23 @@ sealed class DirectoryGridCellUIState(
     val id: Long,
     val actionSheetContexts: List<ActionSheetContext>,
 ) {
-    class Folder(name: String, id: Long) : DirectoryGridCellUIState(
-        name,
-        id,
-        listOf(
-            ActionSheetContext(ActionSheetAction.START_SLIDESHOW, 1),
-            ActionSheetContext(ActionSheetAction.START_SLIDESHOW_WITH_SUBFOLDERS, 2),
-            ActionSheetContext(ActionSheetAction.ADD_DYNAMIC_LOCATION, 3),
-        ),
-    )
+    class Folder(
+        name: String,
+        id: Long,
+    ) : DirectoryGridCellUIState(
+            name,
+            id,
+            listOf(
+                ActionSheetContext(ActionSheetAction.START_SLIDESHOW, 1),
+                ActionSheetContext(ActionSheetAction.ADD_DYNAMIC_LOCATION, 2),
+            ),
+        )
 
-    class Image(val directoryDetails: NetworkDirectoryDetails, name: String, id: Long) :
-        DirectoryGridCellUIState(
+    class Image(
+        val directoryDetails: NetworkDirectoryDetails,
+        name: String,
+        id: Long,
+    ) : DirectoryGridCellUIState(
             name,
             id,
             listOf(
@@ -132,7 +145,9 @@ sealed class DirectoryOverlayUiState {
      *
      * **imageDirectory** - The image directory to display during the preview
      **/
-    data class ImagePreview(val imageDirectory: NetworkDirectoryDetails) : DirectoryOverlayUiState()
+    data class ImagePreview(
+        val imageDirectory: NetworkDirectoryDetails,
+    ) : DirectoryOverlayUiState()
 
     /**
      * **Actions**
@@ -145,6 +160,12 @@ sealed class DirectoryOverlayUiState {
         val directory: Directory,
     ) : DirectoryOverlayUiState() {
         class AddToPlaylist(
+            val playlists: List<com.kevinschildhorn.fotopresenter.data.PlaylistDetails>,
+            directoryUiState: DirectoryGridCellUIState,
+            directory: Directory,
+        ) : Actions(directoryUiState, directory)
+
+        class StartSlideshow(
             directoryUiState: DirectoryGridCellUIState,
             directory: Directory,
         ) : Actions(directoryUiState, directory)
@@ -163,10 +184,27 @@ sealed class DirectoryOverlayUiState {
 
     data object Sort : DirectoryOverlayUiState()
 
+    data object AdvancedSearch : DirectoryOverlayUiState()
+
+    data object DirectoryOptions : DirectoryOverlayUiState()
+
     data object LogoutConfirmation : DirectoryOverlayUiState()
 
     data object None : DirectoryOverlayUiState()
 
     @Suppress("UNCHECKED_CAST")
     fun <T : DirectoryOverlayUiState> castTo(): T? = this as? T
+}
+
+sealed class DirectoryAdvancedSearchUIState {
+    class SUCCESS(
+        val tags: List<String>,
+        val allTags: Boolean,
+        val itemCount: Int,
+        val loading: Boolean = false,
+    ) : DirectoryAdvancedSearchUIState()
+
+    data object LOADING : DirectoryAdvancedSearchUIState()
+
+    data object IDLE : DirectoryAdvancedSearchUIState()
 }

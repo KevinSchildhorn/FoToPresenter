@@ -52,8 +52,7 @@ fun DirectoryGrid(
                                 onActionSheet(state)
                             }
                         }
-                    }
-                    .combinedClickable(
+                    }.combinedClickable(
                         onClick = {
                             when (state) {
                                 is DirectoryGridCellUIState.Folder -> onFolderPressed(state.id)

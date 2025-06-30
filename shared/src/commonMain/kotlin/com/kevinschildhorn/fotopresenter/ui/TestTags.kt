@@ -8,7 +8,9 @@ interface TestTag {
     val value: String
 }
 
-class TestTagImpl(override val value: String) : TestTag
+class TestTagImpl(
+    override val value: String,
+) : TestTag
 
 object TestTags {
     val ERROR_VIEW = TestTagImpl("ErrorView")
@@ -21,7 +23,9 @@ object TestTags {
     @Suppress("ktlint:standard:function-naming")
     fun ACTION_SHEET_ITEM(action: ActionSheetAction) = TestTagImpl("ActionSheetItem-${action.name}")
 
-    enum class Login(override val value: String) : TestTag {
+    enum class Login(
+        override val value: String,
+    ) : TestTag {
         HOST_NAME("HostNameText"),
         USERNAME("UsernameText"),
         PASSWORD("PasswordText"),
@@ -44,21 +48,38 @@ object TestTags {
 
         val NAVIGATION_BAR = TestTagImpl("NavigationBar")
 
-        enum class Sort(override val value: String) : TestTag {
+        enum class Sort(
+            override val value: String,
+        ) : TestTag {
             SORT_A_TO_Z("SortAToZ"),
             SORT_Z_TO_A("SortZToA"),
             SORT_TIME_CREATED_ASC("SortTimeAscending"),
             SORT_TIME_CREATED_DES("SortTimeDescending"),
         }
 
-        enum class TopBar(override val value: String) : TestTag {
+        enum class TagSearch(
+            override val value: String,
+        ) : TestTag {
+            ANY_TAGS("AnyTags"),
+            ALL_TAGS("AllTags"),
+            RECURSIVE("Recursive"),
+            DATE("Date"),
+        }
+
+        enum class TopBar(
+            override val value: String,
+        ) : TestTag {
             TOP_BAR("DirectoryTopBar"),
             SEARCH_BAR("DirectorySearchBar"),
-            OPTIONS("DirectoryTopBarOptions"),
+            MORE("DirectoryTopBarMore"),
+            TAG_SEARCH("DirectoryTopBarTagSearch"),
+            SORT("DirectoryTopBarSort"),
             MENU("DirectoryTopBarMenu"),
         }
 
-        enum class NavigationRail(override val value: String) : TestTag {
+        enum class NavigationRail(
+            override val value: String,
+        ) : TestTag {
             NAVIGATION_RAIL("AppNavigationRail"),
             ITEM_PLAYLIST("AppNavigationRailItemPlaylist"),
             ITEM_LOGOUT("AppNavigationRailItemLogout"),

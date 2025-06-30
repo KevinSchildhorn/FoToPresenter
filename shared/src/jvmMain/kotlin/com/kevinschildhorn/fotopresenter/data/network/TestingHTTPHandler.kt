@@ -30,15 +30,24 @@ object TestingHTTPHandler : NetworkHandler {
                         id = 2,
                     ),
                     DefaultNetworkDirectoryDetails(
-                        fullPath = Path("https://img.freepik.com/premium-psd/realistic-beauty-butterfly-isolated-transparent-background_720969-566.jpg"),
+                        fullPath =
+                            Path(
+                                "https://img.freepik.com/premium-psd/realistic-beauty-butterfly-isolated-transparent-background_720969-566.jpg",
+                            ),
                         id = 75,
                     ),
                     DefaultNetworkDirectoryDetails(
-                        fullPath = Path("https://img.freepik.com/premium-vector/colorful-bird-with-colorful-bird-its-tail_1023984-27489.jpg"),
+                        fullPath =
+                            Path(
+                                "https://img.freepik.com/premium-vector/colorful-bird-with-colorful-bird-its-tail_1023984-27489.jpg",
+                            ),
                         id = 3,
                     ),
                     DefaultNetworkDirectoryDetails(
-                        fullPath = Path("https://img.freepik.com/premium-photo/swan-png-sticker-animal-illustration-mixed-media-transparent-background_53876-1030088.jpg"),
+                        fullPath =
+                            Path(
+                                "https://img.freepik.com/premium-photo/swan-png-sticker-animal-illustration-mixed-media-transparent-background_53876-1030088.jpg",
+                            ),
                         id = 4,
                     ),
                 ),
@@ -57,7 +66,10 @@ object TestingHTTPHandler : NetworkHandler {
                         id = 3,
                     ),
                     DefaultNetworkDirectoryDetails(
-                        fullPath = Path("https://static0.gamerantimages.com/wordpress/wp-content/uploads/Fortnite-gameplay-screenshot-1.jpg"),
+                        fullPath =
+                            Path(
+                                "https://static0.gamerantimages.com/wordpress/wp-content/uploads/Fortnite-gameplay-screenshot-1.jpg",
+                            ),
                         id = 4,
                     ),
                 ),
@@ -83,7 +95,10 @@ object TestingHTTPHandler : NetworkHandler {
                         id = 2,
                     ),
                     DefaultNetworkDirectoryDetails(
-                        fullPath = Path("https://www.northgeorgiazoo.com/uploads/2/8/9/8/2898594/untitled-design-2022-02-16t103624-545_orig.png"),
+                        fullPath =
+                            Path(
+                                "https://www.northgeorgiazoo.com/uploads/2/8/9/8/2898594/untitled-design-2022-02-16t103624-545_orig.png",
+                            ),
                         id = 3,
                     ),
                 ),
@@ -91,19 +106,18 @@ object TestingHTTPHandler : NetworkHandler {
 
     override val isConnected: Boolean = true
 
-    override suspend fun connect(credentials: LoginCredentials): Boolean {
-        return true
-    }
+    override suspend fun connect(credentials: LoginCredentials): Boolean = true
 
     override suspend fun disconnect() {}
 
     override suspend fun getDirectoryDetails(path: Path): NetworkDirectoryDetails? {
         networkContents.values.forEach { details ->
-            details.find { detail ->
-                detail.fullPath == path
-            }?.let {
-                return it
-            }
+            details
+                .find { detail ->
+                    detail.fullPath == path
+                }?.let {
+                    return it
+                }
         }
         return null
     }
@@ -122,9 +136,7 @@ object TestingHTTPHandler : NetworkHandler {
     override suspend fun setSharedImage(
         path: Path,
         sharedImage: SharedImage,
-    ): Boolean {
-        return true
-    }
+    ): Boolean = true
 
     override suspend fun folderExists(path: Path): Boolean? =
         if (path == Path.EMPTY) {
@@ -136,13 +148,9 @@ object TestingHTTPHandler : NetworkHandler {
     override suspend fun savePlaylist(
         playlistName: String,
         json: String,
-    ): Boolean {
-        return true
-    }
+    ): Boolean = true
 
-    override suspend fun getPlaylists(): List<String> {
-        return emptyList()
-    }
+    override suspend fun getPlaylists(): List<String> = emptyList()
 
     override suspend fun deletePlaylist(playlistName: String) {
     }

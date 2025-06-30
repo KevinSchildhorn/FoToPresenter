@@ -8,10 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.unit.dp
+import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.ImageSlideshowDetails
 import com.kevinschildhorn.fotopresenter.ui.TestTags
 import com.kevinschildhorn.fotopresenter.ui.UiState
@@ -21,10 +24,13 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.Confirmat
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ErrorView
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ImagePreviewOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.LoadingOverlay
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.SortDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.DirectoryGrid
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationBar
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectorySearchNavigationBar
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navrail.AppNavigationRail
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay.AdvancedSearchDialog
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay.DirectoryOptionsOverlay
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay.SortDialog
 import com.kevinschildhorn.fotopresenter.ui.testTag
 import kotlinx.coroutines.launch
 
@@ -33,6 +39,8 @@ enum class DirectoryOverlayType {
     IMAGE,
     LOGOUT_CONFIRMATION,
     SORT,
+    ADVANCED_SEARCH,
+    DIRECTORY_ACTION_SHEET,
     NONE,
 }
 
@@ -47,6 +55,7 @@ fun DirectoryScreen(
         viewModel.refreshScreen()
     }
     val uiState by viewModel.uiState.collectAsState()
+    var gridSize by remember { mutableIntStateOf(5) }
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -64,10 +73,18 @@ fun DirectoryScreen(
                 searchText = uiState.searchText,
                 showMenu = { scope.launch { scaffoldState.drawerState.open() } },
                 onSearchChanged = { viewModel.onSearch(it) },
+                onGridSizeChanged = { increase ->
+                    if (increase) {
+                        gridSize += 1
+                    } else {
+                        gridSize -= 1
+                    }
+                },
                 showOverlay = { viewModel.showOverlay(it) },
             )
         },
-        drawerContent = { // TODO: Too wide
+        drawerContent = {
+            // TODO: Too wide
             AppNavigationRail(
                 onLogout = {
                     scope.launch {
@@ -92,17 +109,35 @@ fun DirectoryScreen(
                 )
             }
             // Navigation Bar
-            DirectoryNavigationBar(
-                directories = uiState.currentPathList,
-                onHome = { viewModel.navigateBackToDirectory(-1) },
-                onItem = { viewModel.navigateBackToDirectory(it) },
-                modifier =
-                    Modifier.padding(Padding.SMALL.dp)
-                        .testTag(TestTags.Directory.NAVIGATION_BAR),
-            )
+            when (val searchState = uiState.directoryAdvancedSearchUIState) {
+                is DirectoryAdvancedSearchUIState.SUCCESS -> {
+                    DirectorySearchNavigationBar(
+                        tags = searchState.tags,
+                        allTags = searchState.allTags,
+                        itemCount = searchState.itemCount,
+                    ) {
+                        viewModel.clearSearch()
+                    }
+                }
+
+                DirectoryAdvancedSearchUIState.IDLE -> {
+                    DirectoryNavigationBar(
+                        directories = uiState.currentPathList,
+                        onHome = { viewModel.navigateBackToDirectory(-1) },
+                        onItem = { viewModel.navigateBackToDirectory(it) },
+                        modifier =
+                            Modifier
+                                .padding(Padding.SMALL.dp)
+                                .testTag(TestTags.Directory.NAVIGATION_BAR),
+                    )
+                }
+
+                else -> {}
+            }
             // Grid
             DirectoryGrid(
-                uiState.directoryGridUIState,
+                directoryContent = uiState.directoryGridUIState,
+                gridSize = gridSize,
                 onFolderPressed = { folderId ->
                     focusManager.clearFocus()
                     viewModel.navigateIntoDirectory(folderId)
@@ -122,7 +157,10 @@ fun DirectoryScreen(
 
         // Overlays
         when (val selectionState = uiState.overlayUiState) {
-            DirectoryOverlayUiState.None -> {}
+            DirectoryOverlayUiState.None -> {
+                Logger.i("KEVINS - None")
+            }
+
             is DirectoryOverlayUiState.ImagePreview -> {
                 ImagePreviewOverlay(
                     selectionState.imageDirectory,
@@ -139,29 +177,30 @@ fun DirectoryScreen(
                     onAction = {
                         when (it) {
                             ActionSheetAction.START_SLIDESHOW ->
-                                viewModel.startSlideShow(
-                                    selectionState.directory,
-                                    withSubPhotos = false,
-                                )
-
-                            ActionSheetAction.START_SLIDESHOW_WITH_SUBFOLDERS ->
-                                viewModel.startSlideShow(
-                                    selectionState.directory,
-                                    withSubPhotos = true,
-                                )
+                                viewModel.showSlideshowOverlay()
 
                             ActionSheetAction.ADD_STATIC_LOCATION ->
-                                viewModel.addLocationToPlaylist(dynamic = false)
+                                viewModel.showPlaylistOverlay(dynamic = false)
 
                             ActionSheetAction.SET_METADATA -> viewModel.startEditingMetadata()
                             ActionSheetAction.ADD_DYNAMIC_LOCATION ->
-                                viewModel.addLocationToPlaylist(dynamic = true)
+                                viewModel.showPlaylistOverlay(dynamic = true)
 
                             ActionSheetAction.NONE -> viewModel.clearOverlay()
+                            ActionSheetAction.ADD_ALL_LOCATION -> TODO()
                         }
                     },
                     onSaveMetadata = { viewModel.saveMetadata(it) },
-                    changeOverlay = {},
+                    onAddToPlaylist = { playlistId, directory ->
+                        viewModel.addItemToPlaylist(playlistId, directory)
+                    },
+                    onShowSlideshow = { directory, subfolders, shuffleType ->
+                        viewModel.startSlideShow(
+                            directory = directory,
+                            withSubPhotos = subfolders,
+                            shuffleType = shuffleType,
+                        )
+                    },
                     onDismiss = { viewModel.clearOverlay() },
                 )
             }
@@ -174,26 +213,54 @@ fun DirectoryScreen(
                     onConfirmation = {
                         viewModel.logout()
                         onLogout()
-                        viewModel.showOverlay(DirectoryOverlayType.NONE)
+                        viewModel.clearOverlay()
                     },
                 )
             }
 
             is DirectoryOverlayUiState.Sort -> {
-                println("Rendering Sort Dialog")
                 SortDialog(
                     "Sort Images by",
                     onDismissRequest = { viewModel.clearOverlay() },
                     onConfirmation = {
                         viewModel.setSortType(it)
-                        viewModel.showOverlay(DirectoryOverlayType.NONE)
+                        viewModel.clearOverlay()
+                    },
+                )
+            }
+
+            is DirectoryOverlayUiState.AdvancedSearch -> {
+                AdvancedSearchDialog(
+                    onDismissRequest = { viewModel.clearOverlay() },
+                    onConfirmation = { tags, type, recursive, startDate, endDate ->
+                        viewModel.setAdvancedSearch(tags, type, recursive, startDate, endDate)
+                        viewModel.clearOverlay()
+                    },
+                )
+            }
+
+            is DirectoryOverlayUiState.DirectoryOptions -> {
+                DirectoryOptionsOverlay(
+                    onDismiss = { viewModel.clearOverlay() },
+                    onAction = { action ->
+                        when (action) {
+                            ActionSheetAction.START_SLIDESHOW -> {
+                                viewModel.clearOverlay()
+                                onStartSlideshow(ImageSlideshowDetails(viewModel.getAllImagesOnScreen()))
+                            }
+
+                            ActionSheetAction.ADD_ALL_LOCATION -> TODO()
+                            else -> viewModel.clearOverlay()
+                        }
                     },
                 )
             }
         }
         //endregion
 
-        if (uiState.state is UiState.LOADING) {
+        if (uiState.state is UiState.LOADING ||
+            uiState.directoryAdvancedSearchUIState == DirectoryAdvancedSearchUIState.LOADING
+        ) {
             LoadingOverlay()
         }
     }

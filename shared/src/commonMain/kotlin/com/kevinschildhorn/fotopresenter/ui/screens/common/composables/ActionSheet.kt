@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
@@ -23,7 +24,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.ui.TestTags.ACTION_SHEET
 import com.kevinschildhorn.fotopresenter.ui.TestTags.ACTION_SHEET_ITEM
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
 import com.kevinschildhorn.fotopresenter.ui.testTag
 
@@ -57,14 +57,17 @@ fun ActionSheet(
             Column(
                 modifier =
                     Modifier
-                        .clip(shape = RoundedCornerShape(15.dp))
                         .fillMaxWidth()
                         .padding(10.dp)
+                        .clip(shape = RoundedCornerShape(10.dp))
                         .weight(1f, false)
-                        .background(fotoColors.secondary),
+                        .background(MaterialTheme.colors.secondary),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                LazyColumn {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.padding(vertical = 10.dp),
+                ) {
                     items(values) {
                         TextButton(
                             modifier =
@@ -79,8 +82,9 @@ fun ActionSheet(
                         ) {
                             Text(
                                 it.action.title,
-                                color = fotoColors.onSecondary,
+                                color = MaterialTheme.colors.onSecondary,
                                 textAlign = TextAlign.Start,
+                                style = MaterialTheme.typography.h4,
                                 modifier = Modifier.fillMaxWidth(),
                             )
                         }

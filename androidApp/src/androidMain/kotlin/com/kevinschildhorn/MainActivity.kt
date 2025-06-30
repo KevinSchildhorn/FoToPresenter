@@ -4,6 +4,7 @@ import MainView
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.graphics.Color
 import co.touchlab.kermit.Logger
 import coil3.ImageLoader
 import coil3.compose.setSingletonImageLoaderFactory
@@ -41,7 +42,6 @@ class MainActivity : AppCompatActivity(), KoinComponent {
         logger.logLargeTitle("App has started")
 
         setContent {
-
             setSingletonImageLoaderFactory { context ->
                 ImageLoader.Builder(context)
                     .components {

@@ -6,6 +6,7 @@ import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
+import com.kevinschildhorn.fotopresenter.data.datasources.NetworkImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistFileDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistSQLDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
@@ -34,8 +35,8 @@ actual object UseCaseFactory {
     private val credentialDataSource = CredentialsDataSource(settings)
     val credentialsRepository = CredentialsRepository(credentialDataSource)
 
-    private val imageMetadataDataSource =
-        ImageMetadataDataSource(
+    private val imageMetadataDataSource: ImageMetadataDataSource =
+        NetworkImageMetadataDataSource(
             networkHandler = networkHandler,
             logger = baseLogger.withTag("imageMetadataDataSource"),
         )
@@ -65,6 +66,7 @@ actual object UseCaseFactory {
         get() =
             RetrieveDirectoryContentsUseCase(
                 directoryRepository = directoryRepository,
+                imageMetadataDataSource = imageMetadataDataSource,
                 logger = baseLogger.withTag("RetrieveDirectoryContentsUseCase"),
             )
 }

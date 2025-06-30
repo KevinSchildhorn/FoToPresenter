@@ -60,11 +60,11 @@ class DirectoryNavigator(
     // Used when the DirectoryScreen is first shown
     suspend fun refreshDirectoryContents() {
         val newDirectoryContents =
-            UseCaseFactory.retrieveDirectoryContentsUseCase(currentPath, false)
+            UseCaseFactory.retrieveDirectoryContentsUseCase(currentPath, recursively = false)
 
         logger.v { "Refreshing Contents With Sort Type: $sortType and filter: $searchText." }
         _currentDirectoryContents.update {
-            newDirectoryContents.sorted(sortType).filtered(searchText)
+            newDirectoryContents.sorted(sortType).filteredByName(searchText)
         }
     }
 

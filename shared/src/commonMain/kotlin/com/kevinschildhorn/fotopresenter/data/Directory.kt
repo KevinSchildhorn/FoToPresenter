@@ -40,4 +40,18 @@ fun <T : Directory> List<T>.sorted(sortingType: SortingType): List<T> =
         SortingType.TIME_DESC -> this.sortedByDescending { it.details.dateMillis }
     }
 
-fun <T : Directory> List<T>.filtered(string: String): List<T> = this.filter { it.name.lowercase().contains(string.lowercase()) }
+fun <T : Directory> List<T>.filteredByName(string: String): List<T> = this.filter { it.name.lowercase().contains(string.lowercase()) }
+
+fun List<ImageDirectory>.filteredByTags(
+    tags: List<String>,
+    allTags: Boolean,
+): List<ImageDirectory> =
+    this.filter { image ->
+        val searchTags = tags.map { it.replace(" ", "").lowercase() }
+        val imageTags = image.metaData?.tags?.map { it.replace(" ", "").lowercase() } ?: emptySet()
+        if (allTags) {
+            imageTags.containsAll(searchTags)
+        } else {
+            searchTags.any { tag -> imageTags.contains(tag) }
+        }
+    }

@@ -9,11 +9,20 @@ import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.ui.shared.SharedImage
 
-class ImageMetadataDataSource(
+interface ImageMetadataDataSource {
+    suspend fun readMetadataFromFile(filePath: Path): MetadataFileDetails?
+
+    suspend fun writeMetadataToFile(
+        metadata: String,
+        filePath: Path,
+    ): Boolean
+}
+
+class NetworkImageMetadataDataSource(
     private val logger: Logger?,
     private val networkHandler: NetworkHandler,
-) {
-    suspend fun readMetadataFromFile(filePath: Path): MetadataFileDetails? {
+) : ImageMetadataDataSource {
+    override suspend fun readMetadataFromFile(filePath: Path): MetadataFileDetails? {
         logger?.i { "readMetadataFromFile" }
         networkHandler.getSharedImage(filePath)?.let { sharedImage ->
             logger?.i { "Reading MetaData" }
@@ -32,7 +41,7 @@ class ImageMetadataDataSource(
         return null
     }
 
-    suspend fun writeMetadataToFile(
+    override suspend fun writeMetadataToFile(
         metadata: String,
         filePath: Path,
     ): Boolean {

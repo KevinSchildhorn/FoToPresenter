@@ -18,7 +18,8 @@ class LoginViewModel(
     private val logger: Logger,
     private val credentialsRepository: CredentialsRepository,
     private val networkHandler: NetworkHandler,
-) : ViewModel(), KoinComponent {
+) : ViewModel(),
+    KoinComponent {
     private val _uiState = MutableStateFlow(LoginScreenState())
     val uiState: StateFlow<LoginScreenState> = _uiState.asStateFlow()
 

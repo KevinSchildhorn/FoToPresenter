@@ -23,8 +23,8 @@ import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.Playlis
 @Preview
 fun PlaylistRowsPreview() {
     Column(modifier = Modifier.fillMaxSize()) {
-        PlaylistScreenPlaylistRow("Playlist 1", {}, {}, {}, {})
-        PlaylistScreenPlaylistRow("Playlist 2", {}, {}, {}, {})
+        PlaylistScreenPlaylistRow("Playlist 1", {}, {}, {}, {}, {}, {})
+        PlaylistScreenPlaylistRow("Playlist 2", {}, {}, {}, {}, {}, {})
         PlaylistScreenCreateRow(onClick = {})
     }
 }
@@ -39,6 +39,7 @@ fun PlaylistColumnPreview() {
         {},
         {},
         {},
+        { _, _ -> },
     )
 }
 
@@ -59,6 +60,7 @@ fun PlaylistOverlayPreview() {
             overlaid = false,
             {},
             {},
+            { _, _ -> },
             {},
             {},
             {},

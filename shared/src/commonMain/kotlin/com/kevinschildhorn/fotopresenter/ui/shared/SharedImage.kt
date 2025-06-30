@@ -10,7 +10,9 @@ import okio.buffer
 import okio.source
 import java.io.ByteArrayInputStream
 
-class SharedImage(val byteArray: ByteArray) {
+class SharedImage(
+    val byteArray: ByteArray,
+) {
     fun getFetchResult(logger: Logger?): FetchResult? {
         if (byteArray.isEmpty()) {
             logger?.e { "Byte Array is Empty!" }

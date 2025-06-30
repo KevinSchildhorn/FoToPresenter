@@ -48,7 +48,8 @@ fun LoadingAsyncImage(
             ) {
                 Box(
                     modifier =
-                        Modifier.fillMaxSize()
+                        Modifier
+                            .fillMaxSize()
                             .background(MaterialTheme.colors.primaryVariant),
                 )
             }

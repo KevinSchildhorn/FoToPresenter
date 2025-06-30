@@ -30,7 +30,10 @@ class DirectoryRepository(
         val imageDirectories: List<NetworkDirectoryDetails> =
             directoryDataSource.getImageDirectories(path)
 
+        val currentDirectoryDetails = directoryDataSource.getDirectoryForPath(path)
+        val currentDirectory = if (currentDirectoryDetails != null) FolderDirectory(currentDirectoryDetails) else null
         return DirectoryContents(
+            currentDirectory = currentDirectory,
             folders = folderDirectories.map { FolderDirectory(it) },
             images =
                 imageDirectories.map { networkDetails ->
@@ -51,7 +54,7 @@ class DirectoryRepository(
             currentContents.folders.flatMap { folder ->
                 try {
                     val subPath = folder.details.fullPath
-                    if (subPath.fileName.endsWith("..")) {
+                    if (ignoredPaths.contains(subPath.fileName)) {
                         emptyList()
                     } else {
                         val subContents = getDirectoryContentsRecursive(subPath)
@@ -65,8 +68,12 @@ class DirectoryRepository(
 
         // Combine current directory images with all subfolder images
         return DirectoryContents(
+            currentDirectory = currentContents.currentDirectory,
             folders = currentContents.folders,
             images = currentContents.images + subFolderContents,
         )
     }
+
+    private val ignoredPaths: List<String> =
+        listOf("..", "@Recycle", "@Recently-Snapshot", "HDStation_download")
 }

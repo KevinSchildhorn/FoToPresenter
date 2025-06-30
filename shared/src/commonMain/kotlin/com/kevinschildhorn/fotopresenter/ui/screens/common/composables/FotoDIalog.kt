@@ -40,7 +40,8 @@ fun FotoDialog(
             Column(
                 modifier =
                     Modifier
-                        .fillMaxWidth().padding(Padding.STANDARD.dp),
+                        .fillMaxWidth()
+                        .padding(Padding.STANDARD.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.Start,
             ) {
