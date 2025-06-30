@@ -74,12 +74,12 @@ class DirectoryNavigatorTest : KoinTest {
                 assertEquals(
                     1,
                     contents.folders.size,
-                    message = contents.folders.nameString
+                    message = contents.folders.nameString,
                 ) // SubPhotos folder
                 assertEquals(
                     2,
                     contents.images.size,
-                    message = contents.images.nameString
+                    message = contents.images.nameString,
                 ) // Peeng2.png, Jaypeg2.jpg
             }
             MockNetworkHandler.disconnect()

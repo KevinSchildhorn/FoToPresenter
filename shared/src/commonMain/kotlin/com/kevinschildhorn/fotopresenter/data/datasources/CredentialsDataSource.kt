@@ -6,7 +6,9 @@ import com.russhwolf.settings.set
 /**
 Stores Sign in Credentials from Shared Preferences
  **/
-class CredentialsDataSource(private val settings: Settings) {
+class CredentialsDataSource(
+    private val settings: Settings,
+) {
     var hostname: String
         get() = settings.getString(KEY_HOSTNAME, "")
         set(value) {

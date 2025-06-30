@@ -23,7 +23,7 @@ val fotoColors =
         isLight = true,
     )
 
-val disabled = Color(0xE0E0E0)
+val disabled = Color(0xFFE0E0E0)
 val shadow = Color(red = 0f, green = 0f, blue = 0f, alpha = 0.25f)
 
 val fotoShapes =

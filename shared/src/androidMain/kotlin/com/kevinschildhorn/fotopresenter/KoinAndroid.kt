@@ -36,7 +36,8 @@ internal actual val platformModule: Module =
                     EncryptedSharedPreferences.create(
                         get(),
                         CredentialsDataSource.DATABASE_NAME,
-                        MasterKey.Builder(get())
+                        MasterKey
+                            .Builder(get())
                             .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                             .build(),
                         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,

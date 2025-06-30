@@ -3,7 +3,9 @@ package com.kevinschildhorn.fotopresenter.ui.atoms
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-enum class Padding(val rawValue: Int) {
+enum class Padding(
+    val rawValue: Int,
+) {
     IMAGE(50),
     EXTRA_LARGE(64),
     LARGE(32),

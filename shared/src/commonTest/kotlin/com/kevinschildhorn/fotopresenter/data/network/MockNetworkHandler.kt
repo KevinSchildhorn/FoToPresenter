@@ -51,23 +51,27 @@ object MockNetworkHandler : NetworkHandler {
                     DefaultNetworkDirectoryDetails(
                         fullPath = Path("Photos"),
                         id = PHOTO_DIRECTORY_ID,
-                        dateMillis = getMillis(dayOfMonth = 1),
+                        dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 1),
                     ),
                     DefaultNetworkDirectoryDetails(
-                        fullPath = Path("NewDirectory"), id = 1,
-                        dateMillis = getMillis(dayOfMonth = 23),
+                        fullPath = Path("NewDirectory"),
+                        id = 1,
+                        dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 23),
                     ),
                     DefaultNetworkDirectoryDetails(
-                        fullPath = Path("Peeng.png"), id = 75,
-                        dateMillis = getMillis(dayOfMonth = 20),
+                        fullPath = Path("Peeng.png"),
+                        id = 75,
+                        dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 20),
                     ),
                     DefaultNetworkDirectoryDetails(
-                        fullPath = Path("Jaypeg.jpg"), id = 3,
-                        dateMillis = getMillis(dayOfMonth = 10),
+                        fullPath = Path("Jaypeg.jpg"),
+                        id = 3,
+                        dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 10),
                     ),
                     DefaultNetworkDirectoryDetails(
-                        fullPath = Path("textFile.txt"), id = 4,
-                        dateMillis = getMillis(dayOfMonth = 1),
+                        fullPath = Path("textFile.txt"),
+                        id = 4,
+                        dateMillis = getMillis(2024, Month.MAY, dayOfMonth = 1),
                     ),
                 ),
             Path("Directories") to
@@ -132,11 +136,12 @@ object MockNetworkHandler : NetworkHandler {
 
     override suspend fun getDirectoryDetails(path: Path): NetworkDirectoryDetails? {
         networkContents.values.forEach { details ->
-            details.find { detail ->
-                detail.fullPath == path
-            }?.let {
-                return it
-            }
+            details
+                .find { detail ->
+                    detail.fullPath == path
+                }?.let {
+                    return it
+                }
         }
         return null
     }
@@ -166,9 +171,7 @@ object MockNetworkHandler : NetworkHandler {
     override suspend fun setSharedImage(
         path: Path,
         sharedImage: SharedImage,
-    ): Boolean {
-        return true
-    }
+    ): Boolean = true
 
     override suspend fun folderExists(path: Path): Boolean? =
         if (path == Path.EMPTY) {
@@ -192,8 +195,8 @@ object MockNetworkHandler : NetworkHandler {
     }
 
     private fun getMillis(
-        year: Int = 2024,
-        month: Month = Month.MAY,
+        year: Int,
+        month: Month,
         dayOfMonth: Int = 1,
     ) = LocalDateTime(year = year, month = month, dayOfMonth = dayOfMonth, 12, 0, 0)
         .toInstant(TimeZone.UTC)

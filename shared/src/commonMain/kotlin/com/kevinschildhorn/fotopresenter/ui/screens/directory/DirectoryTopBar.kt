@@ -11,14 +11,19 @@ import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.search
 import com.kevinschildhorn.fotopresenter.ui.testTag
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
+import compose.icons.evaicons.fill.Maximize
 import compose.icons.evaicons.fill.Menu
+import compose.icons.evaicons.fill.Minimize
+import compose.icons.evaicons.fill.MoreVertical
 import compose.icons.evaicons.fill.Options
+import compose.icons.evaicons.fill.Pricetags
 
 @Composable
 fun DirectoryTopBar(
     searchText: String,
     showMenu: () -> Unit,
     onSearchChanged: (String) -> Unit,
+    onGridSizeChanged: (Boolean) -> Unit,
     showOverlay: (DirectoryOverlayType) -> Unit,
 ) {
     TopAppBar(
@@ -31,10 +36,22 @@ fun DirectoryTopBar(
             }
         },
         actions = {
+            DirectoryTitleBarButton(EvaIcons.Fill.Minimize, modifier = Modifier.testTag(TestTags.Directory.TopBar.TAG_SEARCH)) {
+                onGridSizeChanged(true)
+            }
+            DirectoryTitleBarButton(EvaIcons.Fill.Maximize, modifier = Modifier.testTag(TestTags.Directory.TopBar.TAG_SEARCH)) {
+                onGridSizeChanged(false)
+            }
             // Search Bar
             DirectorySearchBar(searchText, onSearch = onSearchChanged)
-            DirectoryTitleBarButton(EvaIcons.Fill.Options, modifier = Modifier.testTag(TestTags.Directory.TopBar.OPTIONS)) {
+            DirectoryTitleBarButton(EvaIcons.Fill.Pricetags, modifier = Modifier.testTag(TestTags.Directory.TopBar.TAG_SEARCH)) {
+                showOverlay(DirectoryOverlayType.ADVANCED_SEARCH)
+            }
+            DirectoryTitleBarButton(EvaIcons.Fill.Options, modifier = Modifier.testTag(TestTags.Directory.TopBar.SORT)) {
                 showOverlay(DirectoryOverlayType.SORT)
+            }
+            DirectoryTitleBarButton(EvaIcons.Fill.MoreVertical, modifier = Modifier.testTag(TestTags.Directory.TopBar.MORE)) {
+                showOverlay(DirectoryOverlayType.DIRECTORY_ACTION_SHEET)
             }
         },
         title = {

@@ -161,7 +161,7 @@ class DirectoryScreenTestNav : KoinTest {
             onNodeWithTag(TestTags.Directory.DIRECTORY(4, "textFile")).assertDoesNotExist()
 
             // Open Sort Dialog and Change Sorting
-            onNodeWithTag(TestTags.Directory.TopBar.OPTIONS).assertExists().performClick()
+            onNodeWithTag(TestTags.Directory.TopBar.SORT).assertExists().performClick()
             waitForIdle()
             onNodeWithTag(TestTags.FOTO_DIALOG).assertExists()
             onNodeWithTag(TestTags.Directory.Sort.SORT_Z_TO_A).assertExists().performClick()
@@ -177,7 +177,7 @@ class DirectoryScreenTestNav : KoinTest {
             onNodeWithTag(TestTags.Directory.DIRECTORY(4, "textFile")).assertDoesNotExist()
 
             // Open Sort Dialog and Change Sorting
-            onNodeWithTag(TestTags.Directory.TopBar.OPTIONS).assertExists().performClick()
+            onNodeWithTag(TestTags.Directory.TopBar.SORT).assertExists().performClick()
             waitForIdle()
             onNodeWithTag(TestTags.FOTO_DIALOG).assertExists()
             onNodeWithTag(TestTags.Directory.Sort.SORT_TIME_CREATED_ASC).assertExists().performClick()
@@ -192,7 +192,7 @@ class DirectoryScreenTestNav : KoinTest {
             onNodeWithTag(TestTags.Directory.DIRECTORY(3, "Peeng")).assertExists() // Day 20
 
             // Open Sort Dialog and Change Sorting
-            onNodeWithTag(TestTags.Directory.TopBar.OPTIONS).assertExists().performClick()
+            onNodeWithTag(TestTags.Directory.TopBar.SORT).assertExists().performClick()
             waitForIdle()
             onNodeWithTag(TestTags.FOTO_DIALOG).assertExists()
             onNodeWithTag(TestTags.Directory.Sort.SORT_TIME_CREATED_DES).assertExists().performClick()

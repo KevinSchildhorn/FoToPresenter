@@ -2,16 +2,19 @@
 
 package com.kevinschildhorn.fotopresenter.ui.compose
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.kevinschildhorn.fotopresenter.ui.composables.FotoCheckbox
+import com.kevinschildhorn.fotopresenter.ui.composables.FotoRadioButton
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetAction
 import com.kevinschildhorn.fotopresenter.ui.screens.common.ActionSheetContext
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ActionSheet
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ButtonState
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.ConfirmationDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.PrimaryTextButton
-import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.SortDialog
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay.SortDialog
 import com.kevinschildhorn.fotopresenter.ui.screens.playlist.composables.TextEntryDialog
 
 @Preview
@@ -76,4 +79,15 @@ fun FilterDialogPreview() {
         {
         },
     )
+}
+
+@Preview
+@Composable
+fun InputPreview() {
+    Column {
+        FotoCheckbox("Test", true, {}, horizontalArrangement = Arrangement.End)
+        FotoCheckbox("Test", true, {}, horizontalArrangement = Arrangement.Start)
+        FotoRadioButton("Test", true, {}, horizontalArrangement = Arrangement.End)
+        FotoRadioButton("Test", true, {}, horizontalArrangement = Arrangement.Start)
+    }
 }

@@ -14,8 +14,8 @@ class SharedImageFetcher(
     private val sharedImage: SharedImage,
     private val logger: Logger,
 ) : Fetcher {
-    override suspend fun fetch(): FetchResult? {
-        return withContext(Dispatchers.IO) {
+    override suspend fun fetch(): FetchResult? =
+        withContext(Dispatchers.IO) {
             val result = sharedImage.getFetchResult(logger)
             if (result != null) {
                 logger.i { "Image Got!" }
@@ -25,9 +25,10 @@ class SharedImageFetcher(
                 null
             }
         }
-    }
 
-    class Factory(private val logger: Logger) : Fetcher.Factory<SharedImage> {
+    class Factory(
+        private val logger: Logger,
+    ) : Fetcher.Factory<SharedImage> {
         override fun create(
             data: SharedImage,
             options: Options,

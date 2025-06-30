@@ -6,13 +6,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.DialogButtonText
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline
@@ -33,7 +33,7 @@ fun PlaylistScreenCreateRow(
         ) {
             Icon(
                 EvaIcons.Outline.PlusCircle,
-                tint = fotoColors.onSecondary,
+                tint = MaterialTheme.colors.onSecondary,
                 contentDescription = "Create",
             )
             Spacer(Modifier.width(Padding.SMALL.dp))

@@ -12,6 +12,8 @@ import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.D
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.grid.FolderDirectoryGridCell
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationBar
 import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectoryNavigationItem
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.navbar.DirectorySearchNavigationBar
+import com.kevinschildhorn.fotopresenter.ui.screens.directory.composables.overlay.AdvancedSearchDialog
 
 @Preview
 @Composable
@@ -36,6 +38,7 @@ fun DirectoryGridPreview() {
         directoryContent =
             DirectoryGridUIState(
                 currentPath = Path.EMPTY,
+                currentState = DirectoryGridCellUIState.Folder("Hello", 0),
                 folderStates =
                     listOf(
                         DirectoryGridCellUIState.Folder("Hello", 0),
@@ -74,4 +77,23 @@ fun DirectoryNavigationBarPreview() {
         {},
         {},
     )
+}
+
+@Preview
+@Composable
+private fun SortDialogPreview() {
+    AdvancedSearchDialog(
+        onDismissRequest = {},
+        onConfirmation = { _, _, _, _, _ -> },
+    )
+}
+
+@Preview
+@Composable
+private fun DirectorySearchNavigationBarPreview() {
+    DirectorySearchNavigationBar(
+        tags = listOf("Tag1", "Tag2"),
+        allTags = true,
+        itemCount = 10,
+    ) {}
 }

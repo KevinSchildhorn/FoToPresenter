@@ -17,10 +17,11 @@ fun ErrorView(
     var configuredModifier: Modifier = modifier
     Box(
         modifier =
-            configuredModifier.padding(
-                horizontal = 16.dp,
-                vertical = 16.dp,
-            ).fillMaxWidth(),
+            configuredModifier
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 16.dp,
+                ).fillMaxWidth(),
     ) {
         DialogButtonText(message, modifier = Modifier.testTag(ERROR_VIEW))
     }

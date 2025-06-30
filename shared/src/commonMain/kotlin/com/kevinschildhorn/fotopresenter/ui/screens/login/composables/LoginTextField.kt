@@ -1,16 +1,14 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.login.composables
 
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.VisualTransformation
-import com.kevinschildhorn.fotopresenter.ui.atoms.FotoTypography
 import com.kevinschildhorn.fotopresenter.ui.atoms.disabled
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoShapes
 
 @Composable
 fun LoginTextField(
@@ -29,17 +27,17 @@ fun LoginTextField(
         placeholder = {
             Text(
                 placeholder,
-                color = fotoColors.onSurface,
-                style = FotoTypography().subtitle1,
+                color = MaterialTheme.colors.onSurface,
+                style = MaterialTheme.typography.subtitle1,
             )
         },
         colors =
             TextFieldDefaults.outlinedTextFieldColors(
-                textColor = fotoColors.onPrimary,
+                textColor = MaterialTheme.colors.onPrimary,
                 disabledTextColor = disabled,
             ),
-        shape = fotoShapes.small,
-        textStyle = FotoTypography().subtitle1,
+        shape = MaterialTheme.shapes.small,
+        textStyle = MaterialTheme.typography.subtitle1,
         keyboardOptions = keyboardOptions,
         trailingIcon = trailingIcon,
         modifier = modifier,

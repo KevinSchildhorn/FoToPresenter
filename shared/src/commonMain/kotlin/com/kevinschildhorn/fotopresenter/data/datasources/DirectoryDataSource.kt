@@ -30,19 +30,29 @@ class DirectoryDataSource(
         throw NetworkHandlerException(NetworkHandlerError.DIRECTORY_NOT_FOUND)
     }
 
+    suspend fun getDirectoryForPath(path: Path): NetworkDirectoryDetails? {
+        logger?.v { "Getting Directory for path '$path'" }
+        if (!networkHandler.isConnected) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
+        return networkHandler.getDirectoryDetails(path)
+    }
+
     suspend fun getFolderDirectories(path: Path): List<NetworkDirectoryDetails> {
         logger?.v { "Getting Folder Directories at path '$path'" }
         if (!networkHandler.isConnected) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
-        return networkHandler.getDirectoryContents(path).filter {
-            it.fileName != "."
-        }.filter { it.isDirectory }
+        return networkHandler
+            .getDirectoryContents(path)
+            .filter {
+                it.fileName != "."
+            }.filter { it.isDirectory }
     }
 
     suspend fun getImageDirectories(path: Path): List<NetworkDirectoryDetails> {
         logger?.v { "Getting Image Directories at path '$path'" }
         if (!networkHandler.isConnected) throw NetworkHandlerException(NetworkHandlerError.NOT_CONNECTED)
-        return networkHandler.getDirectoryContents(path).filter {
-            it.fileName != "."
-        }.filter { it.isAnImage }
+        return networkHandler
+            .getDirectoryContents(path)
+            .filter {
+                it.fileName != "."
+            }.filter { it.isAnImage }
     }
 }

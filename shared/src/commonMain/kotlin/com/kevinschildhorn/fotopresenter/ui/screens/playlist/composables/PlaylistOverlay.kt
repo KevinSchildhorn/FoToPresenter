@@ -14,6 +14,7 @@ fun PlaylistOverlay(
     overlaid: Boolean,
     onCreate: () -> Unit,
     onClick: (Long) -> Unit,
+    onPlay: (Long, Boolean) -> Unit,
     onDetails: (Long) -> Unit,
     onEdit: (Long) -> Unit,
     onDelete: (Long) -> Unit,
@@ -35,6 +36,7 @@ fun PlaylistOverlay(
                     onDetails = onDetails,
                     onEdit = onEdit,
                     onDelete = onDelete,
+                    onPlay = onPlay,
                 )
             }
         }
@@ -47,6 +49,7 @@ fun PlaylistOverlay(
             onDetails = onDetails,
             onEdit = onEdit,
             onDelete = onDelete,
+            onPlay = onPlay,
         )
     }
 }

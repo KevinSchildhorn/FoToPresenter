@@ -6,6 +6,7 @@ import com.kevinschildhorn.fotopresenter.data.ImagePreviewNavigator
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
+import com.kevinschildhorn.fotopresenter.data.datasources.NetworkImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistFileDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistSQLDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.image.NetworkImageDataSource
@@ -32,16 +33,52 @@ val commonModule =
         single { NetworkImageDataSource(get()) }
         single { CredentialsDataSource(get()) }
         single { CredentialsRepository(get()) }
-        single { DirectoryDataSource(get(), getLoggerWithTag("DirectoryDataSource$LOGGER_TAG_SUFFIX")) }
-        single { DirectoryRepository(get(), getLoggerWithTag("DirectoryRepository$LOGGER_TAG_SUFFIX")) }
+        single {
+            DirectoryDataSource(
+                get(),
+                getLoggerWithTag("DirectoryDataSource$LOGGER_TAG_SUFFIX"),
+            )
+        }
+        single {
+            DirectoryRepository(
+                get(),
+                getLoggerWithTag("DirectoryRepository$LOGGER_TAG_SUFFIX"),
+            )
+        }
         // single { CachedImageDataSource(get(), getLoggerWithTag("ImageCacheDataSource$LoggerTagSuffix")) }
-        single { PlaylistFileDataSource(getLoggerWithTag("PlaylistDataSource$LOGGER_TAG_SUFFIX"), get()) }
-        single { PlaylistSQLDataSource(get(), getLoggerWithTag("PlaylistDataSource$LOGGER_TAG_SUFFIX")) }
-        single { PlaylistRepository(get(), get(), getLoggerWithTag("PlaylistRepository$LOGGER_TAG_SUFFIX")) }
-        factory { ImageMetadataDataSource(getLoggerWithTag("ImageMetadataDataSource$LOGGER_TAG_SUFFIX"), get()) }
+        single {
+            PlaylistFileDataSource(
+                getLoggerWithTag("PlaylistDataSource$LOGGER_TAG_SUFFIX"),
+                get(),
+            )
+        }
+        single {
+            PlaylistSQLDataSource(
+                get(),
+                getLoggerWithTag("PlaylistDataSource$LOGGER_TAG_SUFFIX"),
+            )
+        }
+        single {
+            PlaylistRepository(
+                get(),
+                get(),
+                getLoggerWithTag("PlaylistRepository$LOGGER_TAG_SUFFIX"),
+            )
+        }
+        single<ImageMetadataDataSource> {
+            NetworkImageMetadataDataSource(
+                getLoggerWithTag("ImageMetadataDataSource$LOGGER_TAG_SUFFIX"),
+                get(),
+            )
+        }
         single { ImageRepository(get(), getLoggerWithTag("ImageRepository$LOGGER_TAG_SUFFIX")) }
         single<CacheInterface> { SharedInMemoryCache }
-        single { DirectoryNavigator(get(), getLoggerWithTag("DirectoryNavigator$LOGGER_TAG_SUFFIX")) }
+        single {
+            DirectoryNavigator(
+                get(),
+                getLoggerWithTag("DirectoryNavigator$LOGGER_TAG_SUFFIX"),
+            )
+        }
         factory { ImagePreviewNavigator(getLoggerWithTag("ImagePreviewNavigator$LOGGER_TAG_SUFFIX")) }
 
         // Domain
@@ -49,13 +86,36 @@ val commonModule =
         factory {
             RetrieveDirectoryContentsUseCase(
                 get(),
+                get(),
                 getLoggerWithTag("RetrieveDirectoryContentsUseCase$LOGGER_TAG_SUFFIX"),
             )
         }
         // UI
-        single { LoginViewModel(getLoggerWithTag("LoginViewModel$LOGGER_TAG_SUFFIX"), get(), get()) }
-        single { DirectoryViewModel(get(), get(), get(), get(), get(), getLoggerWithTag("DirectoryViewModelNew$LOGGER_TAG_SUFFIX")) }
-        single { SlideshowViewModel(get(), getLoggerWithTag("SlideshowViewModel$LOGGER_TAG_SUFFIX")) }
+        single {
+            LoginViewModel(
+                getLoggerWithTag("LoginViewModel$LOGGER_TAG_SUFFIX"),
+                get(),
+                get(),
+            )
+        }
+        single {
+            DirectoryViewModel(
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                getLoggerWithTag("DirectoryViewModelNew$LOGGER_TAG_SUFFIX"),
+            )
+        }
+        single {
+            SlideshowViewModel(
+                get(),
+                get(),
+                getLoggerWithTag("SlideshowViewModel$LOGGER_TAG_SUFFIX"),
+            )
+        }
         single { PlaylistViewModel(get(), getLoggerWithTag("PlaylistViewModel$LOGGER_TAG_SUFFIX")) }
     }
 

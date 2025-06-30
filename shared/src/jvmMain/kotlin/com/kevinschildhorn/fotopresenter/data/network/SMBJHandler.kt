@@ -83,7 +83,7 @@ object SMBJHandler : NetworkHandler {
         logger.d { "Getting Directory Contents for '$path'" }
         return share?.list(path.toString())?.map {
             SMBJNetworkDirectoryDetails(
-                it,
+                information = it,
                 fullPath = path.addPath(it.fileName),
             )
         } ?: emptyList()
@@ -120,9 +120,7 @@ object SMBJHandler : NetworkHandler {
         sharedImage: SharedImage,
     ): Boolean = writeFile(fileName = path.toString(), contents = sharedImage.byteArray)
 
-    override suspend fun folderExists(path: Path): Boolean? {
-        return share?.folderExists(path.toString())
-    }
+    override suspend fun folderExists(path: Path): Boolean? = share?.folderExists(path.toString())
 
     override suspend fun disconnect() {
         share?.close()

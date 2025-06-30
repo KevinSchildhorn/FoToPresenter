@@ -18,7 +18,8 @@ data class LoginScreenState(
             hostname.isNotEmpty() &&
                 sharedFolder.isNotEmpty() &&
                 username.isNotEmpty() &&
-                password.isNotEmpty() && state == UiState.IDLE
+                password.isNotEmpty() &&
+                state == UiState.IDLE
 
     val loginButtonState: ButtonState
         get() =

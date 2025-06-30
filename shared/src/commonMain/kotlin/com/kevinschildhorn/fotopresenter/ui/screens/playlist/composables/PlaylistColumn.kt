@@ -8,13 +8,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.kevinschildhorn.fotopresenter.data.PlaylistDetails
 import com.kevinschildhorn.fotopresenter.ui.atoms.Padding
-import com.kevinschildhorn.fotopresenter.ui.atoms.fotoColors
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.DialogButtonText
 
 @Composable
@@ -25,14 +25,15 @@ fun PlaylistColumn(
     onDetails: (Long) -> Unit,
     onEdit: (Long) -> Unit,
     onDelete: (Long) -> Unit,
+    onPlay: (Long, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier
-            .fillMaxWidth()
+            .fillMaxWidth(0.75f)
             .padding(Padding.STANDARD.dp)
             .clip(RoundedCornerShape(10.dp))
-            .background(fotoColors.secondary),
+            .background(MaterialTheme.colors.secondary),
     ) {
         Column(Modifier.fillMaxWidth().padding(Padding.MEDIUM.dp)) {
             DialogButtonText("Playlists")
@@ -52,11 +53,17 @@ fun PlaylistColumn(
                         onDelete = {
                             onDelete(it.id)
                         },
+                        onPlay = {
+                            onPlay(it.id, false)
+                        },
+                        onPlayShuffled = {
+                            onPlay(it.id, true)
+                        },
                     )
                     Divider(
                         startIndent = 0.dp,
                         thickness = 1.dp,
-                        color = fotoColors.onSecondary,
+                        color = MaterialTheme.colors.onSecondary,
                     )
                 }
             }

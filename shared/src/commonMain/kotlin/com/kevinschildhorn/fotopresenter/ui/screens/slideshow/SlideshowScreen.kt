@@ -1,7 +1,6 @@
 package com.kevinschildhorn.fotopresenter.ui.screens.slideshow
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -31,6 +30,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import coil3.compose.LocalPlatformContext
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.LoadingOverlay
 import com.kevinschildhorn.fotopresenter.ui.screens.common.composables.Overlay
 import compose.icons.EvaIcons
@@ -58,16 +60,21 @@ fun SlideshowScreen(
 
     Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
         val details = imageState
+        val platformContext = LocalPlatformContext.current
         when (details) {
             is SlideshowScreenUiState.Loading -> LoadingOverlay()
             is SlideshowScreenUiState.Ready -> {
-                Crossfade(imageState.selectedImageIndex, animationSpec = tween(500)) {
-                    AsyncImage(
-                        model = details.selectedImageDirectory.model,
-                        contentDescription = null,
-                        modifier = Modifier.fillMaxSize(),
-                    )
-                }
+                AsyncImage(
+                    model =
+                        ImageRequest
+                            .Builder(platformContext)
+                            .data(details.selectedImageDirectory.model)
+                            .crossfade(true)
+                            .crossfade(500)
+                            .build(),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                )
             }
         }
     }

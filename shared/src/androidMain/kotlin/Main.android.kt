@@ -18,12 +18,22 @@ fun MainView(
 ) {
     val systemUiController = rememberSystemUiController()
     SideEffect {
-        // Update all of the system bar colors to be transparent, and use
-        // dark icons if we're use a light theme
-        systemUiController.setSystemBarsColor(
-            color = Color.Transparent,
-            darkIcons = true,
-        )
+        val color = Color.Black
+        val darkIcons = true
+        systemUiController.setNavigationBarColor(color = color, darkIcons = darkIcons)
+        systemUiController.setStatusBarColor(color = color, darkIcons = darkIcons)
+        systemUiController.setSystemBarsColor(color = color, darkIcons = darkIcons)
+
+        systemUiController.isStatusBarVisible = false
+        systemUiController.isNavigationBarVisible = false
+        systemUiController.isSystemBarsVisible = false
     }
+
+    slideshowViewModel.onGoFullScreen = {
+        systemUiController.isStatusBarVisible = false
+        systemUiController.isNavigationBarVisible = false
+        systemUiController.isSystemBarsVisible = false
+    }
+
     App(loginViewModel, directoryViewModel, slideshowViewModel, playlistViewModel)
 }

@@ -29,8 +29,10 @@ class SMBJFetcher(
             }
         }
 
-    class Factory(private val imageRepository: ImageRepository, private val logger: Logger) :
-        Fetcher.Factory<NetworkDirectoryDetails> {
+    class Factory(
+        private val imageRepository: ImageRepository,
+        private val logger: Logger,
+    ) : Fetcher.Factory<NetworkDirectoryDetails> {
         override fun create(
             data: NetworkDirectoryDetails,
             options: Options,
