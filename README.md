@@ -1,5 +1,7 @@
 # FoToPresenter
 
+![fotopresenter](/images/fotopresenter.png)
+
 FoToPresenter is a Kotlin Multiplatform application that allows users to present and manage images across multiple platforms (Android, Desktop, and iOS). The application provides a modern, responsive interface for image presentation and management.
 
 ## Features
