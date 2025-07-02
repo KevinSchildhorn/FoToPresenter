@@ -18,7 +18,7 @@
 ### Browse your photos
 
 <p align="center">
-<img src="https://github.com/KevinSchildhorn/FoToPresenter/blob/main/images/directory.png" /> 
+<img src="https://raw.githubusercontent.com/KevinSchildhorn/FoToPresenter/refs/heads/main/images/directory.png" /> 
 </p>
 
 Navigate through all of your directories, as FotoPresenter shows your "png","jpg","jpeg", and "bmp" files. Pop in and out of folders as you would expect in a typical file explorer.
@@ -26,7 +26,7 @@ Navigate through all of your directories, as FotoPresenter shows your "png","jpg
 #### Previews 
 
 <p align="center">
-<img src="https://github.com/KevinSchildhorn/FoToPresenter/blob/main/images/directory_preview.png"  /> 
+<img src="https://raw.githubusercontent.com/KevinSchildhorn/FoToPresenter/refs/heads/main/images/directory_preview.png"  /> 
 </p>
 
 Preview your images by tapping on them to see a larger version of your photo. This supports navigating forward and back with the arrow buttons in the corners.
@@ -34,7 +34,7 @@ Preview your images by tapping on them to see a larger version of your photo. Th
 #### Navigation
 
 <p align="center">
-<img src="https://github.com/KevinSchildhorn/FoToPresenter/blob/main/images/navigation_bar.png" /> 
+<img src="https://raw.githubusercontent.com/KevinSchildhorn/FoToPresenter/refs/heads/main/images/navigation_bar.png" /> 
 </p>
 
 Navigate back through your folders by tapping on which folder you'd like to return to.
@@ -44,7 +44,7 @@ Navigate back through your folders by tapping on which folder you'd like to retu
 There are many options for finding the picture you want, which can be located at the top of the screen.
 
 <p align="center">
-<img src="https://github.com/KevinSchildhorn/FoToPresenter/blob/main/images/topbar.png" /> 
+<img src="https://raw.githubusercontent.com/KevinSchildhorn/FoToPresenter/refs/heads/main/images/topbar.png" /> 
 </p>
 
 1. **Resize** - Changes the amount of images per row of the grid
@@ -56,7 +56,7 @@ There are many options for finding the picture you want, which can be located at
 #### Advanced Search
 
 <p align="center">
-<img src="https://github.com/KevinSchildhorn/FoToPresenter/blob/main/images/metadata_search.png" /> 
+<img src="https://raw.githubusercontent.com/KevinSchildhorn/FoToPresenter/refs/heads/main/images/metadata_search.png" /> 
 </p>
 
 For more advanced searching you can use search images based on the date or EXIF tags. This supports multiple tags and searching sub-folders so you can deep dive into folders (i.e. looking for "dog" photos in 2016/vacations/summer/beach).
@@ -64,7 +64,7 @@ For more advanced searching you can use search images based on the date or EXIF 
 #### Creating a slideshow from a folder
 
 <p align="center">
-<img src="https://github.com/KevinSchildhorn/FoToPresenter/blob/main/images/slideshow_settings.png" /> 
+<img src="https://raw.githubusercontent.com/KevinSchildhorn/FoToPresenter/refs/heads/main/images/slideshow_settings.png" /> 
 </p>
 
 You can easily start a slideshow from a folder on your NAS, by long pressing on a folder and choosing to start a slideshow. From there you can choose how many folders to include and extensive options for shuffling your photos.
@@ -72,13 +72,13 @@ You can easily start a slideshow from a folder on your NAS, by long pressing on 
 ### Creating a playlist
 
 <p align="center">
-<img src="https://github.com/KevinSchildhorn/FoToPresenter/blob/main/images/playlists.gif" /> 
+<img src="https://raw.githubusercontent.com/KevinSchildhorn/FoToPresenter/refs/heads/main/images/playlists.gif" /> 
 </p>
 
 Not only can you start a slideshow from a folder, but you can add playlists to create a custom slideshow of your photos. Individual photos can be added to playlists, as well as folders which will dynamically be added (meaning any photos in the folder when the slideshow starts will be added automatically).
 
 <p align="center">
-<img src="https://github.com/KevinSchildhorn/FoToPresenter/blob/main/images/long_press.gif" width="500" /> 
+<img src="https://raw.githubusercontent.com/KevinSchildhorn/FoToPresenter/refs/heads/main/images/long_press.gif" width="500" /> 
 </p>
 
 Long press on an image or folder for a context menu to add content to your playlist.
