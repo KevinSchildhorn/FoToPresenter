@@ -27,9 +27,18 @@ compose.desktop {
         mainClass = "MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "KotlinMultiplatformComposeDesktopApplication"
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe, TargetFormat.Deb)
+            packageName = "FotoPresenter"
             packageVersion = "1.0.0"
+            modules("java.sql")
+            macOS {
+                //iconFile.set(project.file("src/desktopMain/resources/icons/icon.icns"))
+            }
+
+            windows {
+                // Windows uses .ico files
+                //iconFile.set(project.file("src/desktopMain/resources/icons/icon.ico"))
+            }
         }
     }
 }
