@@ -2,7 +2,30 @@
 
 ![fotopresenter](/images/fotopresenter.png)
 
-FoToPresenter is a Kotlin Multiplatform application that allows users to present and manage images across multiple platforms (Android, Desktop, and iOS). The application provides a modern, responsive interface for image presentation and management.
+###### FoToPresenter is an Android and Desktop application that allows users to present and manage images located on their local NAS (Network Access Storage) device. The application provides a modern, responsive interface for image presentation and management while using the SMB (Server Message Block) protocol to communicate to an IP address.
+
+***
+
+## Features
+
+
+### Browse your folders
+
+![](/images/directory_preview.png | width=100)
+
+
+
+
+
+
+
+
+
+
+
+###### FoToPresenter is a Kotlin Multiplatform application that allows users to present and manage images across multiple platforms (Android, Desktop, and iOS). The application provides a modern, responsive interface for image presentation and management.
+
+
 
 ## Features
 
