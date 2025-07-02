@@ -32,6 +32,13 @@ jobs:
           echo "DMG_PATH=$DMG_PATH" >> $GITHUB_ENV
           echo "Found DMG at $DMG_PATH"
 
+      - name: Find APP file
+        id: find_app
+        run: |
+          APP_PATH=$(find desktopApp/build/compose/binaries/main/ -name '*.app' | head -n 1)
+          echo "APP_PATH=$APP_PATH" >> $GITHUB_ENV
+          echo "Found DMG at $APP_PATH"
+
       - name: Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v1
@@ -46,6 +53,7 @@ jobs:
       - name: Upload DMG to Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ${{ env.DMG_PATH }}
+          files: ${{ env.APP_PATH }} |
+            ${{ env.DMG_PATH }} |
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
