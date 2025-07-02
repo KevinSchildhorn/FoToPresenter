@@ -77,6 +77,12 @@ You can easily start a slideshow from a folder on your NAS, by long pressing on 
 
 Not only can you start a slideshow from a folder, but you can add playlists to create a custom slideshow of your photos. Individual photos can be added to playlists, as well as folders which will dynamically be added (meaning any photos in the folder when the slideshow starts will be added automatically).
 
+<p align="center">
+<img src="/images/long_press.gif" width="500" /> 
+</p>
+
+Long press on an image or folder for a context menu to add content to your playlist.
+
 ## Development
 
 If you are at all interested in the development of FoToPresenter then take a look at the [Dev ReadMe](DEVREADME.md) where I cover more specifics into the project and the development process.
