@@ -18,7 +18,7 @@
 ### Browse your photos
 
 <p align="center">
-<img src="/images/directory.png" width="400" /> 
+<img src="/images/directory.png" width="500" /> 
 </p>
 
 Navigate through all of your directories, as FotoPresenter shows your "png","jpg","jpeg", and "bmp" files. Pop in and out of folders as you would expect in a typical file explorer.
@@ -26,7 +26,7 @@ Navigate through all of your directories, as FotoPresenter shows your "png","jpg
 #### Previews 
 
 <p align="center">
-<img src="/images/directory_preview.png" width="400"  /> 
+<img src="/images/directory_preview.png" width="500"  /> 
 </p>
 
 Preview your images by tapping on them to see a larger version of your photo. This supports navigating forward and back with the arrow buttons in the corners.
@@ -56,7 +56,7 @@ There are many options for finding the picture you want, which can be located at
 #### Advanced Search
 
 <p align="center">
-<img src="/images/metadata_search.png" width="400" /> 
+<img src="/images/metadata_search.png" width="500" /> 
 </p>
 
 For more advanced searching you can use search images based on the date or EXIF tags. This supports multiple tags and searching sub-folders so you can deep dive into folders (i.e. looking for "dog" photos in 2016/vacations/summer/beach).
@@ -64,7 +64,7 @@ For more advanced searching you can use search images based on the date or EXIF 
 #### Creating a slideshow from a folder
 
 <p align="center">
-<img src="/images/slideshow_settings.png" width="400" /> 
+<img src="/images/slideshow_settings.png" width="500" /> 
 </p>
 
 You can easily start a slideshow from a folder on your NAS, by long pressing on a folder and choosing to start a slideshow. From there you can choose how many folders to include and extensive options for shuffling your photos.
@@ -72,7 +72,7 @@ You can easily start a slideshow from a folder on your NAS, by long pressing on 
 ### Creating a playlist
 
 <p align="center">
-<img src="/images/playlists.gif" width="400" /> 
+<img src="/images/playlists.gif" width="500" /> 
 </p>
 
 Not only can you start a slideshow from a folder, but you can add playlists to create a custom slideshow of your photos. Individual photos can be added to playlists, as well as folders which will dynamically be added (meaning any photos in the folder when the slideshow starts will be added automatically).
