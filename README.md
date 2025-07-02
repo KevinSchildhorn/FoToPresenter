@@ -2,7 +2,7 @@
 
 ![fotopresenter](/images/fotopresenter.png)
 
-###### FoToPresenter is an Android and Desktop application that allows users to present and manage images located on their local NAS (Network Access Storage) device. The application provides a modern, responsive interface for image presentation and management while using the SMB (Server Message Block) protocol to communicate to an IP address. Install it on your tablet as a digital picture frame or browse your photos from your computer.
+##### FoToPresenter is an Android and Desktop application that allows users to present and manage images located on their local NAS (Network Access Storage) device. The application provides a modern, responsive interface for image presentation and management while using the SMB (Server Message Block) protocol to communicate to an IP address. Install it on your tablet as a digital picture frame or browse your photos from your computer.
 
 > FotoPresenter is my hobbyist project, it's not intended to be a fully fledged professional app. I enjoy programming and I have a NAS which I wanted to use for my photos. I figured it might be something others might enjoy as well.
 
