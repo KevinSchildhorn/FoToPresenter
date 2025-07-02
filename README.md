@@ -2,89 +2,81 @@
 
 ![fotopresenter](/images/fotopresenter.png)
 
-###### FoToPresenter is an Android and Desktop application that allows users to present and manage images located on their local NAS (Network Access Storage) device. The application provides a modern, responsive interface for image presentation and management while using the SMB (Server Message Block) protocol to communicate to an IP address.
+###### FoToPresenter is an Android and Desktop application that allows users to present and manage images located on their local NAS (Network Access Storage) device. The application provides a modern, responsive interface for image presentation and management while using the SMB (Server Message Block) protocol to communicate to an IP address. Install it on your tablet as a digital picture frame or browse your photos from your computer.
+
+> FotoPresenter is my hobbyist project, it's not intended to be a fully fledged professional app. I enjoy programming and I have a NAS which I wanted to use for my photos. I figured it might be something others might enjoy as well.
+
+## Features
+
+* Create a slideshow of your favorite photos from your NAS
+* Browse your photos with FotoPresenters photo explorer
+* Find the right photo with various searching tools
+* Start a slideshow directly from a folder, or create a custom playlist
 
 ***
 
-## Features
+### Browse your photos
 
+<p align="center">
+<img src="/images/directory.png" width="400" /> 
+</p>
 
-### Browse your folders
+Navigate through all of your directories, as FotoPresenter shows your "png","jpg","jpeg", and "bmp" files. Pop in and out of folders as you would expect in a typical file explorer.
 
-![](/images/directory_preview.png | width=100)
+#### Previews 
 
+<p align="center">
+<img src="/images/directory_preview.png" width="400"  /> 
+</p>
 
+Preview your images by tapping on them to see a larger version of your photo. This supports navigating forward and back with the arrow buttons in the corners.
 
+#### Navigation
 
+<p align="center">
+<img src="/images/navigation_bar.png" /> 
+</p>
 
+Navigate back through your folders by tapping on which folder you'd like to return to.
 
+#### Settings
 
+There are many options for finding the picture you want, which can be located at the top of the screen.
 
+<p align="center">
+<img src="/images/topbar.png" /> 
+</p>
 
+1. **Resize** - Changes the amount of images per row of the grid
+2. **Search** for images/folders by name that in the current folder
+3. **Tag Search** - Search for images based on EXIF metadata tags
+4. **Sort** - Sort the current folder based on name or date
+5. **More** - More options for your current folder, such as starting a slideshow
 
+#### Advanced Search
 
-###### FoToPresenter is a Kotlin Multiplatform application that allows users to present and manage images across multiple platforms (Android, Desktop, and iOS). The application provides a modern, responsive interface for image presentation and management.
+<p align="center">
+<img src="/images/metadata_search.png" width="400" /> 
+</p>
 
+For more advanced searching you can use search images based on the date or EXIF tags. This supports multiple tags and searching sub-folders so you can deep dive into folders (i.e. looking for "dog" photos in 2016/vacations/summer/beach).
 
+#### Creating a slideshow from a folder
 
-## Features
+<p align="center">
+<img src="/images/slideshow_settings.png" width="400" /> 
+</p>
 
-- Cross-platform support (Android, Desktop, iOS)
-- Modern UI built with Jetpack Compose
-- Efficient image loading and caching
-- Secure file handling
-- SMB (Windows File Sharing) support
-- SQLite database for local storage
+You can easily start a slideshow from a folder on your NAS, by long pressing on a folder and choosing to start a slideshow. From there you can choose how many folders to include and extensive options for shuffling your photos.
 
-## Technology Stack
+### Creating a playlist
 
-| For more in depth technical docs, check the [docs](docs/) directory.
+<p align="center">
+<img src="/images/playlists.gif" width="400" /> 
+</p>
 
-### Core Libraries
-- **Kotlin Multiplatform**: For cross-platform development
-- **Jetpack Compose**: Modern UI toolkit for building native interfaces
-- **Coil**: Image loading and caching
-- **SQLDelight**: Type-safe SQL API
-- **Koin**: Dependency injection
-- **Kotlinx Serialization**: JSON serialization
-- **Cache4k**: In-memory caching
-- **Kermit**: Logging
-- **Multiplatform Settings**: Cross-platform settings management
-- **Kim**: File management
-- **File Kache**: File caching
+Not only can you start a slideshow from a folder, but you can add playlists to create a custom slideshow of your photos. Individual photos can be added to playlists, as well as folders which will dynamically be added (meaning any photos in the folder when the slideshow starts will be added automatically).
 
-### Platform-Specific Features
-- **Android**: Native Android integration with Activity Compose
-- **Desktop**: JVM-based desktop application
-- **iOS**: Native iOS framework (currently disabled)
+## Development
 
-## Image Handling
-
-The application uses Coil for efficient image loading and caching across platforms. Images are:
-- Loaded asynchronously to prevent UI blocking
-- Cached in memory and on disk for better performance
-- Displayed using Compose's Image components
-- Supported across all platforms with platform-specific optimizations
-
-## Project Structure
-
-- `shared/`: Core business logic and UI components
-- `androidApp/`: Android-specific implementation
-- `desktopApp/`: Desktop-specific implementation
-- `iosApp/`: iOS-specific implementation
-- `docs/`: Project documentation
-
-## Building the Project
-
-The project uses Gradle with Kotlin DSL for build management. To build the project:
-
-1. Ensure you have the latest JDK installed
-2. Run `./gradlew build` for all platforms
-3. For specific platforms:
-   - Android: `./gradlew :androidApp:assembleDebug`
-   - Desktop: `./gradlew :desktopApp:run`
-   - iOS: (Currently disabled)
-
-## Documentation
-
-For more detailed information about the project, check the [docs](docs/) directory.
+If you are at all interested in the development of FoToPresenter then take a look at the [Dev ReadMe](DEVREADME.md) where I cover more specifics into the project and the development process.
