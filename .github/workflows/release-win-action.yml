@@ -1,4 +1,4 @@
-name: Release Desktop Mac
+name: Release Desktop Windows
 
 on:
   workflow_dispatch:
@@ -22,7 +22,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      - name: Build macOS distributable
+      - name: Build Windows distributable
         run: ./gradlew desktopApp:createDistributable
 
       - name: Find MSI file
