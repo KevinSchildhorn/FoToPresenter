@@ -22,7 +22,7 @@ interface NetworkDirectoryDetails {
         get() = this.fileExtension.isNullOrEmpty()
 
     val isAnImage: Boolean
-        get() = supportedImageTypes.contains(fileExtension)
+        get() = supportedImageTypes.contains(fileExtension?.lowercase())
 
     val model: Any
         get() = if (BuildKonfig.USE_HTTP_IMAGES) fullPath.fileName else this

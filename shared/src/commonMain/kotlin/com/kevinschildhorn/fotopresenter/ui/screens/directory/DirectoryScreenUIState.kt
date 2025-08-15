@@ -33,6 +33,7 @@ import com.kevinschildhorn.fotopresenter.ui.screens.common.ScreenState
 data class DirectoryScreenUIState(
     override val state: UiState = UiState.IDLE,
     val searchText: String = "",
+    var oldDirectoryGridUIState: DirectoryGridUIState? = null,
     var directoryGridUIState: DirectoryGridUIState =
         DirectoryGridUIState(
             Path.EMPTY,

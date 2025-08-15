@@ -8,6 +8,7 @@ import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.network.DefaultNetworkDirectoryDetails
 import com.kevinschildhorn.fotopresenter.data.network.MockNetworkHandler
 import com.kevinschildhorn.fotopresenter.testingModule
+import com.kevinschildhorn.fotopresenter.ui.ShuffleType
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.TagSearchType
 import com.kevinschildhorn.fotopresenter.ui.UiState
@@ -396,7 +397,7 @@ class DirectoryViewModelTest : KoinTest {
                 logger.i { "Got Initial State With Screen Data" }
 
                 val directory = FolderDirectory(DefaultNetworkDirectoryDetails(Path("Photos"), 1L))
-                viewModel.startSlideShow(directory, withSubPhotos = false)
+                viewModel.startSlideShow(directory, withSubPhotos = false, shuffleType = ShuffleType.NONE)
 
                 while (item.slideshowDetails == null) {
                     item = awaitItem()
@@ -421,7 +422,7 @@ class DirectoryViewModelTest : KoinTest {
                 logger.i { "Got Initial State With Screen Data" }
 
                 val directory = FolderDirectory(DefaultNetworkDirectoryDetails(Path("Photos"), 1L))
-                viewModel.startSlideShow(directory, withSubPhotos = true)
+                viewModel.startSlideShow(directory, withSubPhotos = true, shuffleType = ShuffleType.NONE)
 
                 while (item.slideshowDetails == null) {
                     item = awaitItem()

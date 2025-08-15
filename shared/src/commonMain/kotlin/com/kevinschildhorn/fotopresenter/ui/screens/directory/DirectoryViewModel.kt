@@ -14,12 +14,14 @@ import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.network.NetworkHandler
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
+import com.kevinschildhorn.fotopresenter.data.repositories.MetadataRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.ui.ShuffleType
 import com.kevinschildhorn.fotopresenter.ui.SortingType
 import com.kevinschildhorn.fotopresenter.ui.TagSearchType
 import com.kevinschildhorn.fotopresenter.ui.UiState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -40,7 +42,7 @@ class DirectoryViewModel(
     private val credentialsRepository: CredentialsRepository,
     private val networkHandler: NetworkHandler,
     // Used for MetaData
-    private val imageMetadataDataSource: ImageMetadataDataSource,
+    private val metadataRepository: MetadataRepository,
     private val playlistRepository: PlaylistRepository,
     private val logger: Logger,
 ) : ViewModel(),
@@ -65,6 +67,7 @@ class DirectoryViewModel(
                     )
                 } else {
                     imagePreviewNavigator.setFolderContents(directoryContents.images)
+                    saveTagsLocally(directoryContents.images)
                     uiState.copy(
                         directoryGridUIState =
                             directoryContents.asDirectoryGridUIState(
@@ -94,6 +97,7 @@ class DirectoryViewModel(
                 initialValue = DirectoryScreenUIState(),
             )
 
+    private var metadataJob: Job? = null
     fun onSearch(searchText: String) =
         viewModelScope.launch(Dispatchers.Default) {
             logger.i { "Setting Search Text" }
@@ -184,6 +188,7 @@ class DirectoryViewModel(
                             allTags = searchType == TagSearchType.ALL_TAGS,
                             itemCount = images.size,
                         ),
+                    oldDirectoryGridUIState = it.directoryGridUIState,
                     directoryGridUIState = newState,
                 )
             }
@@ -241,14 +246,19 @@ class DirectoryViewModel(
         }
 
     fun getAllImagesOnScreen(): List<ImageDirectory> =
-        directoryNavigator.currentDirectoryContents.value.images
-            .toMutableList()
+        _uiState.value.directoryGridUIState.imageStates.map {
+            ImageDirectory(
+                details = it.directoryDetails,
+                null
+            )
+        }
 
     //endregion
 
     //region Image Preview
 
-    fun setSelectedImageById(imageId: Long?) = imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
+    fun setSelectedImageById(imageId: Long?) =
+        imagePreviewNavigator.setImageIndex(uiState.value.getImageIndexFromId(imageId))
 
     fun clearPresentedImage() = imagePreviewNavigator.setImageIndex(null)
 
@@ -370,7 +380,7 @@ class DirectoryViewModel(
                             overlayUiState =
                                 DirectoryOverlayUiState.Actions.EditMetaData(
                                     metadata =
-                                        imageMetadataDataSource.readMetadataFromFile(
+                                        metadataRepository.readMetadataFromFile(
                                             actionState.directory.details.fullPath,
                                         ),
                                     directoryUiState = actionState.directoryUiState,
@@ -386,7 +396,7 @@ class DirectoryViewModel(
             uiState.value.overlayUiState
                 .castTo<DirectoryOverlayUiState.Actions>()
                 ?.let { actionState ->
-                    imageMetadataDataSource.writeMetadataToFile(
+                    metadataRepository.writeMetadataToFile(
                         metadata,
                         actionState.directory.details.fullPath,
                     )
@@ -397,10 +407,23 @@ class DirectoryViewModel(
     fun clearOverlay() = _uiState.update { it.copy(overlayUiState = DirectoryOverlayUiState.None) }
 
     fun clearSearch() {
-        _uiState.update { it.copy(directoryAdvancedSearchUIState = DirectoryAdvancedSearchUIState.IDLE) }
+        _uiState.update {
+            it.copy(
+                directoryAdvancedSearchUIState = DirectoryAdvancedSearchUIState.IDLE,
+                directoryGridUIState = it.oldDirectoryGridUIState!!,
+                oldDirectoryGridUIState = null,
+            )
+        }
         refreshScreen()
     }
     //endregion
+
+    private fun saveTagsLocally(images: List<ImageDirectory>) {
+        metadataJob?.cancel()
+        metadataJob = viewModelScope.launch(Dispatchers.IO) {
+            metadataRepository.storeMetadata(images)
+        }
+    }
 
     private suspend fun tryCatch(block: suspend () -> Unit) =
         try {

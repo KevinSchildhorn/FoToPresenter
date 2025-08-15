@@ -6,6 +6,7 @@ import co.touchlab.kermit.Logger
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
+import com.kevinschildhorn.fotopresenter.data.datasources.ImageTagSQLDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.NetworkImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistFileDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistSQLDataSource
@@ -47,6 +48,11 @@ actual object UseCaseFactory {
         )
     private val playlistSQLDataSource =
         PlaylistSQLDataSource(
+            sqlDriver,
+            baseLogger,
+        )
+    private val imageTagSQLDataSource =
+        ImageTagSQLDataSource(
             sqlDriver,
             baseLogger,
         )

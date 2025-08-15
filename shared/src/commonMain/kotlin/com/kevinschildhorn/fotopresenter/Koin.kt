@@ -6,6 +6,7 @@ import com.kevinschildhorn.fotopresenter.data.ImagePreviewNavigator
 import com.kevinschildhorn.fotopresenter.data.datasources.CredentialsDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.DirectoryDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
+import com.kevinschildhorn.fotopresenter.data.datasources.ImageTagSQLDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.NetworkImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistFileDataSource
 import com.kevinschildhorn.fotopresenter.data.datasources.PlaylistSQLDataSource
@@ -13,6 +14,7 @@ import com.kevinschildhorn.fotopresenter.data.datasources.image.NetworkImageData
 import com.kevinschildhorn.fotopresenter.data.repositories.CredentialsRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.ImageRepository
+import com.kevinschildhorn.fotopresenter.data.repositories.MetadataRepository
 import com.kevinschildhorn.fotopresenter.data.repositories.PlaylistRepository
 import com.kevinschildhorn.fotopresenter.domain.RetrieveDirectoryContentsUseCase
 import com.kevinschildhorn.fotopresenter.domain.RetrieveImageDirectoriesUseCase
@@ -50,6 +52,18 @@ val commonModule =
             PlaylistFileDataSource(
                 getLoggerWithTag("PlaylistDataSource$LOGGER_TAG_SUFFIX"),
                 get(),
+            )
+        }
+        single {
+            ImageTagSQLDataSource(
+                get(),
+                getLoggerWithTag("ImageTagSQLDataSource$LOGGER_TAG_SUFFIX"),
+            )
+        }
+        single {
+            MetadataRepository(
+                get(), get(),
+                getLoggerWithTag("MetadataRepository$LOGGER_TAG_SUFFIX"),
             )
         }
         single {

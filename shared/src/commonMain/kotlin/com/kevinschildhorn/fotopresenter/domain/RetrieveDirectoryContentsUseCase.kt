@@ -5,6 +5,7 @@ import com.kevinschildhorn.fotopresenter.data.DirectoryContents
 import com.kevinschildhorn.fotopresenter.data.Path
 import com.kevinschildhorn.fotopresenter.data.datasources.ImageMetadataDataSource
 import com.kevinschildhorn.fotopresenter.data.repositories.DirectoryRepository
+import com.kevinschildhorn.fotopresenter.data.repositories.MetadataRepository
 import kotlinx.datetime.LocalDate
 
 /**
@@ -12,7 +13,7 @@ Retrieving Directory Contents from Path TODO: REMOVE
  **/
 class RetrieveDirectoryContentsUseCase(
     private val directoryRepository: DirectoryRepository,
-    private val imageMetadataDataSource: ImageMetadataDataSource,
+    private val metadataRepository: MetadataRepository,
     private val logger: Logger,
 ) {
     suspend operator fun invoke(
@@ -34,7 +35,7 @@ class RetrieveDirectoryContentsUseCase(
         if (tags.isNotEmpty()) {
             val newImages =
                 directoryContents.images.map {
-                    val metaData = imageMetadataDataSource.readMetadataFromFile(it.details.fullPath)
+                    val metaData = metadataRepository.getMetaData(it.details.fullPath)
                     it.copy(metaData = metaData)
                 }
             directoryContents =
