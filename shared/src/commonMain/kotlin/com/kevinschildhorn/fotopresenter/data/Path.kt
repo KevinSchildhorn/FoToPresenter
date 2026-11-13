@@ -24,7 +24,7 @@ value class Path(
             if (!pathString.contains(".")) return false
 
             val extension = pathString.split(".").last()
-            return supportedImageTypes.contains(extension)
+            return supportedImageTypes.contains(extension.lowercase())
         }
 
     val pathList: List<Path>

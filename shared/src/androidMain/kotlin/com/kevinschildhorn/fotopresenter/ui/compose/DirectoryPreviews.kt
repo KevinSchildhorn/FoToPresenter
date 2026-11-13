@@ -69,7 +69,7 @@ fun DirectoryGridPreview() {
                                 DirectoryGridCellUIState.Image(
                                     MockNetworkDirectoryDetails(),
                                     "Hello",
-                                    1
+                                    1,
                                 ),
                             ),
                     ),
@@ -157,7 +157,7 @@ private fun FotoTheme(content: @Composable () -> Unit) {
         colors = fotoColors,
         typography = FotoTypography(),
         shapes = fotoShapes,
-        content = content
+        content = content,
     )
 }
 

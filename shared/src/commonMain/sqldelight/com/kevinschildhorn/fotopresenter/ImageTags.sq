@@ -1,0 +1,24 @@
+CREATE TABLE ImageTags (
+  id INTEGER PRIMARY KEY NOT NULL,
+  directory_path TEXT NOT NULL,
+  tag TEXT NOT NULL
+);
+
+insertImageTag:
+INSERT INTO ImageTags(directory_path, tag)
+VALUES (?, ?);
+
+selectImageTags:
+SELECT *
+FROM ImageTags
+WHERE directory_path = ?;
+
+selectImageTagCount:
+SELECT COUNT(*)
+FROM ImageTags
+WHERE directory_path = ?;
+
+deleteImageTags:
+DELETE
+FROM ImageTags
+WHERE directory_path = ?;
